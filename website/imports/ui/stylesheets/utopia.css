@@ -1,0 +1,880 @@
+body {
+  padding: 0px;
+  margin: 0px;
+  color: white;
+}
+
+.section1 {
+  width: 100%;
+  min-height: 660px;
+  background-image: url("/img/Background5.png");
+  background-size: 100% 100%;
+}
+
+.section1 .wrapper {
+  width: 80%;
+  height: 660px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section1 .logo {
+  width: 140px;
+  height: 50px;
+  background-image: url("/img/section1logo.png");
+  background-size: 100% 100%;
+  margin-top: 8%;
+  display: inline-block;
+}
+.section1 .navigation {
+  width: 580px;
+  height: 17px;
+  display: inline-block;
+  margin-top: 10%;
+  margin-left: 100px;
+  font-style: italic;
+  vertical-align: top;
+}
+
+.section1 .navigation a {
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  margin-right: 37px;
+  font-family: Colfax Medium;
+}
+
+.section1 .signin {
+  width: 154px;
+  display: inline-block;
+  margin-top: 10%;
+  margin-left: 10px;
+  vertical-align: top;
+}
+
+.section1 .signin a {
+  font-size: 14px;
+  text-decoration: none;
+  color: white;
+}
+
+.section1 .signup {
+  display: inline-block;
+}
+
+.section1 .signup a {
+  color: #492fb4;
+  font-family: Colfax Medium;
+}
+
+.section1 .login {
+  display: inline-block;
+  margin-left: 44px;
+  font-family: Colfax Medium;
+}
+
+.section1 .content {
+  width: 650px;
+  height: 265px;
+  margin-top: 10%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section1 .content .left-list {
+  width: 50%;
+  height: 100%;
+  float: left;
+  text-align: right;
+}
+
+.section1 .content .right-list {
+  width: 50%;
+  height: 100%;
+  float: right;
+}
+
+.section1 .content .left-list ul {
+  color: white;
+  list-style: none;
+  font-size: 38px;
+  margin-top: 92px;
+  font-family: Colfax Bold;
+}
+
+.section1 .content .right-list ul {
+  color: #492fb4;
+  list-style: none;
+  font-size: 38px;
+  font-family: Colfax Bold;
+}
+
+.section1 .content .right-list ul li {
+  margin-top: 10px;
+}
+
+.section1 .content .left-list ul li {
+  margin-top: 10px;
+}
+
+.video-section {
+  width: 100%;
+  color: black;
+  border-collapse: separate;
+}
+
+.video-section .wrapper {
+  width: 80%;
+  margin: 14% auto;
+  border-collapse: separate;
+}
+
+.video-section .wrapper h1 {
+  font-size: 32px;
+  line-height: 38px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  font-style: italic;
+  font-family: Colfax Medium;
+  color: black;
+}
+
+.video-section .wrapper p {
+  padding: 0px;
+  margin-top: 36px;
+  font-size: 16px;
+  line-height: 36px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 0px;
+  text-align: center;
+  color: black;
+  font-family: Colfax Regular;
+}
+
+.video-section .video {
+  width: 100%;
+  height: 600px;
+  background: grey;
+  margin-top: 8%;
+}
+
+.section2 {
+  width: 100%;
+  background: #04030f;
+  overflow: hidden;
+}
+
+.opq {
+  opacity: 0.25;
+}
+
+.section2 .button-group {
+  width: 84px;
+  height: 12px;
+  margin-top: 4%;
+  margin-left: 30%;
+}
+
+.section2 .button-group button {
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+}
+
+.section2 .button-group button:nth-child(2) {
+  margin-left: 12px;
+  margin-right: 12px;
+  opacity: 0.5;
+}
+
+.section2 .button-group button:nth-child(3) {
+  opacity: 0.5;
+}
+
+.section2 .wrapper {
+  width: 80%;
+  height: 1728px;
+  margin-top: 200px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.section2 .wrapper .part1 {
+  flex: 1;
+  width: 100%;
+  display: flex;
+}
+
+.section2 .wrapper .part1 .container-left {
+  flex: 4;
+  background-image: url("/img/ui-1.png");
+  background-size: 100% 100%;
+}
+
+.section2 .wrapper .part1 .container-right {
+  flex: 6;
+}
+
+.section2 .wrapper .part1 .container-right h1 {
+  font-size: 24px;
+  margin-top: 13%;
+  margin-left: 30%;
+  margin-bottom: 0%;
+  line-height: 28px;
+  font-family: Colfax Medium;
+}
+
+.section2 .wrapper .part1 .container-right p {
+  margin-top: 4%;
+  margin-left: 30%;
+  margin-bottom: 0%;
+  font-size: 16px;
+  line-height: 34px;
+}
+
+.section2 .wrapper .part1 .container-right .button-utopia-business-app {
+  width: 227px;
+  height: 59px;
+  margin-top: 4%;
+  border: 2px solid white;
+  border-radius: 4px;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+  line-height: 60px;
+  font-style: italic;
+  background: transparent;
+  margin-left: 30%;
+  font-family: Colfax Medium;
+}
+
+.section2 .wrapper .part2 {
+  flex: 1;
+  margin-top: 200px;
+  display: flex;
+  width: 100%;
+}
+
+.section2 .wrapper .part2 .container-left {
+  flex: 6;
+  flex-wrap: wrap;
+}
+
+.section2 .wrapper .part2 .container-left h1 {
+  font-size: 24px;
+  margin-top: 13%;
+  line-height: 28px;
+  margin-bottom: 0%;
+  font-family: Colfax Medium;
+}
+
+.section2 .wrapper .part2 .container-left p {
+  margin-top: 4%;
+  margin-bottom: 0%;
+  font-size: 16px;
+  line-height: 34px;
+}
+
+.section2 .wrapper .part2 .container-left .button-utopia-gold-app {
+  width: 227px;
+  height: 59px;
+  margin-top: 4%;
+  border: 2px solid white;
+  border-radius: 4px;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+  line-height: 60px;
+  font-style: italic;
+  background: transparent;
+  font-family: Colfax Medium;
+}
+
+.section2 .wrapper .part2 .container-right {
+  flex: 4;
+  background-image: url("/img/ui-3.png");
+  background-size: 100% 100%;
+  height: 100%;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.section2 .wrapper .part2 .container-left .part2-button-group {
+  margin-left: 0%;
+}
+
+.section2 .wrapper .part3 {
+  flex: 1;
+  width: 100%;
+  margin-top: 200px;
+  padding-bottom: 10%;
+  display: flex;
+}
+
+.section2 .wrapper .part3 .container-left {
+  flex: 4;
+  background-image: url("/img/ui-2.png");
+  background-size: 100% 100%;
+}
+
+.section2 .wrapper .part3 .container-right {
+  flex: 6;
+}
+
+.section2 .wrapper .part3 .container-right h1 {
+  font-size: 24px;
+  margin-top: 13%;
+  margin-left: 30%;
+  margin-bottom: 0%;
+  line-height: 28px;
+  font-family: Colfax Medium;
+}
+
+.section2 .wrapper .part3 .container-right p {
+  margin-top: 4%;
+  margin-bottom: 0%;
+  font-size: 16px;
+  line-height: 34px;
+  margin-left: 30%;
+  font-family: Colfax Regular;
+}
+
+.section2 .wrapper .part3 .container-right .button-government-app {
+  width: 227px;
+  height: 59px;
+  margin-top: 4%;
+  border: 2px solid white;
+  border-radius: 4px;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+  line-height: 60px;
+  font-style: italic;
+  background: transparent;
+  margin-left: 30%;
+  font-family: Colfax Medium;
+}
+
+.section4 {
+  height: 590px;
+  width: 100%;
+  background: linear-gradient(157.52deg, #3023ae 0%, #c86dd7 101.5%);
+  overflow: hidden;
+}
+
+.section4 .account-button-text {
+  margin-left: 135px;
+  margin-top: 72px;
+  height: 59px;
+  width: 256px;
+  font-family: Colfax Medium;
+  line-height: normal;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #673ebd;
+}
+
+.section4 .account-section-header {
+  margin-left: 135px;
+  margin-top: 90px;
+  font-family: Colfax Medium;
+  line-height: normal;
+  font-size: 32px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+.section4 .account-sec-text {
+  font-family: Colfax Medium;
+  line-height: 28px;
+  font-size: 23px;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+.section4 .account-section-subhead {
+  margin-left: 135px;
+  margin-top: 32px;
+}
+.section4 .account-section-subhead1 {
+  margin-left: 135px;
+  margin-top: 50px;
+}
+.section5 {
+  width: 100%;
+  height: 687px;
+  background: #04030f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section5 .text {
+  font-family: Colfax Medium;
+  line-height: normal;
+  font-size: 28px;
+  letter-spacing: 1.16667px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+.section5 .subtext {
+  font-family: Colfax Regular;
+  line-height: 36px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+.section5 .button-text {
+  font-family: Colfax Medium;
+  line-height: normal;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+.section5 .button {
+  margin-top: 10px;
+  height: 59px;
+  width: 204px;
+  border: 2px solid #ffffff;
+  box-shadow: 0px 2px 100px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  background: #04030f;
+}
+.section5 .section-left {
+  height: 370px;
+  width: 439px;
+  margin-left: 235px;
+  margin-right: 115px;
+  flex: 1;
+}
+.section5 .section-right {
+  margin-left: 115px;
+  margin-right: 235px;
+  height: 370px;
+  width: 439px;
+  flex: 1;
+}
+.section5 .left-img {
+  height: 200px;
+  width: 370px;
+  background-image: url("/img/law.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.section5 .right-img {
+  height: 200px;
+  width: 370px;
+  background-image: url("/img/consti.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.section6 {
+  width: 100%;
+  height: 83px;
+  background: #080713;
+  overflow: hidden;
+  display: flex;
+}
+.section6 .section-left {
+  flex: 7;
+  display: flex;
+  align-items: center;
+}
+.section6 .copyright-text {
+  margin-left: 135px;
+  font-family: Colfax Medium;
+  line-height: normal;
+  font-size: 18px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  color: #ffffff;
+}
+.section6 .section-right {
+  flex: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.section6 .fb {
+  height: 18px;
+  width: 18px;
+  background-image: url("/img/Facebook.png");
+  background-size: 100% 100%;
+}
+.section6 .git {
+  height: 18px;
+  width: 18px;
+  margin-left: 20px;
+  background-image: url("/img/Github.png");
+  background-size: 100% 100%;
+}
+.section6 .shape {
+  height: 18px;
+  width: 18px;
+  margin-left: 20px;
+  background-image: url("/img/Shape.png");
+  background-size: 100% 100%;
+}
+.section6 .slack {
+  height: 18px;
+  width: 18px;
+  margin-left: 20px;
+  background-image: url("/img/Slack.png");
+  background-size: 100% 100%;
+}
+.section6 .twit {
+  height: 18px;
+  width: 18px;
+  margin-left: 20px;
+  background-image: url("/img/Twitter.png");
+  background-size: 100% 100%;
+}
+.section3 {
+  width: 100%;
+}
+.section3 .source-head {
+  margin-top: 230px;
+  font-family: Colfax Medium;
+  margin-left: 135px;
+  line-height: normal;
+  font-size: 32px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  color: #04030f;
+}
+.section3 .source-subhead {
+  margin-top: 10px;
+  margin-left: 135px;
+  font-family: Colfax Regular;
+  line-height: 34px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #100f1a;
+}
+.section3 .spending-block {
+  background-color: #d8d8d8;
+  flex: 1;
+  border: 1px solid #979797;
+  box-sizing: border-box;
+  text-align: center;
+  line-height: 75px;
+  font-size: 30px;
+  margin-left: 60px;
+  margin-right: 60px;
+  margin-top: 10px;
+  height: 450px;
+}
+.section3 .text {
+  margin-top: 480px;
+  text-align: center;
+  font-family: Colfax Medium;
+  line-height: normal;
+  font-size: 11.2px;
+  letter-spacing: 0.84px;
+  color: #09203f;
+}
+.section3 .flex-container {
+  display: flex;
+  justify-content: left;
+}
+
+.section3 .spending-class {
+  margin-left: 60px;
+  margin-right: 20px;
+  margin-top: 50px;
+  height: 668px;
+  width: 1171px;
+}
+.section3 .utopia-location-text {
+  height: 1212px;
+  width: 100%;
+  background-color: #04030f;
+}
+
+.section3 .location-head {
+  height: 38px;
+  margin-left: 135px;
+  margin-top: 96px;
+  font-family: Colfax Medium;
+  line-height: normal;
+  font-size: 32px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+
+  color: #ffffff;
+}
+.section3 .location-subhead {
+  height: 108px;
+  width: 670px;
+  margin-left: 135px;
+  margin-top: 10px;
+  font-family: Colfax Regular;
+  line-height: 36px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+.section3 .world-map {
+  width: 100%;
+  height: 808px;
+  background-image: url("/img/map1.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-color: #04030f;
+  background-position: top;
+  overflow: hidden;
+}
+.section3 .world-map-header {
+  width: 100%;
+  height: 335px;
+  padding: 1% 0 3% 0;
+  background-color: #04030f;
+}
+.section3 .governmentApp {
+  background-image: url("/img/utopiaGov.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  z-index: 1;
+}
+.section3 .utopiaGoldApp {
+  background-image: url("/img/utopiaShadow.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  z-index: 1;
+}
+.section3 .utopiaBusinessApp {
+  background-image: url("/img/business.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  z-index: 1;
+}
+/* ------------===============---------------------- */
+.business-row {
+  margin-left: 120px;
+  margin-top: 76px;
+  height: 250px;
+  max-width: 970px;
+  background-color: #ffffff;
+}
+.manager-head-text {
+  margin-left: 30%;
+  margin-top: 50px;
+  font-family: ABeeZee;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 28px;
+  letter-spacing: 0.6px;
+  color: #000000;
+}
+.manager-subhead-text {
+  margin-left: 30%;
+  margin-top: 27px;
+  font-family: ABeeZee;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 28px;
+  font-size: 14px;
+  letter-spacing: 0.6px;
+
+  color: #000000;
+}
+.businesslogo {
+  background-position: top left;
+  background-image: url("/img/businesslogo.png");
+  background-repeat: no-repeat;
+  z-index: 1;
+  overflow: hidden;
+}
+.share-vesting-class {
+  margin-left: 120px;
+  height: 355px;
+  width: 1170px;
+  background-color: #ffffff;
+}
+.share-vesting {
+  max-width: 80%;
+  height: 335px;
+  margin-left: 135px;
+  background-image: url("/img/FeatureRequestss.png");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: top;
+  overflow: hidden;
+}
+.share-vesting-text {
+  display: flex;
+}
+.share-text {
+  margin-left: 3%;
+  margin-top: 50px;
+  font-family: ABeeZee;
+  font-style: italic;
+  font-weight: normal;
+  line-height: normal;
+  font-size: 32px;
+  color: #000000;
+  flex: start;
+}
+.share-github-text {
+  margin-top: 55px;
+  margin-left: 60%;
+  font-family: ABeeZee;
+  font-style: italic;
+  font-weight: normal;
+  line-height: normal;
+  font-size: 10px;
+  color: #000000;
+}
+
+/* =========================== Utopia Home ==================================== */
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1140px;
+  width:90%;
+}
+.utopiaHomeCss {
+  margin-top:10%;
+  max-width: 100%;
+  background-image: url("/img/Background5.png");
+}
+.aboutUtopiaHead {
+  margin: 0px;
+  padding: 0px;
+  font-family: Colfax Medium;
+  line-height: 48px;
+  font-size: 32px;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+.aboutUtopiaSubHead {
+  margin-top: 35px;
+  font-family: Colfax Regular;
+  line-height: 36px;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 1px;
+  color: #ffffff;
+}
+.utopiaVideo {
+  width: 100%;
+  color: black;
+  border-collapse: separate;
+}
+
+.utopiaVideo .wrapper {
+  width: 90%;
+  margin: 2% auto;
+  border-collapse: separate;
+}
+
+.utopiaVideo .video {
+  width: 100%;
+  height: 544px;
+  background: grey;
+  margin-top: 8%;
+}
+
+.utopia-text-box {
+  width: 90%;
+  margin-left: auto;
+  margin-right:auto;
+  margin-top: 150px;
+  display: flex;
+  padding-bottom: 10px;
+
+}
+.utopia-text-box div{
+  flex:1;
+}
+.decentralization-head-text {
+  font-family: Colfax Medium;
+  line-height: 38px;
+  font-size: 24px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-top:7%;
+  
+}
+.decentralization-subhead-text {
+  font-family: Colfax Regular;
+  line-height: 30px;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #ffffff;
+  margin-top:3%;
+}
+.utopiaImagePic2 {
+  flex: 1;
+  width:513px;
+  height: 308px;
+  background-image: url("/img/utopiaIllustration1.png");
+  background-size: 100% 100%;
+}
+
+.utopiaImagePic3 {
+  flex: 1;
+  max-width: 513px;
+  height: 308px;
+  background-image: url("/img/Illustration1.png");
+  background-size: 100% 100%;
+}
+
+.newIllustrationBox {
+  max-width: 258px;
+  height: 58px;
+  margin: 25%;
+  z-index: 1;
+  text-align: center;
+
+  background-color: #ffffff;
+  color: #000000;
+}
+.newIllustrationText {
+  text-align: center;
+  padding: 20px;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+/* ============================== Map ======================= */
+.mapText {
+  width: 100%;
+  background-image: url("/img/Background5.png");
+  margin-top:10%;
+}
+.wikiButton {
+  width: 179px;
+  height: 51px;
+  font-family: Colfax Medium;
+  font-size: 14px;
+  line-height: 12px;
+  letter-spacing: 0.6px;
+  color: white;
+  border: 0px;
+  margin-left: 41%;
+  margin-top: 50px;
+  background: linear-gradient(164.34deg, #3023ae -36.97%, #c86dd7 148.62%);
+  box-shadow: 5px 2px 40px rgba(0, 0, 0, 0.2);
+}
+.mapGroup {
+  max-width: 1440px;
+  height: 825px;
+  background-image: url("/img/utopiaMap.png");
+  background-repeat: no-repeat;
+  overflow: hidden;
+  margin-top: 120px;
+  background-size: contain;
+  z-index: 1;
+}

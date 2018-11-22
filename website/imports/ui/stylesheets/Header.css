@@ -1,0 +1,61 @@
+body{
+    padding: 0px;
+    margin: 0px;
+    color: white;
+  }
+  .container{
+    max-width: 1140px;;
+    margin-left: auto;
+    margin-right: auto;
+  }
+ .head{
+    height: 200px;
+    background-image: url("/img/Background5.png");
+    background-repeat: no-repeat;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.utopialogohead{
+  flex:1;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  align-items: center;
+}
+.utopia{
+  height: 52px;
+  width: 144px;  
+  background-image: url("/img/UtopiaLogo.png");
+  background-repeat: no-repeat;
+}
+.navigation{
+  width: 90%;
+  height: 17px;
+  display: flex;
+  justify-content:space-around;
+  margin-left: auto;
+  margin-right: auto;
+}
+.navigation a{
+  /* margin-left: auto;
+  margin-right: auto; */
+  text-decoration: none;
+  color: white;
+  font-size: 14px;
+  opacity: 0.5;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: Colfax Medium;
+
+}
+
+.navigation .active{
+  color: white;
+  font-size: 14px;
+  opacity: 1;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-family: Colfax Medium;
+}
