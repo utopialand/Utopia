@@ -34,10 +34,17 @@ Template.Vote.onCreated(async function () {
                 limit: 50,
                 json: true,
             }).then((tabledata=>{
+                var rowdata=[];
                 document.getElementById("upper").innerHTML = "";
                 document.getElementById("proposal-group").innerHTML = "";
                 var Id = FlowRouter.current().params.id; 
-                row=tabledata.rows[Id]; 
+                rowdata=tabledata.rows; 
+               for(var j=0;j<rowdata.length;j++){
+                    if(rowdata[j].id == Id){
+                        row =rowdata[j];
+                    }
+                }
+                console.log(Id,"---",row);
                 for(var i = 0; i< row.proposal_options.length;i++){
                     var can=row.proposal_options[i];
                     titledata=row.proposal_description;
