@@ -17,6 +17,7 @@ eosConfig = {
 }
 const eos = Eos(eosConfig);
 
+<<<<<<< HEAD
 Template.App_result.helpers({
     /* calcvote: async function () {
         var result = [];
@@ -83,6 +84,8 @@ Template.App_result.helpers({
     }, */
 })
 
+=======
+>>>>>>> 8110a9d7c2505204afebc8a071c7d5558c2c6e18
 Template.App_result.onRendered(async function () {
     var result = [];
     var length = 0;
@@ -107,11 +110,20 @@ Template.App_result.onRendered(async function () {
     });
 
     console.log("resultdata ", resultdata);
+<<<<<<< HEAD
 
     //getting the length of list of all choices for a  particular proposal
     var length = 0;
     for (var i = 0; i < resultdata.rows.length; i++) {
         if (id == resultdata.rows[i].proposal_id) {
+=======
+    console.log("candidate data: ", candidatedata);
+
+    //getting the length of list of all choices for a  particular proposal
+    var length = 0;
+    for(var i=0; i<resultdata.rows.length;i++){
+        if(id == resultdata.rows[i].proposal_id){
+>>>>>>> 8110a9d7c2505204afebc8a071c7d5558c2c6e18
             length = resultdata.rows[i].choices.length;
             break;
         }
@@ -130,12 +142,18 @@ Template.App_result.onRendered(async function () {
 
     var input = [];
     //creating a 2d array of total votes received 
+<<<<<<< HEAD
     for (var i = 0; i < resultdata.rows.length; i++) {
         if (id == resultdata.rows[i].proposal_id) {
+=======
+    for(var i=0;i<resultdata.rows.length;i++){
+        if(id == resultdata.rows[i].proposal_id){
+>>>>>>> 8110a9d7c2505204afebc8a071c7d5558c2c6e18
             input.push(resultdata.rows[i].choices)
         }
     }
 
+<<<<<<< HEAD
     // calculaing votes based on ranks
     //j is the candidate and val-1 is the total votes received for the rank
     for (var i = 0; i < input.length; i++) {
@@ -174,4 +192,39 @@ Template.App_result.onRendered(async function () {
         }
         
     }
+=======
+
+   /*  for (var i = 0; i < resultdata.rows.length; i++) {
+        console.log("id: ", id);
+        if (resultdata.rows[i].proposal_id == id) {
+            var choices = resultdata.rows[i].choices
+            for (var j = 0; j < choices.length; j++) {
+                var value = choices[j];
+                result[j][value - 1] += 1;
+            }
+        }
+
+    } */
+    // calculaing votes based on ranks
+    //j is the candidate and val-1 is the total votes received for the rank
+    for(var i=0;i<input.length;i++){
+        for(j=0;j<input[i].length;j++){
+            var val = input[i][j];
+            result[j][val-1] += 1;
+        }
+    }
+
+    console.log("result after calculating ", result);
+    /* var candidatelist = candidatedata.rows[id].proposal_options; */
+
+    /* console.log("result of this proposal ", result); */
+
+    /* for (var i = 0; i < result.length; i++) {
+        var total = result[i][0];
+        total = total + "votes";
+        document.getElementsByClassName("candidate")[i].innerHTML = total;
+        document.getElementsByTagName("label")[i].innerHTML = candidatelist[i];
+    } */
+    /* document.getElementById("proposal-result").innerHTML = candidatelist; */
+>>>>>>> 8110a9d7c2505204afebc8a071c7d5558c2c6e18
 });
