@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Tue Nov 27 18:40:53 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Nov 29 11:51:03 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -155,6 +155,20 @@
             ]
         },
         {
+            "name": "remcitreq",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "manager",
+                    "type": "name"
+                }
+            ]
+        },
+        {
             "name": "remidentity",
             "base": "",
             "fields": [
@@ -215,6 +229,11 @@
         {
             "name": "remcitizen",
             "type": "remcitizen",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "remcitreq",
+            "type": "remcitreq",
             "ricardian_contract": ""
         },
         {

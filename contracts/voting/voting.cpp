@@ -1,6 +1,6 @@
 #include "voting.hpp"
 
-ACTION voting::test(vector<string> names)
+ACTION voting::test()
 {
     helper();
 }
@@ -27,11 +27,23 @@ ACTION voting::createprop(string proposal, string detail, uint16_t duration, vec
 ACTION voting::delprop(uint64_t id, name user)
 {
     print("delete proposal");
-    is_manager(user);
+    eosio_assert(is_manager(user), "not authorized");
     proposal_table pt(_self, _self.value);
+    votes_table vt(_self, _self.value);
     auto itr = pt.find(id);
     eosio_assert(itr != pt.end(), "proposal not found");
     pt.erase(itr);
+    auto vote_itr = vt.begin();
+    /*  while (vote_itr != vt.end())
+    {
+        //print("voter--->", vote_itr->proposal_id);
+         if (vote_itr->proposal_id == id)
+        {test(); 
+            vote_itr = vt.erase(vote_itr);
+            
+            
+       // }
+    } */
 }
 
 ACTION voting::voteprop(uint64_t propid, vector<uint8_t> choices, name identity)
@@ -92,7 +104,6 @@ ACTION voting::decidewinner(uint64_t id, name user)
     result_table rt(_self, _self.value);
     auto prop_itr = pt.find(id);
     eosio_assert(prop_itr != pt.end(), "proposal not found");
-   // print("candidates", prop_itr->proposal_options.size());
     //eosio_assert(now() >= prop_itr->duration,"voting is still going one");
     auto number_of_prop = prop_itr->proposal_options.size();
     auto vote_itr = vt.begin();
@@ -105,16 +116,12 @@ ACTION voting::decidewinner(uint64_t id, name user)
         }
         vote_itr++;
     }
-    //print("votes--", votes.size());
-
-
-     auto selection_size = prop_itr->num_of_winners;
+    auto selection_size = prop_itr->num_of_winners;
     auto number_of_votes = votes.size();
     auto votes_required = (int)number_of_votes / selection_size;
-   // print("--number of votes--", number_of_votes);
-   // vector<int> votes_count = {static_cast<int>(prop_itr->proposal_options.size()), 0};
+    // vector<int> votes_count = {static_cast<int>(prop_itr->proposal_options.size()), 0};
     vector<int> votes_count(prop_itr->proposal_options.size(), 0);
-    
+
     for (auto i = votes.begin(); i != votes.end(); i++)
     {
         auto option = *i;
@@ -128,13 +135,81 @@ ACTION voting::decidewinner(uint64_t id, name user)
             }
             index++;
         }
-      
     }
-    print("--",votes_count.size());
-      for (auto i = 0; i < prop_itr->proposal_options.size(); i++)
+    // print("--", votes_count.size());
+    for (auto i = 0; i < prop_itr->proposal_options.size(); i++)
     {
-        print("each--", votes_count[i]);
-    }   
+        //  print("each--", votes_count[i]);
+    }
+    //////////// calculation///////////
+    vector<int> winner(selection_size, prop_itr->proposal_options.size());
+    auto winnercount = 0;
+     //print("selection size----",votes_required);
+    while (winnercount != selection_size)
+    {
+        auto max = findmax(votes_count);
+        auto min = findmin(votes_count);
+        // print("max--", max);
+        // print("min--", min);
+/////////////////////loop for surplus or already winner check(r1)/////
+        for (auto i = 0; i < votes_count.size(); i++)
+        {
+            if (votes_count[i] >=votes_required)
+            {
+                if (votes_count[i] == votes_required)
+                {
+                  //  print("in equal--",i);
+                    winner[winnercount] = i;
+                    winnercount++;
+                   // print("--winner count--", winnercount);
+                    if (winnercount == selection_size)
+                        break;
+                }
+                else if (votes_count[i] > votes_required)
+                {
+                    print("in >--",i);
+                    auto result = surplusdist(votes_required, votes, votes_count, i);
+                    winner[winnercount] = i;
+                    winnercount++;
+                    if (winnercount == selection_size)
+                        break;
+                }
+                else
+                {
+                    print("elemination code goes here----");
+                }
+            }
+        }
+////////////////////loop for elimination for round1////////////////////
+    
+
+        winnercount++;
+    }
+   // print("out of while--");
+    for (auto p = 0; p < winner.size(); p++)
+    {
+        print("winner--", winner[p]);
+    }
+
+    //////////////////////////////////
+}
+
+int voting::surplusdist(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx)
+{
+    print("in surplus func--");
+   for (auto i = 0;i<votes.size(); i++)
+    {
+        int value = votes[i][idx];
+        print ("value --",value);
+        while((votes_count[idx]-votes_required))
+       // print("option--",votes[i][idx]);
+        /* auto index = 0;
+        for (auto j = option.begin(); j != option.end(); j++)
+        {
+            int value = *j;
+        } */
+    }
+return 0;
 }
 
 ACTION voting::addmanager(name user)
@@ -164,12 +239,12 @@ ACTION voting::bypropid(uint64_t propid)
     votes_table vt(_self, _self.value);
     auto idx = vt.get_index<"propid"_n>();
     auto itr = idx.lower_bound(propid);
-    for(;itr!=idx.end() && itr->proposal_id==propid;++itr)
+    for (; itr != idx.end() && itr->proposal_id == propid; ++itr)
     {
         print(itr->identity);
         c++;
     }
-    print("res--",c);
+    print("res--", c);
 }
 
 EOSIO_DISPATCH(voting,
