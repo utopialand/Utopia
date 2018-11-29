@@ -30,33 +30,6 @@ eosConfig = {
     sign: true
 }
 eos = Eos(eosConfig);
-var accountExist = false;
-/* Template.welcomePage.onRendered(async function() {
-    var userdata = await eos.getTableRows({
-      code: "identityreg1",
-      scope: "identityreg1",
-      table: "identity2",
-      limit: 50,
-      json: true
-    });
-    var accName = localStorage.getItem("username");
-    for(var i=0;userdata.rows.length;i++)
-    {
-        var accUser=userdata.rows[i].username;
-         if(accName==accUser)
-        {
-            accountExist =true;
-            break;
-        } 
-    }
-    if(accountExist)
-    {
-        console.log("abcd---",accountExist);
-        document.getElementsByClassName("optionFlex")[0].style.display="none";
-        document.getElementsByClassName("optionBox11")[0].style.display="flex";
-    }
-}); */
-
 
 Template.welcomePage.onCreated(async function bodyOnCreated() {
         ScatterJS.scatter.connect('utopia').then((connected) => {
