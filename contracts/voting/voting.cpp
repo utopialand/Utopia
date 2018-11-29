@@ -144,30 +144,30 @@ ACTION voting::decidewinner(uint64_t id, name user)
     //////////// calculation///////////
     vector<int> winner(selection_size, prop_itr->proposal_options.size());
     auto winnercount = 0;
-     //print("selection size----",votes_required);
+    //print("selection size----",votes_required);
     while (winnercount != selection_size)
     {
         auto max = findmax(votes_count);
         auto min = findmin(votes_count);
         // print("max--", max);
         // print("min--", min);
-/////////////////////loop for surplus or already winner check(r1)/////
+        /////////////////////loop for surplus or already winner check(r1)/////
         for (auto i = 0; i < votes_count.size(); i++)
         {
-            if (votes_count[i] >=votes_required)
+            if (votes_count[i] >= votes_required)
             {
                 if (votes_count[i] == votes_required)
                 {
-                  //  print("in equal--",i);
+                    //  print("in equal--",i);
                     winner[winnercount] = i;
                     winnercount++;
-                   // print("--winner count--", winnercount);
+                    // print("--winner count--", winnercount);
                     if (winnercount == selection_size)
                         break;
                 }
                 else if (votes_count[i] > votes_required)
                 {
-                    print("in >--",i);
+                    print("in >--", i);
                     auto result = surplusdist(votes_required, votes, votes_count, i);
                     winner[winnercount] = i;
                     winnercount++;
@@ -180,12 +180,13 @@ ACTION voting::decidewinner(uint64_t id, name user)
                 }
             }
         }
-////////////////////loop for elimination for round1////////////////////
-    
+        ////////////////////loop for elimination for round1////////////////////
+
+        ////////////////////////////////////////////
 
         winnercount++;
     }
-   // print("out of while--");
+    // print("out of while--");
     for (auto p = 0; p < winner.size(); p++)
     {
         print("winner--", winner[p]);
@@ -197,19 +198,32 @@ ACTION voting::decidewinner(uint64_t id, name user)
 int voting::surplusdist(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx)
 {
     print("in surplus func--");
-   for (auto i = 0;i<votes.size(); i++)
+    auto count = 0;
+    for (auto i = 0; i < votes.size(); i++)
     {
+        
+        if (votes[i][idx] == 1)
+        {
+            count++;
+            for (auto j = 0; j < votes[i].size(); j++)
+            {
+                int value = votes[i][j];
+            }
+        }
+
         int value = votes[i][idx];
-        print ("value --",value);
-        while((votes_count[idx]-votes_required))
-       // print("option--",votes[i][idx]);
+        print("value --", value);
+        while ((votes_count[idx] - votes_required))
+        {
+        }
+        // print("option--",votes[i][idx]);
         /* auto index = 0;
         for (auto j = option.begin(); j != option.end(); j++)
         {
             int value = *j;
         } */
     }
-return 0;
+    return 0;
 }
 
 ACTION voting::addmanager(name user)
