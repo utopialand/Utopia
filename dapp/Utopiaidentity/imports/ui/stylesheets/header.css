@@ -1,0 +1,73 @@
+.container {
+  width: 90%;
+  max-width: 1140px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 3%;
+}
+
+.header {
+  display: flex;
+}
+.logoSection {
+  flex: 6;
+}
+.logoSection .logo {
+  width: 140px;
+  height: 48px;
+  background-image: url("/img/utopiaLogo.png");
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+.identitySection {
+  flex: 4;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.identitySection .identityText {
+  font-family: Colfax Black;
+  line-height: 19px;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-right: 5%;
+  cursor: pointer;
+}
+.identitySection .managerText {
+  font-family: Colfax Black;
+  line-height: 19px;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-right: 5%;
+  cursor: pointer;
+}
+
+
+.headLineBoundary{
+  max-width: 100%;
+  margin-top:3%;
+  height: 1px;
+  left: 0px;
+  top: 160px;
+  background: #FFFFFF;
+  opacity: 0.25;
+} 
+
+.proposal{
+  font-family: Colfax Black;
+  line-height: 19px;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-right: 5%;
+  cursor: pointer;
+}
+
