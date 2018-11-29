@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/admin/Documents/projects/pegnetwork/utopia/utopiadapps/contracts/voting/voting.cpp
+voting.hpp
+/Users/admin/Documents/projects/pegnetwork/utopia/utopiadapps/contracts/voting/voting.hpp
+
+/Users/admin/Documents/projects/pegnetwork/utopia/utopiadapps/contracts/voting/voting.hpp
+eosiolib/eosio.hpp
+-
+

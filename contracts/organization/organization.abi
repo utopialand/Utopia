@@ -1,0 +1,356 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Tue Nov 27 12:41:35 2018",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "addattribs",
+            "base": "",
+            "fields": [
+                {
+                    "name": "attrib",
+                    "type": "string"
+                },
+                {
+                    "name": "auth",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "addmanager",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "addorgnz",
+            "base": "",
+            "fields": [
+                {
+                    "name": "orgnz",
+                    "type": "name"
+                },
+                {
+                    "name": "auth",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "addorgzattr",
+            "base": "",
+            "fields": [
+                {
+                    "name": "orgnz",
+                    "type": "name"
+                },
+                {
+                    "name": "attrib_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "auth",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "approvattrib",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "orgnz",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "attrib_request",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "user",
+                    "type": "name"
+                },
+                {
+                    "name": "orgnz",
+                    "type": "name"
+                },
+                {
+                    "name": "attrib_id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "attributes",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "name",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "denyattrib",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "orgnz",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "gettest",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "manager",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "orgnztable",
+            "base": "",
+            "fields": [
+                {
+                    "name": "orgnzname",
+                    "type": "name"
+                },
+                {
+                    "name": "attributes",
+                    "type": "string[]"
+                }
+            ]
+        },
+        {
+            "name": "remattribs",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "auth",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "remmanager",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "remorgnz",
+            "base": "",
+            "fields": [
+                {
+                    "name": "orgnz",
+                    "type": "name"
+                },
+                {
+                    "name": "auth",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "remorgzattr",
+            "base": "",
+            "fields": [
+                {
+                    "name": "orgnz",
+                    "type": "name"
+                },
+                {
+                    "name": "attrib_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "auth",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "reqattrib",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                },
+                {
+                    "name": "orgnz",
+                    "type": "name"
+                },
+                {
+                    "name": "attrib_id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "settest",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "settingst",
+            "base": "",
+            "fields": [
+                {
+                    "name": "manager",
+                    "type": "name"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "addattribs",
+            "type": "addattribs",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addmanager",
+            "type": "addmanager",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addorgnz",
+            "type": "addorgnz",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addorgzattr",
+            "type": "addorgzattr",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "approvattrib",
+            "type": "approvattrib",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "denyattrib",
+            "type": "denyattrib",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "gettest",
+            "type": "gettest",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "remattribs",
+            "type": "remattribs",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "remmanager",
+            "type": "remmanager",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "remorgnz",
+            "type": "remorgnz",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "remorgzattr",
+            "type": "remorgzattr",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "reqattrib",
+            "type": "reqattrib",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "settest",
+            "type": "settest",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "attrib11",
+            "type": "attributes",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "attribreq11",
+            "type": "attrib_request",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "manager11",
+            "type": "manager",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "orgnztable11",
+            "type": "orgnztable",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "settings",
+            "type": "settingst",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}

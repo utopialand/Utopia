@@ -1,0 +1,3 @@
+/Users/admin/Documents/projects/pegnetwork/utopia/utopiadapps/contracts/voting/build/CMakeFiles/rebuild_cache.dir
+/Users/admin/Documents/projects/pegnetwork/utopia/utopiadapps/contracts/voting/build/CMakeFiles/edit_cache.dir
+/Users/admin/Documents/projects/pegnetwork/utopia/utopiadapps/contracts/voting/build/CMakeFiles/voting.wasm.dir

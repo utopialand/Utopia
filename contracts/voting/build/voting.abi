@@ -1,0 +1,263 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Nov 28 10:20:42 2018",
+    "version": "eosio::abi/1.1",
+    "structs": [
+        {
+            "name": "addmanager",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "createprop",
+            "base": "",
+            "fields": [
+                {
+                    "name": "proposal",
+                    "type": "string"
+                },
+                {
+                    "name": "duration",
+                    "type": "uint16"
+                },
+                {
+                    "name": "options",
+                    "type": "string[]"
+                },
+                {
+                    "name": "user",
+                    "type": "name"
+                },
+                {
+                    "name": "numwinners",
+                    "type": "uint16"
+                }
+            ]
+        },
+        {
+            "name": "decidewinner",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "delmanager",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "delprop",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "manager",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "proposal",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "proposal_description",
+                    "type": "string"
+                },
+                {
+                    "name": "proposal_options",
+                    "type": "string[]"
+                },
+                {
+                    "name": "duration",
+                    "type": "uint64"
+                },
+                {
+                    "name": "num_of_winners",
+                    "type": "uint64"
+                },
+                {
+                    "name": "status",
+                    "type": "uint16"
+                }
+            ]
+        },
+        {
+            "name": "result",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "proposal_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "selected",
+                    "type": "string[]"
+                }
+            ]
+        },
+        {
+            "name": "test",
+            "base": "",
+            "fields": [
+                {
+                    "name": "names",
+                    "type": "string[]"
+                }
+            ]
+        },
+        {
+            "name": "voteprop",
+            "base": "",
+            "fields": [
+                {
+                    "name": "propid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "choices",
+                    "type": "uint8[]"
+                },
+                {
+                    "name": "identity",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "votes",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "proposal_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "choices",
+                    "type": "uint8[]"
+                },
+                {
+                    "name": "date_of_vote",
+                    "type": "uint64"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "addmanager",
+            "type": "addmanager",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "createprop",
+            "type": "createprop",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "decidewinner",
+            "type": "decidewinner",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "delmanager",
+            "type": "delmanager",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "delprop",
+            "type": "delprop",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "test",
+            "type": "test",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "voteprop",
+            "type": "voteprop",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "manager11",
+            "type": "manager",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "proposal13",
+            "type": "proposal",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "result11",
+            "type": "result",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "votes13",
+            "type": "votes",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "variants": [],
+    "abi_extensions": []
+}

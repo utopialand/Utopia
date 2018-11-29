@@ -1,0 +1,261 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Tue Nov 27 18:40:53 2018",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "addcitizen",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "manager",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "addidentity",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "fname",
+                    "type": "string"
+                },
+                {
+                    "name": "mname",
+                    "type": "string"
+                },
+                {
+                    "name": "lname",
+                    "type": "string"
+                },
+                {
+                    "name": "dob",
+                    "type": "string"
+                },
+                {
+                    "name": "contact",
+                    "type": "string"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "addmanager",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "citizenship",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "approved",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "delall",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "hi",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "identityt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "fname",
+                    "type": "string"
+                },
+                {
+                    "name": "mname",
+                    "type": "string"
+                },
+                {
+                    "name": "lname",
+                    "type": "string"
+                },
+                {
+                    "name": "dob",
+                    "type": "string"
+                },
+                {
+                    "name": "contact",
+                    "type": "string"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "name": "citizen",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "manager",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "remcitizen",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "manager",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "remidentity",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "remmanager",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "reqcitizen",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "addcitizen",
+            "type": "addcitizen",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addidentity",
+            "type": "addidentity",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addmanager",
+            "type": "addmanager",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "delall",
+            "type": "delall",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "hi",
+            "type": "hi",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "remcitizen",
+            "type": "remcitizen",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "remidentity",
+            "type": "remidentity",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "remmanager",
+            "type": "remmanager",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "reqcitizen",
+            "type": "reqcitizen",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "citizen",
+            "type": "citizenship",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "identity2",
+            "type": "identityt",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "manager11",
+            "type": "manager",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}
