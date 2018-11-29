@@ -103,4 +103,47 @@ Can't listen on port 3005. Perhaps another Meteor is running?
 Running two copies of Meteor in the same application directory
 will not work. If something else is using port 3005, you can
 specify an alternative port with --port <port>.
-=> Client modified -- refreshing (x3)
+=> Client modified -- refreshing (x3)[[[[[ ~/webapps/Utopianew ]]]]]
+
+=> Started proxy.
+=> Started MongoDB.
+=> Started your app.
+
+=> App running at: http://localhost:3005/
+[[[[[ ~/webapps/Utopianew ]]]]]
+
+=> Started proxy.
+=> Started MongoDB.
+=> Started your app.
+
+=> App running at: http://localhost:3005/
+[[[[[ ~/webapps/Utopianew ]]]]]
+
+=> Started proxy.
+=> Started MongoDB.
+=> Started your app.
+
+=> App running at: http://localhost:3005/
+=> Client modified -- refreshing[[[[[ ~/webapps/Utopianew ]]]]]
+
+=> Started proxy.
+=> Started MongoDB.
+=> Started your app.
+
+=> App running at: http://localhost:3005/
+Can't listen on port 3005. Perhaps another Meteor is running?
+
+Running two copies of Meteor in the same application directory
+will not work. If something else is using port 3005, you can
+specify an alternative port with --port <port>.
+=> Server modified -- restarting...                                   => Meteor server restartedCan't listen on port 3005. Perhaps another Meteor is running?
+
+Running two copies of Meteor in the same application directory
+will not work. If something else is using port 3005, you can
+specify an alternative port with --port <port>.
+
+=> Client modified -- refreshingCan't listen on port 3005. Perhaps another Meteor is running?
+
+Running two copies of Meteor in the same application directory
+will not work. If something else is using port 3005, you can
+specify an alternative port with --port <port>.

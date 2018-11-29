@@ -744,7 +744,7 @@ body {
 .utopiaHomeCss {
   margin-top:10%;
   max-width: 100%;
-  background-image: url("/img/Background5.png");
+  padding-bottom: 10%;
 }
 .aboutUtopiaHead {
   margin: 0px;
@@ -830,28 +830,19 @@ body {
   background-image: url("/img/Illustration1.png");
   background-size: 100% 100%;
 }
-
-.newIllustrationBox {
-  max-width: 258px;
-  height: 58px;
-  margin: 25%;
-  z-index: 1;
-  text-align: center;
-
-  background-color: #ffffff;
-  color: #000000;
+.utopiaImagePic4 {
+  flex: 1;
+  max-width: 513px;
+  height: 308px;
+  background-image: url("/img/Illustration2.png");
+  background-size: 100% 100%;
 }
-.newIllustrationText {
-  text-align: center;
-  padding: 20px;
-  text-transform: uppercase;
-  font-size: 12px;
-}
+
 
 /* ============================== Map ======================= */
 .mapText {
   width: 100%;
-  background-image: url("/img/Background5.png");
+ /*  background-image: url("/img/Background5.png"); */
   margin-top:10%;
 }
 .wikiButton {

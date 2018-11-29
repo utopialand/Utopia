@@ -1,0 +1,81 @@
+.manager-container{
+    max-width:1440px;
+    width:90%;
+    margin: 5% auto 0 auto;
+    margin-bottom:10%;
+    color:black;
+
+}
+.manager-container h1{
+    font-family: Colfax Medium;
+    letter-spacing: 1px;
+    margin-bottom:5%;
+}
+.flexOption{
+    display:flex;
+}
+.flexOption button{
+    flex:1;
+    display:flex;
+    justify-content: center;
+    align-content: center;
+    height: 48px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.manager-below-section{
+    width: 100%;
+    margin-top: 3%;
+    height:100px;   
+}
+.manager-all-proposals{
+    width: 100%;
+}
+
+.manager-proposal-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.delete-button{
+    height: 50%;
+    width: 100px;
+    margin-right: 3%;
+}
+.declare-button{
+    height: 50%;
+    width: 200px;
+    margin-right: 3%;
+}
+
+.manager-redo{
+    margin-top: 10px;
+    width: 100%;
+    height: 70px;
+    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.manager-redo p{
+    flex: 8;
+}
+
+.manager-redo button{
+    flex: 1;
+    margin-right: 2%;
+}
+
+.manager-delete-button{
+    height: 50%;
+    width: 100px;
+}
+
+.manager-declare-button{
+    height: 50%;
+    width: 100px;
+}
+
+.manager-redo p{
+    margin-left: 3%;
+}

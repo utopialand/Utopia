@@ -70,23 +70,15 @@ body {
 
 .div .right {
   flex: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.citizenbutton {
-  margin-top: 45px;
-  height: 51px;
-  width: 255px;
-  background: linear-gradient(168.56deg, #3023ae -25.63%, #c86dd7 134.63%);
-  border-radius: 6px;
-  font-family: Colfax Medium;
-  line-height: 15px;
-  font-size: 14px;
-  letter-spacing: 0.6px;
-  text-transform: uppercase;
 
-  color: #ffffff;
+button:hover{
+  background: linear-gradient(168.56deg, #3023ae -25.63%, #c86dd7 134.63%);
 }
 .othrbutton {
-  margin-top: 45px;
   height: 51px;
   width: 255px;
   font-family: Colfax Medium;
@@ -98,6 +90,7 @@ body {
   box-shadow: 5px 2px 60px rgba(0, 0, 0, 0.1);
   border-radius: 6px;
   border: 0px;
+  background: #ffffff;
 }
 
 .right-arrow {
