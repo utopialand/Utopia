@@ -1,0 +1,27 @@
+<template name="App_manager">
+  <div class="manager-container">
+      <h1>manager</h1>
+      <div class = "flexOption">
+        <button id = "proposalDetails">proposal</button>
+        <button id="userDetails">user</button>
+      </div>
+      <div id="proposalList">
+        <div class="manager-below-section"> 
+          <div class="manager-all-proposals" id="manager-all-proposals">
+              <div class="manager-proposal-group" id="manager-proposal-group">
+              </div>
+          </div>
+      </div>
+      </div>
+      <div id="userList">
+        <div class="manager-below-section"> 
+          <div class="manager-all-proposals" id="manager-all-proposals">
+              <div class="manager-user-group" id="manager-user-group">
+              </div>
+          </div>
+      </div>
+      </div>
+     
+  </div>
+  {{> footer}}
+</template>
