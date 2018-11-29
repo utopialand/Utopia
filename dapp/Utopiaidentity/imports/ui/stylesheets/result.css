@@ -15,3 +15,53 @@
     color: white;
     font-family: Colfax Medium;
 }
+
+#proposal-result{
+    display: flex;
+    justify-content: center;
+    border: 1px solid white;
+    padding: 3% 0;
+}
+
+#proposal-result-name{
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    margin-right: 5%;
+}
+
+#proposal-result-votes{
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 5%;
+}
+
+.ep{
+    text-align: center;
+    border: 1px solid white;
+    width: 30%;
+    height: 25px;
+    line-height: 25px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.ep2{
+    text-align: center;
+    border: 1px solid white;
+    width: 30%;
+    line-height: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.vote-stat{
+    width: 18%;
+    text-align: center;
+    border: 1px solid white;
+}
+
