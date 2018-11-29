@@ -17,7 +17,7 @@ eosConfig = {
 }
 const eos = Eos(eosConfig);
 
-Template.App_proposal.onRendered(async function(){
+Template.App_proposal.onRendered(async function () {
     let tabledata = await eos.getTableRows({
         code: "voteproposal",
         scope: "voteproposal",
@@ -26,17 +26,18 @@ Template.App_proposal.onRendered(async function(){
         json: true,
     });
     document.getElementById("proposal-group").innerHTML = "";
-    console.log("table data after rendering", tabledata);
-    var votebutton = "votebutton";
-    var resultbutton = "resultbutton";
-    for(var i = 0; i< tabledata.rows.length;i++){
+   
+
+    for (var i = 0; i < tabledata.rows.length; i++) {
         var desc = tabledata.rows[i].proposal_description;
-        votebutton = votebutton+i;
-        resultbutton = resultbutton+i;
-        document.getElementById("proposal-group").innerHTML += 
-        "<div class = 'redo'><p>"+desc+"</p><button class = 'vote-button' id = '"+votebutton+"'>vote</button>"
-        +"<button class = 'result-button' id = '"+resultbutton+"'>result</button>"+"</div>";
-        
+        var votebutton = "votebutton";
+        var resultbutton = "resultbutton";
+        votebutton = votebutton + tabledata.rows[i].id;
+        resultbutton = resultbutton + tabledata.rows[i].id;
+        document.getElementById("proposal-group").innerHTML +=
+            "<div class = 'redo'><p>" + desc + "</p><button class = 'vote-button' id = '" + votebutton + "'>vote</button>"
+            + "<button class = 'result-button' id = '" + resultbutton + "'>result</button>" + "</div>";
+
     }
 })
 
@@ -65,7 +66,7 @@ Template.App_proposal.events({
             "<div class = 'redo'><p>"+desc+"</p><button class = 'vote-button' id = '"+id+"'>vote</button>"+"</div>";
             id = id+1;
         } */
-        
+
     },
     "click #options": function () {
         /* var boxName = "textbox" + count;
@@ -98,19 +99,17 @@ Template.App_proposal.events({
             })
         }) */
     },
-    "click .vote-button": function(event){
+    "click .vote-button": function (event) {
         event.preventDefault();
-        console.log("id of vote button ", event.target.id);
         var id = event.target.id;
-        id = id[id.length-1];      
-        
-        FlowRouter.go("/vote/"+id);        
+        id = id[id.length - 1];
+
+        FlowRouter.go("/vote/" + id);
     },
-    "click .result-button": function(event){
+    "click .result-button": function (event) {
         event.preventDefault();
-        console.log("id of result button ", event.target.id);
         var id = event.target.id;
-        id = id[id.length-1];
-        FlowRouter.go("/result/"+id);
+        id = id[id.length - 1];
+        FlowRouter.go("/result/" + id);
     }
 })

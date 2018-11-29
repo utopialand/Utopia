@@ -46,12 +46,14 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
                         localStorage.setItem("username",account);                       
                         console.log("inside created----1",localStorage.getItem("loginstatus"));
                         document.getElementById("loginButton").innerHTML = "logout";
+                        document.getElementsByClassName("optionFlex")[0].style.display="flex";
 
                     } else {
                         localStorage.setItem("loginstatus",JSON.stringify(false));
                         localStorage.setItem("username","");
                         console.log("inside created----2",localStorage.getItem("loginstatus"));
                         document.getElementById("loginButton").innerHTML = "login";
+                        document.getElementsByClassName("optionFlex")[0].style.display="none";
                     }
                 }
             } else {
@@ -80,6 +82,7 @@ Template.welcomePage.events({
                 localStorage.setItem("loginstatus",JSON.stringify(true));
                 localStorage.setItem("username",account);
                 document.getElementById("loginButton").innerHTML = "logout";
+                document.getElementsByClassName("optionFlex")[0].style.display="flex";
             }).catch(error => {
                 console.error(error);
             });
@@ -92,6 +95,7 @@ Template.welcomePage.events({
             document.getElementById("loginButton").innerHTML = "login";
             localStorage.setItem("username","");
             console.log("logout");
+            document.getElementsByClassName("optionFlex")[0].style.display="none";
         });
     }
     },

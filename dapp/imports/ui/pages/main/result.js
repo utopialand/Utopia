@@ -3,7 +3,7 @@ import "../../stylesheets/result.css";
 import "./footer.js";
 import Eos from "eosjs";
 
-var result = [];
+
 
 eosConfig = {
     chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473", // 32 byte (64 char) hex string
@@ -17,13 +17,19 @@ eosConfig = {
 }
 const eos = Eos(eosConfig);
 
-Template.App_result.onRendered(async function(){
+Template.App_result.onRendered(async function () {
+    var result = [];
+    var length = 0;
+    var id = FlowRouter.current().params.id;
+    console.log("id: ", id);
     let resultdata = await eos.getTableRows({
         code: "voteproposal",
         scope: "voteproposal",
         table: "votes13",
         limit: "50",
-        json: true
+        json: true,
+        /* key_type: "i64",
+        index_position: 2 */
     });
 
     let candidatedata = await eos.getTableRows({
@@ -31,38 +37,71 @@ Template.App_result.onRendered(async function(){
         scope: "voteproposal",
         table: "proposal11",
         limit: "50",
-        json: true
+        json: true,
     });
 
-    var candidatelist = candidatedata.rows[0].proposal_options;
+    console.log("resultdata ", resultdata);
+    console.log("candidate data: ", candidatedata);
 
+    //getting the length of list of all choices for a  particular proposal
+    var length = 0;
+    for(var i=0; i<resultdata.rows.length;i++){
+        if(id == resultdata.rows[i].proposal_id){
+            length = resultdata.rows[i].choices.length;
+            break;
+        }
+    }
 
-    console.log(" candidatedata :", candidatelist);
-
-    var length = resultdata.rows[0].choices.length;
-
-    for(var i=0; i<length;i++){
+    //creating a 2d array to store who got how many votes based on rank 
+    for (var i = 0; i < length; i++) {
         result[i] = [];
     }
 
-    for(var i=0; i<length;i++){
-        for(var j=0; j<length;j++){
+    for (var i = 0; i < length; i++) {
+        for (var j = 0; j < length; j++) {
             result[i][j] = 0;
         }
     }
 
+    var input = [];
+    //creating a 2d array of total votes received 
     for(var i=0;i<resultdata.rows.length;i++){
-        var choices = resultdata.rows[i].choices
-        for(var j=0;j<choices.length;j++){
-            var value = choices[j];
-            result[j][value-1]+=1;
+        if(id == resultdata.rows[i].proposal_id){
+            input.push(resultdata.rows[i].choices)
         }
     }
-    
-    for(var i=0; i<result.length;i++){
+
+
+   /*  for (var i = 0; i < resultdata.rows.length; i++) {
+        console.log("id: ", id);
+        if (resultdata.rows[i].proposal_id == id) {
+            var choices = resultdata.rows[i].choices
+            for (var j = 0; j < choices.length; j++) {
+                var value = choices[j];
+                result[j][value - 1] += 1;
+            }
+        }
+
+    } */
+    // calculaing votes based on ranks
+    //j is the candidate and val-1 is the total votes received for the rank
+    for(var i=0;i<input.length;i++){
+        for(j=0;j<input[i].length;j++){
+            var val = input[i][j];
+            result[j][val-1] += 1;
+        }
+    }
+
+    console.log("result after calculating ", result);
+    /* var candidatelist = candidatedata.rows[id].proposal_options; */
+
+    /* console.log("result of this proposal ", result); */
+
+    /* for (var i = 0; i < result.length; i++) {
         var total = result[i][0];
-        total = total+"votes";
+        total = total + "votes";
         document.getElementsByClassName("candidate")[i].innerHTML = total;
         document.getElementsByTagName("label")[i].innerHTML = candidatelist[i];
-    }
+    } */
+    /* document.getElementById("proposal-result").innerHTML = candidatelist; */
 });
