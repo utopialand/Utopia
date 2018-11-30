@@ -9,7 +9,7 @@ import '../../../api/identity/methods';
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";
-var ipfs = require('ipfs-http-client')('localhost', 3000);
+/* var ipfs = require('ipfs-http-client')('localhost', 3000); */
 
 // create a stream from a file, which enables uploads of big files without allocating memory twice
 
@@ -25,7 +25,7 @@ const eosOptions = {
     chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
 
-
+var scatter={};
 var eosinstance = {};
 Template.identity_reg.onCreated(function () {
 
@@ -73,7 +73,7 @@ Template.identity_reg.events({
 
         })
     },
-   'click .upload-picture':function(){
+   /* 'click .upload-picture':function(){
     var f1 = 'Hello',
     f2 = 'World'
     ipfsClient.add([new Buffer(f1), new Buffer(f2)], function (err, res) {
@@ -82,9 +82,9 @@ Template.identity_reg.events({
         for (var i = 0; i < res.length; i++) {
           console.log(res)
         }
-      })
+      }) 
       
-   }
+   }*/
 
 });
 
