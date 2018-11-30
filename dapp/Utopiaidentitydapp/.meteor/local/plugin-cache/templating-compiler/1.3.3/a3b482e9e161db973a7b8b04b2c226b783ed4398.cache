@@ -1,0 +1,1 @@
+{"head":"<title>UTOPIA</title>","body":"","js":"\nTemplate.body.addContent((function() {\n  var view = this;\n  return [ Spacebars.include(view.lookupTemplate(\"header\")), \"\\n  \", Spacebars.include(view.lookupTemplate(\"App_body\")) ];\n}));\nMeteor.startup(Template.body.renderToDocument);\n","bodyAttrs":{}}
