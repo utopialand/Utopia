@@ -1,0 +1,103 @@
+.identity-container {
+  max-width: 1440px;
+  width: 90%;
+  margin: 5% auto 0 auto;
+  margin-bottom: 10%;
+  color: black;
+}
+.profile-container {
+  display: flex;
+  margin-bottom: 10%;
+  align-items: center;
+}
+.imageBox {
+  width: 170px;
+  height: 170px;
+  border-radius: 50%;
+  border:4px solid #3023AE;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profileImage {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background-image: url("img/profileImage.png");
+  background-size: cover;
+}
+.profileDetails{
+    width:50%;
+    margin-left: 5%;
+}
+.profileName {
+  font-family: Colfax Medium;
+  font-size: 32px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  color: white;
+  text-transform: uppercase;
+}
+.profileInfo {
+  font-family: Colfax Medium;
+  font-size: 18px;
+  line-height: 14px;
+  letter-spacing: 1.5px;
+  opacity: 50%;
+  color: gray;
+  text-transform: uppercase;
+}
+
+.transactions {
+  display: flex;
+  justify-content: space-between;
+}
+.transactions h1 {
+  font-family: Colfax Medium;
+  font-size: 32px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  color: white;
+  text-transform: uppercase;
+}
+.transactions button {
+  width: 153px;
+  font-family: Colfax Medium;
+  font-size: 18px;
+  line-height: 14px;
+  letter-spacing: 1.5px;
+  border: 2px solid rgba(255, 255, 255, 0.25);
+  background: transparent;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+}
+
+.transactionList {
+  display: flex;
+  font-family: Colfax Regular;
+  font-size: 18px;
+  line-height: 14px;
+  letter-spacing: 1.5px;
+  color: white;
+  text-transform: uppercase;
+  margin-top: 3%;
+}
+.details {
+  flex: 1;
+}
+.details p {
+  margin-top: 4%;
+  margin-bottom: 4%;
+}
+.date {
+  flex: 1;
+}
+.date p {
+  text-align: right;
+  margin-top: 4%;
+  margin-bottom: 4%;
+}
+
