@@ -30,9 +30,8 @@ eosConfig = {
     sign: true
 }
 eos = Eos(eosConfig)
-
-
 Template.welcomePage.onCreated(function bodyOnCreated() {
+    
         ScatterJS.scatter.connect('utopia').then((connected) => {
             if (connected) {
                 if (ScatterJS.scatter.connect('utopia')) {
