@@ -16,7 +16,9 @@ CONTRACT voting : public contract
     ACTION addmanager(name user);
     ACTION delmanager(name user);
     ACTION bypropid(uint64_t prop_id);
-    int surplusdist(int votes_required,vector<vector<uint8_t>> votes, vector<int> votes_count,int i);
+    ACTION delvote(uint64_t id, name manager);
+    vector<int> surplusdist(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int i);
+   vector<int> elimination(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx);
 
     TABLE manager
     {
@@ -83,6 +85,18 @@ CONTRACT voting : public contract
         print("call test");
     }
 
+    vector<int> findrept(vector<int> votes_count,int idx)
+    {
+        vector<int> repeat;
+        for (auto j = idx + 1; j < votes_count.size(); j++)
+        {
+            if (votes_count[idx] == votes_count[j])
+                repeat.push_back(j);
+        }
+
+        return repeat;
+    }
+
     int findmax(vector<int> v)
     {
         //print("call find max--");
@@ -96,34 +110,38 @@ CONTRACT voting : public contract
                 index = k;
             }
         }
-       // print("max--",max);
+        // print("max--",max);
         return max;
     }
     int findmin(vector<int> v)
     {
         //print("call find min--");
-        auto n=0;
-        auto min =0;
+        auto n = 0;
+        auto min = 0;
         while (n != v.size())
         {
-            if (v[n] != -1)
+            if (v[n] != -1 && v[n] != -2)
             {
                 min = v[n];
                 break;
             }
             n++;
         }
-      // print("initial min--",min);
+       //  print("initial min--",min);
         auto index = 0;
         for (auto k = 0; k < v.size(); k++)
         {
-            if (v[k] < min && v[k] != -1)
+            if(v[k]==-1 || v[k]==-2)
+                continue;
+            else if(v[k] <= min)
             {
+                //print("return=",v[k]);
                 min = v[k];
-                index = k;
+                
             }
-           // print("each--",index);
+             
         }
+       
         return min;
     }
 
