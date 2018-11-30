@@ -19,7 +19,7 @@ const eosOptions = {
 
 
 
-eosConfig = {
+/* eosConfig = {
     chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473", // 32 byte (64 char) hex string
     keyProvider: ['5KeNdWYxPbUpsLUa8QT64AbjTAQeHcZejcR6shHnNi1sESgxgm7'],
     // WIF string or array of keys..
@@ -29,10 +29,8 @@ eosConfig = {
     verbose: false, // API activity
     sign: true
 }
-eos = Eos(eosConfig)
-
-
-Template.welcomePage.onCreated(function bodyOnCreated() {
+eos = Eos(eosConfig); */
+Template.welcomePage.onCreated(async function bodyOnCreated() {
         ScatterJS.scatter.connect('utopia').then((connected) => {
             if (connected) {
                 if (ScatterJS.scatter.connect('utopia')) {
