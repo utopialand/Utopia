@@ -1,3 +1,4 @@
+'use strict'
 import "./identity-reg.html";
 import "../../stylesheets/identity-reg.css";
 import "../../pages/main/footer.js"
@@ -8,17 +9,9 @@ import '../../../api/identity/methods';
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";
-eosConfig = {
-    chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473", // 32 byte (64 char) hex string
-    keyProvider: ['5KeNdWYxPbUpsLUa8QT64AbjTAQeHcZejcR6shHnNi1sESgxgm7'],
-    // WIF string or array of keys..
-    httpEndpoint: 'https://jungle2.cryptolions.io:443',
-    expireInSeconds: 60,
-    broadcast: true,
-    verbose: false, // API activity
-    sign: true
-}
-eos = Eos(eosConfig)
+var ipfs = require('ipfs-http-client')('localhost', 3000);
+
+// create a stream from a file, which enables uploads of big files without allocating memory twice
 
 
 const network = {
@@ -80,24 +73,18 @@ Template.identity_reg.events({
 
         })
     },
-    /* "click #firstname":function(){
-        document.getElementById("progressBar").style.width="16%";
-    },
-    "click #midname":function(){
-        document.getElementById("progressBar").style.width="33%";
-    },
-    "click #lastname":function(){
-        document.getElementById("progressBar").style.width="50%";
-    },
-    "click #dob":function(){
-        document.getElementById("progressBar").style.width="66%";
-    },
-    "click #phonenumber":function(){
-        document.getElementById("progressBar").style.width="83%";
-    },
-    "click #email":function(){
-        document.getElementById("progressBar").style.width="100%";
-    } */
+   'click .upload-picture':function(){
+    var f1 = 'Hello',
+    f2 = 'World'
+    ipfsClient.add([new Buffer(f1), new Buffer(f2)], function (err, res) {
+        if (err || !res) return console.log(err)
+      
+        for (var i = 0; i < res.length; i++) {
+          console.log(res)
+        }
+      })
+      
+   }
 
 });
 

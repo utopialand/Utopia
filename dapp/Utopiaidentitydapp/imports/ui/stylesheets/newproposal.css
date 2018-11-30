@@ -42,3 +42,23 @@
     border-bottom: 2px solid white;
     transition: 0.5s;
 }
+.buttonprop{
+    margin-top:40px;
+    height: 60px;
+    width: 250px;
+    color: white; font-family: Colfax Medium;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 14px;
+    background:#04030F;
+}
+.buttonprop:hover{
+    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
+}
+.createbutton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

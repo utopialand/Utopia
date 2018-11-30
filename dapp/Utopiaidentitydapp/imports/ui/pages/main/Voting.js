@@ -25,7 +25,7 @@ Template.Vote.onCreated(async function () {
         if (ScatterJS.scatter.connect('utopia')) {
             scatter = ScatterJS.scatter;
             const requiredFields = { accounts: [network] };
-            const eos = scatter.eos(network, Eos, eosOptions);
+            const eos =  scatter.eos(network, Eos, eosOptions);
             eosinstance=eos;
              eos.getTableRows({
                 code: "voteproposal",
