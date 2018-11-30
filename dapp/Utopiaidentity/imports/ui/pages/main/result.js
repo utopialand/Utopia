@@ -145,7 +145,19 @@ Template.App_result.onRendered(async function () {
         }
     }
 
-    var candidatelist = []
+    var desc;
+
+    for(var i=0;i<candidatedata.rows.length;i++){
+        if(id == candidatedata.rows[i].id){
+            desc = candidatedata.rows[i].proposal_description;
+            break;
+        }
+    }
+
+    console.log("proposal description : ", desc);
+
+    document.getElementById("proposal-desc").innerHTML = desc;
+
     for(var i=0;i<candidatedata.rows.length;i++){
         if(id == candidatedata.rows[i].id){
             for(var j=0;j<candidatedata.rows[i].proposal_options.length;j++){
@@ -156,6 +168,8 @@ Template.App_result.onRendered(async function () {
                         
         }
     }
+
+
     console.log("candidatedata", candidatedata);
     console.log("result after calculating ", result);
     
