@@ -146,10 +146,12 @@ Template.App_result.onRendered(async function () {
     }
 
     var desc;
+    var proposaldetail;
 
     for(var i=0;i<candidatedata.rows.length;i++){
         if(id == candidatedata.rows[i].id){
             desc = candidatedata.rows[i].proposal_description;
+            proposaldetail = candidatedata.rows[i].proposal_detail;
             break;
         }
     }
@@ -157,6 +159,7 @@ Template.App_result.onRendered(async function () {
     console.log("proposal description : ", desc);
 
     document.getElementById("proposal-desc").innerHTML = desc;
+    document.getElementById("proposal-detail").innerHTML = proposaldetail;
 
     for(var i=0;i<candidatedata.rows.length;i++){
         if(id == candidatedata.rows[i].id){
