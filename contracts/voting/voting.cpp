@@ -177,8 +177,7 @@ ACTION voting::decidewinner(uint64_t id, name user)
                 }
                 if (votes_count[i] > 3)
                 {
-                    print("in >-", votes_count[i]);
-                    print("req-", votes_required);
+
                     votes_count = surplusdist(votes_required, votes, votes_count, i);
                     votes_count[i] = (0 - 1);
                     winner[winnercount] = i;
@@ -211,22 +210,15 @@ ACTION voting::decidewinner(uint64_t id, name user)
 
             else
             {
-                //print("in else--");
-                /*  if (votes_count[i] == min)
-                {
-
-                    winnercount++;
-                    break;
-                } */
                 if (votes_count[i] == min)
                 {
                     votes_count = elimination(votes_required, votes, votes_count, i);
                     for (auto i = 0; i < votes_count.size(); i++)
                     {
-                         print("new vc--", votes_count[i]);
+                        //  print("new vc--", votes_count[i]);
                     }
-                   /*  winnercount++;
-                    break; */
+                    //winnercount++;
+                    break;
                 }
             }
         }
@@ -236,7 +228,7 @@ ACTION voting::decidewinner(uint64_t id, name user)
         } */
         //////////////////////////////////////////////////////////////
 
-        //  winnercount++;
+        //   winnercount++;
     }
     for (auto i = 0; i < prop_itr->proposal_options.size(); i++)
     {
@@ -298,10 +290,17 @@ vector<int> voting::elimination(int votes_required, vector<vector<uint8_t>> vote
     print("elimination--", idx);
     auto pref = 2;
     vector<int> repeatidx;
+    vector<int> vc_sec(votes_count.size(), 0);
     repeatidx = findrept(votes_count, idx);
-    /* if (repeatidx.size() != 0)
+    if (repeatidx.size() != 0)
     {
-      */   print("no repeatation-");
+        print("all complications start from here---");
+        auto toeliminate = repeatcheck(repeatidx, votes, votes_count);
+        print("to be eliminated--", toeliminate);
+        idx = toeliminate;
+    }
+   
+        
         for (auto i = 0; i < votes.size(); i++)
         {
 
@@ -326,18 +325,60 @@ vector<int> voting::elimination(int votes_required, vector<vector<uint8_t>> vote
                 }
             }
         }
-   /*  }
-    else
-    {
-        print("all complications start from here---");
-    } */
-    /* for (auto i = 0; i < votes_count.size(); i++)
+    
+    
+    for (auto i = 0; i < votes_count.size(); i++)
     {
         print("new vc--", votes_count[i]);
-    } */
+    } 
     return votes_count;
 }
+int voting::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, vector<int> votes_count)
+{
+    int pref = 2;
+    int n = 2;
+    int idx = 0;
+    vector<int> vc_sec(votes_count.size(), -1);
+    while (repeatidx.size() != 0)
+    {
 
+        fill(vc_sec.begin(), vc_sec.end(), -1);
+        for (auto rptidx = 0; rptidx < repeatidx.size(); rptidx++)
+        {
+            vc_sec[repeatidx[rptidx]] = 0;
+        }
+        for (auto rptidx = 0; rptidx < repeatidx.size(); rptidx++)
+        {
+            for (auto i = 0; i < votes.size(); i++)
+            {
+                if (votes[i][repeatidx[rptidx]] == pref)
+                    vc_sec[repeatidx[rptidx]] += 1;
+            }
+        }
+        auto min = findmin(vc_sec);
+        for (auto rptidx = 0; rptidx < vc_sec.size(); rptidx++)
+        {
+           // print("-vc arr--", vc_sec[rptidx]);
+        }
+        for (auto i = 0; i < vc_sec.size(); i++)
+        {
+            if (vc_sec[i] == min)
+            {
+                repeatidx = findrept(vc_sec, i);
+                idx = i;
+                break;
+            }
+        }
+        for (auto rptidx = 0; rptidx < repeatidx.size(); rptidx++)
+        {
+           // print("-rpt arr--", repeatidx[rptidx]);
+        }
+
+        pref++;
+    }
+    //print("index to be eliminated--",idx);
+    return idx;
+}
 ACTION voting::addmanager(name user)
 {
     print("add manager");

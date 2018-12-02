@@ -18,7 +18,8 @@ CONTRACT voting : public contract
     ACTION bypropid(uint64_t prop_id);
     ACTION delvote(uint64_t id, name manager);
     vector<int> surplusdist(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int i);
-   vector<int> elimination(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx);
+    vector<int> elimination(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx);
+    int repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, vector<int> votes_count);
 
     TABLE manager
     {
@@ -85,13 +86,22 @@ CONTRACT voting : public contract
         print("call test");
     }
 
-    vector<int> findrept(vector<int> votes_count,int idx)
+    vector<int> findrept(vector<int> votes_count, int idx)
     {
         vector<int> repeat;
+        auto flag = 0;
         for (auto j = idx + 1; j < votes_count.size(); j++)
         {
             if (votes_count[idx] == votes_count[j])
+            {
                 repeat.push_back(j);
+                flag = 1;
+            }
+        }
+        if (flag == 1)
+        {
+
+            repeat.insert(repeat.begin(), idx);
         }
 
         return repeat;
@@ -127,21 +137,19 @@ CONTRACT voting : public contract
             }
             n++;
         }
-       //  print("initial min--",min);
+        //  print("initial min--",min);
         auto index = 0;
         for (auto k = 0; k < v.size(); k++)
         {
-            if(v[k]==-1 || v[k]==-2)
+            if (v[k] == -1 || v[k] == -2)
                 continue;
-            else if(v[k] <= min)
+            else if (v[k] <= min)
             {
                 //print("return=",v[k]);
                 min = v[k];
-                
             }
-             
         }
-       
+
         return min;
     }
 
