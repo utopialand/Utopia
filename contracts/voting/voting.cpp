@@ -127,7 +127,7 @@ ACTION voting::decidewinner(uint64_t id, name user)
     }
     auto selection_size = prop_itr->num_of_winners;
     auto number_of_votes = votes.size();
-    auto votes_required = (int)number_of_votes / selection_size;
+    auto votes_required = (int)((number_of_votes / (selection_size + 1)) + 1);
     // vector<int> votes_count = {static_cast<int>(prop_itr->proposal_options.size()), 0};
     vector<int> votes_count(prop_itr->proposal_options.size(), 0);
 
@@ -153,10 +153,11 @@ ACTION voting::decidewinner(uint64_t id, name user)
     //////////// calculation///////////
     vector<int> winner(selection_size, prop_itr->proposal_options.size());
     auto winnercount = 0;
-    //print("selection size----",votes_required);
+    int flag = 0;
+    print("selection size----", selection_size);
     while (winnercount != selection_size)
     {
-        votes_required = (int)number_of_votes / selection_size;
+        //votes_required = (int)number_of_votes / selection_size;
         auto max = findmax(votes_count);
         auto min = findmin(votes_count);
         // print("max--", max);
@@ -168,14 +169,17 @@ ACTION voting::decidewinner(uint64_t id, name user)
             {
                 if (votes_count[i] == votes_required)
                 {
-                    //  print("in equal-", i);
+                      print("in equal-", i);
                     winner[winnercount] = i;
                     winnercount++;
                     // print("--winner count--", winnercount);
                     if (winnercount == selection_size)
+                    {
+                        flag = 1;
                         break;
+                    }
                 }
-                if (votes_count[i] > 3)
+                if (votes_count[i] > votes_required)
                 {
 
                     votes_count = surplusdist(votes_required, votes, votes_count, i);
@@ -183,7 +187,10 @@ ACTION voting::decidewinner(uint64_t id, name user)
                     winner[winnercount] = i;
                     winnercount++;
                     if (winnercount == selection_size)
+                    {
+                        flag = 1;
                         break;
+                    }
                 }
             }
             else
@@ -192,10 +199,38 @@ ACTION voting::decidewinner(uint64_t id, name user)
             }
         }
 
-        /* for (auto i = 0; i < prop_itr->proposal_options.size(); i++)
+        ////////////////////////////////////////////////////////
+        auto count = 0;
+        auto remaining = selection_size - winnercount;
+        print("remaining-",remaining);
+        for (auto i = 0; i < votes_count.size(); i++)
         {
-            print("-after surplus vc--", votes_count[i]);
-        } */
+            if (votes_count[i] != -1 || votes_count[i] != -2)
+                count++;
+        }
+        if (remaining == count)
+        {
+            print("in remaining-",count);
+            for (auto i = 0; i < votes_count.size(); i++)
+            {
+                if (votes_count[i] != -1 || votes_count[i] != -2)
+                {
+                    winner[winnercount] = i;
+                    winnercount++;
+                    // print("--winner count--", winnercount);
+                    if (winnercount == selection_size)
+                    {
+                        flag = 1;
+                        break;
+                    }
+                }
+            }
+        }
+
+/////////////////////////////////////////////////////
+        if (flag == 1)
+            break;
+
         ////////////////////loop for elimination for round1////////////////////
         for (auto i = 0; i < votes_count.size(); i++)
         {
@@ -236,7 +271,7 @@ ACTION voting::decidewinner(uint64_t id, name user)
     }
     for (auto p = 0; p < winner.size(); p++)
     {
-         print("winner--", winner[p]);
+        print("winner--", winner[p]);
     }
 
     //////////////////////////////////
@@ -299,38 +334,36 @@ vector<int> voting::elimination(int votes_required, vector<vector<uint8_t>> vote
         print("to be eliminated--", toeliminate);
         idx = toeliminate;
     }
-   
-        
-        for (auto i = 0; i < votes.size(); i++)
+
+    for (auto i = 0; i < votes.size(); i++)
+    {
+
+        if (votes[i][idx] == 1)
         {
-
-            if (votes[i][idx] == 1)
+            for (auto j = 0; j < votes[i].size(); j++)
             {
-                for (auto j = 0; j < votes[i].size(); j++)
+                if (votes[i][j] == pref)
                 {
-                    if (votes[i][j] == pref)
+                    if (votes_count[j] == -1 || votes_count[j] == -2)
                     {
-                        if (votes_count[j] == -1 || votes_count[j] == -2)
-                        {
-                            pref++;
-                            j = 0;
-                            continue;
-                        }
-
-                        int value = votes[i][j];
-                        votes_count[j] += 1;
-                        votes_count[idx] = -2;
-                        print("2nd pref idx--", j);
+                        pref++;
+                        j = 0;
+                        continue;
                     }
+
+                    int value = votes[i][j];
+                    votes_count[j] += 1;
+                    votes_count[idx] = -2;
+                    print("2nd pref idx--", j);
                 }
             }
         }
-    
-    
+    }
+
     for (auto i = 0; i < votes_count.size(); i++)
     {
         print("new vc--", votes_count[i]);
-    } 
+    }
     return votes_count;
 }
 int voting::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, vector<int> votes_count)
@@ -358,7 +391,7 @@ int voting::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, ve
         auto min = findmin(vc_sec);
         for (auto rptidx = 0; rptidx < vc_sec.size(); rptidx++)
         {
-           // print("-vc arr--", vc_sec[rptidx]);
+            // print("-vc arr--", vc_sec[rptidx]);
         }
         for (auto i = 0; i < vc_sec.size(); i++)
         {
@@ -371,7 +404,7 @@ int voting::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, ve
         }
         for (auto rptidx = 0; rptidx < repeatidx.size(); rptidx++)
         {
-           // print("-rpt arr--", repeatidx[rptidx]);
+            // print("-rpt arr--", repeatidx[rptidx]);
         }
 
         pref++;
