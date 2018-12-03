@@ -1,22 +1,23 @@
 #include <eosiolib/eosio.hpp>
-
+#include <eosiolib/asset.hpp>
 using namespace eosio;
 using namespace std;
 
-CONTRACT voting : public contract
+CONTRACT budget : public contract
 {
     using contract::contract;
 
   public:
-    ACTION test();
-    ACTION createprop(string proposal, string detail, uint16_t duration, vector<string> options, name user, uint16_t numwinners);
+    ACTION createprop(name identity,name user,string proposal, string detail, uint16_t duration,asset budget, uint16_t numwinners);
     ACTION delprop(uint64_t id, name user);
+    ACTION selectprop(name user, string details, uint16_t duration, uint16_t noofwinner);
     ACTION voteprop(uint64_t propid, vector<uint8_t> choices, name identity);
     ACTION decidewinner(uint64_t id, name user);
     ACTION addmanager(name user);
     ACTION delmanager(name user);
     ACTION bypropid(uint64_t prop_id);
     ACTION delvote(uint64_t id, name manager);
+    ACTION delresult(uint64_t id, name manager);
     vector<int> surplusdist(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int i);
     vector<int> elimination(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx);
     int repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, vector<int> votes_count);
@@ -30,9 +31,19 @@ CONTRACT voting : public contract
     TABLE proposal
     {
         uint64_t id;
+        name identity;
         string proposal_description;
         string proposal_detail;
-        vector<string> proposal_options;
+        asset budget;
+        uint64_t createdat;
+        uint16_t selected = 0;
+        uint64_t primary_key() const { return id; }
+    };
+    TABLE featurelist
+    {
+        uint64_t id;
+        string desc;
+        vector<uint64_t> proposal_options;
         uint64_t duration;
         uint64_t num_of_winners;
         uint16_t status = 0;
@@ -43,18 +54,18 @@ CONTRACT voting : public contract
     {
         uint64_t id;
         name identity;
-        uint64_t proposal_id;
+        uint64_t feature_id;
         vector<uint8_t> choices;
         uint64_t date_of_vote = now();
         uint64_t primary_key() const { return id; }
-        uint64_t by_secondary() const { return proposal_id; }
+        uint64_t by_secondary() const { return feature_id; }
     };
 
     TABLE result
     {
         uint64_t id;
         uint64_t proposal_id;
-        vector<string> selected;
+        vector<int> selected;
         uint64_t primary_key() const { return id; }
     };
 
@@ -75,12 +86,13 @@ CONTRACT voting : public contract
     typedef multi_index<"identity2"_n, identityt> identity_table;
     typedef multi_index<"manager11"_n, manager> manager_table;
     typedef multi_index<"proposal11"_n, proposal> proposal_table;
+    typedef multi_index<"feature11"_n, featurelist> feature_table;
     typedef multi_index<"votes13"_n, votes,
                         indexed_by<"propid"_n,
                                    const_mem_fun<votes, uint64_t, &votes::by_secondary>>>
         votes_table;
 
-    typedef multi_index<"result11"_n, result> result_table;
+    typedef multi_index<"result13"_n, result> result_table;
     void helper()
     {
         print("call test");

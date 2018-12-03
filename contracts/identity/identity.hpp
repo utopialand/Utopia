@@ -1,6 +1,8 @@
 #include <eosiolib/eosio.hpp>
 #include <eosiolib/asset.hpp>
 #include <eosiolib/singleton.hpp>
+#include<cstdlib>
+#include<ctime>
 
 using namespace eosio;
 using namespace std;
@@ -24,6 +26,7 @@ CONTRACT identity : public contract
     ACTION remcitizen(name identity, name manager);
     ACTION remmanager(name user);
     ACTION addmanager(name user);
+    ACTION remcitreq(uint64_t id,name manager);
     /* ACTION settest(name user);
     ACTION gettest(); */
     ACTION hi();
