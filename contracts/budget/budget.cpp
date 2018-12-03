@@ -54,8 +54,7 @@ ACTION budget ::selectprop(name user, string details, uint16_t duration, uint16_
 
 ACTION budget::addmanager(name user)
 {
-    print("add manager");
-    print("add manager");
+   
     require_auth(_self);
     manager_table mt(_self, _self.value);
     mt.emplace(_self, [&](auto &v) {
