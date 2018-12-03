@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Nov 30 13:15:22 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec  3 18:05:45 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -17,12 +17,54 @@
             ]
         },
         {
+            "name": "addemployee",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "employee",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "adshareowner",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "shareholder",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "approve",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "businessst",
             "base": "",
             "fields": [
                 {
-                    "name": "id",
+                    "name": "company_id",
                     "type": "uint64"
+                },
+                {
+                    "name": "status",
+                    "type": "uint8"
                 },
                 {
                     "name": "owner",
@@ -33,32 +75,26 @@
                     "type": "string"
                 },
                 {
-                    "name": "marketcap",
-                    "type": "float64"
+                    "name": "token_maximum_supply",
+                    "type": "asset"
                 },
                 {
-                    "name": "totalshares",
-                    "type": "float64"
-                },
-                {
-                    "name": "shareprice",
-                    "type": "float64"
-                },
-                {
-                    "name": "sharestart",
-                    "type": "float64"
-                },
-                {
-                    "name": "shareend",
-                    "type": "float64"
-                },
-                {
-                    "name": "officers",
-                    "type": "string[]"
+                    "name": "shareholders",
+                    "type": "name[]"
                 },
                 {
                     "name": "employees",
-                    "type": "string[]"
+                    "type": "name[]"
+                }
+            ]
+        },
+        {
+            "name": "delcompany",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
                 }
             ]
         },
@@ -68,48 +104,87 @@
             "fields": []
         },
         {
+            "name": "identityt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "fname",
+                    "type": "string"
+                },
+                {
+                    "name": "mname",
+                    "type": "string"
+                },
+                {
+                    "name": "lname",
+                    "type": "string"
+                },
+                {
+                    "name": "dob",
+                    "type": "string"
+                },
+                {
+                    "name": "contact",
+                    "type": "string"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "name": "citizen",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
             "name": "makepublic",
             "base": "",
             "fields": [
                 {
-                    "name": "id",
+                    "name": "company_id",
                     "type": "uint64"
                 },
                 {
-                    "name": "marketcap",
-                    "type": "float64"
-                },
-                {
-                    "name": "totalshares",
-                    "type": "float64"
+                    "name": "maximum_supply",
+                    "type": "asset"
                 }
             ]
         },
         {
-            "name": "newshareprice",
+            "name": "printnames",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "rmemployee",
             "base": "",
             "fields": [
                 {
-                    "name": "id",
+                    "name": "company_id",
                     "type": "uint64"
                 },
                 {
-                    "name": "newshareprice",
-                    "type": "float64"
+                    "name": "employee",
+                    "type": "name"
                 }
             ]
         },
         {
-            "name": "newtotalshare",
+            "name": "rmshareowner",
             "base": "",
             "fields": [
                 {
-                    "name": "id",
+                    "name": "company_id",
                     "type": "uint64"
                 },
                 {
-                    "name": "newtotalshare",
-                    "type": "float64"
+                    "name": "shareholder",
+                    "type": "name"
                 }
             ]
         }
@@ -119,6 +194,26 @@
         {
             "name": "addbusiness",
             "type": "addbusiness",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addemployee",
+            "type": "addemployee",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "adshareowner",
+            "type": "adshareowner",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "approve",
+            "type": "approve",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "delcompany",
+            "type": "delcompany",
             "ricardian_contract": ""
         },
         {
@@ -132,13 +227,18 @@
             "ricardian_contract": ""
         },
         {
-            "name": "newshareprice",
-            "type": "newshareprice",
+            "name": "printnames",
+            "type": "printnames",
             "ricardian_contract": ""
         },
         {
-            "name": "newtotalshare",
-            "type": "newtotalshare",
+            "name": "rmemployee",
+            "type": "rmemployee",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "rmshareowner",
+            "type": "rmshareowner",
             "ricardian_contract": ""
         }
     ],
@@ -146,6 +246,13 @@
         {
             "name": "businesstb",
             "type": "businessst",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "identity2",
+            "type": "identityt",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
