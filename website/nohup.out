@@ -1,149 +1,0 @@
-Warning: The --production flag should only be used to simulate production
-bundling for testing purposes. Use meteor build to create a bundle for
-production deployment. See: https://guide.meteor.com/deployment.html
-[[[[[ ~/webapps/Utopianew ]]]]]
-
-=> Started proxy.
-=> Started MongoDB.
-=> Started your app.
-
-=> App running at: http://localhost:3005/
-Warning: The --production flag should only be used to simulate production
-bundling for testing purposes. Use meteor build to create a bundle for
-production deployment. See: https://guide.meteor.com/deployment.html
-[[[[[ ~/webapps/Utopianew ]]]]]
-
-=> Started proxy.
-=> Started MongoDB.
-=> Started your app.
-
-=> App running at: http://localhost:3005/
-[[[[[ ~/webapps/Utopianew ]]]]]
-
-=> Started proxy.
-=> Started MongoDB.
-=> Started your app.
-
-=> App running at: http://localhost:3005/
-[[[[[ ~/webapps/Utopianew ]]]]]
-
-=> Started proxy.
-=> Started MongoDB.
-=> Started your app.
-
-=> App running at: http://localhost:3005/
-Can't listen on port 3005. Perhaps another Meteor is running?
-
-Running two copies of Meteor in the same application directory
-will not work. If something else is using port 3005, you can
-specify an alternative port with --port <port>.
-[[[[[ ~/webapps/Utopianew ]]]]]
-
-=> Started proxy.
-=> Started MongoDB.
-=> Started your app.
-
-=> App running at: http://localhost:3005/
-=> Server modified -- restarting...Can't listen on port 3005. Perhaps another Meteor is running?
-
-Running two copies of Meteor in the same application directory
-will not work. If something else is using port 3005, you can
-specify an alternative port with --port <port>.
-                                   => Meteor server restarted
-=> Client modified -- refreshing
-=> Server modified -- restarting...                                   => Meteor server restartedCan't listen on port 3005. Perhaps another Meteor is running?
-
-Running two copies of Meteor in the same application directory
-will not work. If something else is using port 3005, you can
-specify an alternative port with --port <port>.
-[[[[[ ~/webapps/Utopianew ]]]]]
-
-=> Started proxy.
-=> Started MongoDB.
-=> Started your app.
-
-=> App running at: http://localhost:3005/
-=> Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)Can't listen on port 3005. Perhaps another Meteor is running?
-
-Running two copies of Meteor in the same application directory
-will not work. If something else is using port 3005, you can
-specify an alternative port with --port <port>.
-
-=> Server modified -- restarting...                                   => Meteor server restarted
-=> Server modified -- restarting...                                   => Meteor server restarted
-=> Client modified -- refreshing=> Client modified -- refreshing (x2)=> Client modified -- refreshing (x3)=> Client modified -- refreshing (x4)=> Client modified -- refreshing (x5)Can't listen on port 3005. Perhaps another Meteor is running?
-
-Running two copies of Meteor in the same application directory
-will not work. If something else is using port 3005, you can
-specify an alternative port with --port <port>.
-=> Client modified -- refreshing (x6)Can't listen on port 3005. Perhaps another Meteor is running?
-
-Running two copies of Meteor in the same application directory
-will not work. If something else is using port 3005, you can
-specify an alternative port with --port <port>.
-=> Client modified -- refreshing (x7)Can't listen on port 3005. Perhaps another Meteor is running?
-
-Running two copies of Meteor in the same application directory
-will not work. If something else is using port 3005, you can
-specify an alternative port with --port <port>.
-=> Client modified -- refreshing (x8)
-=> Server modified -- restarting...                                   => Meteor server restarted
-=> Client modified -- refreshingCan't listen on port 3005. Perhaps another Meteor is running?
-
-Running two copies of Meteor in the same application directory
-will not work. If something else is using port 3005, you can
-specify an alternative port with --port <port>.
-=> Client modified -- refreshing (x2)Can't listen on port 3005. Perhaps another Meteor is running?
-
-Running two copies of Meteor in the same application directory
-will not work. If something else is using port 3005, you can
-specify an alternative port with --port <port>.
-Can't listen on port 3005. Perhaps another Meteor is running?
-
-Running two copies of Meteor in the same application directory
-will not work. If something else is using port 3005, you can
-specify an alternative port with --port <port>.
-=> Client modified -- refreshing (x3)[[[[[ ~/webapps/Utopianew ]]]]]
-
-=> Started proxy.
-=> Started MongoDB.
-=> Started your app.
-
-=> App running at: http://localhost:3005/
-[[[[[ ~/webapps/Utopianew ]]]]]
-
-=> Started proxy.
-=> Started MongoDB.
-=> Started your app.
-
-=> App running at: http://localhost:3005/
-[[[[[ ~/webapps/Utopianew ]]]]]
-
-=> Started proxy.
-=> Started MongoDB.
-=> Started your app.
-
-=> App running at: http://localhost:3005/
-=> Client modified -- refreshing[[[[[ ~/webapps/Utopianew ]]]]]
-
-=> Started proxy.
-=> Started MongoDB.
-=> Started your app.
-
-=> App running at: http://localhost:3005/
-Can't listen on port 3005. Perhaps another Meteor is running?
-
-Running two copies of Meteor in the same application directory
-will not work. If something else is using port 3005, you can
-specify an alternative port with --port <port>.
-=> Server modified -- restarting...                                   => Meteor server restartedCan't listen on port 3005. Perhaps another Meteor is running?
-
-Running two copies of Meteor in the same application directory
-will not work. If something else is using port 3005, you can
-specify an alternative port with --port <port>.
-
-=> Client modified -- refreshingCan't listen on port 3005. Perhaps another Meteor is running?
-
-Running two copies of Meteor in the same application directory
-will not work. If something else is using port 3005, you can
-specify an alternative port with --port <port>.
