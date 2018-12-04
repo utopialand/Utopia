@@ -9,8 +9,9 @@ import '../../../api/identity/methods';
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";
-/* var ipfs = require('ipfs-http-client')('localhost', 3000); */
-
+const help=require('./helperadd.js');
+const axios = require('axios');
+const cors =require('cors');
 // create a stream from a file, which enables uploads of big files without allocating memory twice
 
 
@@ -58,7 +59,7 @@ Template.identity_reg.events({
         var dob = $('#dob').val();
         var phonenumber = $('#phonenumber').val();
         var email = $('#email').val();
-        var username = localStorage.getItem("username")
+        var username = localStorage.getItem("username");
         console.log("----", username);
         eosinstance.contract('identityreg1').then(identityreg1 => {
             console.log("----", eosinstance);
@@ -73,18 +74,26 @@ Template.identity_reg.events({
 
         })
     },
-   /* 'click .upload-picture':function(){
-    var f1 = 'Hello',
-    f2 = 'World'
-    ipfsClient.add([new Buffer(f1), new Buffer(f2)], function (err, res) {
-        if (err || !res) return console.log(err)
-      
-        for (var i = 0; i < res.length; i++) {
-          console.log(res)
-        }
-      }) 
-      
-   }*/
+   'click #upload-picture-button':function(){
+       console.log("----",help);       
+       var proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      /*  axios.get('http://127.0.0.1:8080/ipfs/QmR6hzQiXekfvccMvNuWst2zShBWmnZUp8LbSqNxvMPsX4')                                                                                                     
+       .then(response => {
+       console.log("response---",response.data);
+       })
+       .catch(error => {
+       console.log("error---",error);
+       }); */
+    
+       axios.post('http://127.0.0.1:5001/api/v0/add?file=@/home/innotical/Downloads/Illustration2.png')                                                                                                     
+       .then(response => {
+       console.log("response---",response.data);
+       })
+       .catch(error => {
+       console.log("error---",error);
+       }); 
+           
+   }
 
 });
 
