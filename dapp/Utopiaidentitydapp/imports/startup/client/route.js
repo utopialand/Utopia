@@ -11,6 +11,7 @@ import "../../ui/pages/main/citizenship.js"
 import "../../ui/pages/main/newproposal.js";
 import "../../ui/pages/main/manager.js";
 import "../../ui/pages/main/result.js";
+import "../../ui/pages/main/budgetResult.js";
 
 FlowRouter.route('/', {
   name: 'welocomePage',
@@ -78,5 +79,12 @@ FlowRouter.route('/identity', {
   action(params){
     var cont = params.id
     BlazeLayout.render('App_body', { main: 'App_identity'});
+  }
+});
+
+FlowRouter.route('/budget-result', {
+  name: "budget_result",
+  action(){
+    BlazeLayout.render('App_body', { main: 'App_budget_result'});
   }
 });

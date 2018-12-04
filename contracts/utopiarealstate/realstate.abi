@@ -1,23 +1,19 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec  3 18:44:17 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Tue Dec  4 14:22:04 2018",
     "version": "eosio::abi/1.1",
     "structs": [
         {
-            "name": "buyers",
+            "name": "approvedprop",
             "base": "",
             "fields": [
                 {
-                    "name": "username",
-                    "type": "name"
-                },
-                {
-                    "name": "price",
-                    "type": "asset"
+                    "name": "id",
+                    "type": "uint64"
                 }
             ]
         },
         {
-            "name": "buyproptbid",
+            "name": "bid",
             "base": "",
             "fields": [
                 {
@@ -25,12 +21,54 @@
                     "type": "uint64"
                 },
                 {
-                    "name": "username",
+                    "name": "buyername",
                     "type": "name"
                 },
                 {
                     "name": "amount",
                     "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "bidtable",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "location",
+                    "type": "string"
+                },
+                {
+                    "name": "area",
+                    "type": "uint64"
+                },
+                {
+                    "name": "currentOwner",
+                    "type": "name"
+                },
+                {
+                    "name": "currentprice",
+                    "type": "asset"
+                },
+                {
+                    "name": "startdate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "enddate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "bidstatus",
+                    "type": "bool"
+                },
+                {
+                    "name": "rsproposal",
+                    "type": "string"
                 }
             ]
         },
@@ -85,8 +123,12 @@
                     "type": "uint64"
                 },
                 {
-                    "name": "username",
+                    "name": "currentOwner",
                     "type": "name"
+                },
+                {
+                    "name": "currentprice",
+                    "type": "asset"
                 },
                 {
                     "name": "startdate",
@@ -95,10 +137,6 @@
                 {
                     "name": "enddate",
                     "type": "uint64"
-                },
-                {
-                    "name": "price",
-                    "type": "asset"
                 }
             ]
         },
@@ -107,7 +145,7 @@
             "base": "",
             "fields": [
                 {
-                    "name": "id",
+                    "name": "propt_id",
                     "type": "uint64"
                 },
                 {
@@ -119,51 +157,18 @@
                     "type": "asset"
                 }
             ]
-        },
-        {
-            "name": "realState",
-            "base": "",
-            "fields": [
-                {
-                    "name": "id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "location",
-                    "type": "string"
-                },
-                {
-                    "name": "area",
-                    "type": "uint64"
-                },
-                {
-                    "name": "username",
-                    "type": "name"
-                },
-                {
-                    "name": "startdate",
-                    "type": "uint64"
-                },
-                {
-                    "name": "enddate",
-                    "type": "uint64"
-                },
-                {
-                    "name": "dayslimit",
-                    "type": "uint64"
-                },
-                {
-                    "name": "price",
-                    "type": "asset"
-                }
-            ]
         }
     ],
     "types": [],
     "actions": [
         {
-            "name": "buyproptbid",
-            "type": "buyproptbid",
+            "name": "approvedprop",
+            "type": "approvedprop",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "bid",
+            "type": "bid",
             "ricardian_contract": ""
         },
         {
@@ -174,15 +179,8 @@
     ],
     "tables": [
         {
-            "name": "buyers",
-            "type": "buyers",
-            "index_type": "i64",
-            "key_names": [],
-            "key_types": []
-        },
-        {
-            "name": "buyertable",
-            "type": "realState",
+            "name": "bidtable",
+            "type": "bidtable",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
@@ -197,13 +195,6 @@
         {
             "name": "properties",
             "type": "properties",
-            "index_type": "i64",
-            "key_names": [],
-            "key_types": []
-        },
-        {
-            "name": "rstable",
-            "type": "realState",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
