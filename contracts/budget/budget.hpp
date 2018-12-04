@@ -8,12 +8,13 @@ CONTRACT budget : public contract
     using contract::contract;
 
   public:
-    ACTION createprop(name identity,name user,string proposal, string detail, uint16_t duration,asset budget, uint16_t numwinners);
+    ACTION createprop(name identity,string proposal, string detail, uint16_t duration,asset budget);
     ACTION delprop(uint64_t id, name user);
     ACTION selectprop(name user, string details, uint16_t duration, uint16_t noofwinner);
-    ACTION voteprop(uint64_t propid, vector<uint8_t> choices, name identity);
+    ACTION voteprop(uint64_t feature_id, vector<uint8_t> choices, name identity);
     ACTION decidewinner(uint64_t id, name user);
     ACTION addmanager(name user);
+    ACTION catgvote(uint64_t id, name identity);
     ACTION delmanager(name user);
     ACTION bypropid(uint64_t prop_id);
     ACTION delvote(uint64_t id, name manager);
@@ -35,6 +36,8 @@ CONTRACT budget : public contract
         string proposal_description;
         string proposal_detail;
         asset budget;
+        uint16_t count=0;
+        string category;
         uint64_t createdat;
         uint16_t selected = 0;
         uint64_t primary_key() const { return id; }
@@ -61,12 +64,34 @@ CONTRACT budget : public contract
         uint64_t by_secondary() const { return feature_id; }
     };
 
+    TABLE catvote
+    {
+        
+        uint64_t proposal_id;
+        string category;
+        uint64_t primary_key() const { return proposal_id; }
+       
+    };
+
     TABLE result
     {
         uint64_t id;
-        uint64_t proposal_id;
+        uint64_t feature_id;
         vector<int> selected;
         uint64_t primary_key() const { return id; }
+    };
+
+    struct lprop {
+        uint64_t id;
+        uint16_t count;
+    };
+     struct mprop {
+        uint64_t id;
+        uint16_t count;
+    };
+     struct sprop {
+        uint64_t id;
+        uint16_t count;
     };
 
     TABLE identityt
@@ -85,9 +110,10 @@ CONTRACT budget : public contract
   private:
     typedef multi_index<"identity2"_n, identityt> identity_table;
     typedef multi_index<"manager11"_n, manager> manager_table;
-    typedef multi_index<"proposal11"_n, proposal> proposal_table;
-    typedef multi_index<"feature11"_n, featurelist> feature_table;
-    typedef multi_index<"votes13"_n, votes,
+    typedef multi_index<"proposal13"_n, proposal> proposal_table;
+    typedef multi_index<"feature12"_n, featurelist> feature_table;
+    typedef multi_index<"catvote12"_n, catvote> catvote_table;
+    typedef multi_index<"votes12"_n, votes,
                         indexed_by<"propid"_n,
                                    const_mem_fun<votes, uint64_t, &votes::by_secondary>>>
         votes_table;
