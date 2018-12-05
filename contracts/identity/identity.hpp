@@ -18,7 +18,8 @@ CONTRACT identity : public contract
         string lname,
         string dob,
         string contact,
-        string email);
+        string email,
+        string hash);
     ACTION remidentity(name username);
 
     ACTION addcitizen(uint64_t id,name identity, name manager);
@@ -26,10 +27,7 @@ CONTRACT identity : public contract
     ACTION remcitizen(name identity, name manager);
     ACTION remmanager(name user);
     ACTION addmanager(name user);
-    ACTION remcitreq(uint64_t id,name manager);
-    /* ACTION settest(name user);
-    ACTION gettest(); */
-    ACTION hi();
+    ACTION remcitreq(uint64_t id,name manager);    
     ACTION delall();
 
     TABLE identityt
@@ -41,6 +39,7 @@ CONTRACT identity : public contract
         string dob;
         string contact;
         string email;
+        string imghash;
         bool citizen = false;
         uint64_t primary_key() const { return username.value; }
     };
@@ -82,9 +81,9 @@ CONTRACT identity : public contract
         }
     }
 
-    typedef multi_index<"identity2"_n, identityt> identity_table;
+    typedef multi_index<"identity3"_n, identityt> identity_table;
     typedef multi_index<"manager11"_n, manager> manager_table;
-    typedef multi_index<"citizen"_n, citizenship> citizen_table;
+    typedef multi_index<"citizen3"_n, citizenship> citizen_table;
 
     //  
 };

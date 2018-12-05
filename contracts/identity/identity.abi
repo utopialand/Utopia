@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Nov 29 11:51:03 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 11:12:54 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -51,6 +51,10 @@
                 {
                     "name": "email",
                     "type": "string"
+                },
+                {
+                    "name": "hash",
+                    "type": "string"
                 }
             ]
         },
@@ -88,11 +92,6 @@
             "fields": []
         },
         {
-            "name": "hi",
-            "base": "",
-            "fields": []
-        },
-        {
             "name": "identityt",
             "base": "",
             "fields": [
@@ -122,6 +121,10 @@
                 },
                 {
                     "name": "email",
+                    "type": "string"
+                },
+                {
+                    "name": "imghash",
                     "type": "string"
                 },
                 {
@@ -222,11 +225,6 @@
             "ricardian_contract": ""
         },
         {
-            "name": "hi",
-            "type": "hi",
-            "ricardian_contract": ""
-        },
-        {
             "name": "remcitizen",
             "type": "remcitizen",
             "ricardian_contract": ""
@@ -254,14 +252,14 @@
     ],
     "tables": [
         {
-            "name": "citizen",
+            "name": "citizen3",
             "type": "citizenship",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "identity2",
+            "name": "identity3",
             "type": "identityt",
             "index_type": "i64",
             "key_names": [],
