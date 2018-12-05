@@ -11,7 +11,7 @@ ACTION identity::addidentity(name username,
 {
     require_auth(username);
     identity_table iden_table(_self, _self.value);
-    iden_table.emplace(_self, [&](auto &v) {
+    iden_table.emplace(username, [&](auto &v) {
         v.username = username;
         v.fname = fname;
         v.mname = mname;
@@ -19,10 +19,37 @@ ACTION identity::addidentity(name username,
         v.dob = dob;
         v.contact = contact;
         v.email = email;
-        v.imghash = hash;
+        v.dochash = hash;
     });
 
     print("add identity");
+}
+
+ACTION identity::addidcitzn(name manager,
+                            name username,
+                            string fname,
+                            string mname,
+                            string lname,
+                            string dob,
+                            string contact,
+                            string email, string hash)
+{
+    eosio_assert(is_manager(manager), "Not Authorized");
+    
+    identity_table iden_table(_self, _self.value);
+    iden_table.emplace(username, [&](auto &v) {
+        v.username = username;
+        v.fname = fname;
+        v.mname = mname;
+        v.lname = lname;
+        v.dob = dob;
+        v.contact = contact;
+        v.email = email;
+        v.dochash = hash;
+        v.citizen = true;
+    });
+
+    print("added identity by manager");
 }
 
 ACTION identity::remidentity(name username)
@@ -91,10 +118,16 @@ ACTION identity::delall()
 {
     print("test------");
     identity_table iden_table(_self, _self.value);
+     citizen_table citizen(_self, _self.value);
     auto it = iden_table.begin();
+    auto cit = citizen.begin();
     while (it != iden_table.end())
     {
         it = iden_table.erase(it);
+    }
+    while (cit != citizen.end())
+    {
+        cit = citizen.erase(cit);
     }
 }
 
@@ -113,7 +146,7 @@ ACTION identity::reqcitizen(name identity)
         cit_itr++;
     }
 
-    citizen.emplace(_self, [&](auto &v) {
+    citizen.emplace(identity, [&](auto &v) {
         v.id = citizen.available_primary_key();
         v.identity = identity;
         v.approved = false;
@@ -132,6 +165,6 @@ ACTION identity::remcitreq(uint64_t id, name manager)
 }
 
 EOSIO_DISPATCH(identity,
-               (addidentity)(remidentity)(reqcitizen)(delall)(addmanager)(remmanager)(remcitreq)
+               (addidentity)(addidcitzn)(remidentity)(reqcitizen)(delall)(addmanager)(remmanager)(remcitreq)
 
                    (addcitizen)(remcitizen))
