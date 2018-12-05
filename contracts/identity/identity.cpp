@@ -7,7 +7,7 @@ ACTION identity::addidentity(name username,
                              string lname,
                              string dob,
                              string contact,
-                             string email,string hash)
+                             string email, string hash)
 {
     require_auth(username);
     identity_table iden_table(_self, _self.value);
@@ -42,7 +42,6 @@ ACTION identity::addmanager(name user)
     mt.emplace(_self, [&](auto &v) {
         v.user = user;
     });
-   
 }
 
 ACTION identity::remmanager(name user)
@@ -65,7 +64,7 @@ ACTION identity::addcitizen(uint64_t id, name user, name manager)
 
     auto cit = citizen.find(id);
     eosio_assert(cit != citizen.end(), "citizenship is not applied yet!!!");
-    eosio_assert(cit -> approved !=true, "Already approved!!");
+    eosio_assert(cit->approved != true, "Already approved!!");
     auto itr = iden_tab.find(user.value);
     iden_tab.modify(itr, _self, [&](auto &v) {
         v.citizen = true;
@@ -105,7 +104,7 @@ ACTION identity::reqcitizen(name identity)
     identity_table iden_tab(_self, _self.value);
     auto itr = iden_tab.find(identity.value);
     eosio_assert(itr != iden_tab.end(), "Your identity id not registered yet !!!");
-   // require_auth(identity);
+    // require_auth(identity);
     auto cit_itr = citizen.begin();
     while (cit_itr != citizen.end())
     {
