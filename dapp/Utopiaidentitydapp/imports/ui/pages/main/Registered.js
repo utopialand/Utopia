@@ -1,22 +1,47 @@
 import "./Registered.html"
 import "../../stylesheets/Registered.css";
+import ScatterJS from "scatterjs-core";
+import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";
-eosConfig = {
-    chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473", // 32 byte (64 char) hex string
-    keyProvider: ['5KeNdWYxPbUpsLUa8QT64AbjTAQeHcZejcR6shHnNi1sESgxgm7'],
-    // WIF string or array of keys..
-    httpEndpoint: 'https://jungle2.cryptolions.io:443',
-    expireInSeconds: 60,
-    broadcast: true,
-    verbose: false, // API activity
-    sign: true
-}
-eos = Eos(eosConfig);
+const network = {
+  protocol: "https", // Defaults to https
+  blockchain: "eos",
+  host: "jungle2.cryptolions.io",
+  port: 443,
+  chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
+};
+const eosOptions = {
+  chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
+};
+
+var scatter={};
+var eosinstance = {};
+Template.Reg_success.onCreated(function () {
+
+  Meteor.subscribe('identity');
+  ScatterJS.scatter.connect('utopia').then((connected) => {
+      if (connected) {
+          if (ScatterJS.scatter.connect('utopia')) {
+              scatter = ScatterJS.scatter;
+              const requiredFields = { accounts: [network] };
+              const eos = scatter.eos(network, Eos, eosOptions);
+              if (scatter.identity) {
+                  eosinstance = eos;
+              } else {
+                  FlowRouter.go("/");
+              }
+          }
+      } else {
+          console.log("scatter not installed")
+      }
+  });
+});
+
 
 Template.Reg_success.events({
       "click .button":function(){
         var username= localStorage.getItem("username");
-        eos.contract('identityreg1').then(identityreg1 => {
+        eosinstance.contract('identityreg1').then(identityreg1 => {
           identityreg1.reqcitizen(username,{authorization:username}).then((response)=>{
               if(response){
                   console.log("hello--",response);
@@ -26,6 +51,6 @@ Template.Reg_success.events({
           });
         
         })
-        FlowRouter.go("/citizenship",{eosinstance :scatter});
+        FlowRouter.go("/citizenship");
       }
     })

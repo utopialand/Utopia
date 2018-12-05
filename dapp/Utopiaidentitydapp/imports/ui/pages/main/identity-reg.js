@@ -62,8 +62,7 @@ Template.identity_reg.events({
         var username = localStorage.getItem("username");
         var hash="QmZbj5ruYneZb8FuR9wnLqJCpCXMQudhSdWhdhp5U1oPWJ";
         console.log("----", username);
-        eosinstance.contract('identityreg1').then(identityreg1 => {
-            console.log("----", eosinstance);
+        eosinstance.contract('identityreg1').then(identityreg1 => {            
             identityreg1.addidentity(username, firstname, midname, lastname, dob, phonenumber, email,hash, { authorization: username }).then((response) => {
                 if (response) {
                     FlowRouter.go("/reg-success");
@@ -89,18 +88,15 @@ Template.identity_reg.events({
        .catch(error => {
        console.log("error---",error);
        }); */
-    
-      /*  axios.post('http://127.0.0.1:5001/api/v0/add','file=@/home/innotical/Downloads/Illustration2.png',{headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },})                                                                                                     
+     /*   const config = { headers: { 'Content-Type': 'multipart/form-data' } };
+       axios.post('http://127.0.0.1:5001/api/v0/add','file=@/home/innotical/Downloads/Illustration2.png',config)                                                                                                     
        .then(response => {
        console.log("response---",response.data);
        })
        .catch(error => {
        console.log("error---",error);
-       });  */
-           
+       }); 
+            */
    }
 
 });
