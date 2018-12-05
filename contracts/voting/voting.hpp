@@ -17,6 +17,7 @@ CONTRACT voting : public contract
     ACTION delmanager(name user);
     ACTION bypropid(uint64_t prop_id);
     ACTION delvote(uint64_t id, name manager);
+    ACTION delresult(uint64_t id, name manager);
     vector<int> surplusdist(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int i);
     vector<int> elimination(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx);
     int repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, vector<int> votes_count);
@@ -54,9 +55,10 @@ CONTRACT voting : public contract
     {
         uint64_t id;
         uint64_t proposal_id;
-        vector<string> selected;
+        vector<int> selected;
         uint64_t primary_key() const { return id; }
     };
+
 
     TABLE identityt
     {
@@ -80,7 +82,7 @@ CONTRACT voting : public contract
                                    const_mem_fun<votes, uint64_t, &votes::by_secondary>>>
         votes_table;
 
-    typedef multi_index<"result11"_n, result> result_table;
+    typedef multi_index<"result13"_n, result> result_table;
     void helper()
     {
         print("call test");

@@ -7,7 +7,7 @@ ACTION identity::addidentity(name username,
                              string lname,
                              string dob,
                              string contact,
-                             string email)
+                             string email,string hash)
 {
     identity_table iden_table(_self, _self.value);
     iden_table.emplace(_self, [&](auto &v) {
@@ -18,6 +18,7 @@ ACTION identity::addidentity(name username,
         v.dob = dob;
         v.contact = contact;
         v.email = email;
+        v.imghash = hash;
     });
 
     print("add identity");
@@ -71,6 +72,7 @@ ACTION identity::addcitizen(uint64_t id, name user, name manager)
     citizen.modify(cit, _self, [&](auto &ct) {
         ct.approved = true;
     });
+    citizen.erase(cit);
 }
 
 ACTION identity::remcitizen(name user, name manager)

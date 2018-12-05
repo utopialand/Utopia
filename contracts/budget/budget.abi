@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec  3 18:18:59 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 10:32:15 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -23,15 +23,39 @@
             ]
         },
         {
+            "name": "catgvote",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "identity",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "catvote",
+            "base": "",
+            "fields": [
+                {
+                    "name": "proposal_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "category",
+                    "type": "string"
+                }
+            ]
+        },
+        {
             "name": "createprop",
             "base": "",
             "fields": [
                 {
                     "name": "identity",
-                    "type": "name"
-                },
-                {
-                    "name": "user",
                     "type": "name"
                 },
                 {
@@ -49,10 +73,6 @@
                 {
                     "name": "budget",
                     "type": "asset"
-                },
-                {
-                    "name": "numwinners",
-                    "type": "uint16"
                 }
             ]
         },
@@ -201,6 +221,16 @@
             ]
         },
         {
+            "name": "modprop",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "proposal",
             "base": "",
             "fields": [
@@ -225,6 +255,14 @@
                     "type": "asset"
                 },
                 {
+                    "name": "count",
+                    "type": "uint16"
+                },
+                {
+                    "name": "category",
+                    "type": "string"
+                },
+                {
                     "name": "createdat",
                     "type": "uint64"
                 },
@@ -243,7 +281,7 @@
                     "type": "uint64"
                 },
                 {
-                    "name": "proposal_id",
+                    "name": "feature_id",
                     "type": "uint64"
                 },
                 {
@@ -279,7 +317,7 @@
             "base": "",
             "fields": [
                 {
-                    "name": "propid",
+                    "name": "feature_id",
                     "type": "uint64"
                 },
                 {
@@ -332,6 +370,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "catgvote",
+            "type": "catgvote",
+            "ricardian_contract": ""
+        },
+        {
             "name": "createprop",
             "type": "createprop",
             "ricardian_contract": ""
@@ -362,6 +405,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "modprop",
+            "type": "modprop",
+            "ricardian_contract": ""
+        },
+        {
             "name": "selectprop",
             "type": "selectprop",
             "ricardian_contract": ""
@@ -374,7 +422,14 @@
     ],
     "tables": [
         {
-            "name": "feature11",
+            "name": "catvote12",
+            "type": "catvote",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "feature12",
             "type": "featurelist",
             "index_type": "i64",
             "key_names": [],
@@ -395,7 +450,7 @@
             "key_types": []
         },
         {
-            "name": "proposal11",
+            "name": "proposal13",
             "type": "proposal",
             "index_type": "i64",
             "key_names": [],
@@ -409,7 +464,7 @@
             "key_types": []
         },
         {
-            "name": "votes13",
+            "name": "votes12",
             "type": "votes",
             "index_type": "i64",
             "key_names": [],

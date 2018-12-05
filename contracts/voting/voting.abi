@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Sun Dec  2 20:45:06 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec  3 15:01:20 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -86,6 +86,20 @@
                 },
                 {
                     "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "delresult",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "manager",
                     "type": "name"
                 }
             ]
@@ -200,7 +214,7 @@
                 },
                 {
                     "name": "selected",
-                    "type": "string[]"
+                    "type": "int32[]"
                 }
             ]
         },
@@ -287,6 +301,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "delresult",
+            "type": "delresult",
+            "ricardian_contract": ""
+        },
+        {
             "name": "delvote",
             "type": "delvote",
             "ricardian_contract": ""
@@ -325,7 +344,7 @@
             "key_types": []
         },
         {
-            "name": "result11",
+            "name": "result13",
             "type": "result",
             "index_type": "i64",
             "key_names": [],
