@@ -9,6 +9,7 @@ ACTION identity::addidentity(name username,
                              string contact,
                              string email,string hash)
 {
+    require_auth(username);
     identity_table iden_table(_self, _self.value);
     iden_table.emplace(_self, [&](auto &v) {
         v.username = username;
@@ -27,6 +28,7 @@ ACTION identity::addidentity(name username,
 ACTION identity::remidentity(name username)
 {
     print("removeidentity");
+    require_auth(username)
     identity_table iden_table(_self, _self.value);
     auto itr = iden_table.find(username.value);
     iden_table.erase(itr);
