@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Tue Dec  4 18:25:13 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 10:32:15 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -221,6 +221,16 @@
             ]
         },
         {
+            "name": "modprop",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "proposal",
             "base": "",
             "fields": [
@@ -392,6 +402,11 @@
         {
             "name": "delvote",
             "type": "delvote",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "modprop",
+            "type": "modprop",
             "ricardian_contract": ""
         },
         {

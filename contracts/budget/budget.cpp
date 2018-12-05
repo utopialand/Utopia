@@ -2,14 +2,14 @@
 
 ACTION budget::createprop(name identity, string proposal, string detail, uint16_t duration, asset budget)
 {
-   // eosio_assert(is_manager(user), "not authorized");
+    // eosio_assert(is_manager(user), "not authorized");
     /* require_auth(user); */
     string catg;
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(identity.value);
     eosio_assert(itr != iden_table.end(), "identity not found !!!");
     proposal_table pt(_self, _self.value);
-    print("amt--",budget.amount);
+    print("amt--", budget.amount);
     if (budget.amount >= 100000)
         catg = "l";
     else if (budget.amount >= 70000)
@@ -33,7 +33,7 @@ ACTION budget::catgvote(uint64_t id, name identity)
     catvote_table ct(_self, identity.value);
     proposal_table pt(_self, _self.value);
     auto itr = ct.find(id);
-   /*  auto p_itr = pt.find(id);
+    /*  auto p_itr = pt.find(id);
     auto catg = p_itr->category; */
     eosio_assert(itr == ct.end(), "Already voted for this proposal id");
     ct.emplace(_self, [&](auto &c) {
@@ -62,19 +62,19 @@ ACTION budget ::selectprop(name user, string details, uint16_t duration, uint16_
     while (prop_itr != pt.end())
     {
 
-        if (prop_itr->category == "l" && prop_itr->selected !=1 && prop_itr->count !=0)
+        if (prop_itr->category == "l" && prop_itr->selected != 1 && prop_itr->count != 0)
         {
             l1.id = prop_itr->id;
             l1.count = prop_itr->count;
             countlprop.push_back(l1);
         }
-        if (prop_itr->category == "m" && prop_itr->selected !=1 && prop_itr->count !=0)
+        if (prop_itr->category == "m" && prop_itr->selected != 1 && prop_itr->count != 0)
         {
             m1.id = prop_itr->id;
             m1.count = prop_itr->count;
             countmprop.push_back(m1);
         }
-        if (prop_itr->category == "s" && prop_itr->selected !=1 && prop_itr->count !=0)
+        if (prop_itr->category == "s" && prop_itr->selected != 1 && prop_itr->count != 0)
         {
             s1.id = prop_itr->id;
             s1.count = prop_itr->count;
@@ -124,21 +124,20 @@ ACTION budget ::selectprop(name user, string details, uint16_t duration, uint16_
     }
     if (countlprop.size() >= 1)
     {
-        print("size--",countlprop.size());
-         print("data--",countlprop[0].id);
+        print("size--", countlprop.size());
+        print("data--", countlprop[0].id);
         options.push_back(countlprop[0].id);
         auto pitr = pt.find(countlprop[0].id);
-         pt.modify(pitr, _self, [&](auto &v) {
+        pt.modify(pitr, _self, [&](auto &v) {
             v.selected = 1;
         });
-
     }
 
     for (auto i = 0; i < countmprop.size() && i < 2; i++)
     {
         options.push_back(countmprop[i].id);
         auto pitr = pt.find(countmprop[i].id);
-         pt.modify(pitr, _self, [&](auto &v) {
+        pt.modify(pitr, _self, [&](auto &v) {
             v.selected = 1;
         });
     }
@@ -146,18 +145,17 @@ ACTION budget ::selectprop(name user, string details, uint16_t duration, uint16_
     {
         options.push_back(countsprop[i].id);
         auto pitr = pt.find(countsprop[i].id);
-         pt.modify(pitr, _self, [&](auto &v) {
+        pt.modify(pitr, _self, [&](auto &v) {
             v.selected = 1;
         });
     }
 
-     for (auto i = 0; i < countlprop.size() && i < 3; i++)
+    for (auto i = 0; i < options.size(); i++)
     {
-       print("--",countlprop[i].id);
+        print("--", options[i]);
     }
-    
-    
-   /*  ft.emplace(_self, [&](auto &f) {
+
+    /*  ft.emplace(_self, [&](auto &f) {
         f.id = ft.available_primary_key();
         f.desc = details;
         f.proposal_options = options;
@@ -165,6 +163,15 @@ ACTION budget ::selectprop(name user, string details, uint16_t duration, uint16_
         f.num_of_winners = noofwinner;
         f.status = 1;
     }); */
+}
+
+ACTION budget::modprop(uint64_t id)
+{
+    proposal_table pt(_self, _self.value);
+    auto pitr = pt.find(id);
+    pt.modify(pitr, _self, [&](auto &v) {
+        v.selected = 0;
+    });
 }
 
 ACTION budget::addmanager(name user)
@@ -179,7 +186,7 @@ ACTION budget::addmanager(name user)
 
 ACTION budget::voteprop(uint64_t feature_id, vector<uint8_t> choices, name identity)
 {
-    print("vote on proposal");
+    print("vote on proposal---");
     require_auth(identity);
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(identity.value);
@@ -553,4 +560,4 @@ int budget::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, ve
 ///////////////////////////////////////////////////////
 
 EOSIO_DISPATCH(budget,
-               (createprop)(selectprop)(voteprop)(decidewinner)(addmanager)(catgvote))
+               (createprop)(modprop)(selectprop)(voteprop)(decidewinner)(addmanager)(catgvote))

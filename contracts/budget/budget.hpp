@@ -16,6 +16,7 @@ CONTRACT budget : public contract
     ACTION addmanager(name user);
     ACTION catgvote(uint64_t id, name identity);
     ACTION delmanager(name user);
+    ACTION modprop(uint64_t id);
     ACTION bypropid(uint64_t prop_id);
     ACTION delvote(uint64_t id, name manager);
     ACTION delresult(uint64_t id, name manager);
