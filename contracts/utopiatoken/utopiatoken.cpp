@@ -109,22 +109,15 @@ ACTION utopiatoken::transfer(name from, name to, asset quantity, string memo)
 
     auto payer = has_auth(to) ? to : from;
 
-    if (to != "rsdeposite11"_n && from != "rsdeposite11"_n)
-    {
         asset commission;
         asset quantity1;
         commission = (quantity * 5) / 100;
         quantity1 = quantity - commission;
+        
         print("quantity--", quantity);
         sub_balance(from, quantity);
         add_balance(to, quantity1, payer);
         add_balance("utopiatoken1"_n, commission, _self);
-    }
-    else
-    {
-        sub_balance(from, quantity);
-        add_balance(to, quantity, payer);
-    }
 }
 
 void utopiatoken::sub_balance(name owner, asset value)
