@@ -103,7 +103,7 @@ ACTION identity::reqcitizen(name identity)
     identity_table iden_tab(_self, _self.value);
     auto itr = iden_tab.find(identity.value);
     eosio_assert(itr != iden_tab.end(), "Your identity id not registered yet !!!");
-    require_auth(identity);
+   // require_auth(identity);
     auto cit_itr = citizen.begin();
     while (cit_itr != citizen.end())
     {
