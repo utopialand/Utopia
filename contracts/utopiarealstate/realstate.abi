@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Tue Dec  4 14:22:04 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 14:23:39 2018",
     "version": "eosio::abi/1.1",
     "structs": [
         {
@@ -157,6 +157,78 @@
                     "type": "asset"
                 }
             ]
+        },
+        {
+            "name": "reqbuyers",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "buyername",
+                    "type": "name"
+                },
+                {
+                    "name": "price",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "reqbuypropt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "buyer",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "reqsellers",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "sellername",
+                    "type": "name"
+                },
+                {
+                    "name": "sellingprice",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "reqsellpropt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "seller",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
+                }
+            ]
         }
     ],
     "types": [],
@@ -174,6 +246,16 @@
         {
             "name": "landproposal",
             "type": "landproposal",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "reqbuypropt",
+            "type": "reqbuypropt",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "reqsellpropt",
+            "type": "reqsellpropt",
             "ricardian_contract": ""
         }
     ],
@@ -195,6 +277,20 @@
         {
             "name": "properties",
             "type": "properties",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "reqbuyertab",
+            "type": "reqbuyers",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "reqsellertab",
+            "type": "reqsellers",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
