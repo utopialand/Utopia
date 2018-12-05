@@ -184,12 +184,7 @@ ACTION utopiatoken::close(name owner, symbol_code symbol)
     eosio_assert(it->balance.amount == 0, "Cannot close because the balance is not zero.");
     acnts.erase(it);
 }
-ACTION utopiatoken::hello(name username)
-{
-    require_auth(_self);
-    print("hello , ", name{username});
-}
 
 } // namespace eosio
 
-EOSIO_DISPATCH(eosio::utopiatoken, (create)(issue)(transfer)(open)(close)(retire)(hello))
+EOSIO_DISPATCH(eosio::utopiatoken, (create)(issue)(transfer)(open)(close)(retire))

@@ -51,7 +51,6 @@ CONTRACT utopiatoken : public contract
 
     ACTION open(name owner, symbol_code symbol, name ram_payer);
     ACTION close(name owner, symbol_code symbol);
-    ACTION hello(name username);
 
     static asset get_supply(name token_contract_account, symbol_code sym)
     {
