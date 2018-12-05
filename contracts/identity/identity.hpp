@@ -20,6 +20,17 @@ CONTRACT identity : public contract
         string contact,
         string email,
         string hash);
+
+    ACTION addidcitzn(
+        name manager,
+        name username,
+        string fname,
+        string mname,
+        string lname,
+        string dob,
+        string contact,
+        string email,
+        string hash);
     ACTION remidentity(name username);
 
     ACTION addcitizen(uint64_t id,name identity, name manager);
@@ -39,7 +50,7 @@ CONTRACT identity : public contract
         string dob;
         string contact;
         string email;
-        string imghash;
+        string dochash;
         bool citizen = false;
         uint64_t primary_key() const { return username.value; }
     };
