@@ -17,6 +17,7 @@ CONTRACT budget : public contract
     ACTION catgvote(uint64_t id, name identity);
     ACTION delmanager(name user);
     ACTION modprop(uint64_t id);
+    ACTION delall();
     ACTION bypropid(uint64_t prop_id);
     ACTION delvote(uint64_t id, name manager);
     ACTION delresult(uint64_t id, name manager);
@@ -78,7 +79,7 @@ CONTRACT budget : public contract
     {
         uint64_t id;
         uint64_t feature_id;
-        vector<int> selected;
+        vector<uint64_t> selected;
         uint64_t primary_key() const { return id; }
     };
 
@@ -119,7 +120,7 @@ CONTRACT budget : public contract
                                    const_mem_fun<votes, uint64_t, &votes::by_secondary>>>
         votes_table;
 
-    typedef multi_index<"result13"_n, result> result_table;
+    typedef multi_index<"result12"_n, result> result_table;
     void helper()
     {
         print("call test");

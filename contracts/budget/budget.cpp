@@ -149,20 +149,20 @@ ACTION budget ::selectprop(name user, string details, uint16_t duration, uint16_
             v.selected = 1;
         });
     }
-
+    eosio_assert(options.size() >= noofwinner, "Number of winner entered is less than the number of final proposal list for ranking. please modify the criteria!!");
     for (auto i = 0; i < options.size(); i++)
     {
         print("--", options[i]);
     }
 
-    /*  ft.emplace(_self, [&](auto &f) {
+     ft.emplace(_self, [&](auto &f) {
         f.id = ft.available_primary_key();
         f.desc = details;
         f.proposal_options = options;
         f.duration = duration;
         f.num_of_winners = noofwinner;
         f.status = 1;
-    }); */
+    });
 }
 
 ACTION budget::modprop(uint64_t id)
@@ -172,6 +172,19 @@ ACTION budget::modprop(uint64_t id)
     pt.modify(pitr, _self, [&](auto &v) {
         v.selected = 0;
     });
+}
+ACTION budget::delall()
+{
+    print("test------");
+    feature_table ft(_self, _self.value);
+     
+    auto it = ft.begin();
+   
+    while (it != ft.end())
+    {
+        it = ft.erase(it);
+    }
+    
 }
 
 ACTION budget::addmanager(name user)
@@ -391,27 +404,16 @@ ACTION budget::decidewinner(uint64_t id, name user)
     {
         print("winner--", winner[p]);
     }
-    //////////////populating data in result table//////////////////////////////////////////
-
-    /* auto res_itr = rt.begin();
-    while (res_itr != rt.end())
-    {
-        eosio_assert(res_itr->feature_id != id, "already declared!!");
-        res_itr++;
-    }
-    rt.emplace(_self, [&](auto &v) {
-        v.id = rt.available_primary_key();
-        v.feature_id = id;
-        v.selected = winner;
-    }); */
-
+   
     ///////////////finding the winner proposal///////////////////
     prop_itr = pt.find(id);
+    vector<uint64_t> selectedpid;
     for (auto i = 0; i < winner.size(); i++)
     {
         auto pid = prop_itr->proposal_options[winner[i]];
         auto prop = pro.find(pid);
         eosio_assert(prop != pro.end(), "prop not found");
+        selectedpid.push_back(pid);
         print("proposal is--", prop->proposal_description);
         print("budget is--", prop->budget);
         action(
@@ -420,6 +422,21 @@ ACTION budget::decidewinner(uint64_t id, name user)
             std::make_tuple(_self, prop->identity, prop->budget, prop->proposal_description))
             .send();
     }
+
+     //////////////populating data in result table//////////////////////////////////////////
+
+    auto res_itr = rt.begin();
+    while (res_itr != rt.end())
+    {
+        eosio_assert(res_itr->feature_id != id, "already declared!!");
+        res_itr++;
+    }
+    rt.emplace(_self, [&](auto &v) {
+        v.id = rt.available_primary_key();
+        v.feature_id = id;
+        v.selected = selectedpid;
+    });
+
     /////////////////////////////////////////////////////////////
 }
 
@@ -560,4 +577,4 @@ int budget::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, ve
 ///////////////////////////////////////////////////////
 
 EOSIO_DISPATCH(budget,
-               (createprop)(modprop)(selectprop)(voteprop)(decidewinner)(addmanager)(catgvote))
+               (createprop)(modprop)(delall)(selectprop)(voteprop)(decidewinner)(addmanager)(catgvote))

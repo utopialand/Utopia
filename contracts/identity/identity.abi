@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 11:23:01 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 17:57:40 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -7,16 +7,54 @@
             "base": "",
             "fields": [
                 {
-                    "name": "id",
-                    "type": "uint64"
-                },
-                {
                     "name": "identity",
                     "type": "name"
                 },
                 {
                     "name": "manager",
                     "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "addidcitzn",
+            "base": "",
+            "fields": [
+                {
+                    "name": "manager",
+                    "type": "name"
+                },
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "fname",
+                    "type": "string"
+                },
+                {
+                    "name": "mname",
+                    "type": "string"
+                },
+                {
+                    "name": "lname",
+                    "type": "string"
+                },
+                {
+                    "name": "dob",
+                    "type": "string"
+                },
+                {
+                    "name": "contact",
+                    "type": "string"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "name": "hash",
+                    "type": "string"
                 }
             ]
         },
@@ -73,16 +111,8 @@
             "base": "",
             "fields": [
                 {
-                    "name": "id",
-                    "type": "uint64"
-                },
-                {
                     "name": "identity",
                     "type": "name"
-                },
-                {
-                    "name": "approved",
-                    "type": "bool"
                 }
             ]
         },
@@ -124,7 +154,7 @@
                     "type": "string"
                 },
                 {
-                    "name": "imghash",
+                    "name": "dochash",
                     "type": "string"
                 },
                 {
@@ -207,6 +237,11 @@
         {
             "name": "addcitizen",
             "type": "addcitizen",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addidcitzn",
+            "type": "addidcitzn",
             "ricardian_contract": ""
         },
         {
