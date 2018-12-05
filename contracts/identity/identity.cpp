@@ -40,7 +40,7 @@ ACTION identity::addmanager(name user)
     mt.emplace(_self, [&](auto &v) {
         v.user = user;
     });
-    //asset test = asset(10000000000000000000000,symbol(symbol_code("BTC"),18));
+   
 }
 
 ACTION identity::remmanager(name user)
