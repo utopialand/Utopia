@@ -33,7 +33,7 @@ CONTRACT identity : public contract
         string hash);
     ACTION remidentity(name username);
 
-    ACTION addcitizen(uint64_t id,name identity, name manager);
+    ACTION addcitizen(name identity, name manager);
     ACTION reqcitizen(name identity);
     ACTION remcitizen(name identity, name manager);
     ACTION remmanager(name user);
@@ -63,10 +63,10 @@ CONTRACT identity : public contract
 
     TABLE citizenship
     {
-        uint64_t id;
+        
         name identity;
-        bool approved;
-        uint64_t primary_key () const {return id ;}
+        
+        uint64_t primary_key () const {return identity.value ;}
         
     };
 

@@ -1,15 +1,11 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 12:38:15 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 17:06:17 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
             "name": "addcitizen",
             "base": "",
             "fields": [
-                {
-                    "name": "id",
-                    "type": "uint64"
-                },
                 {
                     "name": "identity",
                     "type": "name"
@@ -115,16 +111,8 @@
             "base": "",
             "fields": [
                 {
-                    "name": "id",
-                    "type": "uint64"
-                },
-                {
                     "name": "identity",
                     "type": "name"
-                },
-                {
-                    "name": "approved",
-                    "type": "bool"
                 }
             ]
         },
