@@ -1,0 +1,12 @@
+<template name="App_Body">
+
+    <!-- /components/header/header.html -->
+    {{ > Site_Header }}
+
+        <!-- Loads the dynamic page content -->
+        {{ > Template.dynamic template=main }}
+
+    <!-- /components/footer/footer.html -->
+    {{ > Site_Footer }}
+
+</template>

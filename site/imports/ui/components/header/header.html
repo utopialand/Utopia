@@ -1,0 +1,30 @@
+<template name="Site_Header">
+
+    <header class="header">
+
+        <div class="container">
+
+            <div class="brand">
+
+                <img class="logo" src="images/utopia-logo.svg">
+
+            </div>
+
+            <nav class="navigate main">
+
+                <a class="nav-link {{isActiveRoute 'home' }}" href="/">Home</a>
+                <a class="nav-link {{isActiveRoute 'uos' }}" href="/uos">Utopia OS</a>
+                <a class="nav-link {{isActiveRoute 'location' }}" href="/location">Location</a>
+                <a class="nav-link {{isActiveRoute 'constitution' }}" href="/constitution">Constitution</a>
+                <a class="nav-link {{isActiveRoute 'join' }}" href="/join">Get Involved</a>
+                <a class="nav-link {{isActiveRoute 'shop' }}" href="/shop">Shop</a>
+                <a class="nav-link {{isActiveRoute 'contact' }}" href="/contact">Contact</a>
+
+            </nav>
+
+        </div>
+
+    </header>
+
+</template>
+      
