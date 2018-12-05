@@ -1,7 +1,17 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec  3 18:05:45 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 15:29:47 2018",
     "version": "eosio::abi/1.0",
     "structs": [
+        {
+            "name": "account",
+            "base": "",
+            "fields": [
+                {
+                    "name": "balance",
+                    "type": "asset"
+                }
+            ]
+        },
         {
             "name": "addbusiness",
             "base": "",
@@ -45,16 +55,6 @@
             ]
         },
         {
-            "name": "approve",
-            "base": "",
-            "fields": [
-                {
-                    "name": "company_id",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
             "name": "businessst",
             "base": "",
             "fields": [
@@ -85,6 +85,48 @@
                 {
                     "name": "employees",
                     "type": "name[]"
+                }
+            ]
+        },
+        {
+            "name": "close",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "symbol",
+                    "type": "symbol_code"
+                }
+            ]
+        },
+        {
+            "name": "create",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "currency_stats",
+            "base": "",
+            "fields": [
+                {
+                    "name": "supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "max_supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "issuer",
+                    "type": "name"
                 }
             ]
         },
@@ -142,6 +184,24 @@
             ]
         },
         {
+            "name": "issue",
+            "base": "",
+            "fields": [
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
+        },
+        {
             "name": "makepublic",
             "base": "",
             "fields": [
@@ -156,9 +216,41 @@
             ]
         },
         {
+            "name": "open",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "symbol",
+                    "type": "symbol_code"
+                },
+                {
+                    "name": "ram_payer",
+                    "type": "name"
+                }
+            ]
+        },
+        {
             "name": "printnames",
             "base": "",
             "fields": []
+        },
+        {
+            "name": "retire",
+            "base": "",
+            "fields": [
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
         },
         {
             "name": "rmemployee",
@@ -187,6 +279,28 @@
                     "type": "name"
                 }
             ]
+        },
+        {
+            "name": "transfer",
+            "base": "",
+            "fields": [
+                {
+                    "name": "from",
+                    "type": "name"
+                },
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
         }
     ],
     "types": [],
@@ -207,8 +321,13 @@
             "ricardian_contract": ""
         },
         {
-            "name": "approve",
-            "type": "approve",
+            "name": "close",
+            "type": "close",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "create",
+            "type": "create",
             "ricardian_contract": ""
         },
         {
@@ -222,13 +341,28 @@
             "ricardian_contract": ""
         },
         {
+            "name": "issue",
+            "type": "issue",
+            "ricardian_contract": ""
+        },
+        {
             "name": "makepublic",
             "type": "makepublic",
             "ricardian_contract": ""
         },
         {
+            "name": "open",
+            "type": "open",
+            "ricardian_contract": ""
+        },
+        {
             "name": "printnames",
             "type": "printnames",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "retire",
+            "type": "retire",
             "ricardian_contract": ""
         },
         {
@@ -240,9 +374,21 @@
             "name": "rmshareowner",
             "type": "rmshareowner",
             "ricardian_contract": ""
+        },
+        {
+            "name": "transfer",
+            "type": "transfer",
+            "ricardian_contract": ""
         }
     ],
     "tables": [
+        {
+            "name": "accounts",
+            "type": "account",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
         {
             "name": "businesstb",
             "type": "businessst",
@@ -253,6 +399,13 @@
         {
             "name": "identity2",
             "type": "identityt",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "stat",
+            "type": "currency_stats",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
