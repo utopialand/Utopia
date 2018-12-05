@@ -16,6 +16,10 @@ ACTION utopiatoken::create(name issuer, asset maximum_supply)
     auto existing = statstable.find(sym.code().raw());
     eosio_assert(existing == statstable.end(), "token with symbol already exists");
 
+    identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
+    auto itr = iden_table.find(issuer.value);
+    eosio_assert(itr != iden_table.end(), "identity not found !!");
+
     statstable.emplace(_self, [&](auto &s) {
         s.supply.symbol = maximum_supply.symbol;
         s.max_supply = maximum_supply;
@@ -31,9 +35,7 @@ ACTION utopiatoken::issue(name to, asset quantity, string memo)
 
     //cheacking identity from identity table
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
-    //print("to account", to.value);
     auto itr = iden_table.find(to.value);
-    //print("itr account", itr->username);
     eosio_assert(itr != iden_table.end(), "identity not found !!");
 
     auto sym_name = sym.code().raw();
@@ -91,7 +93,9 @@ ACTION utopiatoken::transfer(name from, name to, asset quantity, string memo)
     //cheacking identity from identity table
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(from.value);
+    auto itr1 = iden_table.find(to.value);
     eosio_assert(itr != iden_table.end(), "identity not found !!!");
+    eosio_assert(itr1 != iden_table.end(), "identity not found !!!");
 
     require_auth(from);
     eosio_assert(is_account(to), "to account does not exist");
