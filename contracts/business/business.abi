@@ -1,0 +1,263 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec  3 18:05:45 2018",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "addbusiness",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "businessname",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "addemployee",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "employee",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "adshareowner",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "shareholder",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "approve",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "businessst",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "status",
+                    "type": "uint8"
+                },
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "businessname",
+                    "type": "string"
+                },
+                {
+                    "name": "token_maximum_supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "shareholders",
+                    "type": "name[]"
+                },
+                {
+                    "name": "employees",
+                    "type": "name[]"
+                }
+            ]
+        },
+        {
+            "name": "delcompany",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "deleteall",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "identityt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "fname",
+                    "type": "string"
+                },
+                {
+                    "name": "mname",
+                    "type": "string"
+                },
+                {
+                    "name": "lname",
+                    "type": "string"
+                },
+                {
+                    "name": "dob",
+                    "type": "string"
+                },
+                {
+                    "name": "contact",
+                    "type": "string"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "name": "citizen",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "makepublic",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "maximum_supply",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "printnames",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "rmemployee",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "employee",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "rmshareowner",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "shareholder",
+                    "type": "name"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "addbusiness",
+            "type": "addbusiness",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addemployee",
+            "type": "addemployee",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "adshareowner",
+            "type": "adshareowner",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "approve",
+            "type": "approve",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "delcompany",
+            "type": "delcompany",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "deleteall",
+            "type": "deleteall",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "makepublic",
+            "type": "makepublic",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "printnames",
+            "type": "printnames",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "rmemployee",
+            "type": "rmemployee",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "rmshareowner",
+            "type": "rmshareowner",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "businesstb",
+            "type": "businessst",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "identity2",
+            "type": "identityt",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}
