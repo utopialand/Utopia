@@ -1,0 +1,31 @@
+
+.footer.simple {
+
+    color: #999;
+    background: #04030F;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 15px 0 13px 0;
+    margin: 0;
+
+    .container > .row {
+        align-items: center;
+    }
+
+    .copyright {
+        font-family: 'Colfax Medium', Helvetica, Sans-Serif;
+        text-transform: uppercase;
+        line-height: 24px;
+        margin: 0 auto 0 0;
+        padding: 0;
+    }
+
+    .social a {
+        color: #999;
+        margin: 0 0 0 15px;
+    }
+
+    .social a:hover {
+        color: #C86DD7;
+    }
+
+}

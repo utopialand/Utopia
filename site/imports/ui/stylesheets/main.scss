@@ -1,0 +1,63 @@
+body {
+    background: #04030F url('images/background.png') no-repeat top center;
+    // background-size: contain;
+    font-family: 'Colfax', Helvetica, Sans-Serif;
+}
+
+.title {
+    color: #FFF;
+    font-size: 32px;
+    font-family: 'Colfax Medium', Helvetica, Sans-Serif;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
+
+.text {
+    color: #F5F5F5;
+    font-size: 16px;
+    font-family: 'Colfax', Arial, Helvetica, Sans-Serif;
+    letter-spacing: 0.025em;
+}
+
+.page-header .title {
+    text-align: center;
+    line-height: 42px;
+}
+
+.page-header .text {
+    text-align: center;
+    line-height: 40px;
+    padding: 50px 0;
+}
+
+.btn.main {
+    background: linear-gradient(169.79deg, #3023AE -36.97%, #C86DD7 148.62%);
+
+    color: #FFF;
+    font-size: 14px;
+    font-family: 'Colfax Medium', Helvetica, Sans-Serif;
+    text-transform: uppercase;
+    text-align: center;
+    
+    height: 50px;
+    width: auto;
+    padding: 0;
+    line-height: 50px;
+}
+
+
+// Smallest to end of SM Breakpoint
+@media (max-width: 767px) {
+
+    .page-header .title { 
+        font-size: 24px;
+        line-height: 32px; 
+    }
+
+    .page-header .text {
+        font-size: 14px;
+        line-height: 36px;
+    }
+
+}
+
