@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 10:32:15 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 15:17:54 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -89,6 +89,11 @@
                     "type": "name"
                 }
             ]
+        },
+        {
+            "name": "delall",
+            "base": "",
+            "fields": []
         },
         {
             "name": "delmanager",
@@ -286,7 +291,7 @@
                 },
                 {
                     "name": "selected",
-                    "type": "int32[]"
+                    "type": "uint64[]"
                 }
             ]
         },
@@ -385,6 +390,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "delall",
+            "type": "delall",
+            "ricardian_contract": ""
+        },
+        {
             "name": "delmanager",
             "type": "delmanager",
             "ricardian_contract": ""
@@ -457,7 +467,7 @@
             "key_types": []
         },
         {
-            "name": "result13",
+            "name": "result12",
             "type": "result",
             "index_type": "i64",
             "key_names": [],
