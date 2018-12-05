@@ -1,88 +1,203 @@
-#include "voting.hpp"
+#include "budget.hpp"
 
-ACTION voting::test()
+ACTION budget::createprop(name identity, string proposal, string detail, uint16_t duration, asset budget)
 {
-    helper();
-}
-
-ACTION voting::createprop(string proposal, string detail, uint16_t duration, vector<string> options, name user, uint16_t numwinners)
-{
-    print("create votes");
-    require_auth(user);
+    // eosio_assert(is_manager(user), "not authorized");
+    /* require_auth(user); */
+    string catg;
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
-    auto itr = iden_table.find(user.value);
+    auto itr = iden_table.find(identity.value);
     eosio_assert(itr != iden_table.end(), "identity not found !!!");
     proposal_table pt(_self, _self.value);
+    print("amt--", budget.amount);
+    if (budget.amount >= 100000)
+        catg = "l";
+    else if (budget.amount >= 70000)
+        catg = "m";
+    else
+        catg = "s";
     pt.emplace(_self, [&](auto &v) {
         v.id = pt.available_primary_key();
-        v.duration = now() + (24 * 60 * 60) * duration;
+        v.identity = identity;
         v.proposal_description = proposal;
         v.proposal_detail = detail;
-        v.proposal_options = options;
-        v.num_of_winners = numwinners;
-        v.status = 1;
+        v.budget = budget;
+        v.category = catg;
+        v.count = 0;
+        v.createdat = now();
+        v.selected = 0;
+    });
+}
+ACTION budget::catgvote(uint64_t id, name identity)
+{
+    catvote_table ct(_self, identity.value);
+    proposal_table pt(_self, _self.value);
+    auto itr = ct.find(id);
+    /*  auto p_itr = pt.find(id);
+    auto catg = p_itr->category; */
+    eosio_assert(itr == ct.end(), "Already voted for this proposal id");
+    ct.emplace(_self, [&](auto &c) {
+        c.proposal_id = id;
+    });
+    auto p_itr = pt.find(id);
+    eosio_assert(p_itr != pt.end(), "proposal doesn't exist..");
+    pt.modify(p_itr, _self, [&](auto &a) {
+        a.count += 1;
+    });
+}
+ACTION budget ::selectprop(name user, string details, uint16_t duration, uint16_t noofwinner)
+{
+    eosio_assert(is_manager(user), "not authorized");
+    vector<uint64_t> options;
+    int count = 0;
+    lprop l1;
+    mprop m1;
+    sprop s1;
+    feature_table ft(_self, _self.value);
+    proposal_table pt(_self, _self.value);
+    auto prop_itr = pt.begin();
+    vector<lprop> countlprop;
+    vector<mprop> countmprop;
+    vector<sprop> countsprop;
+    while (prop_itr != pt.end())
+    {
+
+        if (prop_itr->category == "l" && prop_itr->selected != 1 && prop_itr->count != 0)
+        {
+            l1.id = prop_itr->id;
+            l1.count = prop_itr->count;
+            countlprop.push_back(l1);
+        }
+        if (prop_itr->category == "m" && prop_itr->selected != 1 && prop_itr->count != 0)
+        {
+            m1.id = prop_itr->id;
+            m1.count = prop_itr->count;
+            countmprop.push_back(m1);
+        }
+        if (prop_itr->category == "s" && prop_itr->selected != 1 && prop_itr->count != 0)
+        {
+            s1.id = prop_itr->id;
+            s1.count = prop_itr->count;
+            countsprop.push_back(s1);
+        }
+        prop_itr++;
+    }
+
+    for (auto i = 0; i < countlprop.size(); i++)
+    {
+        for (auto j = i + 1; j < countlprop.size(); j++)
+        {
+            //If there is a smaller element found on right of the array then swap it.
+            if (countlprop[j].count > countlprop[i].count)
+            {
+                auto temp = countlprop[i];
+                countlprop[i] = countlprop[j];
+                countlprop[j] = temp;
+            }
+        }
+    }
+    for (auto i = 0; i < countmprop.size(); i++)
+    {
+        for (auto j = i + 1; j < countmprop.size(); j++)
+        {
+            //If there is a smaller element found on right of the array then swap it.
+            if (countmprop[j].count > countmprop[i].count)
+            {
+                auto temp = countmprop[i];
+                countmprop[i] = countmprop[j];
+                countmprop[j] = temp;
+            }
+        }
+    }
+    for (auto i = 0; i < countsprop.size(); i++)
+    {
+        for (auto j = i + 1; j < countsprop.size(); j++)
+        {
+            //If there is a smaller element found on right of the array then swap it.
+            if (countsprop[j].count > countsprop[i].count)
+            {
+                auto temp = countsprop[i];
+                countsprop[i] = countsprop[j];
+                countsprop[j] = temp;
+            }
+        }
+    }
+    if (countlprop.size() >= 1)
+    {
+        print("size--", countlprop.size());
+        print("data--", countlprop[0].id);
+        options.push_back(countlprop[0].id);
+        auto pitr = pt.find(countlprop[0].id);
+        pt.modify(pitr, _self, [&](auto &v) {
+            v.selected = 1;
+        });
+    }
+
+    for (auto i = 0; i < countmprop.size() && i < 2; i++)
+    {
+        options.push_back(countmprop[i].id);
+        auto pitr = pt.find(countmprop[i].id);
+        pt.modify(pitr, _self, [&](auto &v) {
+            v.selected = 1;
+        });
+    }
+    for (auto i = 0; i < countsprop.size() && i < 3; i++)
+    {
+        options.push_back(countsprop[i].id);
+        auto pitr = pt.find(countsprop[i].id);
+        pt.modify(pitr, _self, [&](auto &v) {
+            v.selected = 1;
+        });
+    }
+
+    for (auto i = 0; i < options.size(); i++)
+    {
+        print("--", options[i]);
+    }
+
+    /*  ft.emplace(_self, [&](auto &f) {
+        f.id = ft.available_primary_key();
+        f.desc = details;
+        f.proposal_options = options;
+        f.duration = duration;
+        f.num_of_winners = noofwinner;
+        f.status = 1;
+    }); */
+}
+
+ACTION budget::modprop(uint64_t id)
+{
+    proposal_table pt(_self, _self.value);
+    auto pitr = pt.find(id);
+    pt.modify(pitr, _self, [&](auto &v) {
+        v.selected = 0;
     });
 }
 
-ACTION voting::delprop(uint64_t id, name user)
+ACTION budget::addmanager(name user)
 {
-    print("delete proposal");
-    eosio_assert(is_manager(user), "not authorized");
-    proposal_table pt(_self, _self.value);
-    votes_table vt(_self, _self.value);
-    auto itr = pt.find(id);
-    eosio_assert(itr != pt.end(), "proposal not found");
-    pt.erase(itr);
-    auto vote_itr = vt.begin();
-    /*  while (vote_itr != vt.end())
-    {
-        //print("voter--->", vote_itr->proposal_id);
-         if (vote_itr->proposal_id == id)
-        {test(); 
-            vote_itr = vt.erase(vote_itr);
-            
-            
-       // }
-    } */
+
+    require_auth(_self);
+    manager_table mt(_self, _self.value);
+    mt.emplace(_self, [&](auto &v) {
+        v.user = user;
+    });
 }
 
-ACTION voting::delvote(uint64_t id, name manager)
+ACTION budget::voteprop(uint64_t feature_id, vector<uint8_t> choices, name identity)
 {
-    print("in del vote---");
-   
-    votes_table vt(_self, _self.value);
-    auto itr = vt.find(id);
-    eosio_assert(itr != vt.end(), "votes not found");
-    vt.erase(itr);
-}
-
-ACTION voting::delresult(uint64_t id, name manager)
-{
-    print("in del result---");
-   result_table rt(_self, _self.value);
-     auto it = rt.begin();
-    while (it != rt.end())
-    {
-        if(it->proposal_id==id)
-         it = rt.erase(it);
-    }
-}
-
-
-ACTION voting::voteprop(uint64_t propid, vector<uint8_t> choices, name identity)
-{
-    print("vote on proposal");
+    print("vote on proposal---");
     require_auth(identity);
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(identity.value);
     eosio_assert(itr != iden_table.end(), "identity not found !!!");
     votes_table vt(_self, _self.value);
-    proposal_table pt(_self, _self.value);
-    auto pt_itr = pt.find(propid);
-    print("option proposal----", pt_itr->proposal_options.size());
+    feature_table ft(_self, _self.value);
+    auto ft_itr = ft.find(feature_id);
+    print("option proposal----", ft_itr->proposal_options.size());
     print("input array size----", choices.size());
-    eosio_assert(pt_itr->proposal_options.size() == choices.size(), "incorrect choices array size");
-    eosio_assert(pt_itr != pt.end(), "proposal not found");
+    eosio_assert(ft_itr->proposal_options.size() == choices.size(), "incorrect choices array size");
+    eosio_assert(ft_itr != ft.end(), "list id not found");
 
     ///////////////////////checking of constraints//////////////////
     auto max = choices[0];
@@ -107,33 +222,35 @@ ACTION voting::voteprop(uint64_t propid, vector<uint8_t> choices, name identity)
     while (vote_itr != vt.end())
     {
         print("voter--->", vote_itr->identity);
-        eosio_assert(vote_itr->identity != identity || vote_itr->proposal_id != propid, "already voted");
+        eosio_assert(vote_itr->identity != identity || vote_itr->feature_id != feature_id, "already voted");
         vote_itr++;
     }
-    eosio_assert(pt_itr->status == 1, "proposal is not active");
+    eosio_assert(ft_itr->status == 1, "proposal is not active");
     vt.emplace(_self, [&](auto &v) {
         v.id = vt.available_primary_key();
         v.identity = identity;
-        v.proposal_id = propid;
+        v.feature_id = feature_id;
         v.choices = choices;
     });
 }
 
-ACTION voting::decidewinner(uint64_t id, name user)
+//////////////////////decide winner////////////////////
+ACTION budget::decidewinner(uint64_t id, name user)
 {
     eosio_assert(is_manager(user), "not authorized");
-    proposal_table pt(_self, _self.value);
+    feature_table pt(_self, _self.value);
+    proposal_table pro(_self, _self.value);
     votes_table vt(_self, _self.value);
     result_table rt(_self, _self.value);
     auto prop_itr = pt.find(id);
-    eosio_assert(prop_itr != pt.end(), "proposal not found");
+    eosio_assert(prop_itr != pt.end(), "list not found");
     //eosio_assert(now() >= prop_itr->duration,"voting is still going one");
     auto number_of_prop = prop_itr->proposal_options.size();
     auto vote_itr = vt.begin();
     vector<vector<uint8_t>> votes;
     while (vote_itr != vt.end())
     {
-        if (vote_itr->proposal_id == id)
+        if (vote_itr->feature_id == id)
         {
             votes.push_back(vote_itr->choices);
         }
@@ -164,7 +281,7 @@ ACTION voting::decidewinner(uint64_t id, name user)
         //print("each--", votes_count[i]);
     }
     //////////// calculation///////////
-    
+
     vector<int> winner(selection_size, prop_itr->proposal_options.size());
     auto winnercount = 0;
     int flag = 0;
@@ -276,22 +393,37 @@ ACTION voting::decidewinner(uint64_t id, name user)
     }
     //////////////populating data in result table//////////////////////////////////////////
 
-    auto res_itr = rt.begin();
-     while (res_itr != rt.end())
+    /* auto res_itr = rt.begin();
+    while (res_itr != rt.end())
     {
-        eosio_assert(res_itr->proposal_id != id, "already declared!!");
+        eosio_assert(res_itr->feature_id != id, "already declared!!");
         res_itr++;
-    } 
-     rt.emplace(_self, [&](auto &v) {
+    }
+    rt.emplace(_self, [&](auto &v) {
         v.id = rt.available_primary_key();
-        v.proposal_id = id;
+        v.feature_id = id;
         v.selected = winner;
-    });
- 
-    //////////////////////////////////
+    }); */
+
+    ///////////////finding the winner proposal///////////////////
+    prop_itr = pt.find(id);
+    for (auto i = 0; i < winner.size(); i++)
+    {
+        auto pid = prop_itr->proposal_options[winner[i]];
+        auto prop = pro.find(pid);
+        eosio_assert(prop != pro.end(), "prop not found");
+        print("proposal is--", prop->proposal_description);
+        print("budget is--", prop->budget);
+        action(
+            permission_level{_self, "active"_n},
+            "eosio.token"_n, "transfer"_n,
+            std::make_tuple(_self, prop->identity, prop->budget, prop->proposal_description))
+            .send();
+    }
+    /////////////////////////////////////////////////////////////
 }
 
-vector<int> voting::surplusdist(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx)
+vector<int> budget::surplusdist(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx)
 {
     auto count = 0;
     vector<int> vc_secpref(votes_count.size(), 0);
@@ -330,7 +462,7 @@ vector<int> voting::surplusdist(int votes_required, vector<vector<uint8_t>> vote
     return votes_count;
 }
 
-vector<int> voting::elimination(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx)
+vector<int> budget::elimination(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx)
 {
     print("elimination--", idx);
     int flag = 0;
@@ -354,7 +486,7 @@ vector<int> voting::elimination(int votes_required, vector<vector<uint8_t>> vote
 
             for (auto j = 0; j < votes[i].size(); j++)
             {
-               
+
                 if (votes[i][j] == pref)
                 {
                     if (votes_count[j] == -1 || votes_count[j] == -2)
@@ -380,7 +512,7 @@ vector<int> voting::elimination(int votes_required, vector<vector<uint8_t>> vote
     }
     return votes_count;
 }
-int voting::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, vector<int> votes_count)
+int budget::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, vector<int> votes_count)
 {
     int pref = 2;
     int n = 2;
@@ -425,40 +557,7 @@ int voting::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, ve
     }
     return idx;
 }
-ACTION voting::addmanager(name user)
-{
-    print("add manager");
-    print("add manager");
-    require_auth(_self);
-    manager_table mt(_self, _self.value);
-    mt.emplace(_self, [&](auto &v) {
-        v.user = user;
-    });
-}
+///////////////////////////////////////////////////////
 
-ACTION voting::delmanager(name user)
-{
-    print("remove manager");
-    require_auth(_self);
-    manager_table mt(_self, _self.value);
-    auto itr = mt.find(user.value);
-    eosio_assert(itr != mt.end(), "manager not found");
-    mt.erase(itr);
-}
-
-ACTION voting::bypropid(uint64_t propid)
-{
-    auto c = 0;
-    votes_table vt(_self, _self.value);
-    auto idx = vt.get_index<"propid"_n>();
-    auto itr = idx.lower_bound(propid);
-    for (; itr != idx.end() && itr->proposal_id == propid; ++itr)
-    {
-        print(itr->identity);
-        c++;
-    }
-    print("res--", c);
-}
-
-EOSIO_DISPATCH(voting,
-               (test)(createprop)(delvote)(delresult)(bypropid)(delprop)(voteprop)(decidewinner)(addmanager)(delmanager))
+EOSIO_DISPATCH(budget,
+               (createprop)(modprop)(selectprop)(voteprop)(decidewinner)(addmanager)(catgvote))
