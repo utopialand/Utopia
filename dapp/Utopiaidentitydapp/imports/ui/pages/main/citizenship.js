@@ -17,7 +17,7 @@ Template.citizenship.onRendered(async function() {
   let tabledata = await eos.getTableRows({
     code: "identityreg1",
     scope: "identityreg1",
-    table: "citizen",
+    table: "citizen3",
     limit: 50,
     json: true
   });
