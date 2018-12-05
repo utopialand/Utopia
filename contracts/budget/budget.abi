@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec  3 15:01:20 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 10:32:15 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -23,9 +23,41 @@
             ]
         },
         {
+            "name": "catgvote",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "identity",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "catvote",
+            "base": "",
+            "fields": [
+                {
+                    "name": "proposal_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "category",
+                    "type": "string"
+                }
+            ]
+        },
+        {
             "name": "createprop",
             "base": "",
             "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
                 {
                     "name": "proposal",
                     "type": "string"
@@ -39,16 +71,8 @@
                     "type": "uint16"
                 },
                 {
-                    "name": "options",
-                    "type": "string[]"
-                },
-                {
-                    "name": "user",
-                    "type": "name"
-                },
-                {
-                    "name": "numwinners",
-                    "type": "uint16"
+                    "name": "budget",
+                    "type": "asset"
                 }
             ]
         },
@@ -115,6 +139,36 @@
                 {
                     "name": "manager",
                     "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "featurelist",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "desc",
+                    "type": "string"
+                },
+                {
+                    "name": "proposal_options",
+                    "type": "uint64[]"
+                },
+                {
+                    "name": "duration",
+                    "type": "uint64"
+                },
+                {
+                    "name": "num_of_winners",
+                    "type": "uint64"
+                },
+                {
+                    "name": "status",
+                    "type": "uint16"
                 }
             ]
         },
@@ -167,12 +221,26 @@
             ]
         },
         {
+            "name": "modprop",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "proposal",
             "base": "",
             "fields": [
                 {
                     "name": "id",
                     "type": "uint64"
+                },
+                {
+                    "name": "identity",
+                    "type": "name"
                 },
                 {
                     "name": "proposal_description",
@@ -183,19 +251,23 @@
                     "type": "string"
                 },
                 {
-                    "name": "proposal_options",
-                    "type": "string[]"
+                    "name": "budget",
+                    "type": "asset"
                 },
                 {
-                    "name": "duration",
+                    "name": "count",
+                    "type": "uint16"
+                },
+                {
+                    "name": "category",
+                    "type": "string"
+                },
+                {
+                    "name": "createdat",
                     "type": "uint64"
                 },
                 {
-                    "name": "num_of_winners",
-                    "type": "uint64"
-                },
-                {
-                    "name": "status",
+                    "name": "selected",
                     "type": "uint16"
                 }
             ]
@@ -209,7 +281,7 @@
                     "type": "uint64"
                 },
                 {
-                    "name": "proposal_id",
+                    "name": "feature_id",
                     "type": "uint64"
                 },
                 {
@@ -219,16 +291,33 @@
             ]
         },
         {
-            "name": "test",
+            "name": "selectprop",
             "base": "",
-            "fields": []
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                },
+                {
+                    "name": "details",
+                    "type": "string"
+                },
+                {
+                    "name": "duration",
+                    "type": "uint16"
+                },
+                {
+                    "name": "noofwinner",
+                    "type": "uint16"
+                }
+            ]
         },
         {
             "name": "voteprop",
             "base": "",
             "fields": [
                 {
-                    "name": "propid",
+                    "name": "feature_id",
                     "type": "uint64"
                 },
                 {
@@ -254,7 +343,7 @@
                     "type": "name"
                 },
                 {
-                    "name": "proposal_id",
+                    "name": "feature_id",
                     "type": "uint64"
                 },
                 {
@@ -278,6 +367,11 @@
         {
             "name": "bypropid",
             "type": "bypropid",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "catgvote",
+            "type": "catgvote",
             "ricardian_contract": ""
         },
         {
@@ -311,8 +405,13 @@
             "ricardian_contract": ""
         },
         {
-            "name": "test",
-            "type": "test",
+            "name": "modprop",
+            "type": "modprop",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "selectprop",
+            "type": "selectprop",
             "ricardian_contract": ""
         },
         {
@@ -322,6 +421,20 @@
         }
     ],
     "tables": [
+        {
+            "name": "catvote12",
+            "type": "catvote",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "feature12",
+            "type": "featurelist",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
         {
             "name": "identity2",
             "type": "identityt",
@@ -337,7 +450,7 @@
             "key_types": []
         },
         {
-            "name": "proposal11",
+            "name": "proposal13",
             "type": "proposal",
             "index_type": "i64",
             "key_names": [],
@@ -351,7 +464,7 @@
             "key_types": []
         },
         {
-            "name": "votes13",
+            "name": "votes12",
             "type": "votes",
             "index_type": "i64",
             "key_names": [],

@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Tue Nov 27 18:40:53 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 11:33:36 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -51,6 +51,10 @@
                 {
                     "name": "email",
                     "type": "string"
+                },
+                {
+                    "name": "hash",
+                    "type": "string"
                 }
             ]
         },
@@ -88,11 +92,6 @@
             "fields": []
         },
         {
-            "name": "hi",
-            "base": "",
-            "fields": []
-        },
-        {
             "name": "identityt",
             "base": "",
             "fields": [
@@ -125,6 +124,10 @@
                     "type": "string"
                 },
                 {
+                    "name": "imghash",
+                    "type": "string"
+                },
+                {
                     "name": "citizen",
                     "type": "bool"
                 }
@@ -147,6 +150,20 @@
                 {
                     "name": "identity",
                     "type": "name"
+                },
+                {
+                    "name": "manager",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "remcitreq",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
                 },
                 {
                     "name": "manager",
@@ -208,13 +225,13 @@
             "ricardian_contract": ""
         },
         {
-            "name": "hi",
-            "type": "hi",
+            "name": "remcitizen",
+            "type": "remcitizen",
             "ricardian_contract": ""
         },
         {
-            "name": "remcitizen",
-            "type": "remcitizen",
+            "name": "remcitreq",
+            "type": "remcitreq",
             "ricardian_contract": ""
         },
         {
@@ -235,14 +252,14 @@
     ],
     "tables": [
         {
-            "name": "citizen",
+            "name": "citizen3",
             "type": "citizenship",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "identity2",
+            "name": "identity3",
             "type": "identityt",
             "index_type": "i64",
             "key_names": [],
