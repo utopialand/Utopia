@@ -248,6 +248,13 @@ ACTION business::retire(asset quantity, string memo)
 
 ACTION business::transfer(name from, name to, asset quantity, string memo)
 {
+
+    identity_table idtb("identityreg1"_n, "identityreg1"_n.value);
+    auto fromitr = idtb.find(from.value);
+    auto toitr = idtb.find(to.value);
+    eosio_assert(fromitr != idtb.end(), "Not a member of Utopia community");
+    eosio_assert(toitr != idtb.end(), "Not a member of Utopia community");
+
     eosio_assert(from != to, "cannot transfer to self");
     require_auth(from);
     eosio_assert(is_account(to), "to account does not exist");

@@ -1,0 +1,302 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 14:23:39 2018",
+    "version": "eosio::abi/1.1",
+    "structs": [
+        {
+            "name": "approvedprop",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "bid",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "buyername",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "bidtable",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "location",
+                    "type": "string"
+                },
+                {
+                    "name": "area",
+                    "type": "uint64"
+                },
+                {
+                    "name": "currentOwner",
+                    "type": "name"
+                },
+                {
+                    "name": "currentprice",
+                    "type": "asset"
+                },
+                {
+                    "name": "startdate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "enddate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "bidstatus",
+                    "type": "bool"
+                },
+                {
+                    "name": "rsproposal",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "identityt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "fname",
+                    "type": "string"
+                },
+                {
+                    "name": "mname",
+                    "type": "string"
+                },
+                {
+                    "name": "lname",
+                    "type": "string"
+                },
+                {
+                    "name": "dob",
+                    "type": "string"
+                },
+                {
+                    "name": "contact",
+                    "type": "string"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "name": "citizen",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "landproposal",
+            "base": "",
+            "fields": [
+                {
+                    "name": "location",
+                    "type": "string"
+                },
+                {
+                    "name": "area",
+                    "type": "uint64"
+                },
+                {
+                    "name": "currentOwner",
+                    "type": "name"
+                },
+                {
+                    "name": "currentprice",
+                    "type": "asset"
+                },
+                {
+                    "name": "startdate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "enddate",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "properties",
+            "base": "",
+            "fields": [
+                {
+                    "name": "propt_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "price",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "reqbuyers",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "buyername",
+                    "type": "name"
+                },
+                {
+                    "name": "price",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "reqbuypropt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "buyer",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "reqsellers",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "sellername",
+                    "type": "name"
+                },
+                {
+                    "name": "sellingprice",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "reqsellpropt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "seller",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "approvedprop",
+            "type": "approvedprop",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "bid",
+            "type": "bid",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "landproposal",
+            "type": "landproposal",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "reqbuypropt",
+            "type": "reqbuypropt",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "reqsellpropt",
+            "type": "reqsellpropt",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "bidtable",
+            "type": "bidtable",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "identity2",
+            "type": "identityt",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "properties",
+            "type": "properties",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "reqbuyertab",
+            "type": "reqbuyers",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "reqsellertab",
+            "type": "reqsellers",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "variants": [],
+    "abi_extensions": []
+}
