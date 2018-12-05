@@ -16,6 +16,7 @@ ACTION utopiatoken::create(name issuer, asset maximum_supply)
     auto existing = statstable.find(sym.code().raw());
     eosio_assert(existing == statstable.end(), "token with symbol already exists");
 
+    //cheacking identity from identity table
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(issuer.value);
     eosio_assert(itr != iden_table.end(), "identity not found !!");
@@ -113,15 +114,15 @@ ACTION utopiatoken::transfer(name from, name to, asset quantity, string memo)
 
     auto payer = has_auth(to) ? to : from;
 
-        asset commission;
-        asset quantity1;
-        commission = (quantity * 5) / 100;
-        quantity1 = quantity - commission;
-        
-        print("quantity--", quantity);
-        sub_balance(from, quantity);
-        add_balance(to, quantity1, payer);
-        add_balance("utopiatoken1"_n, commission, _self);
+    asset commission;
+    asset quantity1;
+    commission = (quantity * 5) / 100;
+    quantity1 = quantity - commission;
+
+    print("quantity--", quantity);
+    sub_balance(from, quantity);
+    add_balance(to, quantity1, payer);
+    add_balance("utopiatoken1"_n, commission, _self);
 }
 
 void utopiatoken::sub_balance(name owner, asset value)
