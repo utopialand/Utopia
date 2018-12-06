@@ -1,0 +1,52 @@
+.proposalresult-container{
+    width: 90%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+.proposalresult-container .resultbox{
+    width: 60%;
+    margin: 4% auto 0 auto;
+    color: white;
+    border: 2px solid white;
+    padding-bottom: 5%;
+}
+
+.proposalresult-container .resultbox:hover{
+    border: 2px solid #C86DD7;
+    transition: 0.5s;
+}
+
+.resultbox .title{
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.resultbox .selected{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.resultbox .selected .options{
+    background: transparent;
+    color: white;
+    width: 100px;
+    height: 50px;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+.resultbox .selected .options:hover{
+    border: 2px solid #C86DD7;
+    transition: 0.5s;
+}
+
+.selected .options p{
+    text-align: center;
+    text-transform: uppercase;
+}

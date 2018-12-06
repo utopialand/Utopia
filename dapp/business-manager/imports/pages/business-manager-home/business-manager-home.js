@@ -5,8 +5,6 @@ import Eos from "eosjs";
 
 eosConfig = {
     chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473", // 32 byte (64 char) hex string
-    keyProvider: ['5Jur4pK1Rb8xvdfNUUZJq5JE36HQUd9PNouWwjUdbWw7cK8ZuUo'],
-    // WIF string or array of keys..
     httpEndpoint: 'https://jungle2.cryptolions.io:443',
     expireInSeconds: 60,
     broadcast: true,

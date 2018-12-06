@@ -1,0 +1,22 @@
+<Template name="App_proposal_result">
+    <div class="proposalresult-container">
+        <h1>Proposal Result</h1>
+
+        {{#each item in getProposalResultList}}
+        <div class="resultbox">
+            <div class="title">
+                <p>{{item.desc}}</p>
+            </div>
+            <div class="selected">
+                {{#each candidate in item.selected}}
+                <div class="options">
+                    <p>{{candidate}}</p>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+        {{/each}}
+
+    </div>
+    {{>footer}}
+</Template>
