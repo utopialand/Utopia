@@ -1,7 +1,17 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Nov 30 16:41:46 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 17:34:21 2018",
     "version": "eosio::abi/1.0",
     "structs": [
+        {
+            "name": "account",
+            "base": "",
+            "fields": [
+                {
+                    "name": "balance",
+                    "type": "asset"
+                }
+            ]
+        },
         {
             "name": "addbusiness",
             "base": "",
@@ -17,12 +27,44 @@
             ]
         },
         {
+            "name": "addemployee",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "employee",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "adshareowner",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "shareholder",
+                    "type": "name"
+                }
+            ]
+        },
+        {
             "name": "businessst",
             "base": "",
             "fields": [
                 {
-                    "name": "id",
+                    "name": "company_id",
                     "type": "uint64"
+                },
+                {
+                    "name": "status",
+                    "type": "uint8"
                 },
                 {
                     "name": "owner",
@@ -33,36 +75,68 @@
                     "type": "string"
                 },
                 {
-                    "name": "stockname",
-                    "type": "string"
+                    "name": "token_maximum_supply",
+                    "type": "asset"
                 },
                 {
-                    "name": "marketcap",
-                    "type": "float64"
-                },
-                {
-                    "name": "totalshares",
-                    "type": "float64"
-                },
-                {
-                    "name": "shareprice",
-                    "type": "float64"
-                },
-                {
-                    "name": "sharestart",
-                    "type": "float64"
-                },
-                {
-                    "name": "shareend",
-                    "type": "float64"
-                },
-                {
-                    "name": "officers",
-                    "type": "string[]"
+                    "name": "shareholders",
+                    "type": "name[]"
                 },
                 {
                     "name": "employees",
-                    "type": "string[]"
+                    "type": "name[]"
+                }
+            ]
+        },
+        {
+            "name": "close",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "symbol",
+                    "type": "symbol_code"
+                }
+            ]
+        },
+        {
+            "name": "create",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "currency_stats",
+            "base": "",
+            "fields": [
+                {
+                    "name": "supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "max_supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "issuer",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "delcompany",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
                 }
             ]
         },
@@ -72,52 +146,159 @@
             "fields": []
         },
         {
-            "name": "makepublic",
+            "name": "identityt",
             "base": "",
             "fields": [
                 {
-                    "name": "id",
-                    "type": "uint64"
+                    "name": "username",
+                    "type": "name"
                 },
                 {
-                    "name": "marketcap",
-                    "type": "float64"
+                    "name": "fname",
+                    "type": "string"
                 },
                 {
-                    "name": "totalshares",
-                    "type": "float64"
+                    "name": "mname",
+                    "type": "string"
                 },
                 {
-                    "name": "stockname",
+                    "name": "lname",
+                    "type": "string"
+                },
+                {
+                    "name": "dob",
+                    "type": "string"
+                },
+                {
+                    "name": "contact",
+                    "type": "string"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "name": "citizen",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "issue",
+            "base": "",
+            "fields": [
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                },
+                {
+                    "name": "memo",
                     "type": "string"
                 }
             ]
         },
         {
-            "name": "newshareprice",
+            "name": "makepublic",
             "base": "",
             "fields": [
                 {
-                    "name": "id",
+                    "name": "company_id",
                     "type": "uint64"
                 },
                 {
-                    "name": "newshareprice",
-                    "type": "float64"
+                    "name": "maximum_supply",
+                    "type": "asset"
                 }
             ]
         },
         {
-            "name": "newtotalshare",
+            "name": "open",
             "base": "",
             "fields": [
                 {
-                    "name": "id",
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "symbol",
+                    "type": "symbol_code"
+                },
+                {
+                    "name": "ram_payer",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "printnames",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "retire",
+            "base": "",
+            "fields": [
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "rmemployee",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
                     "type": "uint64"
                 },
                 {
-                    "name": "newtotalshare",
-                    "type": "float64"
+                    "name": "employee",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "rmshareowner",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "shareholder",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "transfer",
+            "base": "",
+            "fields": [
+                {
+                    "name": "from",
+                    "type": "name"
+                },
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
                 }
             ]
         }
@@ -130,8 +311,38 @@
             "ricardian_contract": ""
         },
         {
+            "name": "addemployee",
+            "type": "addemployee",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "adshareowner",
+            "type": "adshareowner",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "close",
+            "type": "close",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "create",
+            "type": "create",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "delcompany",
+            "type": "delcompany",
+            "ricardian_contract": ""
+        },
+        {
             "name": "deleteall",
             "type": "deleteall",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "issue",
+            "type": "issue",
             "ricardian_contract": ""
         },
         {
@@ -140,20 +351,61 @@
             "ricardian_contract": ""
         },
         {
-            "name": "newshareprice",
-            "type": "newshareprice",
+            "name": "open",
+            "type": "open",
             "ricardian_contract": ""
         },
         {
-            "name": "newtotalshare",
-            "type": "newtotalshare",
+            "name": "printnames",
+            "type": "printnames",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "retire",
+            "type": "retire",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "rmemployee",
+            "type": "rmemployee",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "rmshareowner",
+            "type": "rmshareowner",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "transfer",
+            "type": "transfer",
             "ricardian_contract": ""
         }
     ],
     "tables": [
         {
+            "name": "accounts",
+            "type": "account",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
             "name": "businesstb",
             "type": "businessst",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "identity2",
+            "type": "identityt",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "stat",
+            "type": "currency_stats",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
