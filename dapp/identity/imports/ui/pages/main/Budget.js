@@ -15,8 +15,8 @@ const eosOptions = {
 
 var scatter={};
 var eosinstance = {};
+let tabledata ;
 Template.budget_app.onCreated(function () {
-    let tabledata ;
     Meteor.subscribe('identity');
     ScatterJS.scatter.connect('utopia').then((connected) => {
         if (connected) {
@@ -111,5 +111,8 @@ Template.budget_app.events({
             });
 
         })
+    },
+    'click .budgetpropbutton':function(){
+         FlowRouter.go("/createbudget");
     }
 });

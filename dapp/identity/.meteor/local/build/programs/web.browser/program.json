@@ -688,12 +688,12 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/app/app.js?hash=ce704dc606c70c55d0843226c190de6572253b0f",
+      "url": "/app/app.js?hash=0723d8a4609eade2fc9bdd14127660c45c461cbb",
       "sourceMap": "app/app.js.map",
-      "sourceMapUrl": "/app/ce704dc606c70c55d0843226c190de6572253b0f.map",
-      "size": 139940,
-      "hash": "ce704dc606c70c55d0843226c190de6572253b0f",
-      "sri": "FyHL9WEXu84uYaTevR7uYgD3YEMmH7FlGAw3AMnUDmyiU0vpGT6zPUdMopa7bCpVACYs5YogDeQhdLMm4gxdpA=="
+      "sourceMapUrl": "/app/0723d8a4609eade2fc9bdd14127660c45c461cbb.map",
+      "size": 141233,
+      "hash": "0723d8a4609eade2fc9bdd14127660c45c461cbb",
+      "sri": "uZoty4qbO9Y2JFf4v4Kh6m/CLXnWZUZ1/oLRqlG+Cj3p5M1j4keuwCrrEph7yFs69A4lef2B/eQntKhUIgSeJw=="
     },
     {
       "path": "packages/mdg_validation-error.js",

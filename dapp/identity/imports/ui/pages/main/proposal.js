@@ -14,11 +14,10 @@ const network = {
 const eosOptions = {
   chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
-
+let tabledata ;;
 var scatter={};
 var eosinstance = {};
 Template.App_proposal.onCreated(function () {
-let tabledata ;
   Meteor.subscribe('identity');
   ScatterJS.scatter.connect('utopia').then((connected) => {
       if (connected) {
@@ -27,8 +26,7 @@ let tabledata ;
               const requiredFields = { accounts: [network] };
               const eos = scatter.eos(network, Eos, eosOptions);
               if (scatter.identity) {
-                  eosinstance = eos;
-                  
+                  eosinstance = eos;                  
                    eosinstance.getTableRows({
                     code: "voteproposal",
                     scope: "voteproposal",
@@ -37,8 +35,7 @@ let tabledata ;
                     json: true,
                 }).then((resp)=>{
                     tabledata=resp;
-                    console.log("prop",tabledata)
-                    document.getElementById("proposal-group").innerHTML = "";               
+                    /* document.getElementById("proposal-group").innerHTML = "";               
             
                     for (var i = 0; i < tabledata.rows.length; i++) {
                         var desc = tabledata.rows[i].proposal_description;
@@ -50,7 +47,7 @@ let tabledata ;
                             "<div class = 'redo'><p>" + desc + "</p><button class = 'vote-button' id = '" + votebutton + "'>vote</button>"
                             + "<button class = 'result-button' id = '" + resultbutton + "'>result</button>" + "</div>";
                 
-                    }
+                    } */
                 });               
               } else {
                   FlowRouter.go("/");
@@ -63,15 +60,34 @@ let tabledata ;
 });
 
 
-Template.App_proposal.onRendered(async function () {
-
-})
 
 Template.App_proposal.events({
-    "click .new-proposal-button": function () {
+    "click #0":function(e){
+        if($(e.target).text() == "User proposal"){
+            $(e.target).text("Create new user proposal");
+            document.getElementById("proposal-group").innerHTML = "";               
+            
+            for (var i = 0; i < tabledata.rows.length; i++) {
+                var desc = tabledata.rows[i].proposal_description;
+                var votebutton = "votebutton";
+                var resultbutton = "resultbutton";
+                votebutton = votebutton + tabledata.rows[i].id;
+                resultbutton = resultbutton + tabledata.rows[i].id;
+                document.getElementById("proposal-group").innerHTML +=
+                    "<div class = 'redo'><p>" + desc + "</p><button class = 'vote-button' id = '" + votebutton + "'>vote</button>"
+                    + "<button class = 'result-button' id = '" + resultbutton + "'>result</button>" + "</div>";
+        
+            }
+        }else{
+            FlowRouter.go('/newproposal');
+        }
+        
+       
+    },
+    "click #1": function () {
         /* document.getElementById("form-section").style.display = "block";
         document.getElementById("all-proposals").style.display = "none"; */
-        FlowRouter.go("/newproposal");
+        FlowRouter.go("/budget");
     },
     "click .all-proposal-button": async function () {
         /* document.getElementById("form-section").style.display = "none";
