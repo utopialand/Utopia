@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec  6 12:56:24 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec  6 17:02:45 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -115,11 +115,6 @@
                     "type": "name"
                 }
             ]
-        },
-        {
-            "name": "delall",
-            "base": "",
-            "fields": []
         },
         {
             "name": "identityt",
@@ -256,11 +251,6 @@
         {
             "name": "addmanager",
             "type": "addmanager",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "delall",
-            "type": "delall",
             "ricardian_contract": ""
         },
         {

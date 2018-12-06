@@ -111,7 +111,7 @@ ACTION identity::remcitizen(name user, name manager)
     });
 }
 
-ACTION identity::delall()
+/* ACTION identity::delall()
 {
     print("test------");
     identity_table iden_table(_self, _self.value);
@@ -126,7 +126,7 @@ ACTION identity::delall()
     {
         cit = citizen.erase(cit);
     }
-}
+} */
 
 ACTION identity::reqcitizen(name identity)
 {
@@ -156,6 +156,6 @@ ACTION identity::remcitreq(uint64_t id, name manager)
 }
 
 EOSIO_DISPATCH(identity,
-               (addidentity)(addidcitzn)(remidentity)(reqcitizen)(delall)(addmanager)(remmanager)(remcitreq)
+               (addidentity)(addidcitzn)(remidentity)(reqcitizen)(addmanager)(remmanager)(remcitreq)
 
                    (addcitizen)(remcitizen))
