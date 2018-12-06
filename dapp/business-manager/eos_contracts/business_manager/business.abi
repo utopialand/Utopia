@@ -1,0 +1,164 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Nov 30 16:41:46 2018",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "addbusiness",
+            "base": "",
+            "fields": [
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "businessname",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "businessst",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "businessname",
+                    "type": "string"
+                },
+                {
+                    "name": "stockname",
+                    "type": "string"
+                },
+                {
+                    "name": "marketcap",
+                    "type": "float64"
+                },
+                {
+                    "name": "totalshares",
+                    "type": "float64"
+                },
+                {
+                    "name": "shareprice",
+                    "type": "float64"
+                },
+                {
+                    "name": "sharestart",
+                    "type": "float64"
+                },
+                {
+                    "name": "shareend",
+                    "type": "float64"
+                },
+                {
+                    "name": "officers",
+                    "type": "string[]"
+                },
+                {
+                    "name": "employees",
+                    "type": "string[]"
+                }
+            ]
+        },
+        {
+            "name": "deleteall",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "makepublic",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "marketcap",
+                    "type": "float64"
+                },
+                {
+                    "name": "totalshares",
+                    "type": "float64"
+                },
+                {
+                    "name": "stockname",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "newshareprice",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "newshareprice",
+                    "type": "float64"
+                }
+            ]
+        },
+        {
+            "name": "newtotalshare",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "newtotalshare",
+                    "type": "float64"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "addbusiness",
+            "type": "addbusiness",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "deleteall",
+            "type": "deleteall",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "makepublic",
+            "type": "makepublic",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "newshareprice",
+            "type": "newshareprice",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "newtotalshare",
+            "type": "newtotalshare",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "businesstb",
+            "type": "businessst",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}
