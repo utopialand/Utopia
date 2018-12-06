@@ -1,0 +1,62 @@
+
+
+.page.uos {
+
+    .page-header .text {
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+    
+    .page-header .btn.main {
+        display: block;
+        margin: 60px auto 0 auto;
+        width: 240px;
+    }
+    
+    .utopia-apps {
+        padding: 80px 0;
+    }
+    
+    .utopia-apps .app {
+        padding: 10px 0;
+        text-align: center;
+    }
+    
+    .utopia-apps .app .icon {
+        width: 100%; 
+    }
+    
+    .utopia-apps .app .title {
+        font-size: 14px;
+    }
+    
+    .api-interaction {
+        padding: 40px 0;
+    }
+    
+    .api-interaction .title {
+        text-align: center;
+        line-height: 50px;
+    }
+    
+    .api-interaction .text {
+        text-align: center;
+        line-height: 40px;
+    }
+
+    // Smallest to end of SM Breakpoint
+    @media (max-width: 767px) {
+
+        .api-interaction .title { 
+            font-size: 24px;
+            line-height: 32px; 
+        }
+
+        .api-interaction .text {
+            font-size: 14px;
+            line-height: 36px;
+        }
+
+    }
+
+}

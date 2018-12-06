@@ -1,0 +1,30 @@
+
+.header {
+    padding: 80px 0 100px 0;
+}
+
+.header .brand {
+    margin: 0 auto 60px;
+    width: 140px;
+}
+
+.header .navigate.main {
+    display: flex;
+    justify-content: space-between;
+}
+
+.header .navigate.main a {
+    font-size: 14px;
+    font-family: 'Colfax Medium';
+    text-transform: uppercase;
+    letter-spacing: .025rem;
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.header .navigate.main a:hover {
+    color: rgba(255, 255, 255, 0.75);
+}
+
+.header .navigate.main a.active {
+    color: rgba(255, 255, 255, 1);
+}
