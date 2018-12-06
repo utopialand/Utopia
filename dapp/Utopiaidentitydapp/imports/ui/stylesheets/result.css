@@ -89,3 +89,14 @@
     letter-spacing: 2px;
 }
 
+.result-container .resultbox{
+    display: none;
+    margin-top: 10%;
+    border: 2px solid white;
+    padding: 5% 0 5% 0;
+}
+
+.result-container .resultbox:hover{
+    border: 2px solid #C86DD7;
+    transition: 0.5s;
+}
