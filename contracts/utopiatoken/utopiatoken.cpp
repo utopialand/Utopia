@@ -16,6 +16,11 @@ ACTION utopiatoken::create(name issuer, asset maximum_supply)
     auto existing = statstable.find(sym.code().raw());
     eosio_assert(existing == statstable.end(), "token with symbol already exists");
 
+    //cheacking identity from identity table
+    identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
+    auto itr = iden_table.find(issuer.value);
+    eosio_assert(itr != iden_table.end(), "identity not found !!!");
+
     statstable.emplace(_self, [&](auto &s) {
         s.supply.symbol = maximum_supply.symbol;
         s.max_supply = maximum_supply;
@@ -31,9 +36,7 @@ ACTION utopiatoken::issue(name to, asset quantity, string memo)
 
     //cheacking identity from identity table
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
-    //print("to account", to.value);
     auto itr = iden_table.find(to.value);
-    //print("itr account", itr->username);
     eosio_assert(itr != iden_table.end(), "identity not found !!");
 
     auto sym_name = sym.code().raw();
@@ -91,7 +94,9 @@ ACTION utopiatoken::transfer(name from, name to, asset quantity, string memo)
     //cheacking identity from identity table
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(from.value);
+    auto itr1 = iden_table.find(to.value);
     eosio_assert(itr != iden_table.end(), "identity not found !!!");
+    eosio_assert(itr1 != iden_table.end(), "identity not found !!!");
 
     require_auth(from);
     eosio_assert(is_account(to), "to account does not exist");
@@ -109,17 +114,15 @@ ACTION utopiatoken::transfer(name from, name to, asset quantity, string memo)
 
     auto payer = has_auth(to) ? to : from;
 
-
-
     asset commission;
     asset quantity1;
-    commission = (quantity* 5) / 100;
+    commission = (quantity * 5) / 100;
     quantity1 = quantity - commission;
-    print("quantity--",quantity);
 
+    print("quantity--", quantity);
     sub_balance(from, quantity);
     add_balance(to, quantity1, payer);
-    add_balance("utopiatoken1"_n, commission,_self);
+    add_balance("utopiatoken1"_n, commission, _self);
 }
 
 void utopiatoken::sub_balance(name owner, asset value)
@@ -182,13 +185,7 @@ ACTION utopiatoken::close(name owner, symbol_code symbol)
     eosio_assert(it->balance.amount == 0, "Cannot close because the balance is not zero.");
     acnts.erase(it);
 }
-ACTION utopiatoken::hello(name username)
-{
-    require_auth(_self);
-    print("hello , ",name{username});
-    
-}
 
 } // namespace eosio
 
-EOSIO_DISPATCH(eosio::utopiatoken, (create)(issue)(transfer)(open)(close)(retire)(hello))
+EOSIO_DISPATCH(eosio::utopiatoken, (create)(issue)(transfer)(open)(close)(retire))

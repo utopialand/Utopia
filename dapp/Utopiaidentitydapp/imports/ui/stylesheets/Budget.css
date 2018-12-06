@@ -1,0 +1,102 @@
+.identity-container{
+    width: 90%;
+    max-width: 1140px;
+    margin: 0 auto;
+    margin-top: 5%;
+  }
+  
+  .holder{  
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+  }
+  .large{
+      width: 100%;
+      display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+  }
+  .medium{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* color: white; */
+  }
+  .small{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+  }
+  .largelist{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+  }
+  .mediumlist{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* color: white; */
+  }
+  .smalllist{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+  }
+  .redobudget button{
+    flex: 1;
+    margin-right: 2%;
+}
+.redobudget p{
+    flex: 8;
+}
+  .redobudget{
+    margin-top: 10px;
+    width: 60%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+ 
+  input:focus{
+    outline: none;
+  }
+  .like-button{
+    height: 80%;
+    width: 100px;
+     background-image:url('img/Vote1.png');
+     background-repeat: no-repeat;
+     background-size: 100% 100%;
+     /* background: #04030F; */
+  }
+  .dislike-button{
+    height: 80%;
+    width: 100px;
+    background-image:url('/img/Vote2.png');
+    background-repeat: no-repeat;
+  }
+
+  
+
+  .row3 button:hover{
+    border: 2px solid #C86DD7;
+    color: white;
+    transition: 0.5s;
+  }
+  
+  input:hover::-webkit-input-placeholder {
+    color: white;
+    transition: 0.5s
+  }

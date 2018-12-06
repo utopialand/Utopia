@@ -1,0 +1,129 @@
+.proposal-container{
+    width: 90%;
+    max-width: 1140px;
+    margin: 0 auto;
+}
+
+h1{
+    color: white;
+    text-align: center;
+}
+
+.button-group{
+    display: flex;
+    justify-content: space-around;
+}
+
+.new-proposal-button{
+    width: 255px;
+    height: 50px;
+    border: 0;
+    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 50px;
+}
+
+.all-proposal-button{
+    width: 255px;
+    height: 50px;
+    border: 0;
+    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    color: white;
+    text-transform: uppercase;
+    
+}
+
+.below-section{
+    width: 100%;
+    margin-top: 5%;
+}
+
+.form-section{
+    width: 100%;
+    display: none;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input{
+    width: 30%;
+    height: 40px;
+    margin-top: 10px;
+    background: #aaa;
+}
+
+.all-proposals{
+    width: 100%;
+}
+
+.proposal-group{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+}
+
+.redo{
+    margin-top: 10px;
+    width: 60%;
+    height: 70px;
+    background: white;
+    display: flex;
+    align-items: center;
+    color: black;
+}
+
+.redo p{
+    flex: 8;
+}
+
+.redo button{
+    flex: 1;
+    margin-right: 2%;
+}
+
+.vote-button{
+    height: 50%;
+    width: 100px;
+}
+
+.result-button{
+    height: 50%;
+    width: 100px;
+}
+
+.redo p{
+    margin-left: 3%;
+}
+
+.button-group-form{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+#options{
+    margin-right: 15px;
+    height: 48px;
+    width: 100px;
+    border: 0px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: white;
+}
+
+#create-proposal{
+    margin-left: 15px;
+    height: 48px;
+    width: 200px;
+    border: 0px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: white;
+}
