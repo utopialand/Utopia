@@ -46,6 +46,24 @@
     transition: 0.5s;
 }
 
+.budgetProposalsLists{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height:10%;
+    width:100%;
+}
+
+.bpClass{
+    flex:8;
+    margin-top: 10px;
+    width: 100%;
+    height: 70px;
+    background: white;
+    display: flex;
+    align-items: center;
+}
+
 
 .manager-below-section{
     width: 100%;

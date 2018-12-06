@@ -18,6 +18,8 @@ eosConfig = {
 const eos = Eos(eosConfig);
 let tabledata;
 let userdata;
+let budgetprop;
+let budgetpropstart;
 Template.App_manager.onRendered(async function() {
   tabledata = await eos.getTableRows({
     code: "voteproposal",
@@ -26,13 +28,30 @@ Template.App_manager.onRendered(async function() {
     limit: 50,
     json: true
   });
-  userdata = await eos.getTableRows({
+  /* userdata = await eos.getTableRows({
     code: "identityreg1",
     scope: "identityreg1",
     table: "citizen",
     limit: 50,
     json: true
+  }); */
+
+  budgetprop = await eos.getTableRows({
+    code: "propbudget11",
+    scope: "propbudget11",
+    table: "proposal13",
+    limit: 50,
+    json: true
   });
+  budgetpropstart = await eos.getTableRows({
+    code: "propbudget11",
+    scope: "propbudget11",
+    table: "votestat",
+    limit: 50,
+    json: true
+  });
+
+
   document.getElementById("manager-proposal-group").innerHTML = "";
   console.log("table data after rendering", tabledata);
   var id = 0;
@@ -70,6 +89,7 @@ Template.App_manager.events({
     console.log("proposalDetails");
     document.getElementById("userList").style.display = "none";
     document.getElementById("proposalList").style.display = "block";
+    document.getElementsByClassName("manager-below-section")[0].style.display = "block";
 
 /* reqcitizen (username) */
   },
@@ -110,13 +130,34 @@ Template.App_manager.events({
     console.log("declareButtonClick");
     console.log("id----",event.target.id);
   }, 
-  "click #budgetButton": function(){
+  "click #budgetButton": async function(){
     console.log("budgetButton clicked");
-    document.getElementById("budgetButton").innerHTML =
-    "<div class = 'startButton'>"+
-    "<button>start</button>"
-    "</div>"
+    console.log("budgetprop: -->",budgetprop);
+    console.log("budgetpropstart",budgetpropstart);
+    console.log("dhsdhs",tabledata);
+    document.getElementsByClassName("manager-below-section")[0].style.display = "none";
+    document.getElementById("budgetProposalsList").style.display = "block";
+
+
+    for (var i = 0; i < budgetprop.rows.length; i++) {
+      var desc = budgetprop.rows[i].proposal_description;
+      var count =budgetprop.rows[i].count; 
+      var budgetpropId = budgetprop.rows[i].id;
+      console.log("proposal_description-->",desc);
+      console.log("count-->",count);
+      console.log("id-->",budgetpropId);
+      document.getElementById("budgetProposalsList").innerHTML+=
+      "<div class = 'bpClass'>"+
+      desc+"</div>"
+    }
+    
+  },
+  "click #condidateButton":async function(){
+    console.log("candidateList");
+    document.getElementsByClassName("manager-below-section")[0].style.display = "block";
+    document.getElementById("budgetProposalsList").style.display = "none";
   }
+  
 });
 
 
