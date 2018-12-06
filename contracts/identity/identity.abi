@@ -117,11 +117,6 @@
             ]
         },
         {
-            "name": "delall",
-            "base": "",
-            "fields": []
-        },
-        {
             "name": "identityt",
             "base": "",
             "fields": [
@@ -208,6 +203,10 @@
                 {
                     "name": "username",
                     "type": "name"
+                },
+                {
+                    "name": "manager",
+                    "type": "name"
                 }
             ]
         },
@@ -252,11 +251,6 @@
         {
             "name": "addmanager",
             "type": "addmanager",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "delall",
-            "type": "delall",
             "ricardian_contract": ""
         },
         {

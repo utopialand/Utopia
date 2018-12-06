@@ -31,7 +31,7 @@ CONTRACT identity : public contract
         string contact,
         string email,
         string hash);
-    ACTION remidentity(name username);
+    ACTION remidentity(name username,name manager);
 
     ACTION addcitizen(name identity, name manager);
     ACTION reqcitizen(name identity);
@@ -39,7 +39,7 @@ CONTRACT identity : public contract
     ACTION remmanager(name user);
     ACTION addmanager(name user);
     ACTION remcitreq(uint64_t id,name manager);    
-    ACTION delall();
+   // ACTION delall();
 
     TABLE identityt
     {
