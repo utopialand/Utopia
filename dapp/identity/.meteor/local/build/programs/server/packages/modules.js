@@ -126,6 +126,7 @@ install("templating-compiler");
 install("templating-runtime");
 install("templating");
 install("kadira:blaze-layout");
+install("session");
 install("livedata");
 install("hot-code-push");
 install("launch-screen");

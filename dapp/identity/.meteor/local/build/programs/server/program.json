@@ -253,6 +253,9 @@
       "path": "packages/kadira_blaze-layout.js"
     },
     {
+      "path": "packages/session.js"
+    },
+    {
       "path": "packages/livedata.js"
     },
     {

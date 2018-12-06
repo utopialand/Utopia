@@ -8,6 +8,7 @@ SimpleSchema = Package['aldeed:simple-schema'].SimpleSchema;
 MongoObject = Package['aldeed:simple-schema'].MongoObject;
 FlowRouter = Package['kadira:flow-router'].FlowRouter;
 BlazeLayout = Package['kadira:blaze-layout'].BlazeLayout;
+Session = Package.session.Session;
 Meteor = Package.meteor.Meteor;
 global = Package.meteor.global;
 meteorEnv = Package.meteor.meteorEnv;
