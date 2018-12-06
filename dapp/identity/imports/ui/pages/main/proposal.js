@@ -35,19 +35,6 @@ Template.App_proposal.onCreated(function () {
                     json: true,
                 }).then((resp)=>{
                     tabledata=resp;
-                    /* document.getElementById("proposal-group").innerHTML = "";               
-            
-                    for (var i = 0; i < tabledata.rows.length; i++) {
-                        var desc = tabledata.rows[i].proposal_description;
-                        var votebutton = "votebutton";
-                        var resultbutton = "resultbutton";
-                        votebutton = votebutton + tabledata.rows[i].id;
-                        resultbutton = resultbutton + tabledata.rows[i].id;
-                        document.getElementById("proposal-group").innerHTML +=
-                            "<div class = 'redo'><p>" + desc + "</p><button class = 'vote-button' id = '" + votebutton + "'>vote</button>"
-                            + "<button class = 'result-button' id = '" + resultbutton + "'>result</button>" + "</div>";
-                
-                    } */
                 });               
               } else {
                   FlowRouter.go("/");
@@ -65,7 +52,9 @@ Template.App_proposal.events({
     "click #0":function(e){
         if($(e.target).text() == "User proposal"){
             $(e.target).text("Create new user proposal");
-            document.getElementById("proposal-group").innerHTML = "";               
+            document.getElementById("proposal-group").innerHTML = "";     
+            document.getElementById("listhead").innerHTML = "";      
+            document.getElementById("listhead").innerHTML += "<h1>Here is the list of proposals</h1>";        
             
             for (var i = 0; i < tabledata.rows.length; i++) {
                 var desc = tabledata.rows[i].proposal_description;
