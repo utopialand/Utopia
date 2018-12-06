@@ -12,6 +12,7 @@ import "../../ui/pages/main/newproposal.js";
 import "../../ui/pages/main/manager.js";
 import "../../ui/pages/main/result.js";
 import "../../ui/pages/main/budgetResult.js";
+import "../../ui/pages/main/selected-bgt-prop.js";
 
 FlowRouter.route('/', {
   name: 'welocomePage',
@@ -86,5 +87,13 @@ FlowRouter.route('/budget-result', {
   name: "budget_result",
   action(){
     BlazeLayout.render('App_body', { main: 'App_budget_result'});
+  }
+});
+
+
+FlowRouter.route('/selected-bgt', {
+  name: "selected-bgt",
+  action(){
+    BlazeLayout.render('App_body', { main: 'App_selected_bgt_prop'});
   }
 });

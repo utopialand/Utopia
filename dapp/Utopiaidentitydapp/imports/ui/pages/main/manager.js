@@ -109,5 +109,14 @@ Template.App_manager.events({
   "click .declare-button":async function(){
     console.log("declareButtonClick");
     console.log("id----",event.target.id);
-  } 
+  }, 
+  "click #budgetButton": function(){
+    console.log("budgetButton clicked");
+    document.getElementById("budgetButton").innerHTML =
+    "<div class = 'startButton'>"+
+    "<button>start</button>"
+    "</div>"
+  }
 });
+
+

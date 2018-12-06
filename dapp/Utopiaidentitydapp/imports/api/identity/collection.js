@@ -1,4 +1,4 @@
-import {Mongo} from 'meteor/mongo';
+/* import {Mongo} from 'meteor/mongo';
 
 export const Identity = new Mongo.Collection('identity');
 Identity.schema = new SimpleSchema({
@@ -8,4 +8,4 @@ Identity.schema = new SimpleSchema({
     citizenship : {type: String},
     contact : {type: String},
     email : {type: String},
-  });
+  }); */

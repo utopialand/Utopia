@@ -19,7 +19,7 @@ ACTION utopiatoken::create(name issuer, asset maximum_supply)
     //cheacking identity from identity table
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(issuer.value);
-    eosio_assert(itr != iden_table.end(), "identity not found !!");
+    eosio_assert(itr != iden_table.end(), "identity not found !!!");
 
     statstable.emplace(_self, [&](auto &s) {
         s.supply.symbol = maximum_supply.symbol;
