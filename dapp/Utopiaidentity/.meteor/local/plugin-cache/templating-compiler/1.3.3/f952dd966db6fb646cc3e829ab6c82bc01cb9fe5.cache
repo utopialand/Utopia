@@ -1,1 +1,0 @@
-{"head":"","body":"","js":"\nTemplate.__checkName(\"App_newproposal\");\nTemplate[\"App_newproposal\"] = new Template(\"Template.App_newproposal\", (function() {\n  var view = this;\n  return Spacebars.include(view.lookupTemplate(\"footer\"));\n}));\n","bodyAttrs":{}}

@@ -1,1 +1,0 @@
-{"head":"","body":"","js":"\nTemplate.__checkName(\"identity_reg\");\nTemplate[\"identity_reg\"] = new Template(\"Template.identity_reg\", (function() {\n  var view = this;\n  return HTML.Raw('<div class=\"identity-container\">\\n        \\n    </div>');\n}));\n","bodyAttrs":{}}
