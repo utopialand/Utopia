@@ -52,10 +52,10 @@ ACTION identity::addidcitzn(name manager,
     print("added identity by manager");
 }
 
-ACTION identity::remidentity(name username)
+ACTION identity::remidentity(name username,name manager)
 {
     print("removeidentity");
-    require_auth(username);
+    eosio_assert(is_manager(manager), "Not Authorized");
     identity_table iden_table(_self, _self.value);
     auto itr = iden_table.find(username.value);
     iden_table.erase(itr);
