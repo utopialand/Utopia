@@ -25,6 +25,7 @@ Template.budget_app.onCreated(function () {
                 const requiredFields = { accounts: [network] };
                 const eos = scatter.eos(network, Eos, eosOptions);
                 if (scatter.identity) {
+                    eosinstance=eos;
                     eos.getTableRows({
                         /*  code: "voteproposal",
                          scope: "voteproposal",
@@ -42,13 +43,12 @@ Template.budget_app.onCreated(function () {
                          var listlarge=[];
                          var listmedium=[];
                          var listsmall=[];
-                      console.log("tabledata---",tabledata)
                       for(var i = 0; i < tabledata.rows.length; i++){
-                          if(tabledata.rows[i].category=="l"){
+                          if(tabledata.rows[i].category=="l"&&tabledata.rows[i].selected==0){
                               listlarge.push(tabledata.rows[i]);
-                          }else if(tabledata.rows[i].category=="m"){
+                          }else if(tabledata.rows[i].category=="m"&&tabledata.rows[i].selected==0){
                               listmedium.push(tabledata.rows[i]);
-                          }else if(tabledata.rows[i].category=="s"){
+                          }else if(tabledata.rows[i].category=="s"&&tabledata.rows[i].selected==0){
                               listsmall.push(tabledata.rows[i]);
                           }
                       }

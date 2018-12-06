@@ -88,15 +88,18 @@ Template.identity_reg.events({
        .catch(error => {
        console.log("error---",error);
        }); */
-     /*   const config = { headers: { 'Content-Type': 'multipart/form-data' } };
-       axios.post('http://127.0.0.1:5001/api/v0/add','file=@/home/innotical/Downloads/Illustration2.png',config)                                                                                                     
+       const config = { headers: { 
+           'Content-Type': 'multipart/form-data',
+
+        } };
+       axios.post('http://127.0.0.1:5001/api/v0/add','file=@/home/innotical/trio/add.js',config)                                                                                                     
        .then(response => {
        console.log("response---",response.data);
        })
        .catch(error => {
        console.log("error---",error);
        }); 
-            */
+           
    }
 
 });

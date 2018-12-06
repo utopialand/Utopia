@@ -12,11 +12,11 @@ Template.header.events({
     },
     "click .identityText": function(){
         console.log("identity text was clicked");
+        FlowRouter.go("/budget");
     },
     "click .managerText": function(){
         console.log("manager");
-        FlowRouter.go("/manager");
-        /* FlowRouter.go("/budget"); */
-       /*  FlowRouter.go("/createbudget"); */
+        /* FlowRouter.go("/manager"); */
+        FlowRouter.go("/createbudget");
     }
 });

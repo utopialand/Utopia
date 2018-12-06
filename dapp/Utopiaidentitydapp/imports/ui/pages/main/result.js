@@ -110,18 +110,7 @@ Template.App_result.onCreated(function () {
                       }
                   }
                 });
-              
-                  console.log("resultdata ", resultdata);
-                  console.log("candidatedata", candidatedata);
-                  console.log("result after calculating ", result);
-                  
-                  /* for(var i=0;i<result.length;i++){
-                      document.getElementById("proposal-result-votes").innerHTML +="<br><div class = 'ep'>"+ result[i].toString().replace(/,/g, '/')+"</div>";
-                      
-                  } */
-              
-              
-               
+                     
               } else {
                   FlowRouter.go("/");
               }
@@ -132,72 +121,10 @@ Template.App_result.onCreated(function () {
   });
 });
 
-Template.App_result.helpers({
-    /* calcvote: async function () {
-        var result = [];
-        var length = 0;
-        var id = FlowRouter.current().params.id;
-        console.log("id: ", id);
-        let resultdata = eos.getTableRows({
-            code: "voteproposal",
-            scope: "voteproposal",
-            table: "votes13",
-            limit: "50",
-            json: true,
-            key_type: "i64",
-            index_position: 2
-        });
-
-        let candidatedata = eos.getTableRows({
-            code: "voteproposal",
-            scope: "voteproposal",
-            table: "proposal11",
-            limit: "50",
-            json: true,
-        });
-        console.log("resultdata ", resultdata);
-        console.log("candidate data: ", candidatedata);
-
-        //getting the length of list of all choices for a  particular proposal
-        var length = 0;
-        for (var i = 0; i < resultdata.rows.length; i++) {
-            if (id == resultdata.rows[i].proposal_id) {
-                length = resultdata.rows[i].choices.length;
-                break;
-            }
-        }
-
-        //creating a 2d array and setting initial votes to 0
-        for (var i = 0; i < length; i++) {
-            result[i] = [];
-        }
-
-        for (var i = 0; i < length; i++) {
-            for (var j = 0; j < length; j++) {
-                result[i][j] = 0;
-            }
-        }
-
-        var input = [];
-        //creating a 2d array of total votes received 
-        for (var i = 0; i < resultdata.rows.length; i++) {
-            if (id == resultdata.rows[i].proposal_id) {
-                input.push(resultdata.rows[i].choices)
-            }
-        }
-        for(var i=0;i<input.length;i++){
-            for(j=0;j<input[i].length;j++){
-                var val = input[i][j];
-                result[j][val-1] += 1;
-            }
-        }
-    
-        console.log("result after calculating ", result);
-        return result[0];
-
-    }, */
+Template.App_result.events({
+   'click .winnerbutton':function(){
+        console.log("--");
+        document.getElementById("winnername").innerHTML += "<h1 class='namewinner'>kaira is winner</h1>"
+   }
 })
 
-Template.App_result.onRendered(async function () {
-   
-});
