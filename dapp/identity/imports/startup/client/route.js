@@ -11,14 +11,10 @@ import "../../ui/pages/main/citizenship.js"
 import "../../ui/pages/main/newproposal.js";
 import "../../ui/pages/main/manager.js";
 import "../../ui/pages/main/result.js";
-<<<<<<< HEAD:dapp/Utopiaidentitydapp/imports/startup/client/route.js
+//import "../../ui/pages/main/budgetResult.js";
+//import "../../ui/pages/main/selected-bgt-prop.js";
 import "../../ui/pages/main/Budget.js";
 import "../../ui/pages/main/Createbudget.js";
-=======
-import "../../ui/pages/main/budgetResult.js";
-import "../../ui/pages/main/selected-bgt-prop.js";
-
->>>>>>> 5bf16c2fd0819c59a0c16e74dc4917732db8d6ec:dapp/identity/imports/startup/client/route.js
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
@@ -79,7 +75,29 @@ FlowRouter.route('/result/:id', {
     BlazeLayout.render('App_body', { main: 'App_result', id:cont});
   }
 });
-<<<<<<< HEAD:dapp/Utopiaidentitydapp/imports/startup/client/route.js
+
+FlowRouter.route('/identity', {
+  name: "identity",
+  action(params){
+    var cont = params.id
+    BlazeLayout.render('App_body', { main: 'App_identity'});
+  }
+});
+
+/* FlowRouter.route('/budget-result', {
+  name: "budget_result",
+  action(){
+    BlazeLayout.render('App_body', { main: 'App_budget_result'});
+  }
+}); */
+
+
+/* FlowRouter.route('/selected-bgt', {
+  name: "selected-bgt",
+  action(){
+    BlazeLayout.render('App_body', { main: 'App_selected_bgt_prop'});
+  }
+}); */
 FlowRouter.route('/budget', {
   name: 'Budget',
   action() {
@@ -92,28 +110,3 @@ FlowRouter.route('/createbudget', {
     BlazeLayout.render('App_body', { main: 'Budget_newproposal' });
   }
 });
-=======
-
-FlowRouter.route('/identity', {
-  name: "identity",
-  action(params){
-    var cont = params.id
-    BlazeLayout.render('App_body', { main: 'App_identity'});
-  }
-});
-
-FlowRouter.route('/budget-result', {
-  name: "budget_result",
-  action(){
-    BlazeLayout.render('App_body', { main: 'App_budget_result'});
-  }
-});
-
-
-FlowRouter.route('/selected-bgt', {
-  name: "selected-bgt",
-  action(){
-    BlazeLayout.render('App_body', { main: 'App_selected_bgt_prop'});
-  }
-});
->>>>>>> 5bf16c2fd0819c59a0c16e74dc4917732db8d6ec:dapp/identity/imports/startup/client/route.js

@@ -1,0 +1,1 @@
+{"head":"","body":"","js":"\nTemplate.__checkName(\"App_body\");\nTemplate[\"App_body\"] = new Template(\"Template.App_body\", (function() {\n  var view = this;\n  return HTML.DIV(\"\\n                \", Spacebars.include(view.lookupTemplate(\"budget_app\")), HTML.Raw(\"\\n               <!--  {{> UI.dynamic template=main }} -->\\n            \"));\n}));\n","bodyAttrs":{}}

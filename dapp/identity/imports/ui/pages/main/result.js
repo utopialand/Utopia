@@ -128,8 +128,6 @@ Template.App_result.events({
    }
 })
 
-<<<<<<< HEAD:dapp/Utopiaidentitydapp/imports/ui/pages/main/result.js
-=======
 Template.App_result.onRendered(async function () {
     var result = [];
     var length = 0;
@@ -239,4 +237,3 @@ Template.App_result.onRendered(async function () {
         
     }
 });
->>>>>>> 5bf16c2fd0819c59a0c16e74dc4917732db8d6ec:dapp/identity/imports/ui/pages/main/result.js

@@ -273,6 +273,11 @@
       "path": "app/global-imports.js"
     },
     {
+      "node_modules": "npm/node_modules",
+      "sourceMap": "app/app.js.map",
+      "path": "app/app.js"
+    },
+    {
       "sourceMap": "packages/mdg_validation-error.js.map",
       "path": "packages/mdg_validation-error.js"
     }

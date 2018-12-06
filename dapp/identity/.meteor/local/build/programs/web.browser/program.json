@@ -46,10 +46,10 @@
       "where": "client",
       "type": "js",
       "cacheable": true,
-      "url": "/packages/modules.js?hash=40546afcac2629a752dd335f071de92827e9d1c3",
-      "size": 34079,
-      "hash": "40546afcac2629a752dd335f071de92827e9d1c3",
-      "sri": "SgL0MCLWC25hY+KHhPLBeYwS2lLLI9YvFtTFHvMV1hprpF+fYSyf1i5FsrmQOcoe0d2mRFz0qYjTykJxqIPxMA=="
+      "url": "/packages/modules.js?hash=3c2e5f59fa8121518eb26a573e91b041e3fa7773",
+      "size": 2017994,
+      "hash": "3c2e5f59fa8121518eb26a573e91b041e3fa7773",
+      "sri": "6RT7p4OqtfTR6oWjecrErDiW3ISMHyfcXhuoCbcMkucFpcQshkInSNUfYf2Pf0IiqR+ELhzDJpgOhg7kYFU4xg=="
     },
     {
       "path": "packages/modern-browsers.js",
@@ -684,6 +684,18 @@
       "sri": "mU3nywhfuJoP6AaiP73MP05fMn66nvZHhUN1XpScfxhWKNu6DFIv94UYrlT3Ysq9Qxsf8fjieju1WimpywD7LA=="
     },
     {
+      "path": "app/app.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/app/app.js?hash=50878c14bf0a2aa13f6d3579686ced821201619e",
+      "sourceMap": "app/app.js.map",
+      "sourceMapUrl": "/app/50878c14bf0a2aa13f6d3579686ced821201619e.map",
+      "size": 143532,
+      "hash": "50878c14bf0a2aa13f6d3579686ced821201619e",
+      "sri": "KUXmXUR9pE8FSBRBPnYKVC9G/WaA3Sb/saq6U1Q+5jVChEd4yXDnarCfsZNWxJvY6D5hyOpkqNf+B57YLztDpQ=="
+    },
+    {
       "path": "packages/mdg_validation-error.js",
       "where": "client",
       "type": "js",
@@ -696,6 +708,328 @@
       "sri": "F17oEbI6ihgWTKSaZLpEVsghACWnJQb4lAv9kmMTPCmifgLNqBowBIGIYUgtguz8yFUW9VJ6u8SxGRlXowqa5g=="
     },
     {
+      "path": "merged-stylesheets.css",
+      "where": "client",
+      "type": "css",
+      "cacheable": true,
+      "url": "/merged-stylesheets.css?hash=5bbf3cddbbe19f3b87e6da6ed120398a81eb8d35",
+      "sourceMap": "merged-stylesheets.css.map",
+      "sourceMapUrl": "/5bbf3cddbbe19f3b87e6da6ed120398a81eb8d35.map",
+      "size": 3115,
+      "hash": "5bbf3cddbbe19f3b87e6da6ed120398a81eb8d35",
+      "sri": "PpVRneAD1LrzJ99OI+7pB6O8b5UFjNYERwGqS3L/SvzeaJ18UpUq6wnDO4MGiROkOYSVsaORt+CDj/bh2F76YQ=="
+    },
+    {
+      "path": "app/fonts/Colfax-Black.woff",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/Colfax-Black.woff",
+      "size": 41504,
+      "hash": "be7f37cc00d4325b351116eaab6ea692e666ad45",
+      "sri": "CljZYmg8PAhA1vqDMyfNDkLhUfB+a0EcNiqSw+jWYO1ByGGeues8TvaLqoLEJ5y2JJWH64C7w9P9VSAX31f6bg=="
+    },
+    {
+      "path": "app/fonts/Colfax-BlackItalic.woff",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/Colfax-BlackItalic.woff",
+      "size": 45332,
+      "hash": "98e925b3752a542c94717db301844cc001524434",
+      "sri": "qN4ewBTn0tsoUUDjgZUGvuTyX0Vj9PYf5xzxPXagr0GlC/A4RA8ck39CWvZr2XNe4TsbI+CPGw26fEl1DMv0JQ=="
+    },
+    {
+      "path": "app/fonts/Colfax-Bold.woff",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/Colfax-Bold.woff",
+      "size": 43228,
+      "hash": "fa384e8ddc62a42759231a0dfd0d6e7b6af371d3",
+      "sri": "7EP3tnJGuyXYFeV9OWJ3OD6Y17Jrt5sfac2IGRsX9ISsrakoG1AV3XHkN27FxE/yBhuO2CzEi6MaHQNPbcyvPw=="
+    },
+    {
+      "path": "app/fonts/Colfax-BoldItalic.woff",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/Colfax-BoldItalic.woff",
+      "size": 44628,
+      "hash": "797bbb31d56b9eaa69df7bbd1a95f777de5deb17",
+      "sri": "AY/5+fdziLJk4FBrRYPuhSFviW/PkPtvb3XZMcJA5vPI6PT6KWHh5AYfdx5WPbxUikdSvbrB9AH780VcU1/L/g=="
+    },
+    {
+      "path": "app/fonts/Colfax-Light.woff",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/Colfax-Light.woff",
+      "size": 41716,
+      "hash": "b29268dc6b2727fe004c095c16c834a81f4356f1",
+      "sri": "gle93TC+FGe3szWQbH5NtKOyEfPuJ6BwF/KN+otX87hZdxVFNkrBjPkS/2JTg8FTWre1eGQUZ8VsD4sCnNM/Rg=="
+    },
+    {
+      "path": "app/fonts/Colfax-LightItalic.woff",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/Colfax-LightItalic.woff",
+      "size": 45372,
+      "hash": "0f37d3b9cc61cafcd20f52e605ce9a6f4ba37bfb",
+      "sri": "kDetj5ESrGjZDazofh5Ta8z4XOrgisJbekQE4pfT6WPNrwj5DHPuw7fyiRN1sxzliWWSv6JHfgofSJby9FJ1yA=="
+    },
+    {
+      "path": "app/fonts/Colfax-Medium.woff",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/Colfax-Medium.woff",
+      "size": 43892,
+      "hash": "2795ba7ac4006af6bd9a3d56aa26fd897cbce13f",
+      "sri": "9DTQMVrXeKAqCQ8Me2j1Yt0xQIAi7+GWJ/6Hy/4QEq6Mn4CoKSa8ZjiLHIu9ahzlzvQvXYOZgkrqzXEOMEfyVQ=="
+    },
+    {
+      "path": "app/fonts/Colfax-MediumItalic.woff",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/Colfax-MediumItalic.woff",
+      "size": 43536,
+      "hash": "c1f51b9eabd3022f7cbee21b236e90a1dce433e7",
+      "sri": "m3rRjibpDq1KL1rusnkd5kLxhy0uSEKChRATBzObm51TiPB67veklSkd9FXSkNfCpwHdvPDL+bJGwDmSZiY3Fw=="
+    },
+    {
+      "path": "app/fonts/Colfax-Regular.ttf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/Colfax-Regular.ttf",
+      "size": 59416,
+      "hash": "6296617ea07a5c5e9a73ca0c26b49b1812d2ff57",
+      "sri": "InsS5FGhGY65Q40DysmWwPOJGYc+qOeRmga3GY7SkiSf9EjZwNhP0lELh9s0bvei4v8xJuqy0Z0foXazFPDhYQ=="
+    },
+    {
+      "path": "app/fonts/Colfax-RegularItalic.woff",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/Colfax-RegularItalic.woff",
+      "size": 47020,
+      "hash": "873339e50c102875a964c86b86bfebf08f30edfd",
+      "sri": "kYZSv28iVFbXmXyvFl9p9BXJ+qw3u+Qsz0k6fj3ij92ctLhdQZar64UU8oXbwuMsDOEZ/5ih0/SOnGBDLS6ekw=="
+    },
+    {
+      "path": "app/fonts/Colfax-Thin.woff",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/Colfax-Thin.woff",
+      "size": 39792,
+      "hash": "e03b79be8a44b8b9174d8c3e202ec79d89b69a8a",
+      "sri": "JY01GrJz3N6ZOJsCHoU0XMeh/oojbnzKB617J0NIWmjHgIu+s0FJcVggdY+uxDNaXShyRECezO0fH3cra5nFKw=="
+    },
+    {
+      "path": "app/fonts/Colfax-ThinItalic.woff",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/Colfax-ThinItalic.woff",
+      "size": 42216,
+      "hash": "dedc6a2777c6d507d63697c91ad963988eedae5e",
+      "sri": "v3rlEV5ZzJpqYwEEDr7hmdrz8mLC850+jgzvLNWc+mGwh/FDNIMeH6ZiLEjfxQ7rVntsMnlLbICM7/8zAy3Rpg=="
+    },
+    {
+      "path": "app/fonts/GoogleSans-Bold.ttf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/GoogleSans-Bold.ttf",
+      "size": 117916,
+      "hash": "02f4ae4f52dd7ca10fb7a6f960db56785f1d4a55",
+      "sri": "zdxl/75x80hz7OqaNy/a94cawamXcim8dfTARjxNtLsAh0O5j/gOyduABHrti+33dg5Q+YY47yuJ9ofE7FQpow=="
+    },
+    {
+      "path": "app/fonts/GoogleSans-BoldItalic.ttf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/GoogleSans-BoldItalic.ttf",
+      "size": 121080,
+      "hash": "fce71a71f086f7dd89e1e1391e7e361b16886071",
+      "sri": "z+PLDUTbyMXhi8rXezBl8QVFW6hMhTer77wiRnzHi2gjHqL6C6GTuBf1sNoGw3gWTZR8Q90cxSRelbngDAlMVA=="
+    },
+    {
+      "path": "app/fonts/GoogleSans-Italic.ttf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/GoogleSans-Italic.ttf",
+      "size": 121280,
+      "hash": "57fd764296b54cb6566ebcaaa861455691a6384f",
+      "sri": "VpiUvOWSl9/DzpogRV1BGYSLOYIPZ1X7Sfnv4nkUjJTpN4hzZdE0p2PXwKBG+uimhoMvq3+ERXIPoDH4JWrjCQ=="
+    },
+    {
+      "path": "app/fonts/GoogleSans-Medium.ttf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/GoogleSans-Medium.ttf",
+      "size": 118508,
+      "hash": "34f65b29df843887682aa959f941d69538f66c6e",
+      "sri": "vkgrtBqc/3Tf4VmrxDKi1zOr5fkQggeKaAIdn5e3RtYVVtgdUtqpPSm4bYeNypIssqG2evZcVGz/WPVzY+qUzw=="
+    },
+    {
+      "path": "app/fonts/GoogleSans-MediumItalic.ttf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/GoogleSans-MediumItalic.ttf",
+      "size": 121216,
+      "hash": "eb5de483213d394bf466dadb089dd4ae3876686d",
+      "sri": "+UOxvb7SS61WB0osjjz+SXpsVb7rwbs+HvZ5yC/QpSICH6UeNDpPETZiGgON7r4nx26vjWfzJGNdyJKP6rlxNQ=="
+    },
+    {
+      "path": "app/fonts/GoogleSans-Regular.ttf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/GoogleSans-Regular.ttf",
+      "size": 119984,
+      "hash": "f73bd1970139058ce60b2b434b7dec042c106d38",
+      "sri": "MfU+migDu0LKbbxpyunb+d5TqR25yzK6xsarnQNQY5ohoiuMGTutukvodH8qdsFMEjM/YRTFFQ0cpT82t/e0sw=="
+    },
+    {
+      "path": "app/fonts/LucidaGrande.ttf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/LucidaGrande.ttf",
+      "size": 256356,
+      "hash": "3c0035e28d48e22db8b7b3cb15f8ce8cc39e9b3c",
+      "sri": "Yse2KOFHyhGPnyZr1LMzon+XdTU5W4KhfYXvZlU9YWV8hGMSXn/K4gIOp7gX5m4IL0yEPBDenE1wTJWvB7x0fw=="
+    },
+    {
+      "path": "app/fonts/LucidaGrandeBold.ttf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/LucidaGrandeBold.ttf",
+      "size": 193212,
+      "hash": "510b89921cc50f01bcf848540cccaf79ed4889e3",
+      "sri": "syfSC4nIHeNCeRTBeDyiwQ1vbqQvXx/qWxLuX5qtQOl4XMVCwv4ZFH/3YaGMqw3R6ZOEsWmJogEVRhUeiUZcbg=="
+    },
+    {
+      "path": "app/fonts/brandon-grotesque-black.otf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/brandon-grotesque-black.otf",
+      "size": 90915,
+      "hash": "142f04d7d65b2e4d1ffe7e1c4ed7e2f3f23655d2",
+      "sri": "K5Mhz8pP+DLzpyCujV+Szv+6BfdEYbnn1QzwsHhWKNsmHc9aJwtwgfalYHAdF0HV3W8MN5T0EOei4ABZ/rlI3g=="
+    },
+    {
+      "path": "app/fonts/brandon-grotesque-bold-italic.otf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/brandon-grotesque-bold-italic.otf",
+      "size": 82210,
+      "hash": "82bfca54c1c40035628327e956271dbfd53bbbfe",
+      "sri": "Nr7xuvbitboQqaRMF04gr5O8RURSlmA1oEREMRyvdOMsXzKwD23U9PgehanUOzfRqYE3vCagNtH/Frov/4jooQ=="
+    },
+    {
+      "path": "app/fonts/brandon-grotesque-light-italic.otf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/brandon-grotesque-light-italic.otf",
+      "size": 78960,
+      "hash": "340ddb15c3ce746e86a819a74a9111fac963e52d",
+      "sri": "QQSl3kqOOxnJPfXmpQTY8zBmIC+gv7V1FYt81tClDffKviml+AjUDBFLvA0jQSTKDdSSZ3jO5F83sRRIjWjapg=="
+    },
+    {
+      "path": "app/fonts/brandon-grotesque-light.otf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/brandon-grotesque-light.otf",
+      "size": 87293,
+      "hash": "f194c65601eeaeda861847109c94c06796a64900",
+      "sri": "QOGR7f8dr9PIUZBn9/9JxOWoKwvtebH3EVULUEEeQTUSRi3eWMg1zYOQ60o9BxfewWrBIO/ARqkU1ZxF+pdF8g=="
+    },
+    {
+      "path": "app/fonts/brandon-grotesque-medium-italic.otf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/brandon-grotesque-medium-italic.otf",
+      "size": 80970,
+      "hash": "9012c6d4c2a0c0488bc9e02e3be8863e9db1c97b",
+      "sri": "duzcnr8881fUwvIxlM9yJODhEX/XjpVnXknVUw53jjRxWwJFo5UQ7pkapfH2tkk6vd/YBifGAhJbFM9kY7Y8Xg=="
+    },
+    {
+      "path": "app/fonts/brandon-grotesque-regular-italic.otf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/brandon-grotesque-regular-italic.otf",
+      "size": 81218,
+      "hash": "30a548e87fc16c77784002791e2d43833afc8778",
+      "sri": "BhNyVQGkArNJVGYIsn5IUyqV0SgYJQKvcj4WmncmgyxNLYCTguOZkD3sG8zxRB1aEDJrxlVVdHaGaU7riSBTcg=="
+    },
+    {
+      "path": "app/fonts/brandon-grotesque-thin-italic.otf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/brandon-grotesque-thin-italic.otf",
+      "size": 83071,
+      "hash": "afaa0443d45e6f05e671af88bd14c4e8b52bef26",
+      "sri": "6ccZcM9eNEfWCpGRD/EiWi9c4tn3wDAPdfV4JYCUxzfPP1AQAEkQnbMzy6rKE4NGK6BpiVOoqaYiIXVAFSjjYg=="
+    },
+    {
+      "path": "app/img/Background.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/img/Background.png",
+      "size": 9103,
+      "hash": "79585fe7b19a4373ddd41ed77c534d289c0c0b3b",
+      "sri": "tKZF5lRZY+8gVrlCrc3oHF/Dzjdmr/ranQcxbYbApdrDVw/t6pkbtrbF35egiKhrX2JZmYkGDjAh7BcUGkLnOA=="
+    },
+    {
+      "path": "app/img/Github.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/img/Github.png",
+      "size": 360,
+      "hash": "a09eadea5571734b371fa3835ba578b766c13e77",
+      "sri": "aHdJYFUnCk0aYgOKjpOqjiCwfnshir7DVArc5CtYfd+Dh38MUOPE2VeMaRkckPkb1s9Skknza3L9gBoesnPg7g=="
+    },
+    {
+      "path": "app/img/ImagePlaceholder.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/img/ImagePlaceholder.png",
+      "size": 19676,
+      "hash": "2991736dea41b79818258b81358b7e369b605413",
+      "sri": "LwEH74y+IVBE79BU+V2jcqcTXyadhdxxHvZgosstpe6rD/X29HxvwOl7CaiaVmF2v67jRwlEWc2fAMFoEYW1nA=="
+    },
+    {
+      "path": "app/img/Rectangle.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/img/Rectangle.png",
+      "size": 8232,
+      "hash": "4fed618508403c2e45cd5400095a03f0262d457c",
+      "sri": "HFduUj+yJPFO0kavOjlenVWpwsEet7jNasCDLBzOQcXJmotukY0+zF2N9sn6TK/n2HJ1hvlvxn4oJWhdxG6Pbw=="
+    },
+    {
       "path": "app/img/Vote1.png",
       "where": "client",
       "type": "asset",
@@ -706,34 +1040,110 @@
       "sri": "WsdxgOzQbLUOA8ZvCF+jfnisTDjOtccxQ8mjK+h0tPKeT9SXqj8eEJxmzrRFKMRIDnxbkzpaOoVi4Jw8NRd3lg=="
     },
     {
-      "path": "app/img/Vote2.png",
+      "path": "app/img/logo.png",
       "where": "client",
       "type": "asset",
       "cacheable": false,
-      "url": "/img/Vote2.png",
-      "size": 1281,
-      "hash": "bef4193eed5de09dd32479c9ad849365281e7c3e",
-      "sri": "ugCOy6xIM2s4ASjwxhObYJsnSOQkUMh+fF+OYxrAqmDKMTm+ayo4FJ3g4TPD13a2NKQsNC1CfLF2ur9xarSMvw=="
+      "url": "/img/logo.png",
+      "size": 198,
+      "hash": "a401a74a10975baf6dd65906e1ec4ac1520a9320",
+      "sri": "m1rACOplZ7OBs1/haP5nav9Bh6fLXw3PF0Ik5w4N3iZcjeZWPrGqOnHYvcJlVJOxzBqzVWI/tMd1b1lRl+l0/g=="
     },
     {
-      "path": "app/img/dislike.png",
+      "path": "app/img/map.png",
       "where": "client",
       "type": "asset",
       "cacheable": false,
-      "url": "/img/dislike.png",
-      "size": 642,
-      "hash": "2dda1c0455fe9c786e701cb736432e289e038fd8",
-      "sri": "TfiDF11kGI5kVyuMiPLw+DLiEYCLW2Fh1hGAhFnxD7JQthKmLT27Ks9cz/zXZnePzPHFzvGm9m/jX1VAH31buQ=="
+      "url": "/img/map.png",
+      "size": 325483,
+      "hash": "209c33372d4269ef577a158d645ccc6429654d90",
+      "sri": "0RoyLgMot8bAtbx+eggFrZ/wawwHpr/DZwXu3vlK1oZ2zXBA/hqnGw1+72AdK4fRQ6Mzbp26/mMic3K17MWkrg=="
     },
     {
-      "path": "app/img/like.png",
+      "path": "app/img/mapGroup.png",
       "where": "client",
       "type": "asset",
       "cacheable": false,
-      "url": "/img/like.png",
-      "size": 514,
-      "hash": "322d184355815ce5e9552df4de9c4081d51bbfff",
-      "sri": "ah4C3i1k0pwvbFasA6Id2cwwhv6Mvn11hClBbaV+7jnc1A8RX9FKV3uLLN58grOPKP9EenWrKa73o0E1yvdjiw=="
+      "url": "/img/mapGroup.png",
+      "size": 223083,
+      "hash": "45b272186bb08b21af889e4425a7639da216f3c9",
+      "sri": "CEqrxvWJOYzBMV7WIhCIHdq5aI3biPwCH3a39dycTXJayllGhKKs9pJeFiXLiIjYXoo9+AoNZEdF7NYtSEmyZA=="
+    },
+    {
+      "path": "app/img/optionBox.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/img/optionBox.png",
+      "size": 2836,
+      "hash": "fdb014cd5c43a118d7bc4be12a44e8c7723220e2",
+      "sri": "oNCwicr34fOsbRwdkEDmzh83ZgnBsLov2m+g3qexhmcjrZjU95syNhg4AxxmBeUydj7QweYBRUne7lTmrmjJ8w=="
+    },
+    {
+      "path": "app/img/optionBox2.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/img/optionBox2.png",
+      "size": 3168,
+      "hash": "fa7c6edc9b48a40cd9274e6e5666c26487a8ce14",
+      "sri": "NB0MvO8ieCEPhTIyqnRh2SR8r1EoxNNtfPj9bjwMFpMbavLCPUYNjAWulLywe5NY1wa3Gxm9+IHPg2s443pFpw=="
+    },
+    {
+      "path": "app/img/profileImage.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/img/profileImage.png",
+      "size": 92028,
+      "hash": "dc435fb183a3f40e46a49aa700bce5dca1d30e36",
+      "sri": "IKZWqHUAY25NZGuh8vKfEt8SEJdTOXHwsGRjZl9uvVGARiQMLzF8mdM1TtqtgitMn8q3wsMttzchCTLG2mu8Wg=="
+    },
+    {
+      "path": "app/img/section1logo.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/img/section1logo.png",
+      "size": 38994,
+      "hash": "256233bfd2c72e3873279dd889a4f6355daf8341",
+      "sri": "srpyp0mPzv6L/OklgTATf3X7/LrCXVNdXwMtwvW7DiVkVIfuM+LcaY+0HpmTkST4AEnrYqmVdidUs7b//+TCdw=="
+    },
+    {
+      "path": "app/img/section3Background.jpg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/img/section3Background.jpg",
+      "size": 48509,
+      "hash": "4e34bbf2671919722beabb537b372301798746e9",
+      "sri": "iIP/FN9HhzkAcrGAoVlaJMQIP7JlIDjp7BLNT3POnLrGWoe2AxTVyPfabehu0j2EqW/Y72Vu5DCt6Pn96P7MHw=="
+    },
+    {
+      "path": "app/img/section3utopia.jpg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/img/section3utopia.jpg",
+      "size": 48509,
+      "hash": "4e34bbf2671919722beabb537b372301798746e9",
+      "sri": "iIP/FN9HhzkAcrGAoVlaJMQIP7JlIDjp7BLNT3POnLrGWoe2AxTVyPfabehu0j2EqW/Y72Vu5DCt6Pn96P7MHw=="
+    },
+    {
+      "path": "app/img/utopiaLogo.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/img/utopiaLogo.png",
+      "size": 8319,
+      "hash": "cdc7a43d19c48adf738dedb3eb1b213c6643f50f",
+      "sri": "czPKqjkdyvHYRdgjqTUvWlwqnXcsH5TpdTh0cDIAZlH9hhmfWpichJlwbFewmng9/aeL86J65UqLSEFP6taUOw=="
+    },
+    {
+      "path": "head.html",
+      "where": "internal",
+      "type": "head",
+      "hash": "24fdbbae5e4c56ab58c37776499847b2d9903832"
     }
   ]
 }
