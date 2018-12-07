@@ -16,6 +16,7 @@ const eosOptions = {
 var scatter={};
 var eosinstance = {};
 let tabledata ;
+let budgetpropstart;
 Template.budget_app.onCreated(function () {
     Meteor.subscribe('identity');
     ScatterJS.scatter.connect('utopia').then((connected) => {
@@ -82,6 +83,18 @@ Template.budget_app.onCreated(function () {
                       
                           }
                      });
+
+
+                     eosinstance.getTableRows({
+                        code: "propbudget11",
+                        scope: "propbudget11",
+                        table: "votestat",
+                        limit: 50,
+                        json: true
+                      }).then((resp)=>{
+                        budgetpropstart = resp;
+                        console.log(budgetpropstart);
+                      });                
                     
                 } else {
                     FlowRouter.go("/");
@@ -98,19 +111,28 @@ Template.budget_app.onRendered(async function () {
 })
 Template.budget_app.events({
     'click .like-button':function(){
-        var propid=event.target.id;
-        var username = localStorage.getItem("username");
-        eosinstance.contract('propbudget11').then(propbudget11 => {
-            propbudget11.catgvote(propid,username, { authorization: username }).then((response) => {
-                if (response) {
-                   alert("budget voting successfull");
-                } else {
-                    alert("something went wrong!!!!");;
-                }
-
-            });
-
-        })
+        if(budgetpropstart.rows[0]==null||budgetpropstart.rows[0].status==false)
+        {
+          document.getElementsByClassName("like-button")[0].style.disable=true;
+          alert("voting duration has ended");
+        }
+        else{
+            document.getElementsByClassName("like-button")[0].style.display="block";
+            var propid=event.target.id;
+            var username = localStorage.getItem("username");
+            eosinstance.contract('propbudget11').then(propbudget11 => {
+                propbudget11.catgvote(propid,username, { authorization: username }).then((response) => {
+                    if (response) {
+                       alert("budget voting successfull");
+                    } else {
+                        alert("something went wrong!!!!");;
+                    }
+    
+                });
+    
+            })
+        }
+       
     },
     'click .budgetpropbutton':function(){
          FlowRouter.go("/createbudget");

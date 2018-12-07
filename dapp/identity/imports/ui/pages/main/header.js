@@ -16,8 +16,7 @@ Template.header.events({
     },
     "click .managerText": function(){
         console.log("manager");
-        FlowRouter.go("/budget");
-       /*  FlowRouter.go("/createbudget"); */
+        FlowRouter.go("/manager");
 
     }
 });

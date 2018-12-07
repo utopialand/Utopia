@@ -46,6 +46,68 @@
     transition: 0.5s;
 }
 
+.budgetProposalsList{
+    display: flex;
+    flex-direction: column;
+    width:100%;
+}
+.bpContent{
+    width:100%;
+    height:100%;
+    background: red;
+}
+
+.bpClass{
+    flex:6;
+    background: white;
+    display: flex;
+    align-items: center;
+    margin-top:10px;
+}
+.bpClass p{
+    margin-left:5%;
+}
+.bpCount{
+    flex:4;
+    background: white;
+}
+.start-stop{
+    display:flex;
+    justify-content: center;
+    height:50px;
+    margin-top:5%;
+    margin-left:auto;
+    margin-right:auto;
+    cursor: pointer;
+}
+.selectedStatusButton{
+    display:flex;
+    justify-content: center;
+    height:50px;
+    margin-top:5%;
+    margin-left:auto;
+    margin-right:auto;
+    cursor: pointer;
+}
+.submitButton{
+    display:flex;
+    justify-content: center;
+    height:50px;
+    margin-top:5%;
+    margin-left:auto;
+    margin-right:auto;
+    cursor: pointer;
+}
+
+.managerSelection{
+    display:flex;
+    justify-content: space-between;
+    align-content: center;
+    margin-top:5%;
+    font-size: 24px;
+    font-weight: bold;
+}
+
 
 .manager-below-section{
     width: 100%;
