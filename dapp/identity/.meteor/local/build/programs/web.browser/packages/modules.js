@@ -161,6 +161,7 @@ install("templating-compiler");
 install("templating-runtime");
 install("templating");
 install("kadira:blaze-layout");
+install("session", "meteor/session/session.js");
 install("webapp", "meteor/webapp/webapp_client.js");
 install("livedata");
 install("hot-code-push");
@@ -1616,7 +1617,7 @@ module.exports = {
     "type": "git",
     "url": "https://github.com/babel/babel/tree/master/packages/babel-runtime"
   },
-  "version": "7.1.5"
+  "version": "7.2.0"
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
