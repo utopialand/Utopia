@@ -1,8 +1,8 @@
+node_modules/
 # ------------- meteor gitignore
 
 .meteor/local
 .meteor/meteorite
-node_modules
 
 # ------------- OSX gitignore
 
