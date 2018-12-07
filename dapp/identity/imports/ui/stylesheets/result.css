@@ -71,21 +71,27 @@
     border: 1px solid white;
 }
 
-#proposal-desc{
-    text-align: center;
-    font-weight: bolder;
-    font-size: 18px;
-    text-transform: uppercase;
-    font-family: Colfax Medium;
-    letter-spacing: 2px;
-}
 
-#proposal-detail{
-    text-align: center;
-    font-weight: bolder;
+.winnerbutton{
+    margin-top:40px;
+    height: 60px;
+    width: 250px;
+    color: white; font-family: Colfax Medium;
+    color: white;
     font-size: 18px;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
-    font-family: Colfax Medium;
-    letter-spacing: 2px;
-}
-
+    line-height: 14px;
+    background:#04030F;
+  }
+  
+  .winnerbutton:hover{
+    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
+  }
+  .winner{
+      display: flex;
+      justify-content: center;
+  }
+  .namewinner{
+      color: green;
+  }

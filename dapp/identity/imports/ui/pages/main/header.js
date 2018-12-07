@@ -17,5 +17,6 @@ Template.header.events({
     "click .managerText": function(){
         console.log("manager");
         FlowRouter.go("/manager");
+
     }
 });

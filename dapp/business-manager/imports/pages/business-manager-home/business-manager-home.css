@@ -1,0 +1,262 @@
+.wrapper{
+    width: 90%;
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+}
+
+.top-section{
+    display: flex;
+}
+
+.top-section .heading{
+    flex: 1;
+    font-size: 32px;
+}
+
+.top-section .search-box{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.top-section .search-box input{
+    width: 250px;
+    height: 45px;
+    background: url("img/searchicon.png") no-repeat scroll 18px 18px;
+    border: 0px;
+    box-shadow: 0px 0px 30px #ccc;
+    padding-left: 50px;
+}
+
+.top-section .my-business{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.top-section .my-business button{
+    width: 250px;
+    height: 51px;
+    border: 0px;
+    font-size: 14px;
+    line-height: 15px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+    background: transparent;
+    box-shadow: 0px 0px 30px #ccc;
+    text-transform: uppercase;
+}
+
+.top-section .all-business{
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.top-section .all-business button{
+    width: 250px;
+    height: 51px;
+    border: 0px;
+    color: #aaa;
+    font-size: 14px;
+    line-height: 15px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+    background: rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+}
+
+.business-section{
+    margin-top: 54px;
+    display: flex;
+    flex-direction: column;
+}
+
+.business-section .business-section-top{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+}
+
+.business-section .business-section-bottom{
+    flex: 1;
+    display: flex;
+}
+
+.business-section .company{
+    flex: 1;
+    box-shadow: 0px 0px 30px #ccc;
+    border-radius: 6px;
+}
+
+.business-section .company:nth-child(2){
+    margin: 0 40px;
+}
+
+.business-section .business-section-bottom {
+    margin-top: 3%;
+}
+
+.company .company-name{
+    font-size: 14px;
+    margin-top: 10%;
+    margin-left: 10%;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.stockdetails{
+    margin-left: 10%;
+    display: flex;
+}
+
+.stockdetails .stockname{
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: grey;
+    line-height: 41px;
+    font-size: 32px;
+}
+
+.stockdetails .stockvalue{
+    font-weight: bolder;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: black;
+    line-height: 41px;
+    font-size: 32px;
+    margin-left: 7%;
+}
+.company .stock-fluctation{
+    margin: 10% 0 10% 10%;
+    font-size: 16px;
+}
+
+.business-section-top .stock-fluctation{
+    color: #13BC50;
+}
+
+.business-section-bottom .stock-fluctation{
+    color: #FF2C45;
+}
+
+.stock-fluctation span{
+    margin-left: 16px;
+}
+
+.new-business{
+    border: 1px dashed #aaa;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.new-business p{
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    margin-top: 20%;
+    font-weight: bolder;
+}
+
+@media only screen and (max-width: 790px){
+    .top-section{
+        flex-direction: column;
+    }
+
+    .top-section .heading p{
+        text-align: center;
+    }
+
+    .top-section .search-box input{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .top-section .my-business button{
+        margin-left: auto;
+        margin-right: auto;
+        width: 300px;
+        margin-top: 3%;
+    }
+
+    .top-section .all-business button{
+        margin-left: auto;
+        margin-right: auto;
+        width: 300px;
+        margin-top: 3%;
+    }
+
+    .business-section .business-section-top{
+        flex-direction: column;
+    }
+
+    .business-section .company:nth-child(2){
+        margin: 5% 0px 0px 0px;
+    }
+
+    .company{
+        margin-top: 5%;
+    }
+
+
+    .business-section .business-section-bottom{
+        flex-direction: column;
+        margin: 0;
+    }
+
+    .new-business p{
+        margin: 0;
+        padding-top: 20%;
+        padding-bottom: 20%;
+    }
+    
+}
+
+@media only screen and (max-width: 1250px){
+    .top-section{
+        flex-direction: column;
+    }
+
+    .top-section .heading p{
+        text-align: center;
+    }
+
+    .top-section .search-box input{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .top-section .my-business button{
+        margin-left: auto;
+        margin-right: auto;
+        width: 300px;
+        margin-top: 3%;
+    }
+
+    .top-section .all-business button{
+        margin-left: auto;
+        margin-right: auto;
+        width: 300px;
+        margin-top: 3%;
+    }
+
+    .company .stock-price span{
+        display: block;
+        margin-left: 0%;
+    }
+
+    .stockdetails{
+        flex-direction: column;
+    }
+
+    .stockdetails .stockvalue{
+        margin-left: 0%;
+    }
+}

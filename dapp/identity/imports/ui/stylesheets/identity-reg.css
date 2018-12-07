@@ -4,7 +4,15 @@
   margin: 0 auto;
   margin-top: 5%;
 }
-
+.hell{
+  height: 100px;
+  width: 100%;
+  background: red;
+}
+.imagelist{
+  height: 300px;
+  width: 100px;
+}
 h1{
   text-transform: uppercase;
   text-align: center;

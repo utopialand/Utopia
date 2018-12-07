@@ -13,18 +13,7 @@ const network = {
 const eosOptions = {
     chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
   };
-  eosConfig = {
-    chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473", // 32 byte (64 char) hex string
-    /* keyProvider: ["5Jur4pK1Rb8xvdfNUUZJq5JE36HQUd9PNouWwjUdbWw7cK8ZuUo"], */
-    keyProvider:["5KKodHxhrpZQhWeVTAzBJgfwGwPjkYAZdtWiWX9jaZTDL7utgKo"],
-    // WIF string or array of keys..
-    httpEndpoint: "https://jungle2.cryptolions.io:443",
-    expireInSeconds: 60,
-    broadcast: true,
-    verbose: false, // API activity
-    sign: true
-  };
-  const eos = Eos(eosConfig);
+
 
   Template.App_selected_bgt_prop.events({
 

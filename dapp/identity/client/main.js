@@ -1,5 +1,5 @@
 import "./main.html"
-import "../imports/ui/pages/main/welocomePage.js";
+import "../imports/ui/pages/main/welcomePage.js";
 import "../imports/ui/pages/main/header.js";
 import "../imports/ui/pages/main/identity-reg.js";
 import "../imports/ui/layouts/body/body.js"
