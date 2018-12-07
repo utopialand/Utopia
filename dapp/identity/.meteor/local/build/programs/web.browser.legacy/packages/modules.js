@@ -1690,20 +1690,53 @@ module.exports = require("regenerator-runtime");
                                                                                                                        //
 module.exports = {
   "author": {
-    "name": "Sebastian McKenzie",
-    "email": "sebmck@gmail.com"
+    "email": "sebmck@gmail.com",
+    "name": "Sebastian McKenzie"
   },
-  "bundleDependencies": false,
   "dependencies": {
     "regenerator-runtime": "^0.12.0"
   },
-  "deprecated": false,
   "description": "babel's modular runtime helpers",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "fileCount": 142,
+    "integrity": "sha512-oouEibCbHMVdZSDlJBO6bZmID/zA/G/Qx3H1d3rSNPTD+L8UNKvCat7aKWSJ74zYbm5zWGh0GQN0hKj8zYFTCg==",
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJcBX2pCRA9TVsSAnZWagAA8CgP/joCC+yZoOAP+DYWfI4e\nQi0YNUp3Uz9OWn054YhfmiXLUh1y65ol+bXhiTOJVwhApKoeufpWTU+AHsNK\n6G/0AXJu+UN4WfhIXn9HF+v68la3ZjXgLzk2gepIUTM8n3xqYJ0qNtjimfhz\nbg/LMUhvTFIR6ZjhBDdIQIuOAxhEW//xKAyTDuThWuNckvjEUGzBMI+0Uyks\nX7X1UJvUBMffroagkfYL84NPJgUhd6kiKPx64Mff7dov1vOra7zu2eWnVdp1\n5lpuy2406rlgNzSBP6A1SveAag4Ga20+17xjpBVNuluIzrS3OsMavuAYSvQa\nqkGw12FRRwLqJAUdjmqbXMN0CTV3fzI52JwGANNQvsaFUHx7OTVB74ujpVDJ\n6KFOdfqpPmtn0CGaZdT1SAadenh8M6r+52UES0jhWpHHoCoVAsYUyjOl1jaz\nVEt1U/Zz5M9QkEjU6Jq7IeTMDbNRCu4yA8z58DF8jcsNeGZM8XvFHuNEVHkO\nhXmBdj0W9Fl1FCrWXnLgNJVoq5t6eQMuDHEFfoRp+DCmb/Yz/u8S07usjFPE\nzAOOn6VfGzeaT46IntMB6p0i6KEme37px9E92VESRvgoho5pRd3Y0VVWtDTG\n0XGMh15k03E0wtC3bNwMfeUETSW9NnNxzQLBnj8E+hp6O6nRonvUgA+slArl\nee6Q\r\n=tTbY\r\n-----END PGP SIGNATURE-----\r\n",
+    "shasum": "b03e42eeddf5898e00646e4c840fa07ba8dcad7f",
+    "tarball": "https://registry.npmjs.org/@babel/runtime/-/runtime-7.2.0.tgz",
+    "unpackedSize": 77831
+  },
   "license": "MIT",
+  "licenseText": "MIT License\n\nCopyright (c) 2014-2018 Sebastian McKenzie and other contributors\n\nPermission is hereby granted, free of charge, to any person obtaining\na copy of this software and associated documentation files (the\n\"Software\"), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to\npermit persons to whom the Software is furnished to do so, subject to\nthe following conditions:\n\nThe above copyright notice and this permission notice shall be\nincluded in all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,\nEXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND\nNONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE\nLIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION\nOF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION\nWITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.\n",
+  "maintainers": [
+    {
+      "name": "danez",
+      "email": "daniel@tschinder.de"
+    },
+    {
+      "name": "existentialism",
+      "email": "bng412@gmail.com"
+    },
+    {
+      "name": "hzoo",
+      "email": "hi@henryzoo.com"
+    },
+    {
+      "name": "loganfsmyth",
+      "email": "loganfsmyth@gmail.com"
+    },
+    {
+      "name": "nicolo-ribaudo",
+      "email": "nicolo.ribaudo@gmail.com"
+    }
+  ],
   "name": "@babel/runtime",
+  "optionalDependencies": {},
   "publishConfig": {
     "access": "public"
   },
+  "readme": "ERROR: No README data found!",
   "repository": {
     "type": "git",
     "url": "https://github.com/babel/babel/tree/master/packages/babel-runtime"
@@ -2584,8 +2617,8 @@ module.exports = {
   "name": "global",
   "version": "4.3.2",
   "browser": {
-    "min-document": false,
-    "individual": false
+    "individual": false,
+    "min-document": false
   },
   "main": "window.js"
 };
@@ -6021,18 +6054,18 @@ module.exports = {
   "name": "readable-stream",
   "version": "2.3.6",
   "browser": {
-    "util": false,
+    "./duplex.js": "./duplex-browser.js",
+    "./lib/internal/streams/stream.js": "./lib/internal/streams/stream-browser.js",
     "./readable.js": "./readable-browser.js",
     "./writable.js": "./writable-browser.js",
-    "./duplex.js": "./duplex-browser.js",
-    "./lib/internal/streams/stream.js": "./lib/internal/streams/stream-browser.js"
+    "util": false
   },
   "main": "readable.js"
 };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-},"readable.js":"/node_modules/meteor-node-stubs/node_modules/readable-stream/readable-browser.js","writable.js":"/node_modules/meteor-node-stubs/node_modules/readable-stream/writable-browser.js","duplex.js":"/node_modules/meteor-node-stubs/node_modules/readable-stream/duplex-browser.js","lib":{"internal":{"streams":{"stream.js":"/node_modules/meteor-node-stubs/node_modules/readable-stream/lib/internal/streams/stream-browser.js","stream-browser.js":function(require,exports,module){
+},"duplex.js":"/node_modules/meteor-node-stubs/node_modules/readable-stream/duplex-browser.js","lib":{"internal":{"streams":{"stream.js":"/node_modules/meteor-node-stubs/node_modules/readable-stream/lib/internal/streams/stream-browser.js","stream-browser.js":function(require,exports,module){
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
@@ -8365,7 +8398,7 @@ PassThrough.prototype._transform = function (chunk, encoding, cb) {
 };
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-}},"readable-browser.js":function(require,exports,module){
+}},"readable.js":"/node_modules/meteor-node-stubs/node_modules/readable-stream/readable-browser.js","writable.js":"/node_modules/meteor-node-stubs/node_modules/readable-stream/writable-browser.js","readable-browser.js":function(require,exports,module){
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
@@ -18558,8 +18591,8 @@ function getr(priv) {
                                                                                                                        //
 module.exports = {
   "author": {
-    "name": "Fedor Indutny",
-    "email": "fedor@indutny.com"
+    "email": "fedor@indutny.com",
+    "name": "Fedor Indutny"
   },
   "bugs": {
     "url": "https://github.com/indutny/elliptic/issues"
@@ -18597,14 +18630,17 @@ module.exports = {
   ],
   "homepage": "https://github.com/indutny/elliptic",
   "keywords": [
+    "Cryptography",
     "EC",
     "Elliptic",
-    "curve",
-    "Cryptography"
+    "curve"
   ],
   "license": "MIT",
   "main": "lib/elliptic.js",
   "name": "elliptic",
+  "optionalDependencies": {},
+  "readme": "# Elliptic [![Build Status](https://secure.travis-ci.org/indutny/elliptic.png)](http://travis-ci.org/indutny/elliptic) [![Coverage Status](https://coveralls.io/repos/indutny/elliptic/badge.svg?branch=master&service=github)](https://coveralls.io/github/indutny/elliptic?branch=master) [![Code Climate](https://codeclimate.com/github/indutny/elliptic/badges/gpa.svg)](https://codeclimate.com/github/indutny/elliptic)\n\n[![Saucelabs Test Status](https://saucelabs.com/browser-matrix/gh-indutny-elliptic.svg)](https://saucelabs.com/u/gh-indutny-elliptic)\n\nFast elliptic-curve cryptography in a plain javascript implementation.\n\nNOTE: Please take a look at http://safecurves.cr.yp.to/ before choosing a curve\nfor your cryptography operations.\n\n## Incentive\n\nECC is much slower than regular RSA cryptography, the JS implementations are\neven more slower.\n\n## Benchmarks\n\n```bash\n$ node benchmarks/index.js\nBenchmarking: sign\nelliptic#sign x 262 ops/sec ±0.51% (177 runs sampled)\neccjs#sign x 55.91 ops/sec ±0.90% (144 runs sampled)\n------------------------\nFastest is elliptic#sign\n========================\nBenchmarking: verify\nelliptic#verify x 113 ops/sec ±0.50% (166 runs sampled)\neccjs#verify x 48.56 ops/sec ±0.36% (125 runs sampled)\n------------------------\nFastest is elliptic#verify\n========================\nBenchmarking: gen\nelliptic#gen x 294 ops/sec ±0.43% (176 runs sampled)\neccjs#gen x 62.25 ops/sec ±0.63% (129 runs sampled)\n------------------------\nFastest is elliptic#gen\n========================\nBenchmarking: ecdh\nelliptic#ecdh x 136 ops/sec ±0.85% (156 runs sampled)\n------------------------\nFastest is elliptic#ecdh\n========================\n```\n\n## API\n\n### ECDSA\n\n```javascript\nvar EC = require('elliptic').ec;\n\n// Create and initialize EC context\n// (better do it once and reuse it)\nvar ec = new EC('secp256k1');\n\n// Generate keys\nvar key = ec.genKeyPair();\n\n// Sign message (must be an array, or it'll be treated as a hex sequence)\nvar msg = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];\nvar signature = key.sign(msg);\n\n// Export DER encoded signature in Array\nvar derSign = signature.toDER();\n\n// Verify signature\nconsole.log(key.verify(msg, derSign));\n\n// CHECK WITH NO PRIVATE KEY\n\n// Public key as '04 + x + y'\nvar pub = '04bb1fa3...';\n\n// Signature MUST be either:\n// 1) hex-string of DER-encoded signature; or\n// 2) DER-encoded signature as buffer; or\n// 3) object with two hex-string properties (r and s)\n\nvar signature = 'b102ac...'; // case 1\nvar signature = new Buffer('...'); // case 2\nvar signature = { r: 'b1fc...', s: '9c42...' }; // case 3\n\n// Import public key\nvar key = ec.keyFromPublic(pub, 'hex');\n\n// Verify signature\nconsole.log(key.verify(msg, signature));\n```\n\n### EdDSA\n\n```javascript\nvar EdDSA = require('elliptic').eddsa;\n\n// Create and initialize EdDSA context\n// (better do it once and reuse it)\nvar ec = new EdDSA('ed25519');\n\n// Create key pair from secret\nvar key = ec.keyFromSecret('693e3c...'); // hex string, array or Buffer\n\n// Sign message (must be an array, or it'll be treated as a hex sequence)\nvar msg = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ];\nvar signature = key.sign(msg).toHex();\n\n// Verify signature\nconsole.log(key.verify(msg, signature));\n\n// CHECK WITH NO PRIVATE KEY\n\n// Import public key\nvar pub = '0a1af638...';\nvar key = ec.keyFromPublic(pub, 'hex');\n\n// Verify signature\nvar signature = '70bed1...';\nconsole.log(key.verify(msg, signature));\n```\n\n### ECDH\n\n```javascript\nvar EC = require('elliptic').ec;\nvar ec = new EC('curve25519');\n\n// Generate keys\nvar key1 = ec.genKeyPair();\nvar key2 = ec.genKeyPair();\n\nvar shared1 = key1.derive(key2.getPublic());\nvar shared2 = key2.derive(key1.getPublic());\n\nconsole.log('Both shared secrets are BN instances');\nconsole.log(shared1.toString(16));\nconsole.log(shared2.toString(16));\n```\n\nthree and more members:\n```javascript\nvar EC = require('elliptic').ec;\nvar ec = new EC('curve25519');\n\nvar A = ec.genKeyPair();\nvar B = ec.genKeyPair();\nvar C = ec.genKeyPair();\n\nvar AB = A.getPublic().mul(B.getPrivate())\nvar BC = B.getPublic().mul(C.getPrivate())\nvar CA = C.getPublic().mul(A.getPrivate())\n\nvar ABC = AB.mul(C.getPrivate())\nvar BCA = BC.mul(A.getPrivate())\nvar CAB = CA.mul(B.getPrivate())\n\nconsole.log(ABC.getX().toString(16))\nconsole.log(BCA.getX().toString(16))\nconsole.log(CAB.getX().toString(16))\n```\n\nNOTE: `.derive()` returns a [BN][1] instance.\n\n## Supported curves\n\nElliptic.js support following curve types:\n\n* Short Weierstrass\n* Montgomery\n* Edwards\n* Twisted Edwards\n\nFollowing curve 'presets' are embedded into the library:\n\n* `secp256k1`\n* `p192`\n* `p224`\n* `p256`\n* `p384`\n* `p521`\n* `curve25519`\n* `ed25519`\n\nNOTE: That `curve25519` could not be used for ECDSA, use `ed25519` instead.\n\n### Implementation details\n\nECDSA is using deterministic `k` value generation as per [RFC6979][0]. Most of\nthe curve operations are performed on non-affine coordinates (either projective\nor extended), various windowing techniques are used for different cases.\n\nAll operations are performed in reduction context using [bn.js][1], hashing is\nprovided by [hash.js][2]\n\n### Related projects\n\n* [eccrypto][3]: isomorphic implementation of ECDSA, ECDH and ECIES for both\n  browserify and node (uses `elliptic` for browser and [secp256k1-node][4] for\n  node)\n\n#### LICENSE\n\nThis software is licensed under the MIT License.\n\nCopyright Fedor Indutny, 2014.\n\nPermission is hereby granted, free of charge, to any person obtaining a\ncopy of this software and associated documentation files (the\n\"Software\"), to deal in the Software without restriction, including\nwithout limitation the rights to use, copy, modify, merge, publish,\ndistribute, sublicense, and/or sell copies of the Software, and to permit\npersons to whom the Software is furnished to do so, subject to the\nfollowing conditions:\n\nThe above copyright notice and this permission notice shall be included\nin all copies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS\nOR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF\nMERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN\nNO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,\nDAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR\nOTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE\nUSE OR OTHER DEALINGS IN THE SOFTWARE.\n\n[0]: http://tools.ietf.org/html/rfc6979\n[1]: https://github.com/indutny/bn.js\n[2]: https://github.com/indutny/hash.js\n[3]: https://github.com/bitchan/eccrypto\n[4]: https://github.com/wanderer/secp256k1-node\n",
+  "readmeFilename": "README.md",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/indutny/elliptic.git"
@@ -35385,11 +35421,147 @@ if (hadRuntime) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-}},"core-js":{"library":{"fn":{"symbol":{"iterator.js":function(require,exports,module){
+}}},"helpers":{"typeof.js":function(require,exports){
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/fn/symbol/iterator.js                                       //
+// node_modules/babel-runtime/helpers/typeof.js                                                                        //
+//                                                                                                                     //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                                                                       //
+"use strict";
+
+exports.__esModule = true;
+
+var _iterator = require("../core-js/symbol/iterator");
+
+var _iterator2 = _interopRequireDefault(_iterator);
+
+var _symbol = require("../core-js/symbol");
+
+var _symbol2 = _interopRequireDefault(_symbol);
+
+var _typeof = typeof _symbol2.default === "function" && typeof _iterator2.default === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj; };
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.default) === "symbol" ? function (obj) {
+  return typeof obj === "undefined" ? "undefined" : _typeof(obj);
+} : function (obj) {
+  return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
+};
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+},"slicedToArray.js":function(require,exports){
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                     //
+// node_modules/babel-runtime/helpers/slicedToArray.js                                                                 //
+//                                                                                                                     //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                                                                       //
+"use strict";
+
+exports.__esModule = true;
+
+var _isIterable2 = require("../core-js/is-iterable");
+
+var _isIterable3 = _interopRequireDefault(_isIterable2);
+
+var _getIterator2 = require("../core-js/get-iterator");
+
+var _getIterator3 = _interopRequireDefault(_getIterator2);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  function sliceIterator(arr, i) {
+    var _arr = [];
+    var _n = true;
+    var _d = false;
+    var _e = undefined;
+
+    try {
+      for (var _i = (0, _getIterator3.default)(arr), _s; !(_n = (_s = _i.next()).done); _n = true) {
+        _arr.push(_s.value);
+
+        if (i && _arr.length === i) break;
+      }
+    } catch (err) {
+      _d = true;
+      _e = err;
+    } finally {
+      try {
+        if (!_n && _i["return"]) _i["return"]();
+      } finally {
+        if (_d) throw _e;
+      }
+    }
+
+    return _arr;
+  }
+
+  return function (arr, i) {
+    if (Array.isArray(arr)) {
+      return arr;
+    } else if ((0, _isIterable3.default)(Object(arr))) {
+      return sliceIterator(arr, i);
+    } else {
+      throw new TypeError("Invalid attempt to destructure non-iterable instance");
+    }
+  };
+}();
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+}},"core-js":{"symbol":{"iterator.js":function(require,exports,module){
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                     //
+// node_modules/babel-runtime/core-js/symbol/iterator.js                                                               //
+//                                                                                                                     //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                                                                       //
+module.exports = { "default": require("core-js/library/fn/symbol/iterator"), __esModule: true };
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+}},"symbol.js":function(require,exports,module){
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                     //
+// node_modules/babel-runtime/core-js/symbol.js                                                                        //
+//                                                                                                                     //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                                                                       //
+module.exports = { "default": require("core-js/library/fn/symbol"), __esModule: true };
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+},"is-iterable.js":function(require,exports,module){
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                     //
+// node_modules/babel-runtime/core-js/is-iterable.js                                                                   //
+//                                                                                                                     //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                                                                       //
+module.exports = { "default": require("core-js/library/fn/is-iterable"), __esModule: true };
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+},"get-iterator.js":function(require,exports,module){
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                     //
+// node_modules/babel-runtime/core-js/get-iterator.js                                                                  //
+//                                                                                                                     //
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                                                                                                       //
+module.exports = { "default": require("core-js/library/fn/get-iterator"), __esModule: true };
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+}}},"core-js":{"library":{"fn":{"symbol":{"iterator.js":function(require,exports,module){
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//                                                                                                                     //
+// node_modules/core-js/library/fn/symbol/iterator.js                                                                  //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35403,7 +35575,7 @@ module.exports = require('../../modules/_wks-ext').f('iterator');
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/fn/symbol/index.js                                          //
+// node_modules/core-js/library/fn/symbol/index.js                                                                     //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35419,7 +35591,7 @@ module.exports = require('../../modules/_core').Symbol;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/fn/is-iterable.js                                           //
+// node_modules/core-js/library/fn/is-iterable.js                                                                      //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35433,7 +35605,7 @@ module.exports = require('../modules/core.is-iterable');
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/fn/get-iterator.js                                          //
+// node_modules/core-js/library/fn/get-iterator.js                                                                     //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35447,7 +35619,7 @@ module.exports = require('../modules/core.get-iterator');
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/es6.string.iterator.js                              //
+// node_modules/core-js/library/modules/es6.string.iterator.js                                                         //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35475,7 +35647,7 @@ require('./_iter-define')(String, 'String', function (iterated) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_string-at.js                                       //
+// node_modules/core-js/library/modules/_string-at.js                                                                  //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35503,7 +35675,7 @@ module.exports = function (TO_STRING) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_to-integer.js                                      //
+// node_modules/core-js/library/modules/_to-integer.js                                                                 //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35520,7 +35692,7 @@ module.exports = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_defined.js                                         //
+// node_modules/core-js/library/modules/_defined.js                                                                    //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35536,7 +35708,7 @@ module.exports = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_iter-define.js                                     //
+// node_modules/core-js/library/modules/_iter-define.js                                                                //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35616,7 +35788,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_library.js                                         //
+// node_modules/core-js/library/modules/_library.js                                                                    //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35628,7 +35800,7 @@ module.exports = true;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_export.js                                          //
+// node_modules/core-js/library/modules/_export.js                                                                     //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35701,7 +35873,7 @@ module.exports = $export;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_global.js                                          //
+// node_modules/core-js/library/modules/_global.js                                                                     //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35718,11 +35890,11 @@ if (typeof __g == 'number') __g = global; // eslint-disable-line no-undef
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_core.js                                            //
+// node_modules/core-js/library/modules/_core.js                                                                       //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
-var core = module.exports = { version: '2.5.7' };
+var core = module.exports = { version: '2.6.0' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -35731,7 +35903,7 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_ctx.js                                             //
+// node_modules/core-js/library/modules/_ctx.js                                                                        //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35762,7 +35934,7 @@ module.exports = function (fn, that, length) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_a-function.js                                      //
+// node_modules/core-js/library/modules/_a-function.js                                                                 //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35777,7 +35949,7 @@ module.exports = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_hide.js                                            //
+// node_modules/core-js/library/modules/_hide.js                                                                       //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35796,7 +35968,7 @@ module.exports = require('./_descriptors') ? function (object, key, value) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_object-dp.js                                       //
+// node_modules/core-js/library/modules/_object-dp.js                                                                  //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35823,7 +35995,7 @@ exports.f = require('./_descriptors') ? Object.defineProperty : function defineP
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_an-object.js                                       //
+// node_modules/core-js/library/modules/_an-object.js                                                                  //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35839,7 +36011,7 @@ module.exports = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_is-object.js                                       //
+// node_modules/core-js/library/modules/_is-object.js                                                                  //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35853,7 +36025,7 @@ module.exports = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_ie8-dom-define.js                                  //
+// node_modules/core-js/library/modules/_ie8-dom-define.js                                                             //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35867,7 +36039,7 @@ module.exports = !require('./_descriptors') && !require('./_fails')(function () 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_descriptors.js                                     //
+// node_modules/core-js/library/modules/_descriptors.js                                                                //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35882,7 +36054,7 @@ module.exports = !require('./_fails')(function () {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_fails.js                                           //
+// node_modules/core-js/library/modules/_fails.js                                                                      //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35900,7 +36072,7 @@ module.exports = function (exec) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_dom-create.js                                      //
+// node_modules/core-js/library/modules/_dom-create.js                                                                 //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35918,7 +36090,7 @@ module.exports = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_to-primitive.js                                    //
+// node_modules/core-js/library/modules/_to-primitive.js                                                               //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35941,7 +36113,7 @@ module.exports = function (it, S) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_property-desc.js                                   //
+// node_modules/core-js/library/modules/_property-desc.js                                                              //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35960,7 +36132,7 @@ module.exports = function (bitmap, value) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_has.js                                             //
+// node_modules/core-js/library/modules/_has.js                                                                        //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35975,7 +36147,7 @@ module.exports = function (it, key) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_redefine.js                                        //
+// node_modules/core-js/library/modules/_redefine.js                                                                   //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35987,7 +36159,7 @@ module.exports = require('./_hide');
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_iterators.js                                       //
+// node_modules/core-js/library/modules/_iterators.js                                                                  //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -35999,7 +36171,7 @@ module.exports = {};
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_iter-create.js                                     //
+// node_modules/core-js/library/modules/_iter-create.js                                                                //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36023,7 +36195,7 @@ module.exports = function (Constructor, NAME, next) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_object-create.js                                   //
+// node_modules/core-js/library/modules/_object-create.js                                                              //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36075,7 +36247,7 @@ module.exports = Object.create || function create(O, Properties) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_object-dps.js                                      //
+// node_modules/core-js/library/modules/_object-dps.js                                                                 //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36099,7 +36271,7 @@ module.exports = require('./_descriptors') ? Object.defineProperties : function 
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_object-keys.js                                     //
+// node_modules/core-js/library/modules/_object-keys.js                                                                //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36117,7 +36289,7 @@ module.exports = Object.keys || function keys(O) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_object-keys-internal.js                            //
+// node_modules/core-js/library/modules/_object-keys-internal.js                                                       //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36145,7 +36317,7 @@ module.exports = function (object, names) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_to-iobject.js                                      //
+// node_modules/core-js/library/modules/_to-iobject.js                                                                 //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36162,7 +36334,7 @@ module.exports = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_iobject.js                                         //
+// node_modules/core-js/library/modules/_iobject.js                                                                    //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36179,7 +36351,7 @@ module.exports = Object('z').propertyIsEnumerable(0) ? Object : function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_cof.js                                             //
+// node_modules/core-js/library/modules/_cof.js                                                                        //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36195,7 +36367,7 @@ module.exports = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_array-includes.js                                  //
+// node_modules/core-js/library/modules/_array-includes.js                                                             //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36229,7 +36401,7 @@ module.exports = function (IS_INCLUDES) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_to-length.js                                       //
+// node_modules/core-js/library/modules/_to-length.js                                                                  //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36246,7 +36418,7 @@ module.exports = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_to-absolute-index.js                               //
+// node_modules/core-js/library/modules/_to-absolute-index.js                                                          //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36264,7 +36436,7 @@ module.exports = function (index, length) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_shared-key.js                                      //
+// node_modules/core-js/library/modules/_shared-key.js                                                                 //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36280,7 +36452,7 @@ module.exports = function (key) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_shared.js                                          //
+// node_modules/core-js/library/modules/_shared.js                                                                     //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36303,7 +36475,7 @@ var store = global[SHARED] || (global[SHARED] = {});
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_uid.js                                             //
+// node_modules/core-js/library/modules/_uid.js                                                                        //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36319,7 +36491,7 @@ module.exports = function (key) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_enum-bug-keys.js                                   //
+// node_modules/core-js/library/modules/_enum-bug-keys.js                                                              //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36334,7 +36506,7 @@ module.exports = (
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_html.js                                            //
+// node_modules/core-js/library/modules/_html.js                                                                       //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36347,7 +36519,7 @@ module.exports = document && document.documentElement;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_set-to-string-tag.js                               //
+// node_modules/core-js/library/modules/_set-to-string-tag.js                                                          //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36365,7 +36537,7 @@ module.exports = function (it, tag, stat) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_wks.js                                             //
+// node_modules/core-js/library/modules/_wks.js                                                                        //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36387,7 +36559,7 @@ $exports.store = store;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_object-gpo.js                                      //
+// node_modules/core-js/library/modules/_object-gpo.js                                                                 //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36411,7 +36583,7 @@ module.exports = Object.getPrototypeOf || function (O) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_to-object.js                                       //
+// node_modules/core-js/library/modules/_to-object.js                                                                  //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36427,7 +36599,7 @@ module.exports = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/web.dom.iterable.js                                 //
+// node_modules/core-js/library/modules/web.dom.iterable.js                                                            //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36457,7 +36629,7 @@ for (var i = 0; i < DOMIterables.length; i++) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/es6.array.iterator.js                               //
+// node_modules/core-js/library/modules/es6.array.iterator.js                                                          //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36502,7 +36674,7 @@ addToUnscopables('entries');
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_add-to-unscopables.js                              //
+// node_modules/core-js/library/modules/_add-to-unscopables.js                                                         //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36514,7 +36686,7 @@ module.exports = function () { /* empty */ };
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_iter-step.js                                       //
+// node_modules/core-js/library/modules/_iter-step.js                                                                  //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36528,7 +36700,7 @@ module.exports = function (done, value) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-ext.js                                         //
+// node_modules/core-js/library/modules/_wks-ext.js                                                                    //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36540,7 +36712,7 @@ exports.f = require('./_wks');
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/es6.symbol.js                                       //
+// node_modules/core-js/library/modules/es6.symbol.js                                                                  //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36785,7 +36957,7 @@ setToStringTag(global.JSON, 'JSON', true);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_meta.js                                            //
+// node_modules/core-js/library/modules/_meta.js                                                                       //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36849,7 +37021,7 @@ var meta = module.exports = {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_wks-define.js                                      //
+// node_modules/core-js/library/modules/_wks-define.js                                                                 //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36869,7 +37041,7 @@ module.exports = function (name) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_enum-keys.js                                       //
+// node_modules/core-js/library/modules/_enum-keys.js                                                                  //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36895,7 +37067,7 @@ module.exports = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_object-gops.js                                     //
+// node_modules/core-js/library/modules/_object-gops.js                                                                //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36907,7 +37079,7 @@ exports.f = Object.getOwnPropertySymbols;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_object-pie.js                                      //
+// node_modules/core-js/library/modules/_object-pie.js                                                                 //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36919,7 +37091,7 @@ exports.f = {}.propertyIsEnumerable;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_is-array.js                                        //
+// node_modules/core-js/library/modules/_is-array.js                                                                   //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36935,7 +37107,7 @@ module.exports = Array.isArray || function isArray(arg) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_object-gopn-ext.js                                 //
+// node_modules/core-js/library/modules/_object-gopn-ext.js                                                            //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36965,7 +37137,7 @@ module.exports.f = function getOwnPropertyNames(it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_object-gopn.js                                     //
+// node_modules/core-js/library/modules/_object-gopn.js                                                                //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -36983,7 +37155,7 @@ exports.f = Object.getOwnPropertyNames || function getOwnPropertyNames(O) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_object-gopd.js                                     //
+// node_modules/core-js/library/modules/_object-gopd.js                                                                //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -37010,7 +37182,7 @@ exports.f = require('./_descriptors') ? gOPD : function getOwnPropertyDescriptor
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/es6.object.to-string.js                             //
+// node_modules/core-js/library/modules/es6.object.to-string.js                                                        //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -37020,7 +37192,7 @@ exports.f = require('./_descriptors') ? gOPD : function getOwnPropertyDescriptor
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/es7.symbol.async-iterator.js                        //
+// node_modules/core-js/library/modules/es7.symbol.async-iterator.js                                                   //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -37032,7 +37204,7 @@ require('./_wks-define')('asyncIterator');
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/es7.symbol.observable.js                            //
+// node_modules/core-js/library/modules/es7.symbol.observable.js                                                       //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -37044,7 +37216,7 @@ require('./_wks-define')('observable');
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/core.is-iterable.js                                 //
+// node_modules/core-js/library/modules/core.is-iterable.js                                                            //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -37065,7 +37237,7 @@ module.exports = require('./_core').isIterable = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/_classof.js                                         //
+// node_modules/core-js/library/modules/_classof.js                                                                    //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -37099,7 +37271,7 @@ module.exports = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/core.get-iterator.js                                //
+// node_modules/core-js/library/modules/core.get-iterator.js                                                           //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -37117,7 +37289,7 @@ module.exports = require('./_core').getIterator = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/babel-runtime/node_modules/core-js/library/modules/core.get-iterator-method.js                         //
+// node_modules/core-js/library/modules/core.get-iterator-method.js                                                    //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -37132,143 +37304,7 @@ module.exports = require('./_core').getIteratorMethod = function (it) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-}}}}},"helpers":{"typeof.js":function(require,exports){
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                                                                                                     //
-// node_modules/babel-runtime/helpers/typeof.js                                                                        //
-//                                                                                                                     //
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                                                                                                       //
-"use strict";
-
-exports.__esModule = true;
-
-var _iterator = require("../core-js/symbol/iterator");
-
-var _iterator2 = _interopRequireDefault(_iterator);
-
-var _symbol = require("../core-js/symbol");
-
-var _symbol2 = _interopRequireDefault(_symbol);
-
-var _typeof = typeof _symbol2.default === "function" && typeof _iterator2.default === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj; };
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = typeof _symbol2.default === "function" && _typeof(_iterator2.default) === "symbol" ? function (obj) {
-  return typeof obj === "undefined" ? "undefined" : _typeof(obj);
-} : function (obj) {
-  return obj && typeof _symbol2.default === "function" && obj.constructor === _symbol2.default && obj !== _symbol2.default.prototype ? "symbol" : typeof obj === "undefined" ? "undefined" : _typeof(obj);
-};
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-},"slicedToArray.js":function(require,exports){
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                                                                                                     //
-// node_modules/babel-runtime/helpers/slicedToArray.js                                                                 //
-//                                                                                                                     //
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                                                                                                       //
-"use strict";
-
-exports.__esModule = true;
-
-var _isIterable2 = require("../core-js/is-iterable");
-
-var _isIterable3 = _interopRequireDefault(_isIterable2);
-
-var _getIterator2 = require("../core-js/get-iterator");
-
-var _getIterator3 = _interopRequireDefault(_getIterator2);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function () {
-  function sliceIterator(arr, i) {
-    var _arr = [];
-    var _n = true;
-    var _d = false;
-    var _e = undefined;
-
-    try {
-      for (var _i = (0, _getIterator3.default)(arr), _s; !(_n = (_s = _i.next()).done); _n = true) {
-        _arr.push(_s.value);
-
-        if (i && _arr.length === i) break;
-      }
-    } catch (err) {
-      _d = true;
-      _e = err;
-    } finally {
-      try {
-        if (!_n && _i["return"]) _i["return"]();
-      } finally {
-        if (_d) throw _e;
-      }
-    }
-
-    return _arr;
-  }
-
-  return function (arr, i) {
-    if (Array.isArray(arr)) {
-      return arr;
-    } else if ((0, _isIterable3.default)(Object(arr))) {
-      return sliceIterator(arr, i);
-    } else {
-      throw new TypeError("Invalid attempt to destructure non-iterable instance");
-    }
-  };
-}();
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-}},"core-js":{"symbol":{"iterator.js":function(require,exports,module){
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                                                                                                     //
-// node_modules/babel-runtime/core-js/symbol/iterator.js                                                               //
-//                                                                                                                     //
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                                                                                                       //
-module.exports = { "default": require("core-js/library/fn/symbol/iterator"), __esModule: true };
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-}},"symbol.js":function(require,exports,module){
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                                                                                                     //
-// node_modules/babel-runtime/core-js/symbol.js                                                                        //
-//                                                                                                                     //
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                                                                                                       //
-module.exports = { "default": require("core-js/library/fn/symbol"), __esModule: true };
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-},"is-iterable.js":function(require,exports,module){
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                                                                                                     //
-// node_modules/babel-runtime/core-js/is-iterable.js                                                                   //
-//                                                                                                                     //
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                                                                                                       //
-module.exports = { "default": require("core-js/library/fn/is-iterable"), __esModule: true };
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-},"get-iterator.js":function(require,exports,module){
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//                                                                                                                     //
-// node_modules/babel-runtime/core-js/get-iterator.js                                                                  //
-//                                                                                                                     //
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-                                                                                                                       //
-module.exports = { "default": require("core-js/library/fn/get-iterator"), __esModule: true };
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-}}},"eosjs-ecc":{"package.json":function(require,exports,module){
+}}}},"eosjs-ecc":{"package.json":function(require,exports,module){
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
@@ -46374,29 +46410,55 @@ module.exports = {
     "mocha": "^2.1.0",
     "mochify": "^2.1.0"
   },
+  "directories": {},
+  "dist": {
+    "shasum": "9c665a95f88b8b08fc05cfd731f561859d725825",
+    "tarball": "https://registry.npmjs.org/bigi/-/bigi-1.4.2.tgz"
+  },
+  "gitHead": "c25308081c896ff84702303722bf5ecd8b3f78e3",
   "homepage": "https://github.com/cryptocoinjs/bigi#readme",
   "keywords": [
-    "cryptography",
-    "math",
-    "bitcoin",
     "arbitrary",
-    "precision",
     "arithmetic",
     "big",
-    "integer",
-    "int",
-    "number",
-    "biginteger",
     "bigint",
+    "biginteger",
     "bignumber",
+    "bitcoin",
+    "cryptography",
     "decimal",
-    "float"
+    "float",
+    "int",
+    "integer",
+    "math",
+    "number",
+    "precision"
   ],
   "main": "./lib/index.js",
+  "maintainers": [
+    {
+      "name": "midnightlightning",
+      "email": "boydb@midnightdesign.ws"
+    },
+    {
+      "name": "sidazhang",
+      "email": "sidazhang89@gmail.com"
+    },
+    {
+      "name": "nadav",
+      "email": "npm@shesek.info"
+    },
+    {
+      "name": "jprichardson",
+      "email": "jprichardson@gmail.com"
+    }
+  ],
   "name": "bigi",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
   "repository": {
-    "url": "git+https://github.com/cryptocoinjs/bigi.git",
-    "type": "git"
+    "type": "git",
+    "url": "git+https://github.com/cryptocoinjs/bigi.git"
   },
   "scripts": {
     "browser-test": "mochify --wd -R spec",
@@ -46407,16 +46469,16 @@ module.exports = {
     "unit": "mocha"
   },
   "testling": {
-    "files": "test/*.js",
-    "harness": "mocha",
     "browsers": [
-      "ie/9..latest",
-      "firefox/latest",
+      "android-browser/4.2..latest",
       "chrome/latest",
-      "safari/6.0..latest",
+      "firefox/latest",
+      "ie/9..latest",
       "iphone/6.0..latest",
-      "android-browser/4.2..latest"
-    ]
+      "safari/6.0..latest"
+    ],
+    "files": "test/*.js",
+    "harness": "mocha"
   },
   "version": "1.4.2"
 };
@@ -57573,11 +57635,11 @@ module.exports = {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-}},"node_modules":{"object-assign":{"package.json":function(require,exports,module){
+}}},"object-assign":{"package.json":function(require,exports,module){
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/cors/node_modules/object-assign/package.json                                                           //
+// node_modules/object-assign/package.json                                                                             //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -57592,7 +57654,7 @@ module.exports = {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
-// node_modules/cors/node_modules/object-assign/index.js                                                               //
+// node_modules/object-assign/index.js                                                                                 //
 //                                                                                                                     //
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                                                                                                                        //
@@ -57689,7 +57751,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-}}}},"vary":{"package.json":function(require,exports,module){
+}},"vary":{"package.json":function(require,exports,module){
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //                                                                                                                     //
