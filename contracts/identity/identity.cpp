@@ -2,9 +2,7 @@
 #include <math.h>
 
 ACTION identity::addidentity(name username,
-                             string fname,
-                             string mname,
-                             string lname,
+                             string identityname,
                              string dob,
                              string contact,
                              string email, string hash)
@@ -13,9 +11,7 @@ ACTION identity::addidentity(name username,
     identity_table iden_table(_self, _self.value);
     iden_table.emplace(username, [&](auto &v) {
         v.username = username;
-        v.fname = fname;
-        v.mname = mname;
-        v.lname = lname;
+        v.identityname = identityname;
         v.dob = dob;
         v.contact = contact;
         v.email = email;
@@ -27,9 +23,7 @@ ACTION identity::addidentity(name username,
 
 ACTION identity::addidcitzn(name manager,
                             name username,
-                            string fname,
-                            string mname,
-                            string lname,
+                            string identityname,
                             string dob,
                             string contact,
                             string email, string hash)
@@ -39,9 +33,7 @@ ACTION identity::addidcitzn(name manager,
     identity_table iden_table(_self, _self.value);
     iden_table.emplace(username, [&](auto &v) {
         v.username = username;
-        v.fname = fname;
-        v.mname = mname;
-        v.lname = lname;
+       v.identityname = identityname;
         v.dob = dob;
         v.contact = contact;
         v.email = email;

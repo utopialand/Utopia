@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec  6 17:02:45 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec  7 10:27:36 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -29,15 +29,7 @@
                     "type": "name"
                 },
                 {
-                    "name": "fname",
-                    "type": "string"
-                },
-                {
-                    "name": "mname",
-                    "type": "string"
-                },
-                {
-                    "name": "lname",
+                    "name": "identityname",
                     "type": "string"
                 },
                 {
@@ -67,15 +59,7 @@
                     "type": "name"
                 },
                 {
-                    "name": "fname",
-                    "type": "string"
-                },
-                {
-                    "name": "mname",
-                    "type": "string"
-                },
-                {
-                    "name": "lname",
+                    "name": "identityname",
                     "type": "string"
                 },
                 {
@@ -125,15 +109,7 @@
                     "type": "name"
                 },
                 {
-                    "name": "fname",
-                    "type": "string"
-                },
-                {
-                    "name": "mname",
-                    "type": "string"
-                },
-                {
-                    "name": "lname",
+                    "name": "identityname",
                     "type": "string"
                 },
                 {
