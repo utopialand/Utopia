@@ -8,7 +8,7 @@ ACTION budget::createprop(name identity, string proposal, string detail, uint16_
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(identity.value);
     eosio_assert(itr != iden_table.end(), "identity not found !!!");
-    eosio_assert(itr -> citizen, "Not a citizen of Utopia !!!");
+    eosio_assert(itr->citizen, "Not a citizen of Utopia !!!");
     proposal_table pt(_self, _self.value);
     print("amt--", budget.amount);
     if (budget.amount >= 100000)
@@ -34,13 +34,14 @@ ACTION budget::catgvote(uint64_t id, name identity)
     catvote_table ct(_self, identity.value);
     proposal_table pt(_self, _self.value);
     auto itr = ct.find(id);
-    /*  auto p_itr = pt.find(id);
-    auto catg = p_itr->category; */
+    auto p_itr = pt.find(id);
+    auto catg = p_itr->category;
     eosio_assert(itr == ct.end(), "Already voted for this proposal id");
     ct.emplace(_self, [&](auto &c) {
         c.proposal_id = id;
+        c.category = catg;
     });
-    auto p_itr = pt.find(id);
+
     eosio_assert(p_itr != pt.end(), "proposal doesn't exist..");
     pt.modify(p_itr, _self, [&](auto &a) {
         a.count += 1;
@@ -51,10 +52,25 @@ ACTION budget::votingon(name manager)
 {
     eosio_assert(is_manager(manager), "not authorized");
     votestat_table vt(_self, _self.value);
-    vt.emplace(_self, [&](auto &a) {
-        a.id = vt.available_primary_key();
-        a.status = true;
-    });
+    auto vitr = vt.begin();
+    //  eosio_assert(vitr != vt.end(), "voting is not active!!");
+    if (vitr == vt.end())
+    {
+        vt.emplace(_self, [&](auto &a) {
+            a.id = vt.available_primary_key();
+            a.status = true;
+        });
+    }
+    else if (vitr->status == false)
+    {
+        vt.modify(vitr, _self, [&](auto &a) {
+            a.status = true;
+        });
+    }
+    else
+    {
+        eosio_assert(vitr->status != true, "voting is already going on!!");
+    }
 }
 
 ACTION budget::votingoff(name manager)
@@ -64,35 +80,41 @@ ACTION budget::votingoff(name manager)
 
     auto itr = vt.begin();
     eosio_assert(itr != vt.end(), "voting is not active!!");
-    while (itr != vt.end())
-    {
-        vt.modify(itr, _self, [&](auto &a) {
-            a.status = false;
-        });
-    }
-}
-
-ACTION budget::stvoff(uint64_t fid, name manager)
-{
-    eosio_assert(is_manager(manager), "not authorized");
-    stvstat_table vt(_self, _self.value);
-    auto itr = vt.find(fid);
-    eosio_assert(itr != vt.end(), "stv is not started yet ..");
-
     vt.modify(itr, _self, [&](auto &a) {
         a.status = false;
     });
 }
 
-ACTION budget ::selectprop(name user, string details, uint16_t duration, uint16_t noofwinner)
+ACTION budget::stvoff(uint64_t fid, name manager)
 {
-    eosio_assert(is_manager(user), "not authorized");
+    eosio_assert(is_manager(manager), "not authorized");
+    feature_table ft(_self, _self.value);
+    auto itr = ft.find(fid);
+    eosio_assert(itr != ft.end(), "stv is not started yet ..");
+    eosio_assert(itr->votingstat != false, "stv is not started yet ..");
+
+    ft.modify(itr, _self, [&](auto &a) {
+        a.votingstat = false;
+    });
+}
+
+ACTION budget ::selectprop(name user)
+{
+   /*  eosio_assert(is_manager(user), "not authorized");
+    feature_table ft(_self, _self.value);
+    auto fitr = ft.begin();
+  //  eosio_assert(fitr == ft.end(), "proposal selection cannot be done untill a stv process completes!!");
+
+    votestat_table vt(_self, _self.value);
+    auto vitr = vt.begin();
+    eosio_assert(vitr != vt.end(), "voting is not active!!");
+    eosio_assert(vitr->status != true, "voting is still on. please stop it before calcultion..");
     vector<uint64_t> options;
     int count = 0;
     lprop l1;
     mprop m1;
     sprop s1;
-    feature_table ft(_self, _self.value);
+
     proposal_table pt(_self, _self.value);
     auto prop_itr = pt.begin();
     vector<lprop> countlprop;
@@ -188,7 +210,7 @@ ACTION budget ::selectprop(name user, string details, uint16_t duration, uint16_
             v.selected = 1;
         });
     }
-    eosio_assert(options.size() >= noofwinner, "Number of winner entered is less than the number of final proposal list for ranking. please modify the criteria!!");
+    // eosio_assert(options.size() >= noofwinner, "Number of winner entered is less than the number of final proposal list for ranking. please modify the criteria!!");
     for (auto i = 0; i < options.size(); i++)
     {
         print("--", options[i]);
@@ -199,19 +221,24 @@ ACTION budget ::selectprop(name user, string details, uint16_t duration, uint16_
         f.proposal_options = options;
         f.status = 0;
     });
-    votestat_table vt(_self, _self.value);
 
-    auto vitr = vt.begin();
-    // eosio_assert(itr != vt.end(), "voting is not active!!");
-    while (vitr != vt.end())
+      auto propitr = pt.begin();
+      /* for(auto itr = propitr; itr!=pt.end();itr++)
+      {
+          if(itr->selected == 0)
+             pt.erase(itr);
+      } 
+    while(propitr != pt.end())
     {
-        vt.modify(vitr, _self, [&](auto &a) {
-            a.status = false;
-        });
-    }
+        if(propitr->selected == 0)
+          propitr = pt.erase(propitr);
+        else
+            propitr++;
+       
+    } */
 }
 
-ACTION budget::startstv(uint64_t id, name identity, string details,uint64_t duration,uint64_t noofwinner)
+ACTION budget::startstv(uint64_t id, name identity, string details, uint64_t duration, uint64_t noofwinner)
 {
     eosio_assert(is_manager(identity), "not authorized");
     feature_table pt(_self, _self.value);
@@ -221,15 +248,7 @@ ACTION budget::startstv(uint64_t id, name identity, string details,uint64_t dura
         f.desc = details;
         f.duration = duration;
         f.num_of_winners = noofwinner;
-    });
-
-    stvstat_table vt(_self, _self.value);
-    auto itr = vt.find(id);
-    eosio_assert(itr == vt.end(), "stv is already started/stopped !!!");
-
-    vt.emplace(_self, [&](auto &a) {
-        a.fid = id;
-        a.status = true;
+        f.votingstat = true;
     });
 }
 
@@ -245,21 +264,24 @@ ACTION budget::delall(uint64_t id)
 {
     print("test------");
     result_table rt(_self, _self.value);
-
-    auto it = rt.begin();
+    feature_table ft(_self, _self.value);
+    /* auto it = rt.begin();
 
     while (it != rt.end())
     {
         it = rt.erase(it);
-    }
-    feature_table ft(_self, _self.value);
+    } */
+    /*  
     auto fit = ft.find(id);
      ft.modify(fit, _self, [&](auto &v) {
         v.status = 0;
-    });
+    }); */
+    auto fit = ft.begin();
 
-
-
+    while (fit != ft.end())
+    {
+        fit = ft.erase(fit);
+    }
 }
 
 ACTION budget::addmanager(name user)
@@ -286,6 +308,7 @@ ACTION budget::voteprop(uint64_t feature_id, vector<uint8_t> choices, name ident
     print("input array size----", choices.size());
     eosio_assert(ft_itr->proposal_options.size() == choices.size(), "incorrect choices array size");
     eosio_assert(ft_itr != ft.end(), "list id not found");
+    eosio_assert(ft_itr->status != 1, "stv voting for this list of proposals and calculation are lready performed..");
 
     ///////////////////////checking of constraints//////////////////
     auto max = choices[0];
@@ -313,7 +336,7 @@ ACTION budget::voteprop(uint64_t feature_id, vector<uint8_t> choices, name ident
         eosio_assert(vote_itr->identity != identity || vote_itr->feature_id != feature_id, "already voted");
         vote_itr++;
     }
-    eosio_assert(ft_itr->status == 1, "proposal is not active");
+
     vt.emplace(_self, [&](auto &v) {
         v.id = vt.available_primary_key();
         v.identity = identity;
@@ -330,12 +353,10 @@ ACTION budget::decidewinner(uint64_t id, name user)
     proposal_table pro(_self, _self.value);
     votes_table vt(_self, _self.value);
     result_table rt(_self, _self.value);
-    stvstat_table svt(_self, _self.value);
-    auto svtitr = svt.find(id);
-    eosio_assert(svtitr != svt.end(), "stv is not started yet ..");
-    eosio_assert(svtitr->status == false, "stv voting is still on.. stop it first..");
     auto prop_itr = pt.find(id);
     eosio_assert(prop_itr != pt.end(), "list not found");
+    eosio_assert(prop_itr->status != 1, "stv voting for this list of proposals and calculation are lready performed..");
+    eosio_assert(prop_itr->votingstat != true, "stv is still on. please stop it before calcultion..");
     //eosio_assert(now() >= prop_itr->duration,"voting is still going one");
     auto number_of_prop = prop_itr->proposal_options.size();
     auto vote_itr = vt.begin();
@@ -502,10 +523,6 @@ ACTION budget::decidewinner(uint64_t id, name user)
             .send();
     }
 
-    pt.modify(prop_itr, _self, [&](auto &v) {
-        v.status = 1;
-    });
-
     //////////////populating data in result table//////////////////////////////////////////
 
     auto res_itr = rt.begin();
@@ -520,6 +537,7 @@ ACTION budget::decidewinner(uint64_t id, name user)
         v.selected = selectedpid;
     });
 
+    pt.erase(prop_itr);
     /////////////////////////////////////////////////////////////
 }
 
