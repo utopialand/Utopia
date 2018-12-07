@@ -1,0 +1,111 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec  6 14:59:07 2018",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "migrate",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "tab1",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                },
+                {
+                    "name": "entry",
+                    "type": "string"
+                },
+                {
+                    "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "tab2",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user2",
+                    "type": "name"
+                },
+                {
+                    "name": "id2",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "table1",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                },
+                {
+                    "name": "entry",
+                    "type": "string"
+                },
+                {
+                    "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "table2",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user2",
+                    "type": "name"
+                },
+                {
+                    "name": "id2",
+                    "type": "uint64"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "migrate",
+            "type": "migrate",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "tab1",
+            "type": "tab1",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "tab2",
+            "type": "tab2",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "table111",
+            "type": "table1",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "table4",
+            "type": "table2",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}

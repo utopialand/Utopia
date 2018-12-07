@@ -1,0 +1,60 @@
+
+.page.contact {
+
+    .contact-actions {
+        padding: 80px 0;
+    }
+
+    .contact-actions .action {
+        background: #FFF;
+        border-radius: 5px;
+        padding: 40px;
+        margin: 0 0 40px 0;
+    }
+
+    .contact-actions .action > .row {
+        align-items: center;
+    }
+
+    .contact-actions .action .title {
+        color: #000;
+        font-size: 16px;
+        margin: 0 0 10px 0;
+    }
+
+    .contact-actions .action .text {
+        color: #000;
+        font-size: 14px;
+        margin: 0;
+    }
+
+    .contact-actions .action .btn.join {
+        background: linear-gradient(169.79deg, #3023AE -36.97%, #C86DD7 148.62%);
+        display: block;
+        color: #FFF;
+        font-size: 12px;
+        line-height: 19px;
+        font-family: 'Colfax Medium', Helvetica, sans-serif;
+        text-align: center;
+        text-transform: uppercase;
+        padding: 15px 5px 14px;
+        transition: none;
+    }
+
+    .contact-actions .action .btn.join .fas {
+        margin-left: 10px;
+    }
+
+    .contact-actions .action .btn.join:hover {
+        background: #FFF;
+        box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+        color: #000;
+    }
+
+    @media (max-width: 767px) {
+
+        .contact-actions .action .btn.join { margin-top: 20px; }
+
+    }
+
+}

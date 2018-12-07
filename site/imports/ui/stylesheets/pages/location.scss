@@ -1,0 +1,39 @@
+
+.page.location {
+
+    .chat-map {
+        padding: 80px 0;
+    }
+
+    .page-header .btn.main {
+        display: block;
+        margin: 60px auto 0 auto;
+        width: 180px;
+    }
+
+    .chat-map .map {
+        position: relative;
+        display: block;
+        height: 100%;
+        width: 100%;
+    }
+
+    #wmap {
+        height: 100%;
+        width: 100%;
+    }
+
+    #wmap .chattable {
+        outline: none;
+    }
+
+    #wmap .chattable:hover {
+        outline: none;
+        stroke: #AE61D0 !important;
+        stroke-width: 1px;
+        stroke-linejoin: round;
+        fill: #5937B9 !important;
+        cursor: pointer;
+    }
+
+}

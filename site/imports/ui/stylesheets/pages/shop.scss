@@ -1,0 +1,38 @@
+
+.page.shop {
+
+    .product-grid {
+        padding: 80px 0;
+    }
+
+    .product-grid .product {
+        margin-bottom: 20px;
+    }
+
+    .product-grid .product .image {
+        background: #FFF;
+        padding: 10px 0;
+        margin: 0 0 15px 0;
+    }
+
+    .product-grid .product .image img {
+        width: 100%;
+    }
+
+    .product-grid .product .title {
+        font-size: 16px;
+        margin: 0;
+    }
+
+    .product-grid .product .price {
+        color: #F5F5F5;
+        font-size: 14px;
+        padding: 12px 0;
+        margin: 0;
+    }
+
+    .product-grid .product .btn.main {
+        display: block;
+    }
+
+}
