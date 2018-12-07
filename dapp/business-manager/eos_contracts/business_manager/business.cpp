@@ -1,23 +1,5 @@
 #include "business.hpp"
 
-ACTION business::addbusiness(name owner, string businessname)
-{
-
-    require_auth(owner);
-
-    identity_table idtb("identityreg1"_n, "identityreg1"_n.value);
-    businesstb bt(_self, _self.value);
-    auto eitr = idtb.find(owner.value);
-    eosio_assert(eitr != idtb.end(), "Not a member of Utopia community");
-
-    bt.emplace(_self, [&](auto &c) {
-        c.company_id = bt.available_primary_key();
-        c.owner = owner;
-        c.businessname = businessname;
-        c.status = CREATED;
-    });
-}
-
 ACTION business::deleteall()
 {
 
@@ -95,74 +77,13 @@ ACTION business::printnames()
     }
 }
 
-ACTION business::adshareowner(uint64_t company_id, name shareholder)
+ACTION business::create(asset maximum_supply, name owner, string businessname)
 {
+    require_auth(owner);
 
     identity_table idtb("identityreg1"_n, "identityreg1"_n.value);
-    businesstb bt(_self, _self.value);
-    auto eitr = idtb.find(shareholder.value);
+    auto eitr = idtb.find(owner.value);
     eosio_assert(eitr != idtb.end(), "Not a member of Utopia community");
-
-    auto citr = bt.find(company_id);
-    eosio_assert(citr != bt.end(), "Company does not exist");
-    require_auth(citr->owner);
-
-    auto aditr = find(citr->shareholders.begin(), citr->shareholders.end(), shareholder);
-    eosio_assert(aditr == citr->shareholders.end(), "Shareholder already exists");
-
-    bt.modify(citr, _self, [&](auto &c) {
-        c.shareholders.push_back(shareholder);
-    });
-}
-
-ACTION business::rmshareowner(uint64_t company_id, name shareholder)
-{
-
-    identity_table idtb("identityreg1"_n, "identityreg1"_n.value);
-    businesstb bt(_self, _self.value);
-    auto eitr = idtb.find(shareholder.value);
-    eosio_assert(eitr != idtb.end(), "Not a member of Utopia community");
-
-    auto citr = bt.find(company_id);
-    eosio_assert(citr != bt.end(), "Company does not exist");
-    require_auth(citr->owner);
-
-    auto rmeitr = find(citr->shareholders.begin(), citr->shareholders.end(), shareholder);
-    eosio_assert(rmeitr != citr->shareholders.end(), "No such shareholder exists in your company");
-    //removing the employee from your company
-    bt.modify(citr, _self, [&](auto &c) {
-        c.shareholders.erase(rmeitr);
-    });
-}
-
-ACTION business::makepublic(uint64_t company_id, asset maximum_supply){
-    businesstb bt(_self, _self.value);
-    auto itr = bt.find(company_id);
-    eosio_assert(itr != bt.end(), "Company does not exist");
-    eosio_assert(itr->status == CREATED, "Company already public");
-
-    auto sym = maximum_supply.symbol;
-    eosio_assert(sym.is_valid(), "invalid symbol name");
-    eosio_assert(maximum_supply.is_valid(), "invalid supply");
-    eosio_assert(maximum_supply.amount > 0, "max-supply must be positive");
-
-    stats statstable(_self, sym.code().raw());
-    auto existing = statstable.find(sym.code().raw());
-    eosio_assert(existing == statstable.end(), "token with symbol already exists");
-
-    bt.modify(itr, _self, [&](auto &c){
-        c.token_maximum_supply = maximum_supply;
-    });
-}
-
-ACTION business::create(uint64_t company_id)
-{
-    require_auth(_self);
-    businesstb bt(_self, _self.value);
-    auto itr = bt.find(company_id);
-    eosio_assert(itr != bt.end(), "No such company exists");
-    name issuer = itr->owner;
-    asset maximum_supply = itr->token_maximum_supply;
 
     auto sym = maximum_supply.symbol;
     eosio_assert(sym.is_valid(), "invalid symbol name");
@@ -176,13 +97,17 @@ ACTION business::create(uint64_t company_id)
     statstable.emplace(_self, [&](auto &s) {
         s.supply.symbol = maximum_supply.symbol;
         s.max_supply = maximum_supply;
-        s.issuer = issuer;
+        s.issuer = owner;
     });
 
-    bt.modify(itr, _self,[&](auto &c){
-        c.status = PUBLIC;
+    businesstb bt(_self, _self.value);
+    
+    bt.emplace(_self,[&](auto &c){
+        c.token_maximum_supply = maximum_supply;      
+        c.company_id = bt.available_primary_key();
+        c.owner = owner;
+        c.businessname = businessname;
     });
-
 }
 
 ACTION business::issue(name to, asset quantity, string memo)
@@ -337,8 +262,8 @@ ACTION business::close(name owner, symbol_code symbol)
     acnts.erase(it);
 }
 
-EOSIO_DISPATCH(business, (addbusiness)(deleteall)(delcompany)(addemployee)
-(rmemployee)(makepublic)(printnames)(adshareowner)(rmshareowner)(create)(issue)(transfer)(open)
+EOSIO_DISPATCH(business,(deleteall)(delcompany)(addemployee)
+(rmemployee)(printnames)(create)(issue)(transfer)(open)
 (close)(retire))
 
 
