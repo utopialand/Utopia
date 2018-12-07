@@ -1,0 +1,470 @@
+h1{
+    color: black;
+    text-transform: capitalize;
+}
+
+.business-wrapper{
+    width: 90%;
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 3%;
+}
+
+.business-stat-section{
+    display: flex;
+    box-shadow: 0px 0px 30px #ccc;
+}
+
+.stat{
+    flex: 3.5;
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+    position: relative;
+}
+
+.stat:after {
+    content:""; 
+    background: #D8D8D8;
+    position: absolute; 
+    bottom: 10%; 
+    left: 100%; 
+    height: 75%; 
+    width: 2px;
+}
+
+.stat .company-detail{
+    flex: 2;
+}
+
+.company-name{
+    font-size: 32px;
+    text-transform: uppercase;
+}
+
+.stock-change{
+    font-size: 16px;
+    color: #FF2C45;
+    font-weight: bolder;
+}
+
+.stock-change span{
+    margin-left: 16px;
+}
+
+.company-name span{
+    margin-left: 16px;
+}
+
+.stat .company-stat{
+    flex:8;
+    display: flex;
+}
+
+.company-stat .comapny-stat-name{
+    flex: 1;
+}
+
+.company-stat-name p{
+    text-transform: uppercase;
+    color: #aaa;
+}
+
+.company-stat .company-stat-value{
+    flex: 1;
+}
+
+.company-stat-value p{
+    text-align: right;
+    font-weight: bolder;
+}
+
+.stock-graph{
+    flex: 6.5;
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+   
+}
+
+.stock-graph .graph-heading{
+    flex: 2;
+}
+
+.stock-graph .graph{
+    flex: 4;
+    width: 100%;
+    height: 100%;
+    background-image: url("img/graphstock.png");
+    background-size: 100% 100%;
+}
+
+.stock-graph .graph div{
+    width: 100%;
+    height: 100%;
+    background-image: url("img/graph.png");
+    background-size: 100% 100%;
+    z-index: 2;
+}
+
+.stock-graph .timeline{
+    flex: 2;
+    display: flex;
+}
+
+.stock-graph .timeline span{
+    flex: 1;
+    text-align: center;
+    margin-top: 10%;
+    color: #aaa;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.trade-section{
+    display: flex;
+    margin-top: 3%;
+}
+
+.trade-section .my-shareholdings{
+    flex: 3;
+    background-image: url("img/shareholding.png");
+    background-size: 100% 100%;
+    color: white;
+    border-radius: 4px;
+}
+
+.my-shareholdings .title{
+    font-size: 14px;
+    margin-top: 32px;
+    margin-left: 32px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.my-shareholdings .value{
+    font-size: 32px;
+    margin-top: 8px;
+    margin-left: 32px;
+    font-weight: bold;
+
+}
+
+.trade-section .trade{
+    flex:7;
+    margin-left: 32px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0px 0px 30px #ccc;
+}
+
+.trade .trade-heading{
+    flex: 2;
+}
+
+.trade-heading p{
+    margin-left: 2%;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.trade .trade-form{
+    flex: 3;
+    display: flex;
+    line-height: -20px;
+}
+
+.trade-form .iconfrom{
+    width: 40px;
+    height: 40px;
+    background: grey;
+    border-radius: 50%;
+    margin-left: 2%;
+}
+
+.trade-form .iconto{
+    width: 40px;
+    height: 40px;
+    background: grey;
+    border-radius: 50%;
+    margin-left: 2%;
+}
+
+.trade-form p{
+    margin-left: 2%;
+    margin-top: 0px;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.trade-form input{
+    height: 40px;
+    box-sizing: border-box;
+    margin-left: 2%;
+}
+
+.trade-form button{
+    width: 90px;
+    height: 40px;
+    margin-right: auto;
+    margin-left: auto;
+    border: 0px;
+    border-radius: 4px;
+    background-image: linear-gradient(to right, #F09819,#FF5858 );
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.trade-form span{
+    margin-left: 1%;
+    font-size: 32px;
+}
+
+.officers{
+    margin-top: 3%;
+    box-shadow: 0px 0px 30px #ccc;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    box-sizing: border-box;
+}
+
+.officers .officer-content{
+    display: flex;
+    margin-top: 24px;
+}
+
+.officers .officer-content .officer{
+    flex: 1;
+}
+
+.officers .officer-content .officer .picture{
+    width: 64px;
+    height: 64px;
+    background: #ccc;
+    border-radius: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    background-image: url("img/employeepic.png");
+    background-size: 100% 100%;
+}
+
+.officers .officer-content .officer p{
+    text-align: center;
+    font-size: 10px;
+    line-height: 16px;
+    font-weight: bolder;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.officers .title{
+    margin-top: 3%;
+    margin-left: 4%;
+    font-size: 14px;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+.officer .designation{
+    color: #aaa;
+    font-weight: bold;
+}
+
+.employees{
+    margin-top: 3%;
+    box-shadow: 0px 0px 30px #ccc;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-section-employees{
+    flex: 1;
+    display: flex;
+    margin-top: 24px;
+}
+
+.top-section-employees .employee{
+    flex: 1;
+}
+
+.bottom-section-employees{
+    flex: 1;
+    display: flex;
+}
+
+.bottom-section-employees .employee{
+    flex: 1;
+    margin-top: 24px;
+}
+
+.employees .picture{
+    width: 64px;
+    height: 64px;
+    background: #aaa;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    background-image: url("img/employeepic.png");
+    background-size: 100% 100%;
+}
+
+.employees .more-employee{
+    display: flex;
+    justify-content: center;
+}
+
+.more-employee button{
+    width: 64px;
+    height: 64px;
+    background-color:lightpink;
+    border: 0;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 50%;
+    font-size: 18px;
+    color: #FB6946;
+    font-weight: bolder;
+}
+
+.employee p{
+    text-align: center;
+    font-weight: bold;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    line-height: 16px;
+}
+
+.employees .title{
+    margin-top: 3%;
+    margin-left: 4%;
+    font-size: 14px;
+    font-weight: bolder;
+    text-transform: uppercase;
+}
+
+.picture{
+    background-image: url("img/employeepic.png");
+    background-size: 100% 100%;
+}
+
+.financials{
+    box-shadow: 0px 0px 30px #ccc;
+    margin-top: 6%;
+    padding-top: 3%;
+    padding-bottom: 5%;
+}
+
+.financials .financial-title{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.6px;
+    margin-left: 4%;
+}
+
+.financials .financial-desc{
+    margin-top: 3%;
+    margin-left: 8%;
+    text-transform: capitalize;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.6px;
+}
+
+::placeholder{
+    color: #aaa;
+    font-size: 14px;
+    text-align: center;
+    letter-spacing: 0.6px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+@media only screen and (max-width: 600px){
+    
+    .trade-section{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .trade-section .my-shareholdings{
+        flex: 1;
+    }
+
+    .trade-section .trade{
+        flex: 1;
+        margin-left: 0;
+        margin-top: 3%;
+    }
+
+    .trade .trade-form{
+        flex-direction: column;
+        padding-bottom: 3%;
+    }
+
+    .trade .trade-heading p{
+        text-align: center;
+        margin-left: 0;
+    }
+
+    .trade-form p{
+        text-align: center;
+        margin-left: 0;
+        margin-bottom: 0;
+    }
+
+    .trade-form .iconfrom{
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .trade-form .iconto{
+        margin-top: 3%;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .right-arrow{
+        display: none;
+    }
+
+    .trade-form input{
+        margin-left: auto;
+        margin-right: auto;
+        width: 80%;
+    }
+
+    .trade-form button{
+        margin-top: 3%;
+    }
+    .top-section-employees{
+        flex-wrap: wrap;
+    }
+
+    .bottom-section-employees{
+        flex-wrap: wrap;
+    }
+
+    .officers .officer-content{
+        flex-wrap: wrap;
+    }
+
+    .stock-graph{
+        display: none;
+    }
+        
+    .stat:after{
+        content:"";
+        display: none;
+    }
+}

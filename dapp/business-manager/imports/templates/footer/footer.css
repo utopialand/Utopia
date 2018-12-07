@@ -1,0 +1,97 @@
+.footer{
+    width: 100%;
+    color: white;
+    min-height: 68px;
+    height: 68px;
+    background: black;
+    margin-top: 10%;
+}
+
+.footer-container{
+    width: 90%;
+    max-width: 1140px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+}
+
+.footer-container .copyright{
+    flex: 1
+}
+
+.footer-container .copyright span{
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 18px;
+    line-height: 19px;
+}
+
+.footer-container .social-links{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.social-links .facebook{
+    width: 18px;
+    height: 18px;
+    background-image: url("img/Facebook.png");
+    margin-right: 3%;
+}
+
+.social-links .twitter{
+    width: 18px;
+    height: 15px;
+    background-image: url("img/Twitter.png");
+    margin-right: 3%;
+}
+
+.social-links .github{
+    width: 18px;
+    height: 18px;
+    background-image: url("img/Github.png");
+    margin-right: 3%;
+}
+
+.social-links .slack{
+    width: 18px;
+    height: 18px;
+    background-image: url("img/Slack.png");
+    margin-right: 3%;
+}
+
+.social-links .telegram{
+    width: 18px;
+    height: 15px;
+    background-image: url("img/Telegram.png");
+}
+
+@media only screen and (max-width: 600px){
+    .copyright{
+        display: none;
+    }
+
+    .facebook{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .twitter{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .github{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .slack{
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .telegram{
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
