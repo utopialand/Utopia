@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec  6 17:48:02 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec  7 15:40:35 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -179,6 +179,10 @@
                 {
                     "name": "status",
                     "type": "uint16"
+                },
+                {
+                    "name": "votingstat",
+                    "type": "bool"
                 }
             ]
         },
@@ -191,15 +195,7 @@
                     "type": "name"
                 },
                 {
-                    "name": "fname",
-                    "type": "string"
-                },
-                {
-                    "name": "mname",
-                    "type": "string"
-                },
-                {
-                    "name": "lname",
+                    "name": "identityname",
                     "type": "string"
                 },
                 {
@@ -307,18 +303,6 @@
                 {
                     "name": "user",
                     "type": "name"
-                },
-                {
-                    "name": "details",
-                    "type": "string"
-                },
-                {
-                    "name": "duration",
-                    "type": "uint16"
-                },
-                {
-                    "name": "noofwinner",
-                    "type": "uint16"
                 }
             ]
         },
@@ -359,20 +343,6 @@
                 {
                     "name": "manager",
                     "type": "name"
-                }
-            ]
-        },
-        {
-            "name": "stvstatus",
-            "base": "",
-            "fields": [
-                {
-                    "name": "fid",
-                    "type": "uint64"
-                },
-                {
-                    "name": "status",
-                    "type": "uint8"
                 }
             ]
         },
@@ -552,7 +522,7 @@
             "key_types": []
         },
         {
-            "name": "feature13",
+            "name": "feature112",
             "type": "featurelist",
             "index_type": "i64",
             "key_names": [],
@@ -582,13 +552,6 @@
         {
             "name": "result12",
             "type": "result",
-            "index_type": "i64",
-            "key_names": [],
-            "key_types": []
-        },
-        {
-            "name": "stvstat",
-            "type": "stvstatus",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
