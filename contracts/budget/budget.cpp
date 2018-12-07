@@ -100,7 +100,7 @@ ACTION budget::stvoff(uint64_t fid, name manager)
 
 ACTION budget ::selectprop(name user)
 {
-   /*  eosio_assert(is_manager(user), "not authorized");
+    eosio_assert(is_manager(user), "not authorized");
     feature_table ft(_self, _self.value);
     auto fitr = ft.begin();
   //  eosio_assert(fitr == ft.end(), "proposal selection cannot be done untill a stv process completes!!");
@@ -223,11 +223,6 @@ ACTION budget ::selectprop(name user)
     });
 
       auto propitr = pt.begin();
-      /* for(auto itr = propitr; itr!=pt.end();itr++)
-      {
-          if(itr->selected == 0)
-             pt.erase(itr);
-      } 
     while(propitr != pt.end())
     {
         if(propitr->selected == 0)
@@ -235,7 +230,7 @@ ACTION budget ::selectprop(name user)
         else
             propitr++;
        
-    } */
+    }
 }
 
 ACTION budget::startstv(uint64_t id, name identity, string details, uint64_t duration, uint64_t noofwinner)
