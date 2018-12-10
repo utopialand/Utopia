@@ -39,6 +39,7 @@ Template.App_business_settings.onRendered(function () {
         }
     });
 });
+// why is git not?
 
 Template.App_business_settings.events({
     "click #addempbtn":function(){
@@ -72,3 +73,7 @@ Template.App_business_settings.events({
         });
     }
 });
+
+// testcomment
+// test comment
+// test 

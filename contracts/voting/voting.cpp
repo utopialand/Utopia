@@ -12,6 +12,7 @@ ACTION voting::createprop(string proposal, string detail, uint16_t duration, vec
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(user.value);
     eosio_assert(itr != iden_table.end(), "identity not found !!!");
+    eosio_assert(itr->citizen, "Not a citizen of Utopia !!!");
     proposal_table pt(_self, _self.value);
     pt.emplace(_self, [&](auto &v) {
         v.id = pt.available_primary_key();
@@ -49,7 +50,7 @@ ACTION voting::delprop(uint64_t id, name user)
 ACTION voting::delvote(uint64_t id, name manager)
 {
     print("in del vote---");
-   
+
     votes_table vt(_self, _self.value);
     auto itr = vt.find(id);
     eosio_assert(itr != vt.end(), "votes not found");
@@ -59,15 +60,14 @@ ACTION voting::delvote(uint64_t id, name manager)
 ACTION voting::delresult(uint64_t id, name manager)
 {
     print("in del result---");
-   result_table rt(_self, _self.value);
-     auto it = rt.begin();
+    result_table rt(_self, _self.value);
+    auto it = rt.begin();
     while (it != rt.end())
     {
-        if(it->proposal_id==id)
-         it = rt.erase(it);
+        // if(it->proposal_id==id)
+        it = rt.erase(it);
     }
 }
-
 
 ACTION voting::voteprop(uint64_t propid, vector<uint8_t> choices, name identity)
 {
@@ -164,7 +164,7 @@ ACTION voting::decidewinner(uint64_t id, name user)
         //print("each--", votes_count[i]);
     }
     //////////// calculation///////////
-    
+
     vector<int> winner(selection_size, prop_itr->proposal_options.size());
     auto winnercount = 0;
     int flag = 0;
@@ -275,19 +275,26 @@ ACTION voting::decidewinner(uint64_t id, name user)
         print("winner--", winner[p]);
     }
     //////////////populating data in result table//////////////////////////////////////////
-
+    vector<string> candwinner;
     auto res_itr = rt.begin();
-     while (res_itr != rt.end())
+
+    while (res_itr != rt.end())
     {
         eosio_assert(res_itr->proposal_id != id, "already declared!!");
         res_itr++;
-    } 
-     rt.emplace(_self, [&](auto &v) {
+    }
+    for (auto i = 0; i < winner.size(); i++)
+    {
+        auto candidate = prop_itr->proposal_options[winner[i]];
+        candwinner.push_back(candidate);
+    }
+    rt.emplace(_self, [&](auto &v) {
         v.id = rt.available_primary_key();
         v.proposal_id = id;
-        v.selected = winner;
+        v.desc = prop_itr->proposal_description;
+        v.selected = candwinner;
     });
- 
+
     //////////////////////////////////
 }
 
@@ -354,7 +361,7 @@ vector<int> voting::elimination(int votes_required, vector<vector<uint8_t>> vote
 
             for (auto j = 0; j < votes[i].size(); j++)
             {
-               
+
                 if (votes[i][j] == pref)
                 {
                     if (votes_count[j] == -1 || votes_count[j] == -2)

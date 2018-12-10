@@ -1,8 +1,8 @@
 #include <eosiolib/eosio.hpp>
 #include <eosiolib/asset.hpp>
 #include <eosiolib/singleton.hpp>
-#include<cstdlib>
-#include<ctime>
+#include <cstdlib>
+#include <ctime>
 
 using namespace eosio;
 using namespace std;
@@ -13,9 +13,7 @@ CONTRACT identity : public contract
     using contract::contract;
     ACTION addidentity(
         name username,
-        string fname,
-        string mname,
-        string lname,
+        string identityname,
         string dob,
         string contact,
         string email,
@@ -24,29 +22,25 @@ CONTRACT identity : public contract
     ACTION addidcitzn(
         name manager,
         name username,
-        string fname,
-        string mname,
-        string lname,
+        string identityname,
         string dob,
         string contact,
         string email,
         string hash);
-    ACTION remidentity(name username);
+    ACTION remidentity(name username, name manager);
 
-    ACTION addcitizen(uint64_t id,name identity, name manager);
+    ACTION addcitizen(name identity, name manager);
     ACTION reqcitizen(name identity);
     ACTION remcitizen(name identity, name manager);
     ACTION remmanager(name user);
     ACTION addmanager(name user);
-    ACTION remcitreq(uint64_t id,name manager);    
-    ACTION delall();
+    ACTION remcitreq(uint64_t id, name manager);
+    // ACTION delall();
 
     TABLE identityt
     {
         name username;
-        string fname;
-        string mname;
-        string lname;
+        string identityname;
         string dob;
         string contact;
         string email;
@@ -63,11 +57,10 @@ CONTRACT identity : public contract
 
     TABLE citizenship
     {
-        uint64_t id;
+
         name identity;
-        bool approved;
-        uint64_t primary_key () const {return id ;}
-        
+
+        uint64_t primary_key() const { return identity.value; }
     };
 
   private:
@@ -96,5 +89,5 @@ CONTRACT identity : public contract
     typedef multi_index<"manager11"_n, manager> manager_table;
     typedef multi_index<"citizen3"_n, citizenship> citizen_table;
 
-    //  
+    //
 };

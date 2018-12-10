@@ -1,15 +1,11 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 12:38:15 2018",
-    "version": "eosio::abi/1.0",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec  7 10:45:26 2018",
+    "version": "eosio::abi/1.1",
     "structs": [
         {
             "name": "addcitizen",
             "base": "",
             "fields": [
-                {
-                    "name": "id",
-                    "type": "uint64"
-                },
                 {
                     "name": "identity",
                     "type": "name"
@@ -33,15 +29,7 @@
                     "type": "name"
                 },
                 {
-                    "name": "fname",
-                    "type": "string"
-                },
-                {
-                    "name": "mname",
-                    "type": "string"
-                },
-                {
-                    "name": "lname",
+                    "name": "identityname",
                     "type": "string"
                 },
                 {
@@ -71,15 +59,7 @@
                     "type": "name"
                 },
                 {
-                    "name": "fname",
-                    "type": "string"
-                },
-                {
-                    "name": "mname",
-                    "type": "string"
-                },
-                {
-                    "name": "lname",
+                    "name": "identityname",
                     "type": "string"
                 },
                 {
@@ -115,23 +95,10 @@
             "base": "",
             "fields": [
                 {
-                    "name": "id",
-                    "type": "uint64"
-                },
-                {
                     "name": "identity",
                     "type": "name"
-                },
-                {
-                    "name": "approved",
-                    "type": "bool"
                 }
             ]
-        },
-        {
-            "name": "delall",
-            "base": "",
-            "fields": []
         },
         {
             "name": "identityt",
@@ -142,15 +109,7 @@
                     "type": "name"
                 },
                 {
-                    "name": "fname",
-                    "type": "string"
-                },
-                {
-                    "name": "mname",
-                    "type": "string"
-                },
-                {
-                    "name": "lname",
+                    "name": "identityname",
                     "type": "string"
                 },
                 {
@@ -220,6 +179,10 @@
                 {
                     "name": "username",
                     "type": "name"
+                },
+                {
+                    "name": "manager",
+                    "type": "name"
                 }
             ]
         },
@@ -264,11 +227,6 @@
         {
             "name": "addmanager",
             "type": "addmanager",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "delall",
-            "type": "delall",
             "ricardian_contract": ""
         },
         {
@@ -321,5 +279,6 @@
         }
     ],
     "ricardian_clauses": [],
+    "variants": [],
     "abi_extensions": []
 }

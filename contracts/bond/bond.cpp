@@ -1,57 +1,66 @@
 #include "bond.hpp"
-
-ACTION bond::tab1(name user,string entry,uint64_t id){
-print("hello1");
-table1_entry tab1entry(_self,_self.value);
-tab1entry.emplace(_self, [&] (auto &e1){
-    e1.user=user;
-    e1.id=id;
-    e1.entry=entry;
+ACTION bond::addbond(name bondissuer,uint64_t bond,uint64_t maturity,uint64_t couponrate,uint64_t couponintervel,uint64_t putprice,uint64_t callprice,asset facevalue){    
+require_auth(_self);   
+bond_entry be(_self,bond);
+be.emplace(_self,[&] (auto &e){
+print("-----");
+e.id=be.available_primary_key();
+e.bondissuer=bondissuer;
+e.bond=bond;
+e.issueddate=now();
+e.maturity=now()+ (24 * 60 * 60) * maturity;
+e.couponrate=couponrate;
+e.couponintervel=now()+ (24 * 60 * 60) * 180;
+e.putprice=putprice;
+e.callprice=callprice;
+e.facevalue=facevalue;
 });
+print("done");
 }
-ACTION bond::tab2(name user2,uint64_t id2){
-print("hello2");
-table2_entry tab2entry(_self,_self.value);
-tab2entry.emplace(_self, [&] (auto &e2){
-    e2.user2=user2;
-    e2.id2=id2;
-});
-}
-ACTION bond::migrate(){
 
-///max to less table field
+ACTION bond::buybond(name bondbuyer,uint64_t bond,asset payamount){
 
-/*  table2_entry tab2entry(_self,_self.value);
-    auto itr2 = tab2entry.end();
-    table1_entry tab1entry(_self,_self.value);
-    auto itr = tab1entry.begin();
-    while(itr != tab1entry.end()){
-    print("----",itr->user);
-    tab2entry.emplace(_self, [&] (auto &e2){
-    e2.user2=itr->user;
-    e2.id2=itr->id;
-});
-//itr++;
-     itr = tab1entry.erase(itr); */
-     
-     ///less to max table field
+  require_auth(bondbuyer);
+  action(
+            permission_level{bondbuyer, "active"_n},
+            "eosio.token"_n, "transfer"_n,
+            std::make_tuple(bondbuyer, _self, payamount, std::string("buying bond")))
+            .send();
 
-    table2_entry tab2entry(_self,_self.value);
-    auto itr2 = tab2entry.begin();
-    table1_entry tab1entry(_self,_self.value);
-    auto itr = tab1entry.begin();
-    while(itr2 != tab2entry.end()){
-    print("----",itr2->user2);
-    tab1entry.emplace(_self, [&] (auto &e1){
-    e1.user=itr2->user2;
-    e1.id=itr2->id2;
+bondbuyer_entry bbe(_self,bondbuyer.value);
+bbe.emplace(_self,[&] (auto &v){
+v.id=bbe.available_primary_key();
+v.bondbuyer=bondbuyer;
+v.bond=bond;
+v.buydate=now();
+v.payamount=payamount;
+}); 
+
+bond_entry be(_self,bond);
+auto itr=be.find(bond);
+be.modify(itr,_self,[&] (auto &e){
+e.bondholders.push_back(bondbuyer);
 });
-//itr2++;
-    itr2 = tab2entry.erase(itr2);
+    print("enter");
 }
+ACTION bond::getcoupon(name bondbuyer,uint64_t bond){
+
+  require_auth(_self);
+  bond_entry be(_self,bond);
+  auto itr=be.find(bond);
+  bondbuyer_entry bbe(_self,bondbuyer.value);
+  auto itr2=bbe.find(bond);
+  uint64_t payamount = itr2->payamount.amount*itr->couponrate/100;
+  print("---",payamount);
+  /* if(now()==itr2->buydate+ 24*60*60*180){
+    print("---",payamount);
+  action(
+            permission_level{_self, "active"_n},
+            "eosio.token"_n, "transfer"_n,
+            std::make_tuple(_self,bondbuyer , payamount, std::string("buying bond")))
+            .send();  
+  } */
+
+ print("entercoupon--",itr->maturity);
 }
-ACTION bond::addbond(){
-    print("enter in bond section");
-    
-}
-EOSIO_DISPATCH(bond,(tab1)(tab2)(migrate))
+EOSIO_DISPATCH(bond,(addbond)(buybond)) 

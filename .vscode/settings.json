@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "typeinfo": "cpp",
+        "limits": "cpp",
+        "initializer_list": "cpp",
+        "string_view": "cpp",
+        "type_traits": "cpp"
+    }
+}
