@@ -11,8 +11,8 @@ import "../../ui/pages/main/citizenship.js"
 import "../../ui/pages/main/newproposal.js";
 import "../../ui/pages/main/manager.js";
 import "../../ui/pages/main/result.js";
-//import "../../ui/pages/main/budgetResult.js";
-//import "../../ui/pages/main/selected-bgt-prop.js";
+import "../../ui/pages/main/budgetResult.js";
+import "../../ui/pages/main/selected-bgt-prop.js";
 import "../../ui/pages/main/Budget.js";
 import "../../ui/pages/main/Createbudget.js";
 FlowRouter.route('/', {
@@ -84,20 +84,20 @@ FlowRouter.route('/identity', {
   }
 });
 
-/* FlowRouter.route('/budget-result', {
+FlowRouter.route('/budget-result', {
   name: "budget_result",
   action(){
     BlazeLayout.render('App_body', { main: 'App_budget_result'});
   }
-}); */
+});
 
 
-/* FlowRouter.route('/selected-bgt', {
+FlowRouter.route('/selected-bgt', {
   name: "selected-bgt",
   action(){
     BlazeLayout.render('App_body', { main: 'App_selected_bgt_prop'});
   }
-}); */
+});
 FlowRouter.route('/budget', {
   name: 'Budget',
   action() {

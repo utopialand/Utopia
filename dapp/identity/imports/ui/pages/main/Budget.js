@@ -2,6 +2,8 @@ import "./Budget.html";
 import "../../stylesheets/Budget.css";
 import Eos from "eosjs";
 import ScatterJS from "scatterjs-core";
+
+//test commit to m1
 const network = {
     protocol: "https", // Defaults to https
     blockchain: "eos",
@@ -28,11 +30,6 @@ Template.budget_app.onCreated(function () {
                 if (scatter.identity) {
                     eosinstance=eos;
                     eos.getTableRows({
-                        /*  code: "voteproposal",
-                         scope: "voteproposal",
-                         table: 'proposal11',
-                         limit: 50,
-                         json: true, */
                          code: "propbudget11",
                          scope: "propbudget11",
                          table: 'proposal13',
@@ -110,6 +107,7 @@ Template.budget_app.onRendered(async function () {
     
 })
 Template.budget_app.events({
+    ////click on like button to see response
     'click .like-button':function(){
         if(budgetpropstart.rows[0]==null||budgetpropstart.rows[0].status==false)
         {
