@@ -33,7 +33,7 @@ ACTION identity::addidcitzn(name manager,
     identity_table iden_table(_self, _self.value);
     iden_table.emplace(username, [&](auto &v) {
         v.username = username;
-       v.identityname = identityname;
+        v.identityname = identityname;
         v.dob = dob;
         v.contact = contact;
         v.email = email;
