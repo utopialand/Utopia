@@ -58,7 +58,7 @@
 }
 
 .bpClass{
-    flex:6;
+    flex:1;
     background: white;
     display: flex;
     align-items: center;
@@ -68,7 +68,7 @@
     margin-left:5%;
 }
 .bpCount{
-    flex:4;
+    flex:1;
     background: white;
 }
 .start-stop{

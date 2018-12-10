@@ -8,7 +8,7 @@ CONTRACT budget : public contract
     using contract::contract;
 
   public:
-    ACTION createprop(name identity,string proposal, string detail, uint16_t duration,asset budget);
+    ACTION createprop(name identity, string proposal, string detail, uint16_t duration, asset budget);
     ACTION delprop(uint64_t id, name user);
     ACTION selectprop(name user, string details, uint16_t duration, uint16_t noofwinner);
     ACTION voteprop(uint64_t feature_id, vector<uint8_t> choices, name identity);
@@ -17,10 +17,15 @@ CONTRACT budget : public contract
     ACTION catgvote(uint64_t id, name identity);
     ACTION delmanager(name user);
     ACTION modprop(uint64_t id);
+    ACTION delall(uint64_t id);
     ACTION bypropid(uint64_t prop_id);
     ACTION delvote(uint64_t id, name manager);
     ACTION delresult(uint64_t id, name manager);
-    vector<int> surplusdist(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int i);
+    ACTION votingon(name manager);
+    ACTION votingoff(name manager);
+    ACTION stvoff(uint64_t fid, name manager);
+    ACTION startstv(uint64_t id, name identity, string details,uint64_t duration,uint64_t noofwinner);
+    vector<int> surplusdist(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx);
     vector<int> elimination(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx);
     int repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, vector<int> votes_count);
 
@@ -37,7 +42,7 @@ CONTRACT budget : public contract
         string proposal_description;
         string proposal_detail;
         asset budget;
-        uint16_t count=0;
+        uint16_t count = 0;
         string category;
         uint64_t createdat;
         uint16_t selected = 0;
@@ -65,32 +70,50 @@ CONTRACT budget : public contract
         uint64_t by_secondary() const { return feature_id; }
     };
 
+    TABLE votestatus
+    {
+        uint64_t id;
+        bool status = false;
+
+        uint64_t primary_key() const { return id; }
+    };
+
+    TABLE stvstatus
+    {
+        uint64_t fid;
+        uint8_t status = 0;
+
+        uint64_t primary_key() const { return fid; }
+    };
+
     TABLE catvote
     {
-        
+
         uint64_t proposal_id;
         string category;
         uint64_t primary_key() const { return proposal_id; }
-       
     };
 
     TABLE result
     {
         uint64_t id;
         uint64_t feature_id;
-        vector<int> selected;
+        vector<uint64_t> selected;
         uint64_t primary_key() const { return id; }
     };
 
-    struct lprop {
+    struct lprop
+    {
         uint64_t id;
         uint16_t count;
     };
-     struct mprop {
+    struct mprop
+    {
         uint64_t id;
         uint16_t count;
     };
-     struct sprop {
+    struct sprop
+    {
         uint64_t id;
         uint16_t count;
     };
@@ -112,18 +135,16 @@ CONTRACT budget : public contract
     typedef multi_index<"identity2"_n, identityt> identity_table;
     typedef multi_index<"manager11"_n, manager> manager_table;
     typedef multi_index<"proposal13"_n, proposal> proposal_table;
-    typedef multi_index<"feature12"_n, featurelist> feature_table;
+    typedef multi_index<"feature13"_n, featurelist> feature_table;
     typedef multi_index<"catvote12"_n, catvote> catvote_table;
     typedef multi_index<"votes12"_n, votes,
                         indexed_by<"propid"_n,
                                    const_mem_fun<votes, uint64_t, &votes::by_secondary>>>
         votes_table;
 
-    typedef multi_index<"result13"_n, result> result_table;
-    void helper()
-    {
-        print("call test");
-    }
+    typedef multi_index<"result12"_n, result> result_table;
+    typedef multi_index<"votestat"_n, votestatus> votestat_table;
+    typedef multi_index<"stvstat"_n, stvstatus> stvstat_table;
 
     vector<int> findrept(vector<int> votes_count, int idx)
     {

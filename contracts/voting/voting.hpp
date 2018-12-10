@@ -3,6 +3,8 @@
 using namespace eosio;
 using namespace std;
 
+//testing this comment
+
 CONTRACT voting : public contract
 {
     using contract::contract;
@@ -55,7 +57,8 @@ CONTRACT voting : public contract
     {
         uint64_t id;
         uint64_t proposal_id;
-        vector<int> selected;
+        string desc;
+        vector<string> selected;
         uint64_t primary_key() const { return id; }
     };
 

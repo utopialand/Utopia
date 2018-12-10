@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec  5 10:32:15 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec  6 17:48:02 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -87,6 +87,16 @@
                 {
                     "name": "user",
                     "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "delall",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
                 }
             ]
         },
@@ -286,7 +296,7 @@
                 },
                 {
                     "name": "selected",
-                    "type": "int32[]"
+                    "type": "uint64[]"
                 }
             ]
         },
@@ -309,6 +319,60 @@
                 {
                     "name": "noofwinner",
                     "type": "uint16"
+                }
+            ]
+        },
+        {
+            "name": "startstv",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "details",
+                    "type": "string"
+                },
+                {
+                    "name": "duration",
+                    "type": "uint64"
+                },
+                {
+                    "name": "noofwinner",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "stvoff",
+            "base": "",
+            "fields": [
+                {
+                    "name": "fid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "manager",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "stvstatus",
+            "base": "",
+            "fields": [
+                {
+                    "name": "fid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "status",
+                    "type": "uint8"
                 }
             ]
         },
@@ -355,6 +419,40 @@
                     "type": "uint64"
                 }
             ]
+        },
+        {
+            "name": "votestatus",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "status",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "votingoff",
+            "base": "",
+            "fields": [
+                {
+                    "name": "manager",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "votingon",
+            "base": "",
+            "fields": [
+                {
+                    "name": "manager",
+                    "type": "name"
+                }
+            ]
         }
     ],
     "types": [],
@@ -382,6 +480,11 @@
         {
             "name": "decidewinner",
             "type": "decidewinner",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "delall",
+            "type": "delall",
             "ricardian_contract": ""
         },
         {
@@ -415,8 +518,28 @@
             "ricardian_contract": ""
         },
         {
+            "name": "startstv",
+            "type": "startstv",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "stvoff",
+            "type": "stvoff",
+            "ricardian_contract": ""
+        },
+        {
             "name": "voteprop",
             "type": "voteprop",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "votingoff",
+            "type": "votingoff",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "votingon",
+            "type": "votingon",
             "ricardian_contract": ""
         }
     ],
@@ -429,7 +552,7 @@
             "key_types": []
         },
         {
-            "name": "feature12",
+            "name": "feature13",
             "type": "featurelist",
             "index_type": "i64",
             "key_names": [],
@@ -457,8 +580,15 @@
             "key_types": []
         },
         {
-            "name": "result13",
+            "name": "result12",
             "type": "result",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "stvstat",
+            "type": "stvstatus",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
@@ -466,6 +596,13 @@
         {
             "name": "votes12",
             "type": "votes",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "votestat",
+            "type": "votestatus",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
