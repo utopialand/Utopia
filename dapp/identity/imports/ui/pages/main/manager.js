@@ -210,12 +210,13 @@ Template.App_manager.events({
       console.log("count-->", count);
       console.log("id-->", budgetpropId);
       document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
-        "<div class = 'bpClass'>" +
-        "</div>" +
-        "<div class = 'bpCount'>" +
-        "</div>";
-      document.getElementsByClassName("bpClass")[i].innerHTML =
-        "<p>" + desc + "</p>";
+      "<div class = 'bpFlex'>" +
+      "<div class = 'bpClass'>" +
+      "</div>" +
+      "<div class = 'bpCount'>" +
+      "</div>"+
+      "</div>"
+      document.getElementsByClassName("bpClass")[i].innerHTML = desc;
       document.getElementsByClassName("bpCount")[i].innerHTML = count;
     }
 
@@ -308,13 +309,14 @@ Template.App_manager.events({
           console.log("count-->", count);
           console.log("id-->", budgetpropId);
           document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
+            "<div class = 'bpFlex'>" +
             "<div class = 'bpClass'>" +
             "</div>" +
             "<div class = 'bpCount'>" +
-            "</div>";
-          document.getElementsByClassName("bpClass")[i].innerHTML =
-            "<p>" + desc + "</p>";
-          document.getElementsByClassName("bpCount")[i].innerHTML = count;
+            "</div>"+
+            "</div>"
+            document.getElementsByClassName("bpClass")[i].innerHTML = desc;
+            document.getElementsByClassName("bpCount")[i].innerHTML = count;
         }
       }
     }

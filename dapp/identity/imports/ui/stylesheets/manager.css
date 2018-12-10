@@ -54,7 +54,11 @@
 .bpContent{
     width:100%;
     height:100%;
-    background: red;
+}
+.bpFlex{
+    display:flex;
+    margin-top:1%;
+    height:50px;
 }
 
 .bpClass{
@@ -62,14 +66,12 @@
     background: white;
     display: flex;
     align-items: center;
-    margin-top:10px;
-}
-.bpClass p{
-    margin-left:5%;
 }
 .bpCount{
     flex:1;
     background: white;
+    display: flex;
+    align-items: center;
 }
 .start-stop{
     display:flex;
