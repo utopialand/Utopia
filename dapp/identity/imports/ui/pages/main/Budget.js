@@ -2,6 +2,8 @@ import "./Budget.html";
 import "../../stylesheets/Budget.css";
 import Eos from "eosjs";
 import ScatterJS from "scatterjs-core";
+
+//test commit to m1
 const network = {
     protocol: "https", // Defaults to https
     blockchain: "eos",
