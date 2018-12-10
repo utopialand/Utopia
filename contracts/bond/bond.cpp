@@ -52,6 +52,6 @@ ACTION bond::migrate(){
 }
 ACTION bond::addbond(){
     print("enter in bond section");
-    
+    bond_entry entrytab()
 }
 EOSIO_DISPATCH(bond,(tab1)(tab2)(migrate))

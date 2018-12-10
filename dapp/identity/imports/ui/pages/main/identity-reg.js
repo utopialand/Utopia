@@ -57,21 +57,21 @@ Template.identity_reg.events({
         var firstname = $('#firstname').val();
         var midname = $('#midname').val();
         var lastname = $('#lastname').val();
+        var identityname = firstname+" "+midname+" "+lastname;
         var dob = $('#dob').val();
         var phonenumber = $('#phonenumber').val();
-        var email = $('#email').val();
+        var email = $('#email').val();  
         var username = localStorage.getItem("username");
         var hash="QmZbj5ruYneZb8FuR9wnLqJCpCXMQudhSdWhdhp5U1oPWJ";
-        console.log("----", username);
+        console.log("----", identityname);
         eosinstance.contract('identityreg1').then(identityreg1 => {
             console.log("----", eosinstance);
-            identityreg1.addidentity(username, firstname, midname, lastname, dob, phonenumber, email,hash, { authorization: username }).then((response) => {
+            identityreg1.addidentity(username, identityname, dob, phonenumber, email,hash, { authorization: username }).then((response) => {
                 if (response) {
                     FlowRouter.go("/reg-success");
                 } else {
                     alert("identity is not registered !!!!");;
                 }
-
             });
 
         })
