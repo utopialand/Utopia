@@ -20,9 +20,11 @@
     justify-content: center;
     align-content: center;
     height: 48px;
-    text-transform: uppercase;
     font-weight: bold;
     cursor:pointer;
+    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    color: white;
+    text-transform: uppercase;
 }
 .flexOption button:hover{
     background:gray;
@@ -40,6 +42,7 @@
     text-transform: uppercase;
     font-weight: bold;
     cursor:pointer;
+    
 }
 .typeBudget button:hover{
     background:lightcoral;
@@ -75,12 +78,20 @@
 }
 .start-stop{
     display:flex;
-    justify-content: center;
-    height:50px;
+    justify-content: center; 
+   
+}
+.start-stop button{
     margin-top:5%;
     margin-left:auto;
     margin-right:auto;
+    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    color: white;
+    text-transform: uppercase;
     cursor: pointer;
+    height:40px;
+    width:10%;
+    border:0px;
 }
 .selectedStatusButton{
     display:flex;
@@ -133,6 +144,8 @@
     border:0px;
     font-weight: bold;
     cursor: pointer;
+    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    color: white;
     
 }
 .delete-button:hover{
@@ -148,6 +161,8 @@
     border:0px;
     font-weight: bold;
     cursor: pointer;
+    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    color: white;
 }
 .declare-button:hover{
     background:green;
