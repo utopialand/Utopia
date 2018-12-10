@@ -295,8 +295,6 @@ Template.App_manager.events({
     console.log("arr------===>",arr[1]);
     console.log("arr------===>",arr[2]);
     console.log("=====bdg",budgetprop.rows[0].id);
-    console.log("=====bdg",budgetprop.rows[1].id);
-    console.log("=====bdg",budgetprop.rows[2].id);
     console.log("length==>",budgetprop.rows.length);
 
     for (var i = 0; i < budgetprop.rows.length; i++) {
