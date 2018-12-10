@@ -12,8 +12,6 @@ CONTRACT business : public contract
   public:
     using contract::contract;
 
-    ACTION addbusiness(name owner, string businessname);
-
     ACTION deleteall();
 
     ACTION delcompany(uint64_t company_id);
@@ -22,15 +20,9 @@ CONTRACT business : public contract
 
     ACTION rmemployee(uint64_t company_id, name employee);
 
-    ACTION adshareowner(uint64_t company_id, name shareholder);
-
-    ACTION rmshareowner(uint64_t company_id, name shareholder);
-
-    ACTION makepublic(uint64_t company_id, asset maximum_supply);
-
     ACTION printnames();
 
-    ACTION create(uint64_t company_id);
+    ACTION create(asset maximum_supply, name owner, string businessname);
 
     ACTION issue(name to, asset quantity, string memo);
 
@@ -55,9 +47,6 @@ CONTRACT business : public contract
         const auto &ac = accountstable.get(sym.raw());
         return ac.balance;
     }
-
-    uint8_t CREATED = 0;
-    uint8_t PUBLIC = 1;
 
     TABLE businessst
     {
