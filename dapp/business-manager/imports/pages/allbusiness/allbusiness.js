@@ -10,6 +10,7 @@ Template.App_all_business.helpers({
         return Session.get("allBusinessList");
     }
 });
+//this is a comment 
 
 Template.App_all_business.events({
     "click .details": function(e){
