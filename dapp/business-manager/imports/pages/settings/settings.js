@@ -73,7 +73,3 @@ Template.App_business_settings.events({
         });
     }
 });
-
-// testcomment
-// test comment
-// test 
