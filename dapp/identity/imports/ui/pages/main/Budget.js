@@ -92,7 +92,7 @@ Template.budget_app.onRendered(async function () {
     
 })
 Template.budget_app.events({
-    ////click on like buuton to see response
+    ////click on like button to see response
     'click .like-button':function(){
         var propid=event.target.id;
         var username = localStorage.getItem("username");
