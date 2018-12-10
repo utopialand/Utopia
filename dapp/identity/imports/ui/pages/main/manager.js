@@ -146,6 +146,7 @@ Template.App_manager.events({
     console.log("proposalDetails");
     document.getElementById("userList").style.display = "none";
     document.getElementById("proposalList").style.display = "block";
+    document.getElementsByClassName("budgetProposalsList")[0].style.display ="none";
     document.getElementsByClassName("manager-below-section")[0].style.display =
       "block";
 
