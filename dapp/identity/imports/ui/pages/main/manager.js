@@ -287,14 +287,11 @@ Template.App_manager.events({
 
     document.getElementsByClassName("budgetProposalsList")[0].innerHTML = "";
     console.log("===============budgetprop==================", budgetprop);
-    console.log("===============propentry==================", propentry);
     console.log("===",propentry.rows[0].proposal_options);
     let arr;
     arr = propentry.rows[0].proposal_options;
     console.log("arr------===>",arr);
     console.log("arr------===>",arr[0]);
-    console.log("arr------===>",arr[1]);
-    console.log("arr------===>",arr[2]);
     console.log("=====bdg",budgetprop.rows[0].id);
     console.log("=====bdg",budgetprop.rows[1].id);
     console.log("=====bdg",budgetprop.rows[2].id);
