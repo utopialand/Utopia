@@ -27,11 +27,6 @@ Template.budget_app.onCreated(function () {
                 if (scatter.identity) {
                     eosinstance=eos;
                     eos.getTableRows({
-                        /*  code: "voteproposal",
-                         scope: "voteproposal",
-                         table: 'proposal11',
-                         limit: 50,
-                         json: true, */
                          code: "propbudget11",
                          scope: "propbudget11",
                          table: 'proposal13',
@@ -97,6 +92,7 @@ Template.budget_app.onRendered(async function () {
     
 })
 Template.budget_app.events({
+    ////click on like buuton to see response
     'click .like-button':function(){
         var propid=event.target.id;
         var username = localStorage.getItem("username");
