@@ -2,7 +2,7 @@
     max-width:1440px;
     width:90%;
     margin: 5% auto 0 auto;
-    margin-bottom:10%;
+    margin-bottom:5%;
     color:black;
 
 }
@@ -271,4 +271,186 @@
 
 .manager-user-redo p{
     margin-left: 3%;
+}
+
+
+/* ======================result======================= */
+
+.result-container{
+    width: 90%;
+    max-width: 1140px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+.candidate{
+    margin-top: 10px;
+    margin-bottom: 20px;
+    width: 0px;
+    height: 10px;
+    color: white;
+    font-family: Colfax Medium;
+}
+
+#proposal-result{
+    display: flex;
+    justify-content: center;
+    border: 1px solid white;
+    padding: 3% 0;
+}
+
+#proposal-result-name{
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    margin-right: 5%;
+}
+
+#proposal-result-votes{
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 5%;
+}
+
+.ep{
+    text-align: center;
+    border: 1px solid white;
+    width: 30%;
+    height: 25px;
+    line-height: 25px;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.ep:hover{
+    background: white;
+    color: black;
+    transition: 0.35s;
+}
+
+.ep2{
+    text-align: center;
+    border: 1px solid white;
+    width: 30%;
+    line-height: 25px;
+    height: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.vote-stat{
+    width: 18%;
+    text-align: center;
+    border: 1px solid white;
+}
+
+
+.winnerbutton{
+    margin-top:40px;
+    height: 60px;
+    width: 250px;
+    color: white; font-family: Colfax Medium;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 14px;
+    background:#04030F;
+  }
+  
+  .winnerbutton:hover{
+    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
+  }
+  .winner{
+      display: flex;
+      justify-content: center;
+  }
+  .namewinner{
+      color: green;
+  }
+
+ 
+
+.result-container .resultbox{
+    width: 60%;
+    margin: 4% auto 0 auto;
+    color: white;
+    border: 2px solid white;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    color: white;
+    display: none;
+}
+
+.result-container .resultbox:hover{
+    border: 2px solid #C86DD7;
+    transition: 0.5s;
+}
+
+.resultbox .title{
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.resultbox .selected{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.resultbox .selected .options{
+    background: transparent;
+    color: white;
+    width: 100px;
+    height: 50px;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+.resultbox .selected .options:hover{
+    border: 2px solid #C86DD7;
+    transition: 0.5s;
+}
+
+.selected .options p{
+    text-align: center;
+    text-transform: uppercase;
+}
+.stv-stop{
+    display:flex;
+    justify-content: center; 
+}
+.stv-stop button{
+    margin-top:5%;
+    margin-left:auto;
+    margin-right:auto;
+    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    height:40px;
+    width:10%;
+    border:0px;
+}
+.decideWinner{
+    display:flex;
+    justify-content: center; 
+}
+.decideWinner button{
+    margin-top:5%;
+    margin-left:auto;
+    margin-right:auto;
+    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    height:40px;
+    width:15%;
+    border:0px;
 }

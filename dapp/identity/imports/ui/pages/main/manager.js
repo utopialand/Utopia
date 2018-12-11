@@ -21,6 +21,7 @@ let userdata;
 let budgetprop;
 let budgetpropstart;
 let propentry;
+let resultdata;
 
 Template.App_manager.onCreated(function() {
   ScatterJS.scatter.connect("utopia").then(connected => {
@@ -41,6 +42,8 @@ Template.App_manager.onCreated(function() {
             })
             .then(resp => {
               tabledata = resp;
+              document.getElementById("result-container").style.display =
+                "none";
               console.log("tabledata--", tabledata);
               document.getElementById("manager-proposal-group").innerHTML = "";
               console.log("table data after rendering", tabledata);
@@ -63,7 +66,7 @@ Template.App_manager.onCreated(function() {
             .getTableRows({
               code: "identityreg1",
               scope: "identityreg1",
-              table: "citizen",
+              table: "citizen3",
               limit: 50,
               json: true
             })
@@ -112,7 +115,8 @@ Template.App_manager.onCreated(function() {
               budgetpropstart = resp;
             });
 
-            eosinstance.getTableRows({
+          eosinstance
+            .getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
               table: "feature112",
@@ -124,7 +128,19 @@ Template.App_manager.onCreated(function() {
               console.log("propentry-----", resp);
               console.log(propentry);
             });
-
+          eosinstance
+            .getTableRows({
+              code: "propbudget11",
+              scope: "propbudget11",
+              table: "votes111",
+              limit: "50",
+              json: true
+              /* key_type: "i64",
+              index_position: 2 */
+            })
+            .then(response => {
+              resultdata = response;
+            });
         } else {
           FlowRouter.go("/");
         }
@@ -141,12 +157,14 @@ Template.App_manager.events({
   "click #userDetails": function() {
     document.getElementById("userList").style.display = "block";
     document.getElementById("proposalList").style.display = "none";
+    document.getElementById("result-container").style.display = "none";
   },
   "click #proposalDetails": function() {
     console.log("proposalDetails");
     document.getElementById("userList").style.display = "none";
     document.getElementById("proposalList").style.display = "block";
-    document.getElementsByClassName("budgetProposalsList")[0].style.display ="none";
+    document.getElementsByClassName("budgetProposalsList")[0].style.display =
+      "none";
     document.getElementsByClassName("manager-below-section")[0].style.display =
       "block";
 
@@ -192,50 +210,175 @@ Template.App_manager.events({
     console.log("id----", event.target.id);
   },
   "click #budgetButton": async function() {
-    console.log("budgetButton clicked");
-    console.log("budgetprop: -->", budgetprop);
-    console.log("budgetpropstart", budgetpropstart.rows[0]);
+    if (propentry.rows.length!=0) {
+      console.log("propentry.value===>", propentry);
+      document.getElementById("result-container").style.display = "block";
 
-    console.log("dhsdhs", tabledata);
-    document.getElementsByClassName("manager-below-section")[0].style.display =
-      "none";
-    document.getElementById("budgetProposalsList").style.display = "flex";
+      document.getElementsByClassName(
+        "manager-below-section"
+      )[0].style.display = "none";
+      console.log("abcdef");
+      console.log("resultdata==>", resultdata);
+      var result = [];
+      var id = FlowRouter.current().params.id;
+      console.log("ids===>>>", id);
+      //getting the length of list of all choices for a  particular proposal
+      var length = 0;
+      for (var i = 0; i < resultdata.rows.length; i++) {
+        if (id == resultdata.rows[i].proposal_id) {
+          length = resultdata.rows[i].choices.length;
+          break;
+        }
+      }
 
-    document.getElementsByClassName("budgetProposalsList")[0].innerHTML = "";
-    for (var i = 0; i < budgetprop.rows.length; i++) {
-      var desc = budgetprop.rows[i].proposal_description;
-      var count = budgetprop.rows[i].count;
-      var budgetpropId = budgetprop.rows[i].id;
-      console.log("proposal_description-->", desc);
-      console.log("count-->", count);
-      console.log("id-->", budgetpropId);
-      document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
-      "<div class = 'bpFlex'>" +
-      "<div class = 'bpClass'>" +
-      "</div>" +
-      "<div class = 'bpCount'>" +
-      "</div>"+
-      "</div>"
-      document.getElementsByClassName("bpClass")[i].innerHTML = desc;
-      document.getElementsByClassName("bpCount")[i].innerHTML = count;
-    }
+      //creating a 2d array to store who got how many votes based on rank
+      for (var i = 0; i < length; i++) {
+        result[i] = [];
+      }
 
-    if (
-      budgetpropstart.rows[0] == null ||
-      budgetpropstart.rows[0].status == false
-    ) {
-      document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
-        "<div class  = 'start-stop'  id = 'starton'><button>START</button></div>";
+      for (var i = 0; i < length; i++) {
+        for (var j = 0; j < length; j++) {
+          result[i][j] = 0;
+        }
+      }
+
+      var input = [];
+      //creating a 2d array of total votes received
+      for (var i = 0; i < resultdata.rows.length; i++) {
+        if (id == resultdata.rows[i].proposal_id) {
+          input.push(resultdata.rows[i].choices);
+        }
+      }
+
+      // calculaing votes based on ranks
+      //j is the candidate and val-1 is the total votes received for the rank
+      for (var i = 0; i < input.length; i++) {
+        for (j = 0; j < input[i].length; j++) {
+          var val = input[i][j];
+          result[j][val - 1] += 1;
+        }
+      }
+      for (var i = 0; i < result.length; i++) {
+        document.getElementById("proposal-result-votes").innerHTML +=
+          "<br><div class = 'ep2'></div>";
+
+        for (var j = 0; j < result[i].length; j++) {
+          var val = result[i][j];
+          document.getElementsByClassName("ep2")[i].innerHTML +=
+            "<div class = 'vote-stat'>" + val + "</div>";
+        }
+      }
+      let arr;
+      arr = propentry.rows[0].proposal_options;
+      for (var i = 0; i < budgetprop.rows.length; i++) {
+        for (var j = 0; j < arr.length; j++) {
+          if (budgetprop.rows[i].id == arr[j]) {
+            var desc = budgetprop.rows[i].proposal_description;
+            var count = budgetprop.rows[i].count;
+            var budgetpropId = budgetprop.rows[i].id;
+            console.log("proposal_description-->", desc);
+            console.log("count-->", count);
+            console.log("id-->", budgetpropId);
+
+            document.getElementById("proposal-result-name").innerHTML +=
+              "<br><div class = 'ep'>" + desc + "</div>";
+          }
+        }
+      }
+      document.getElementById("result-container").innerHTML +=
+        "<div class = 'stv-stop' id = 'stv-stop'>" +
+        "<button>stop</button>" +
+        "</div>";
     } else {
-      document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
-        "<div class  = 'start-stop' id = 'stopon'><button>STOP</button></div>";
+      document.getElementById("result-container").style.display = "none";
+      console.log("budgetButton clicked");
+      console.log("budgetprop: -->", budgetprop);
+      console.log("budgetpropstart", budgetpropstart.rows[0]);
+
+      console.log("dhsdhs", tabledata);
+      document.getElementsByClassName(
+        "manager-below-section"
+      )[0].style.display = "none";
+      document.getElementById("budgetProposalsList").style.display = "flex";
+
+      document.getElementsByClassName("budgetProposalsList")[0].innerHTML = "";
+      for (var i = 0; i < budgetprop.rows.length; i++) {
+        var desc = budgetprop.rows[i].proposal_description;
+        var count = budgetprop.rows[i].count;
+        var budgetpropId = budgetprop.rows[i].id;
+        console.log("proposal_description-->", desc);
+        console.log("count-->", count);
+        console.log("id-->", budgetpropId);
+        document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
+          "<div class = 'bpFlex'>" +
+          "<div class = 'bpClass'>" +
+          "</div>" +
+          "<div class = 'bpCount'>" +
+          "</div>" +
+          "</div>";
+        document.getElementsByClassName("bpClass")[i].innerHTML = desc;
+        document.getElementsByClassName("bpCount")[i].innerHTML = count;
+      }
+
+      if (
+        budgetpropstart.rows[0] == null ||
+        budgetpropstart.rows[0].status == false
+      ) {
+        document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
+          "<div class  = 'start-stop'  id = 'starton'><button>START</button></div>";
+      } else {
+        document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
+          "<div class  = 'start-stop' id = 'stopon'><button>STOP</button></div>";
+      }
     }
   },
   "click #condidateButton": async function() {
     console.log("candidateList");
     document.getElementsByClassName("manager-below-section")[0].style.display =
       "flex";
+    document.getElementById("result-container").style.display = "none";
     document.getElementById("budgetProposalsList").style.display = "none";
+  },
+
+  "click #stv-stop": async function() {
+    console.log("stv-stop");
+    let idstop = propentry.rows[0].id;
+    var username = localStorage.getItem("username");
+    eosinstance.contract("propbudget11").then(propbudget11 => {
+      propbudget11
+        .stvoff(idstop, username, { authorization: username })
+        .then(response => {
+          alert("stv successfully stoped");
+          console.log("response==>", response);
+        });
+    });
+    document.getElementById("stv-stop").style.display = "none";
+    document.getElementById("result-container").innerHTML +=
+      "<div class = 'decideWinner' id = 'decideWinner'>" +
+      "<button>decide Winner</button>" +
+      "</div>";
+  },
+  "click #decideWinner": async function() {
+    console.log("decideWinner");
+    let idwinner = propentry.rows[0].id;
+    var username = localStorage.getItem("username");
+    eosinstance.contract("propbudget11").then(propbudget11 => {
+      propbudget11.decidewinner(idwinner, username, { authorization: username })
+        .then(response => {
+          alert("winners are decided!!");
+          console.log("resWinner", response);
+        });
+    });
+    /* await eosinstance.getTableRows({
+              code: "propbudget11",
+              scope: "propbudget11",
+              table: "result11",
+              limit: "50",
+              json: true
+            })
+            .then(response => {
+              console.log("winner response",response);
+            }); */
   },
 
   "click #starton": async function() {
@@ -252,6 +395,7 @@ Template.App_manager.events({
           }
         });
     });
+    
   },
 
   "click #stopon": async function() {
@@ -289,15 +433,15 @@ Template.App_manager.events({
 
     document.getElementsByClassName("budgetProposalsList")[0].innerHTML = "";
     console.log("===============budgetprop==================", budgetprop);
-    console.log("===",propentry.rows[0].proposal_options);
+    console.log("===", propentry.rows[0].proposal_options);
     let arr;
     arr = propentry.rows[0].proposal_options;
-    console.log("arr------===>",arr);
-    console.log("arr------===>",arr[0]);
-    console.log("arr------===>",arr[1]);
-    console.log("arr------===>",arr[2]);
-    console.log("=====bdg",budgetprop.rows[0].id);
-    console.log("length==>",budgetprop.rows.length);
+    console.log("arr------===>", arr);
+    console.log("arr------===>", arr[0]);
+    console.log("arr------===>", arr[1]);
+    console.log("arr------===>", arr[2]);
+    console.log("=====bdg", budgetprop.rows[0].id);
+    console.log("length==>", budgetprop.rows.length);
 
     for (var i = 0; i < budgetprop.rows.length; i++) {
       for (var j = 0; j < arr.length; j++) {
@@ -313,36 +457,38 @@ Template.App_manager.events({
             "<div class = 'bpClass'>" +
             "</div>" +
             "<div class = 'bpCount'>" +
-            "</div>"+
-            "</div>"
-            document.getElementsByClassName("bpClass")[i].innerHTML = desc;
-            document.getElementsByClassName("bpCount")[i].innerHTML = count;
+            "</div>" +
+            "</div>";
+          document.getElementsByClassName("bpClass")[i].innerHTML = desc;
+          document.getElementsByClassName("bpCount")[i].innerHTML = count;
         }
       }
     }
     document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
-    "<div class = 'managerSelection'>"+
-                "<input type='text' placeholder='details' id = 'details'/>"+
-                "<input  type='text' placeholder='duration' id = 'duration'/>"+
-                "<input  type='text' placeholder='noOfwinner' id = 'noOfwinner'/>"+
-           " </div>"
-    +"<button class = 'submitButton' id = 'submitButton'>submit</button>"
+      "<div class = 'managerSelection'>" +
+      "<input type='text' placeholder='details' id = 'details'/>" +
+      "<input  type='text' placeholder='duration' id = 'duration'/>" +
+      "<input  type='text' placeholder='noOfwinner' id = 'noOfwinner'/>" +
+      " </div>" +
+      "<button class = 'submitButton' id = 'submitButton'>submit</button>";
   },
   "click #submitButton": async function() {
     console.log("manager submit");
     var username = localStorage.getItem("username");
-    var details = $('#details').val();
-    var duration = $('#duration').val();
-    var noOfwinner = $('#noOfwinner').val();
-    var id =  propentry.rows[0].id;
-    console.log("username",username);
-    console.log("details",details);
-    console.log("duration",duration);
-    console.log("noOfwinner",noOfwinner);
-    console.log("id",id);
+    var details = $("#details").val();
+    var duration = $("#duration").val();
+    var noOfwinner = $("#noOfwinner").val();
+    var id = propentry.rows[0].id;
+    console.log("username", username);
+    console.log("details", details);
+    console.log("duration", duration);
+    console.log("noOfwinner", noOfwinner);
+    console.log("id", id);
     eosinstance.contract("propbudget11").then(propbudget11 => {
       propbudget11
-        .startstv(id,username,details,duration,noOfwinner,{ authorization: username })
+        .startstv(id, username, details, duration, noOfwinner, {
+          authorization: username
+        })
         .then(response => {
           if (response) {
             console.log("hello--", response);
