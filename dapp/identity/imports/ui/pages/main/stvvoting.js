@@ -55,12 +55,13 @@ Template.App_stvvote.onCreated(async function() {
           });
 
         arr = propentry.rows[0].proposal_options;
-        for (var i = 0; i < budgetprop.rows.length; i++) {
-          for (var j = 0; j < arr.length; j++) {
-            if (budgetprop.rows[i].id == arr[j]) {
-              var desc = budgetprop.rows[i].proposal_description;
-              var count = budgetprop.rows[i].count;
-              var budgetpropId = budgetprop.rows[i].id;
+        var k=0;
+        for (var i = 0; i < arr.length; i++) {
+          for (var j = 0; j < budgetprop.rows.length; j++) {
+            if (budgetprop.rows[j].id == arr[i]) {
+              var desc = budgetprop.rows[j].proposal_description;
+              var count = budgetprop.rows[j].count;
+              var budgetpropId = budgetprop.rows[j].id;
               console.log("proposal_description-->", desc);
               console.log("count-->", count);
               console.log("id-->", budgetpropId);
@@ -69,9 +70,12 @@ Template.App_stvvote.onCreated(async function() {
               "<div class = 'redostvvote hover'>"+
               "<div class= 'candidatestvvote'>"+desc+"</div>"+
               "<div class='rank'>"+
-              "<input class='input' type='text' id='rankdata"+i+"'/>"+
+              "<input class='input' type='text' id='rankdata"+k+"'/>"+
               "</div></div>";
               console.log(i);
+              console.log(j);
+              console.log(k);
+              k=k+1;
             }
           }
         }
@@ -85,26 +89,46 @@ Template.App_stvvote.onCreated(async function() {
 });
 
 Template.App_stvvote.events({
-    'click .submit':function(e){
-        var data = [];
-        console.log("arr length",arr.length)
-        for(var i=0;i<arr.length;i++){
-            var item=$("#rankdata"+i).val();
-            console.log("item",item);
-            data.push(parseInt(item));
-            }
-        let id = propentry.rows[0].id;
-        console.log("feature id==>",id);
-        var username=localStorage.getItem("username");
-        console.log("username", username);
+    'click .submit':async function(e){
 
-        eosinstance.contract("propbudget11").then(stvvoting => {
-            stvvoting.voteprop(id ,data,username, { authorization: username }).then(
-                (res) => {
-                      console.log("response--",res);
-                }
-            )
-        })
+      /////////////////////////////////////////////
+      let submitresult = await eosinstance
+          .getTableRows({
+            code: "propbudget11",
+            scope: "propbudget11",
+            table: "feature112",
+            limit: 50,
+            json: true
+          })
+      /////////////////////////////////////////////
+      if(submitresult)
+      {
+        if(submitresult.rows[0].votingstat==0)
+        {
+          alert("stv voting has stopped or not started yet!!");
+        }
+        else{
+          var data = [];
+          console.log("arr length",arr.length)
+          for(var i=0;i<arr.length;i++){
+              var item=$("#rankdata"+i).val();
+              console.log("item",item);
+              data.push(parseInt(item));
+              }
+          let id = propentry.rows[0].id;
+          console.log("feature id==>",id);
+          var username=localStorage.getItem("username");
+          console.log("username", username);
+  
+          eosinstance.contract("propbudget11").then(stvvoting => {
+              stvvoting.voteprop(id ,data,username, { authorization: username }).then(
+                  (res) => {
+                        console.log("response--",res);
+                  }
+              )
+          })
+        }
+      }
        
     }
 })

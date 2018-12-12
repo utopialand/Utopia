@@ -22,9 +22,10 @@ let budgetprop;
 let budgetpropstart;
 let propentry;
 let resultdata;
+let resfeature;
 
 Template.App_manager.onCreated(function() {
-  ScatterJS.scatter.connect("utopia").then(connected => {
+  ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
       if (ScatterJS.scatter.connect("utopia")) {
         scatter = ScatterJS.scatter;
@@ -32,7 +33,7 @@ Template.App_manager.onCreated(function() {
         const eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
           eosinstance = eos;
-          eosinstance
+          await eosinstance
             .getTableRows({
               code: "voteproposal",
               scope: "voteproposal",
@@ -62,7 +63,7 @@ Template.App_manager.onCreated(function() {
                   "</div>";
               }
             });
-          eosinstance
+          await eosinstance
             .getTableRows({
               code: "identityreg1",
               scope: "identityreg1",
@@ -92,7 +93,7 @@ Template.App_manager.onCreated(function() {
               document.getElementById("userList").style.display = "none";
             });
 
-          eosinstance
+          await eosinstance
             .getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
@@ -103,7 +104,7 @@ Template.App_manager.onCreated(function() {
             .then(resp => {
               budgetprop = resp;
             });
-          eosinstance
+          await eosinstance
             .getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
@@ -115,7 +116,7 @@ Template.App_manager.onCreated(function() {
               budgetpropstart = resp;
             });
 
-          eosinstance
+          await eosinstance
             .getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
@@ -128,7 +129,7 @@ Template.App_manager.onCreated(function() {
               console.log("propentry-----", resp);
               console.log(propentry);
             });
-          eosinstance
+          await eosinstance
             .getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
@@ -210,78 +211,84 @@ Template.App_manager.events({
     console.log("id----", event.target.id);
   },
   "click #budgetButton": async function() {
-    if (propentry.rows.length!=0) {
+    console.log("propentry.rows.length==>",propentry.rows.length);
+    if (propentry.rows.length != 0) {
       console.log("propentry.value===>", propentry);
       document.getElementById("result-container").style.display = "block";
+      document.getElementById("proposal-result-name").innerHTML = "";
+      document.getElementById("proposal-result-votes").innerHTML = "";
 
-      document.getElementsByClassName(
-        "manager-below-section"
-      )[0].style.display = "none";
+      document.getElementsByClassName("manager-below-section")[0].style.display = "none";
       console.log("abcdef");
       console.log("resultdata==>", resultdata);
-      var result = [];
-      var id = FlowRouter.current().params.id;
-      console.log("ids===>>>", id);
-      //getting the length of list of all choices for a  particular proposal
-      var length = 0;
-      for (var i = 0; i < resultdata.rows.length; i++) {
-        if (id == resultdata.rows[i].proposal_id) {
-          length = resultdata.rows[i].choices.length;
-          break;
+      if(resultdata.rows.length!=0)
+      {
+        var result = [];
+        var id = propentry.rows[0].id;
+        console.log("ids===>>>", id);
+        //getting the length of list of all choices for a  particular proposal
+        var length = 0;
+        for (var i = 0; i < resultdata.rows.length; i++) {
+          if (id == resultdata.rows[i].feature_id) {
+            length = resultdata.rows[i].choices.length;
+            break;
+          }
         }
-      }
-
-      //creating a 2d array to store who got how many votes based on rank
-      for (var i = 0; i < length; i++) {
-        result[i] = [];
-      }
-
-      for (var i = 0; i < length; i++) {
-        for (var j = 0; j < length; j++) {
-          result[i][j] = 0;
+  
+        //creating a 2d array to store who got how many votes based on rank
+        for (var i = 0; i < length; i++) {
+          result[i] = [];
         }
-      }
-
-      var input = [];
-      //creating a 2d array of total votes received
-      for (var i = 0; i < resultdata.rows.length; i++) {
-        if (id == resultdata.rows[i].proposal_id) {
-          input.push(resultdata.rows[i].choices);
+  
+        for (var i = 0; i < length; i++) {
+          for (var j = 0; j < length; j++) {
+            result[i][j] = 0;
+          }
         }
-      }
-
-      // calculaing votes based on ranks
-      //j is the candidate and val-1 is the total votes received for the rank
-      for (var i = 0; i < input.length; i++) {
-        for (j = 0; j < input[i].length; j++) {
-          var val = input[i][j];
-          result[j][val - 1] += 1;
+  
+        var input = [];
+        //creating a 2d array of total votes received
+        for (var i = 0; i < resultdata.rows.length; i++) {
+          if (id == resultdata.rows[i].feature_id) {
+            input.push(resultdata.rows[i].choices);
+          }
         }
-      }
-      for (var i = 0; i < result.length; i++) {
-        document.getElementById("proposal-result-votes").innerHTML +=
-          "<br><div class = 'ep2'></div>";
-
-        for (var j = 0; j < result[i].length; j++) {
-          var val = result[i][j];
-          document.getElementsByClassName("ep2")[i].innerHTML +=
-            "<div class = 'vote-stat'>" + val + "</div>";
+  
+        // calculaing votes based on ranks
+        //j is the candidate and val-1 is the total votes received for the rank
+        for (var i = 0; i < input.length; i++) {
+          for (j = 0; j < input[i].length; j++) {
+            var val = input[i][j];
+            result[j][val - 1] += 1;
+          }
+        }
+        for (var i = 0; i < result.length; i++) {
+          document.getElementById("proposal-result-votes").innerHTML +=
+            "<br><div class = 'ep2manager'></div>";
+  
+          for (var j = 0; j < result[i].length; j++) {
+            var val = result[i][j];
+            console.log("val--<<<<<<", val);
+            document.getElementsByClassName("ep2manager")[i].innerHTML +=
+              "<div class = 'vote-stat'>" + val + "</div>";
+          }
         }
       }
       let arr;
       arr = propentry.rows[0].proposal_options;
-      for (var i = 0; i < budgetprop.rows.length; i++) {
-        for (var j = 0; j < arr.length; j++) {
-          if (budgetprop.rows[i].id == arr[j]) {
-            var desc = budgetprop.rows[i].proposal_description;
-            var count = budgetprop.rows[i].count;
-            var budgetpropId = budgetprop.rows[i].id;
+      for (var i = 0; i < arr.length; i++) {
+        for (var j = 0; j < budgetprop.rows.length; j++) {
+          if (budgetprop.rows[j].id == arr[i]) {
+            var desc = budgetprop.rows[j].proposal_description;
+            var count = budgetprop.rows[j].count;
+            var budgetpropId = budgetprop.rows[j].id;
             console.log("proposal_description-->", desc);
             console.log("count-->", count);
             console.log("id-->", budgetpropId);
+            console.log("arr.length-->", arr.length);
 
             document.getElementById("proposal-result-name").innerHTML +=
-              "<br><div class = 'ep'>" + desc + "</div>";
+              "<div class = 'epmanager'>" + desc + "</div><br>";
           }
         }
       }
@@ -301,7 +308,7 @@ Template.App_manager.events({
       )[0].style.display = "none";
       document.getElementById("budgetProposalsList").style.display = "flex";
 
-      document.getElementsByClassName("budgetProposalsList")[0].innerHTML = "";
+      document.getElementById("budgetProposalsList").innerHTML = "";
       for (var i = 0; i < budgetprop.rows.length; i++) {
         var desc = budgetprop.rows[i].proposal_description;
         var count = budgetprop.rows[i].count;
@@ -309,15 +316,19 @@ Template.App_manager.events({
         console.log("proposal_description-->", desc);
         console.log("count-->", count);
         console.log("id-->", budgetpropId);
-        document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
-          "<div class = 'bpFlex'>" +
-          "<div class = 'bpClass'>" +
-          "</div>" +
-          "<div class = 'bpCount'>" +
-          "</div>" +
-          "</div>";
-        document.getElementsByClassName("bpClass")[i].innerHTML = desc;
-        document.getElementsByClassName("bpCount")[i].innerHTML = count;
+        console.log("budgetprop.rows.length === >", budgetprop.rows.length);
+        console.log("budgetprop.rows[i].selected", budgetprop.rows[i].selected);
+        if (budgetprop.rows[i].selected == 0) {
+          document.getElementById("budgetProposalsList").innerHTML +=
+            "<div class = 'bpFlex'>" +
+            "<div class = 'bpClass'>" +
+            desc +
+            "</div>" +
+            "<div class = 'bpCount'>" +
+            count +
+            "</div>" +
+            "</div>";
+        }
       }
 
       if (
@@ -363,10 +374,12 @@ Template.App_manager.events({
     let idwinner = propentry.rows[0].id;
     var username = localStorage.getItem("username");
     eosinstance.contract("propbudget11").then(propbudget11 => {
-      propbudget11.decidewinner(idwinner, username, { authorization: username })
+      propbudget11
+        .decidewinner(idwinner, username, { authorization: username })
         .then(response => {
           alert("winners are decided!!");
           console.log("resWinner", response);
+          FlowRouter.go("/stvresult");
         });
     });
     /* await eosinstance.getTableRows({
@@ -395,7 +408,6 @@ Template.App_manager.events({
           }
         });
     });
-    
   },
 
   "click #stopon": async function() {
@@ -419,66 +431,92 @@ Template.App_manager.events({
   "click #selectedStatus": async function() {
     console.log("selectedStatus");
     var username = localStorage.getItem("username");
-    eosinstance.contract("propbudget11").then(propbudget11 => {
-      propbudget11
-        .selectprop(username, { authorization: username })
-        .then(response => {
+    let rescontract = await eosinstance.contract("propbudget11");
+    console.log("response---",rescontract);
+    let response = await rescontract.selectprop(username, { authorization: username }); 
           if (response) {
             console.log("hello--", response);
+            /////////////////////////////////////////
+            resfeature = await eosinstance.getTableRows({
+              code: "propbudget11",
+              scope: "propbudget11",
+              table: "feature112",
+              limit: 50,
+              json: true
+            });
+            /////////////////////////////////////////
+            if(resfeature)
+            {
+              console.log("===", resfeature.rows[0].proposal_options);
+               document.getElementById("budgetProposalsList").innerHTML = "";
+            console.log(
+              "===============budgetprop==================",
+              budgetprop
+            );
+            console.log("===", resfeature.rows[0].proposal_options);
+            let arr;
+            arr = resfeature.rows[0].proposal_options;
+            console.log("arr------===>", arr);
+            console.log("arr------===>", arr[0]);
+            console.log("arr------===>", arr[1]);
+            console.log("arr------===>", arr[2]);
+            console.log("=====bdg", budgetprop.rows[0].id);
+            console.log("length==>", budgetprop.rows.length);
+
+            for (var i = 0; i < budgetprop.rows.length; i++) {
+              for (var j = 0; j < arr.length; j++) {
+                if (budgetprop.rows[i].id == arr[j]) {
+                  var desc = budgetprop.rows[i].proposal_description;
+                  var count = budgetprop.rows[i].count;
+                  var budgetpropId = budgetprop.rows[i].id;
+                  console.log("proposal_description-->", desc);
+                  console.log("count-->", count);
+                  console.log("id-->", budgetpropId);
+                  document.getElementById("budgetProposalsList").innerHTML +=
+                    "<div class = 'bpFlex'>" +
+                    "<div class = 'bpClass'>" +
+                    desc +
+                    "</div>" +
+                    "<div class = 'bpCount'>" +
+                    count +
+                    "</div>" +
+                    "</div>";
+                }
+              }
+            }
+            document.getElementById("budgetProposalsList").innerHTML +=
+              "<div class = 'managerSelection'>" +
+              "<input type='text' placeholder='details' id = 'details'/>" +
+              "<input  type='text' placeholder='duration' id = 'duration'/>" +
+              "<input  type='text' placeholder='noOfwinner' id = 'noOfwinner'/>" +
+              " </div>" +
+              "<button class = 'submitButton' id = 'submitButton'>submit</button>";
+            ////////////////////////////////////////
+            }
+           
           } else {
-            alert("identity is not registered !!!!");
+            alert("error");
           }
-        });
-    });
-
-    document.getElementsByClassName("budgetProposalsList")[0].innerHTML = "";
-    console.log("===============budgetprop==================", budgetprop);
-    console.log("===", propentry.rows[0].proposal_options);
-    let arr;
-    arr = propentry.rows[0].proposal_options;
-    console.log("arr------===>", arr);
-    console.log("arr------===>", arr[0]);
-    console.log("arr------===>", arr[1]);
-    console.log("arr------===>", arr[2]);
-    console.log("=====bdg", budgetprop.rows[0].id);
-    console.log("length==>", budgetprop.rows.length);
-
-    for (var i = 0; i < budgetprop.rows.length; i++) {
-      for (var j = 0; j < arr.length; j++) {
-        if (budgetprop.rows[i].id == arr[j]) {
-          var desc = budgetprop.rows[i].proposal_description;
-          var count = budgetprop.rows[i].count;
-          var budgetpropId = budgetprop.rows[i].id;
-          console.log("proposal_description-->", desc);
-          console.log("count-->", count);
-          console.log("id-->", budgetpropId);
-          document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
-            "<div class = 'bpFlex'>" +
-            "<div class = 'bpClass'>" +
-            "</div>" +
-            "<div class = 'bpCount'>" +
-            "</div>" +
-            "</div>";
-          document.getElementsByClassName("bpClass")[i].innerHTML = desc;
-          document.getElementsByClassName("bpCount")[i].innerHTML = count;
-        }
-      }
-    }
-    document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
-      "<div class = 'managerSelection'>" +
-      "<input type='text' placeholder='details' id = 'details'/>" +
-      "<input  type='text' placeholder='duration' id = 'duration'/>" +
-      "<input  type='text' placeholder='noOfwinner' id = 'noOfwinner'/>" +
-      " </div>" +
-      "<button class = 'submitButton' id = 'submitButton'>submit</button>";
+      
+    
   },
   "click #submitButton": async function() {
+
+    ///////////////////////////////////////
+    resfeature = await eosinstance.getTableRows({
+      code: "propbudget11",
+      scope: "propbudget11",
+      table: "feature112",
+      limit: 50,
+      json: true
+    });
+    ///////////////////////////////////////
     console.log("manager submit");
     var username = localStorage.getItem("username");
     var details = $("#details").val();
     var duration = $("#duration").val();
     var noOfwinner = $("#noOfwinner").val();
-    var id = propentry.rows[0].id;
+    var id = resfeature .rows[0].id;
     console.log("username", username);
     console.log("details", details);
     console.log("duration", duration);

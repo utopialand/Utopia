@@ -28,3 +28,10 @@
     flex-direction: column;
     margin-left: 5%;
 }
+
+.winner-result-box{
+    display:flex;
+    align-items: center;
+    margin:5%;
+    border: 1px solid white;
+}

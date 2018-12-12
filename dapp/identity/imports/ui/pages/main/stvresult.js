@@ -54,25 +54,32 @@ Template.App_stvresult.onCreated(function() {
               console.log("budgetprop-----", budgetprop);
             });
 
-          arr = winnerresult.rows[0].selected;
-          for (var i = 0; i < budgetprop.rows.length; i++) {
-            for (var j = 0; j < arr.length; j++) {
-              if (budgetprop.rows[i].id == arr[j]) {
-                var desc = budgetprop.rows[i].proposal_description;
-                var count = budgetprop.rows[i].count;
-                var budgetpropId = budgetprop.rows[i].id;
-                console.log("proposal_description-->", desc);
-                console.log("count-->", count);
-                console.log("id-->", budgetpropId);
-                document.getElementById("winner-result-name").innerHTML +=
-                "<div>"
-                +desc+"</div>"
-                document.getElementById("winner-result-count").innerHTML +=
-                "<div>"
-                +count+"</div>"
+            for(var k = 0; k< winnerresult.rows.length;k++)
+            {
+              arr = winnerresult.rows[k].selected;
+              console.log("arrrrrrrrrrrr-----",arr);
+              for (var i = 0; i < budgetprop.rows.length; i++) {
+                for (var j = 0; j < arr.length; j++) {
+                  if (budgetprop.rows[i].id == arr[j]) {
+                    var desc = budgetprop.rows[i].proposal_description;
+                    var count = budgetprop.rows[i].count;
+                    var budgetpropId = budgetprop.rows[i].id;
+                    console.log("proposal_description-->", desc);
+                    console.log("count-->", count);
+                    console.log("id-->", budgetpropId);
+                    document.getElementById("winner-result-name").innerHTML +=
+                    "<div class = 'winner-result-box'>"
+                    +desc+"</div>"
+                    document.getElementById("winner-result-count").innerHTML +=
+                    "<div class = 'winner-result-box'>"
+                    +count+"</div>"
+                  }
+                }
               }
             }
-          }
+           
+            
+         /*   */
         } else {
           FlowRouter.go("/");
         }
