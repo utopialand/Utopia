@@ -14,9 +14,11 @@ const network = {
 const eosOptions = {
   chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
-let tabledata ;;
+let tabledata ;
+let winnerresult;
 var scatter={};
 var eosinstance = {};
+var flag = 0;
 Template.App_proposal.onCreated(function () {
   Meteor.subscribe('identity');
   ScatterJS.scatter.connect('utopia').then((connected) => {
@@ -35,7 +37,23 @@ Template.App_proposal.onCreated(function () {
                     json: true,
                 }).then((resp)=>{
                     tabledata=resp;
-                });               
+                    console.log("tabledata====>",tabledata);
+
+                });     
+                 
+                eosinstance.getTableRows({
+                  code: "voteproposal",
+                  scope: "voteproposal",
+                  table: "result13",
+                  limit: 50,
+                  json: true
+                })
+                .then(resp => {
+                  winnerresult =  resp; 
+                  console.log("winner response!!==>", resp);
+                });
+
+
               } else {
                   FlowRouter.go("/");
               }
@@ -55,16 +73,34 @@ Template.App_proposal.events({
             document.getElementById("proposal-group").innerHTML = "";     
             document.getElementById("listhead").innerHTML = "";      
             document.getElementById("listhead").innerHTML += "<h1>Here is the list of proposals</h1>";        
-            
+
+
+
             for (var i = 0; i < tabledata.rows.length; i++) {
                 var desc = tabledata.rows[i].proposal_description;
+                flag = 0;
                 var votebutton = "votebutton";
                 var resultbutton = "resultbutton";
                 votebutton = votebutton + tabledata.rows[i].id;
                 resultbutton = resultbutton + tabledata.rows[i].id;
-                document.getElementById("proposal-group").innerHTML +=
-                    "<div class = 'redo'><p>" + desc + "</p><button class = 'vote-button' id = '" + votebutton + "'>vote</button>"
-                    + "<button class = 'result-button' id = '" + resultbutton + "'>result</button>" + "</div>";
+                for(let j=0 ; j<winnerresult.rows.length; j++)
+                {
+                    if(tabledata.rows[i].id==winnerresult.rows[j].proposal_id)
+                    {
+                        document.getElementById("proposal-group").innerHTML +=
+                        "<div class = 'redo'><p>" + desc + "</p>"
+                        + "<button class = 'result-button' id = '" + resultbutton + "'>result</button>" + "</div>";
+                        flag =1;
+                        break;
+                    }
+                }
+                    if(flag == 0)
+                    {
+                        document.getElementById("proposal-group").innerHTML +=
+                        "<div class = 'redo'><p>" + desc + "</p><button class = 'vote-button' id = '" + votebutton + "'>vote</button>"
+                        + "<button class = 'result-button' id = '" + resultbutton + "'>vote_status</button>" + "</div>";
+                    }
+               
         
             }
         }else{
