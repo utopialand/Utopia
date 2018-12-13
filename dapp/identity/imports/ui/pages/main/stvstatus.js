@@ -18,10 +18,10 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
-Template.App_result.onCreated(function () {
-    let resultdata;
-    let candidatedata;
-    Meteor.subscribe('identity');
+let propentry;
+let resultdata;
+let budgetprop;
+Template.App_stvstatus.onCreated(function () {
     ScatterJS.scatter.connect('utopia').then(async (connected) => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
@@ -30,24 +30,49 @@ Template.App_result.onCreated(function () {
                 const eos = scatter.eos(network, Eos, eosOptions);
                 if (scatter.identity) {
                     eosinstance = eos;
-                    resfeature = await eosinstance.getTableRows({
+
+                      await eosinstance
+                      .getTableRows({
+                        code: "propbudget11",
+                        scope: "propbudget11",
+                        table: "votes111",
+                        limit: "50",
+                        json: true
+                      })
+                      .then(response => {
+                        resultdata = response;
+                        console.log("resultdata=>",resultdata);
+                      });
+
+                      await eosinstance
+                      .getTableRows({
                         code: "propbudget11",
                         scope: "propbudget11",
                         table: "feature112",
                         limit: 50,
                         json: true
+                      })
+                      .then(resp => {
+                        propentry = resp;
+                        console.log("propentry-----", resp);
+                        console.log(propentry);
                       });
 
-
+                      await eosinstance
+                      .getTableRows({
+                        code: "propbudget11",
+                        scope: "propbudget11",
+                        table: "proposal13",
+                        limit: 50,
+                        json: true
+                      })
+                      .then(resp => {
+                        budgetprop = resp;
+                      });
                       ////////////////////////////////////////////
 
                       if (propentry.rows.length != 0) {
                         console.log("propentry.value===>", propentry);
-                        document.getElementById("result-container").style.display = "block";
-                        document.getElementById("proposal-result-name").innerHTML = "";
-                        document.getElementById("proposal-result-votes").innerHTML = "";
-                  
-                        document.getElementsByClassName("manager-below-section")[0].style.display = "none";
                         console.log("abcdef");
                         console.log("resultdata==>", resultdata);
                         if(resultdata.rows.length!=0)
@@ -93,7 +118,7 @@ Template.App_result.onCreated(function () {
                           }
                           for (var i = 0; i < result.length; i++) {
                             document.getElementById("proposal-result-votes").innerHTML +=
-                              "<br><div class = 'ep2manager'></div>";
+                              "<div class = 'ep2manager'></div><br>";
                     
                             for (var j = 0; j < result[i].length; j++) {
                               var val = result[i][j];
@@ -121,27 +146,8 @@ Template.App_result.onCreated(function () {
                             }
                           }
                         }
-                        document.getElementById("result-container").innerHTML +=
-                          "<div class = 'stv-stop' id = 'stv-stop'>" +
-                          "<button>stop</button>" +
-                          "</div>";
                       }
                       ////////////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 } else {
                     FlowRouter.go("/");
                 }

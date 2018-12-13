@@ -23,6 +23,8 @@ let budgetpropstart;
 let propentry;
 let resultdata;
 let resfeature;
+let winnerresults;
+let flag = 0;
 
 Template.App_manager.onCreated(function() {
   ScatterJS.scatter.connect("utopia").then(async connected => {
@@ -33,6 +35,23 @@ Template.App_manager.onCreated(function() {
         const eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
           eosinstance = eos;
+
+          ////////////////////////////////////////////
+
+          await eosinstance.getTableRows({
+            code: "voteproposal",
+            scope: "voteproposal",
+            table: "result13",
+            limit: 50,
+            json: true
+          })
+          .then(resp => {
+            winnerresults =  resp; 
+            console.log("winner response!!==>", winnerresults);
+          });
+          ////////////////////////////////////////////
+
+
           await eosinstance
             .getTableRows({
               code: "voteproposal",
@@ -50,8 +69,28 @@ Template.App_manager.onCreated(function() {
               console.log("table data after rendering", tabledata);
               var id = 0;
               for (var i = 0; i < tabledata.rows.length; i++) {
+                flag = 0;
                 var desc = tabledata.rows[i].proposal_description;
                 var proposalId = tabledata.rows[i].id;
+                for(var j=0 ; j<winnerresults.rows.length; j++)
+                {
+                    if(tabledata.rows[i].id==winnerresults.rows[j].proposal_id)
+                    {
+                      document.getElementById("manager-proposal-group").innerHTML +=
+                      "<div class = 'manager-redo'><p>" +
+                      desc +
+                      "</p><button class = 'delete-button' id = '" +
+                      proposalId +
+                      "'>delete</button><button class = 'declare-result-button' id = '" +
+                      proposalId +
+                      "'>result</button>" +
+                      "</div>";
+                        flag =1;
+                        break;
+                    }
+                }
+                if(flag == 0)
+                {
                 document.getElementById("manager-proposal-group").innerHTML +=
                   "<div class = 'manager-redo'><p>" +
                   desc +
@@ -61,6 +100,7 @@ Template.App_manager.onCreated(function() {
                   proposalId +
                   "'>declare winner</button>" +
                   "</div>";
+                }
               }
             });
           await eosinstance
@@ -160,6 +200,7 @@ Template.App_manager.events({
     document.getElementById("proposalList").style.display = "none";
     document.getElementById("result-container").style.display = "none";
   },
+  
   "click #proposalDetails": function() {
     console.log("proposalDetails");
     document.getElementById("userList").style.display = "none";
@@ -196,19 +237,40 @@ Template.App_manager.events({
     console.log("deleteButtonClick");
     console.log("id----", event.target.id);
     var proposalId = event.target.id;
-    let contract = eosinstance.contract("voteproposal");
+    let contract = await eosinstance.contract("voteproposal");
     console.log("===", contract);
     try {
-      let res = contract.delprop(proposalId, "identityreg1", {
+      let res = await contract.delprop(proposalId, "identityreg1", {
         authorization: "identityreg1"
       });
+      alert("proposal is successfully removed!!!");
     } catch (err) {
       console.log("----", err);
     }
   },
+  "click .declare-result-button":async function(){
+    console.log("click result");
+    console.log("idresult == >  ",event.target.id);
+    event.preventDefault();
+        var id = event.target.id;
+        id = id[id.length - 1];
+        FlowRouter.go("/result/" + id);
+  },
   "click .declare-button": async function() {
     console.log("declareButtonClick");
     console.log("id----", event.target.id);
+    var proposalId = event.target.id;
+    let contract = await eosinstance.contract("voteproposal");
+    console.log("===", contract);
+    try {
+      let res = await contract.decidewinner(proposalId, "identityreg1", {
+        authorization: "identityreg1"
+      });
+      alert("winner is declared successfully!!!");
+    } catch (err) {
+      console.log("----", err);
+    }
+
   },
   "click #budgetButton": async function() {
     console.log("propentry.rows.length==>",propentry.rows.length);
@@ -264,7 +326,7 @@ Template.App_manager.events({
         }
         for (var i = 0; i < result.length; i++) {
           document.getElementById("proposal-result-votes").innerHTML +=
-            "<br><div class = 'ep2manager'></div>";
+            "<div class = 'ep2manager'></div><br>";
   
           for (var j = 0; j < result[i].length; j++) {
             var val = result[i][j];
@@ -292,7 +354,8 @@ Template.App_manager.events({
           }
         }
       }
-      document.getElementById("result-container").innerHTML +=
+      document.getElementById("stv-stop-button").innerHTML = "";
+      document.getElementById("stv-stop-button").innerHTML +=
         "<div class = 'stv-stop' id = 'stv-stop'>" +
         "<button>stop</button>" +
         "</div>";
@@ -330,17 +393,27 @@ Template.App_manager.events({
             "</div>";
         }
       }
-
-      if (
-        budgetpropstart.rows[0] == null ||
-        budgetpropstart.rows[0].status == false
-      ) {
-        document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
-          "<div class  = 'start-stop'  id = 'starton'><button>START</button></div>";
-      } else {
-        document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
-          "<div class  = 'start-stop' id = 'stopon'><button>STOP</button></div>";
+      let flag = 0
+      for(var i=0;i<budgetprop.rows.length;i++)
+      {
+        if(budgetprop.rows[i].selected==0)
+        {
+          flag=1;
+          break;
+        }
       }
+      if(flag==1)
+      {
+        if (
+          budgetpropstart.rows[0] == null || budgetpropstart.rows[0].status == false ) {
+          document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
+            "<div class  = 'start-stop'  id = 'starton'><button>START</button></div>";
+        } else {
+          document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
+            "<div class  = 'start-stop' id = 'stopon'><button>STOP</button></div>";
+        }
+      }
+     
     }
   },
   "click #condidateButton": async function() {
@@ -382,16 +455,6 @@ Template.App_manager.events({
           FlowRouter.go("/stvresult");
         });
     });
-    /* await eosinstance.getTableRows({
-              code: "propbudget11",
-              scope: "propbudget11",
-              table: "result11",
-              limit: "50",
-              json: true
-            })
-            .then(response => {
-              console.log("winner response",response);
-            }); */
   },
 
   "click #starton": async function() {
@@ -403,6 +466,9 @@ Template.App_manager.events({
         .then(response => {
           if (response) {
             console.log("hello--", response);
+            document.getElementById("starton").style.display="none";
+            document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
+            "<div class  = 'start-stop' id = 'stopon'><button>STOP</button></div>";
           } else {
             alert("identity is not registered !!!!");
           }
@@ -419,14 +485,15 @@ Template.App_manager.events({
         .then(response => {
           if (response) {
             console.log("hello--", response);
+            document.getElementById("stopon").style.display = "none";
+            document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
+            "<div class  = 'selectedStatusButton' id = 'selectedStatus'><button>SelectedProposal</button></div>";
+ 
           } else {
             alert("identity is not registered !!!!");
           }
         });
     });
-    document.getElementById("stopon").style.display = "none";
-    document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
-      "<div class  = 'selectedStatusButton' id = 'selectedStatus'><button>SelectedProposal</button></div>";
   },
   "click #selectedStatus": async function() {
     console.log("selectedStatus");
@@ -530,11 +597,11 @@ Template.App_manager.events({
         .then(response => {
           if (response) {
             console.log("hello--", response);
+            FlowRouter.go("/budget");
           } else {
             alert("identity is not registered !!!!");
           }
         });
     });
-    FlowRouter.go("/budget");
   }
 });

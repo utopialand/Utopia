@@ -3,6 +3,7 @@ import "../../stylesheets/Voting.css";
 import { Template } from 'meteor/templating';
 import ScatterJS from "scatterjs-core";
 import Eos from "eosjs";
+import "../../pages/main/stvstatus.js"
 
 const network = {
     protocol: "https", // Defaults to https
@@ -76,6 +77,7 @@ Template.Vote.events({
             voting.voteprop(propid ,data,username, { authorization: username }).then(
                 (res) => {
                       console.log("response--",res);
+                      
                 }
             )
         })

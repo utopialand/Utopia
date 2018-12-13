@@ -171,6 +171,23 @@
     opacity:0.75;
 }
 
+.declare-result-button{
+    height: 50%;
+    width: 200px;
+    margin-right: 3%;
+    border:0px;
+    font-weight: bold;
+    cursor: pointer;
+    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    color: white;
+}
+.declare-result-button:hover{
+    background:green;
+    color:white;
+    transition: 0.25s;
+    opacity:0.75;
+}
+
 .manager-redo{
     margin-top: 10px;
     width: 100%;

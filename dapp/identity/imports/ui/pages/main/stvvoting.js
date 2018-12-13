@@ -124,6 +124,8 @@ Template.App_stvvote.events({
               stvvoting.voteprop(id ,data,username, { authorization: username }).then(
                   (res) => {
                         console.log("response--",res);
+                        FlowRouter.go("/stvstatus");
+                      
                   }
               )
           })
