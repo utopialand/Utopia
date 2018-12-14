@@ -89,18 +89,11 @@
     color: white;
     text-transform: uppercase;
     cursor: pointer;
-    height:40px;
-    width:10%;
-    border:0px;
-}
-.selectedStatusButton{
-    display:flex;
+    display: flex;
     justify-content: center;
-    height:50px;
-    margin-top:5%;
-    margin-left:auto;
-    margin-right:auto;
-    cursor: pointer;
+    height:40px;
+    width:15%;
+    border:0px;
 }
 .submitButton{
     display:flex;
