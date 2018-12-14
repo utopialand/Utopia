@@ -1,0 +1,21 @@
+<template name = "bond">
+    <div class="new-proposal-container">
+        <h1>create bond</h1>
+        <div class="bond-form">
+            <label>bond name</label>
+            <input type="text" id="bondname"/>
+            <label>maturity period</label>
+            <input type="text" id="maturity"/>
+            <label>couponrate</label>
+            <input type="text" id="couponrate"/>
+            <label>couponintervel(in weeks)</label>
+            <input type="text" id="couponintervel"/>
+            <label>facevalue</label>
+            <input type="text" id="facevalue"/>
+        </div>
+        <div class="createbutton">
+            <button class="buttonbond" id ="submitbond">Submission</button>
+        </div>
+    </div>
+    {{> footer}}
+</template>

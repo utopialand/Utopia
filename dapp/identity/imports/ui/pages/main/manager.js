@@ -21,6 +21,8 @@ let userdata;
 let budgetprop;
 let budgetpropstart;
 let propentry;
+let bonddata;
+let buyerdata;
 let resultdata;
 let resfeature;
 let winnerresults;
@@ -170,6 +172,16 @@ Template.App_manager.onCreated(function() {
               console.log("propentry-----", resp);
               console.log(propentry);
             });
+
+           await eosinstance.getTableRows({
+              code: "bondborrower",
+              scope: "bondborrower",
+              table: 'bonddetail1',
+              limit: 50,
+              json: true,
+          }).then((resp)=>{
+              bonddata=resp;
+          });
           await eosinstance
             .getTableRows({
               code: "propbudget11",
@@ -619,5 +631,45 @@ Template.App_manager.events({
           }
         });
     });
+    FlowRouter.go("/budget");
+  },
+  /* "click #coupondetails": function() {
+    document.getElementById("userList").style.display = "none";
+    document.getElementById("proposalList").style.display = "none";
+    document.getElementsByClassName("bondprop")[0].innerHTML +=
+    "<div class='bond-form'><label>bond id</label><input type='text' id='bondid'/>"
+    + "</div>"+" <div class='createbutton'><button class='buttonbond' id ='submitid'>Submission</button></div>";
+  
+    for (var i = 0; i < bonddata.rows.length; i++) {
+      var bond = bonddata.rows[i].bondholders;     
   }
+  },
+  "click #submitid": function() {
+    var username = localStorage.getItem("username");
+       eosinstance.getTableRows({
+              code: "bondborrower",
+              scope: username,
+              table: "buyerdata1",
+              limit: 50,
+              json: true
+            })
+            .then(resp => {
+              buyerdata = resp;
+              document.getElementById("userList").style.display = "none";
+              document.getElementById("proposalList").style.display = "none";
+              var bondid=$("#bondid").val();
+              document.getElementsByClassName("bondprop")[0].innerHTML = "";
+              for (var i = 0; i < bonddata.rows.length; i++) {
+                if(bonddata.rows[i].id == bondid){
+                  var bondholder = bonddata.rows[i].bondholders[i]; 
+                  console.log("---",resp);
+                  if(bondholder == buyerdata.rows[i].bondbuyer){
+                    var datearr = buyerdata.rows[i].returningdate.length-1000;
+                    document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+bondholder+"</div><div class='holders'>status -> "+datearr+" coupon are remain</div></div>";   
+                  }
+                }      
+            }
+            });
+   
+  } */
 });

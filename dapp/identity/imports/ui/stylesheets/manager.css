@@ -104,7 +104,17 @@
     margin-right:auto;
     cursor: pointer;
 }
-
+.holders{
+    flex: 1;
+    margin-top: 40px;
+    text-align: center;
+    color: white;
+  }
+  .status{
+      display: flex;
+      justify-content: center;
+      align-items: center;      
+  }
 .managerSelection{
     display:flex;
     justify-content: space-between;
