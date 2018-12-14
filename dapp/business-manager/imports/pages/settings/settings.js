@@ -1,6 +1,5 @@
-import "./newbusiness.html";
-import "./newbusiness.css";
-import "../../templates/footer/footer.js";
+import "./settings.html";
+import "./settings.css";
 import "../../templates/header/header.js";
 import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
@@ -22,7 +21,7 @@ const eosOptions = {
 var scatter = {};
 var eosinstance = {};
 
-Template.App_new_business.onRendered(function () {
+Template.App_business_settings.onRendered(function () {
     ScatterJS.scatter.connect('businessManager').then((connected) => {
         if (connected) {
             if (ScatterJS.scatter.connect('businessManager')) {
@@ -40,23 +39,39 @@ Template.App_new_business.onRendered(function () {
         }
     });
 });
+// why is git not?
 
-Template.App_new_business.events({
-    "click .createBusiness": function () {
+Template.App_business_settings.events({
+    "click #addempbtn":function(){
+        var id = FlowRouter.current().params.id;
         var username = localStorage.getItem("username");
-        var companyName = $("#businessname").val();
-        var maxSupply = $("#tokenname").val();
-
+        var addemp = $("#addemployeefield").val();
         eosinstance.contract('utopbusiness').then(utopbusiness => {
-            utopbusiness.create(maxSupply, username, companyName, { authorization: username }).then((response) => {
+            utopbusiness.addemployee(id, addemp, { authorization: username }).then((response) => {
                 if (response) {
-                    console.log("response of creating a new business", response);
+                    console.log("response of adding employee", response);
                 } else {
-                    alert("Unable to create business");
+                    alert("Unable to add employee");
                 }
+            });
 
+        });
+    },
+    "click #rmempbtn": function(){
+        var id = FlowRouter.current().params.id;
+        var username = localStorage.getItem("username");
+        var rmemp = $("#rmemployeefield").val();
+        eosinstance.contract('utopbusiness').then(utopbusiness => {
+            utopbusiness.rmemployee(id, rmemp, { authorization: username }).then((response) => {
+                if (response) {
+                    console.log("response of removing employee", response);
+                } else {
+                    alert("Unable to remove employee");
+                }
             });
 
         });
     }
 });
+
+//test 

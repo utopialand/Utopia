@@ -17,6 +17,9 @@ import "../../ui/pages/main/Budget.js";
 import "../../ui/pages/main/Createbudget.js";
 import "../../ui/pages/main/Createbond.js";
 import "../../ui/pages/main/Buybond.js";
+import "../../ui/pages/main/stvvoting.js"
+import "../../ui/pages/main/stvresult.js"
+import "../../ui/pages/main/stvstatus.js"
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
@@ -112,12 +115,36 @@ FlowRouter.route('/createbudget', {
     BlazeLayout.render('App_body', { main: 'Budget_newproposal' });
   }
 });
+
+
+FlowRouter.route('/stvvote', {
+  name: 'stvvote',
+  action() {
+    BlazeLayout.render('App_body', { main: 'App_stvvote' });
+  }
+});
+
+FlowRouter.route('/stvresult', {
+  name: 'stvresult',
+  action() {
+    BlazeLayout.render('App_body', { main: 'App_stvresult' });
+  }
+});
+
+FlowRouter.route('/stvstatus', {
+  name: 'stvstatus',
+  action() {
+    BlazeLayout.render('App_body', { main: 'App_stvstatus' });
+  }
+});
+
 FlowRouter.route('/createbond', {
   name: 'createbond',
   action() {
     BlazeLayout.render('App_body', { main: 'bond' });
   }
 });
+
 FlowRouter.route('/buybond', {
   name: 'buybond',
   action() {
