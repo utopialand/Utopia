@@ -15,6 +15,8 @@ import "../../ui/pages/main/budgetResult.js";
 import "../../ui/pages/main/selected-bgt-prop.js";
 import "../../ui/pages/main/Budget.js";
 import "../../ui/pages/main/Createbudget.js";
+import "../../ui/pages/main/Createbond.js";
+import "../../ui/pages/main/Buybond.js";
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
@@ -105,8 +107,20 @@ FlowRouter.route('/budget', {
   }
 });
 FlowRouter.route('/createbudget', {
-  name: 'createion',
+  name: 'creation',
   action() {
     BlazeLayout.render('App_body', { main: 'Budget_newproposal' });
+  }
+});
+FlowRouter.route('/createbond', {
+  name: 'createbond',
+  action() {
+    BlazeLayout.render('App_body', { main: 'bond' });
+  }
+});
+FlowRouter.route('/buybond', {
+  name: 'buybond',
+  action() {
+    BlazeLayout.render('App_body', { main: 'buybond' });
   }
 });

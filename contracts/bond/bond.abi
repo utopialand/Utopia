@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec 10 11:15:07 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 14 14:44:14 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -12,7 +12,7 @@
                 },
                 {
                     "name": "bond",
-                    "type": "uint64"
+                    "type": "string"
                 },
                 {
                     "name": "maturity",
@@ -24,14 +24,6 @@
                 },
                 {
                     "name": "couponintervel",
-                    "type": "uint64"
-                },
-                {
-                    "name": "putprice",
-                    "type": "uint64"
-                },
-                {
-                    "name": "callprice",
                     "type": "uint64"
                 },
                 {
@@ -54,7 +46,7 @@
                 },
                 {
                     "name": "bond",
-                    "type": "uint64"
+                    "type": "string"
                 },
                 {
                     "name": "buydate",
@@ -63,6 +55,10 @@
                 {
                     "name": "payamount",
                     "type": "asset"
+                },
+                {
+                    "name": "returningdate",
+                    "type": "uint64[]"
                 }
             ]
         },
@@ -80,7 +76,7 @@
                 },
                 {
                     "name": "bond",
-                    "type": "uint64"
+                    "type": "string"
                 },
                 {
                     "name": "issueddate",
@@ -88,6 +84,10 @@
                 },
                 {
                     "name": "maturity",
+                    "type": "uint64"
+                },
+                {
+                    "name": "maturitycount",
                     "type": "uint64"
                 },
                 {
@@ -125,7 +125,7 @@
                     "type": "name"
                 },
                 {
-                    "name": "bond",
+                    "name": "id",
                     "type": "uint64"
                 },
                 {
@@ -139,48 +139,7 @@
             "base": "",
             "fields": [
                 {
-                    "name": "bondbuyer",
-                    "type": "name"
-                },
-                {
-                    "name": "bond",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "migrate",
-            "base": "",
-            "fields": []
-        },
-        {
-            "name": "tab1",
-            "base": "",
-            "fields": [
-                {
-                    "name": "user",
-                    "type": "name"
-                },
-                {
-                    "name": "entry",
-                    "type": "string"
-                },
-                {
                     "name": "id",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "tab2",
-            "base": "",
-            "fields": [
-                {
-                    "name": "user2",
-                    "type": "name"
-                },
-                {
-                    "name": "id2",
                     "type": "uint64"
                 }
             ]
@@ -202,33 +161,18 @@
             "name": "getcoupon",
             "type": "getcoupon",
             "ricardian_contract": ""
-        },
-        {
-            "name": "migrate",
-            "type": "migrate",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "tab1",
-            "type": "tab1",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "tab2",
-            "type": "tab2",
-            "ricardian_contract": ""
         }
     ],
     "tables": [
         {
-            "name": "bondinfos1",
+            "name": "bonddetail1",
             "type": "bondinfo",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "buyer1",
+            "name": "buyerdata1",
             "type": "bondbuyerdetails",
             "index_type": "i64",
             "key_names": [],
