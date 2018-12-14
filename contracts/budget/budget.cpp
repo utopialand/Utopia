@@ -242,14 +242,14 @@ ACTION budget ::selectprop(name user)
     auto propitr = pt.begin();
     while (propitr != pt.end())
     {
-        auto flag =0;
+        auto flag = 0;
         for (auto i = 0; i < options.size(); i++)
         {
-             if (propitr -> id == options[i])
-             {
-                 flag = 1;
-                 break;
-             }
+            if (propitr->id == options[i])
+            {
+                flag = 1;
+                break;
+            }
         }
         if (propitr->selected == 0 && flag != 1)
         {
@@ -288,7 +288,10 @@ ACTION budget::modprop(uint64_t id)
 {
     idsupp_table ct(_self, _self.value);
     proposal_table pt(_self, _self.value);
+    feature_table ft(_self, _self.value);
     auto pitr = pt.find(id);
+    /*  auto ftr = ft.find(id);
+    ft.erase(ftr); */
     pt.modify(pitr, _self, [&](auto &v) {
         v.selected = 0;
     });
@@ -302,6 +305,20 @@ ACTION budget::delall(uint64_t id)
     proposal_table pt(_self, _self.value);
     result_table rt(_self, _self.value);
     feature_table ft(_self, _self.value);
+    result_table vt(_self, _self.value);
+    auto vtr = vt.begin();
+    print("---", vtr->feature_id);
+    /* while (vtr != vt.end())
+    {
+        if (vtr->feature_id == id)
+        {
+            vtr = vt.erase(vtr);
+        }
+
+        else
+            vtr++;
+    } */
+
     /* auto itr = pt.find(id);
     pt.erase(itr); */
     /* auto it = rt.begin();
@@ -315,12 +332,12 @@ ACTION budget::delall(uint64_t id)
      ft.modify(fit, _self, [&](auto &v) {
         v.status = 0;
     }); */
-    auto fit = ft.begin();
+    /*  auto fit = ft.begin();
 
     while (fit != ft.end())
     {
         fit = ft.erase(fit);
-    }
+    } */
 }
 
 ACTION budget::addmanager(name user)
@@ -556,9 +573,9 @@ ACTION budget::decidewinner(uint64_t id, name user)
         selectedpid.push_back(pid);
         print("proposal is--", prop->proposal_description);
         print("budget is--", prop->budget);
-        /* action(
+        /*  action(
             permission_level{_self, "active"_n},
-            "utopiatokens"_n, "transfer"_n,
+            "utptokencon1"_n, "transfer"_n,
             std::make_tuple(_self, prop->identity, prop->budget, prop->proposal_description))
             .send(); */
     }
@@ -568,7 +585,7 @@ ACTION budget::decidewinner(uint64_t id, name user)
     auto res_itr = rt.begin();
     while (res_itr != rt.end())
     {
-        //  eosio_assert(res_itr->feature_id != id, "already declared!!");
+        eosio_assert(res_itr->feature_id != id, "already declared!!");
         res_itr++;
     }
     rt.emplace(_self, [&](auto &v) {
@@ -726,4 +743,4 @@ int budget::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, ve
 ///////////////////////////////////////////////////////
 
 EOSIO_DISPATCH(budget,
-               (createprop)(stvoff)(modprop)(delall)(votingon)(votingoff)(selectprop)(startstv)(voteprop)(decidewinner)(addmanager)(catgvote))
+               (createprop)(stvoff)(stvon)(modprop)(delall)(votingon)(votingoff)(selectprop)(startstv)(voteprop)(decidewinner)(addmanager)(catgvote))
