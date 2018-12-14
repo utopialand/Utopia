@@ -28,6 +28,13 @@
     flex-direction: column;
     margin-left: 5%;
 }
+#winner-result-info{
+    flex: 1;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-left: 5%;
+}
 
 .winner-result-box{
     display:flex;

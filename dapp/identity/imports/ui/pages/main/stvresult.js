@@ -53,6 +53,10 @@ Template.App_stvresult.onCreated(function() {
               budgetprop = resp;
               console.log("budgetprop-----", budgetprop);
             });
+            document.getElementById("winner-result-name").innerHTML +=
+                    "<div><h2> Winner Name</h2></div>"
+                    document.getElementById("winner-result-count").innerHTML +=
+                    "<div><h2>Vote Count</h2></div>"
 
             for(var k = 0; k< winnerresult.rows.length;k++)
             {
