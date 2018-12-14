@@ -24,7 +24,8 @@ CONTRACT budget : public contract
     ACTION votingon(name manager);
     ACTION votingoff(name manager);
     ACTION stvoff(uint64_t fid, name manager);
-    ACTION startstv(uint64_t id, name identity, string details,uint64_t duration,uint64_t noofwinner);
+    ACTION stvon(uint64_t id, name identity);
+    ACTION startstv(uint64_t id, name identity, string details, uint64_t duration, uint64_t noofwinner);
     vector<int> surplusdist(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx);
     vector<int> elimination(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx);
     int repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, vector<int> votes_count);
@@ -94,6 +95,11 @@ CONTRACT budget : public contract
         vector<uint64_t> selected;
         uint64_t primary_key() const { return id; }
     };
+    TABLE idsupply
+    {
+        uint64_t id;
+        uint64_t primary_key() const { return id; }
+    };
 
     struct lprop
     {
@@ -123,12 +129,13 @@ CONTRACT budget : public contract
     };
 
   private:
-    typedef multi_index<"identity2"_n, identityt> identity_table;
+    typedef multi_index<"identity3"_n, identityt> identity_table;
+    typedef multi_index<"idsupp111"_n, idsupply> idsupp_table;
     typedef multi_index<"manager11"_n, manager> manager_table;
     typedef multi_index<"proposal13"_n, proposal> proposal_table;
     typedef multi_index<"feature112"_n, featurelist> feature_table;
     typedef multi_index<"catvote12"_n, catvote> catvote_table;
-    typedef multi_index<"votes12"_n, votes,
+    typedef multi_index<"votes111"_n, votes,
                         indexed_by<"propid"_n,
                                    const_mem_fun<votes, uint64_t, &votes::by_secondary>>>
         votes_table;

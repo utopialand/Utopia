@@ -17,8 +17,15 @@ ACTION budget::createprop(name identity, string proposal, string detail, uint16_
         catg = "m";
     else
         catg = "s";
+
+    uint64_t rid;
+    idsupp_table idsupp(_self, _self.value);
+    idsupp.emplace(_self, [&](auto &c) {
+        c.id = idsupp.available_primary_key();
+        rid = c.id;
+    });
     pt.emplace(_self, [&](auto &v) {
-        v.id = pt.available_primary_key();
+        v.id = rid;
         v.identity = identity;
         v.proposal_description = proposal;
         v.proposal_detail = detail;
@@ -92,9 +99,20 @@ ACTION budget::stvoff(uint64_t fid, name manager)
     auto itr = ft.find(fid);
     eosio_assert(itr != ft.end(), "stv is not started yet ..");
     eosio_assert(itr->votingstat != false, "stv is not started yet ..");
-
+    print("in stv off---");
+    print("size--");
     ft.modify(itr, _self, [&](auto &a) {
         a.votingstat = false;
+    });
+}
+ACTION budget::stvon(uint64_t id, name identity)
+{
+    eosio_assert(is_manager(identity), "not authorized");
+    feature_table pt(_self, _self.value);
+    auto pitr = pt.find(id);
+
+    pt.modify(pitr, _self, [&](auto &f) {
+        f.votingstat = true;
     });
 }
 
@@ -103,7 +121,7 @@ ACTION budget ::selectprop(name user)
     eosio_assert(is_manager(user), "not authorized");
     feature_table ft(_self, _self.value);
     auto fitr = ft.begin();
-  //  eosio_assert(fitr == ft.end(), "proposal selection cannot be done untill a stv process completes!!");
+    //  eosio_assert(fitr == ft.end(), "proposal selection cannot be done untill a stv process completes!!");
 
     votestat_table vt(_self, _self.value);
     auto vitr = vt.begin();
@@ -189,47 +207,57 @@ ACTION budget ::selectprop(name user)
         print("data--", countlprop[0].id);
         options.push_back(countlprop[0].id);
         auto pitr = pt.find(countlprop[0].id);
-        pt.modify(pitr, _self, [&](auto &v) {
-            v.selected = 1;
-        });
     }
 
     for (auto i = 0; i < countmprop.size() && i < 2; i++)
     {
         options.push_back(countmprop[i].id);
         auto pitr = pt.find(countmprop[i].id);
-        pt.modify(pitr, _self, [&](auto &v) {
+        /* pt.modify(pitr, _self, [&](auto &v) {
             v.selected = 1;
-        });
+        }); */
     }
     for (auto i = 0; i < countsprop.size() && i < 3; i++)
     {
         options.push_back(countsprop[i].id);
         auto pitr = pt.find(countsprop[i].id);
-        pt.modify(pitr, _self, [&](auto &v) {
-            v.selected = 1;
-        });
     }
     // eosio_assert(options.size() >= noofwinner, "Number of winner entered is less than the number of final proposal list for ranking. please modify the criteria!!");
     for (auto i = 0; i < options.size(); i++)
     {
         print("--", options[i]);
     }
-
+    uint64_t rid;
+    idsupp_table idsupp(_self, _self.value);
+    idsupp.emplace(_self, [&](auto &c) {
+        c.id = idsupp.available_primary_key();
+        rid = c.id;
+    });
     ft.emplace(_self, [&](auto &f) {
-        f.id = ft.available_primary_key();
+        f.id = rid;
         f.proposal_options = options;
         f.status = 0;
     });
 
-      auto propitr = pt.begin();
-    while(propitr != pt.end())
+    auto propitr = pt.begin();
+    while (propitr != pt.end())
     {
-        if(propitr->selected == 0)
-          propitr = pt.erase(propitr);
+        auto flag =0;
+        for (auto i = 0; i < options.size(); i++)
+        {
+             if (propitr -> id == options[i])
+             {
+                 flag = 1;
+                 break;
+             }
+        }
+        if (propitr->selected == 0 && flag != 1)
+        {
+            propitr = pt.erase(propitr);
+        }
+
         else
             propitr++;
-       
     }
 }
 
@@ -238,6 +266,15 @@ ACTION budget::startstv(uint64_t id, name identity, string details, uint64_t dur
     eosio_assert(is_manager(identity), "not authorized");
     feature_table pt(_self, _self.value);
     auto pitr = pt.find(id);
+    proposal_table pro(_self, _self.value);
+
+    for (auto i = 0; i < pitr->proposal_options.size(); i++)
+    {
+        auto propitr = pro.find(pitr->proposal_options[i]);
+        pro.modify(propitr, _self, [&](auto &v) {
+            v.selected = 1;
+        });
+    }
 
     pt.modify(pitr, _self, [&](auto &f) {
         f.desc = details;
@@ -249,17 +286,24 @@ ACTION budget::startstv(uint64_t id, name identity, string details, uint64_t dur
 
 ACTION budget::modprop(uint64_t id)
 {
+    idsupp_table ct(_self, _self.value);
     proposal_table pt(_self, _self.value);
     auto pitr = pt.find(id);
     pt.modify(pitr, _self, [&](auto &v) {
         v.selected = 0;
     });
+    /*  ct.emplace(_self, [&](auto &v) {
+        v.id = id;
+    }); */
 }
 ACTION budget::delall(uint64_t id)
 {
     print("test------");
+    proposal_table pt(_self, _self.value);
     result_table rt(_self, _self.value);
     feature_table ft(_self, _self.value);
+    /* auto itr = pt.find(id);
+    pt.erase(itr); */
     /* auto it = rt.begin();
 
     while (it != rt.end())
@@ -291,7 +335,7 @@ ACTION budget::addmanager(name user)
 
 ACTION budget::voteprop(uint64_t feature_id, vector<uint8_t> choices, name identity)
 {
-    print("vote on proposal---");
+    print("vote on proposal");
     require_auth(identity);
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(identity.value);
@@ -502,6 +546,7 @@ ACTION budget::decidewinner(uint64_t id, name user)
 
     ///////////////finding the winner proposal///////////////////
     prop_itr = pt.find(id);
+
     vector<uint64_t> selectedpid;
     for (auto i = 0; i < winner.size(); i++)
     {
@@ -511,11 +556,11 @@ ACTION budget::decidewinner(uint64_t id, name user)
         selectedpid.push_back(pid);
         print("proposal is--", prop->proposal_description);
         print("budget is--", prop->budget);
-        action(
+        /* action(
             permission_level{_self, "active"_n},
             "utopiatokens"_n, "transfer"_n,
             std::make_tuple(_self, prop->identity, prop->budget, prop->proposal_description))
-            .send();
+            .send(); */
     }
 
     //////////////populating data in result table//////////////////////////////////////////
@@ -523,7 +568,7 @@ ACTION budget::decidewinner(uint64_t id, name user)
     auto res_itr = rt.begin();
     while (res_itr != rt.end())
     {
-        eosio_assert(res_itr->feature_id != id, "already declared!!");
+        //  eosio_assert(res_itr->feature_id != id, "already declared!!");
         res_itr++;
     }
     rt.emplace(_self, [&](auto &v) {
@@ -531,6 +576,14 @@ ACTION budget::decidewinner(uint64_t id, name user)
         v.feature_id = id;
         v.selected = selectedpid;
     });
+    /* auto vitr = vt.begin();
+    while (vitr != vt.end())
+    {
+        if (vitr->feature_id == id)
+            vitr = vt.erase(vitr);
+        else
+            vitr++;
+    } */
 
     pt.erase(prop_itr);
     /////////////////////////////////////////////////////////////
@@ -673,4 +726,4 @@ int budget::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, ve
 ///////////////////////////////////////////////////////
 
 EOSIO_DISPATCH(budget,
-               (createprop)(modprop)(delall)(votingon)(votingoff)(selectprop)(startstv)(voteprop)(decidewinner)(addmanager)(catgvote))
+               (createprop)(stvoff)(modprop)(delall)(votingon)(votingoff)(selectprop)(startstv)(voteprop)(decidewinner)(addmanager)(catgvote))
