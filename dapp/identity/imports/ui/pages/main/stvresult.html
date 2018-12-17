@@ -1,10 +1,23 @@
-<template name="App_stvresult">
+<template name="App_stvresult"> 
   <div class="stvresult-container">
     <h1>STV _ RESULT</h1>
-    <div class="stvresultlist" id="stvresultlist">
-      <div id="winner-result-name"></div>
-      <div id="winner-result-count"></div>
+    <div class = "winner-result-box">
+        <div class = "winner-result-name">
+          <h2>Winner Name</h2>
+        </div>
+        <div class = "winner-result-count">
+          <h2>Vote Count</h2>
+        </div>
+        <div class = "winner-result-info">
+            <h2>Result Info</h2>
+          </div>
     </div>
+    <div class = "winner-result-box">
+      <div class = "winner-result-name" id = "winner-result-name">
+      </div>
+      <div class = "winner-result-count" id = "winner-result-count"></div>
+      <div class = "winner-result-info" id = "winner-result-info"></div>
+  </div>
   </div>
   {{> footer}}
 </template>
