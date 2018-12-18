@@ -22,6 +22,8 @@ let arr = [];
 Template.App_stvresult.onCreated(function() {
   ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
+      /* var ts = Math.round((new Date()).getTime() / 1000);
+      console.log("time===>",ts); */
       if (ScatterJS.scatter.connect("utopia")) {
         scatter = ScatterJS.scatter;
         const requiredFields = { accounts: [network] };
@@ -68,7 +70,7 @@ Template.App_stvresult.onCreated(function() {
                     console.log("id-->", budgetpropId);
                     document.getElementById("winner-result-name").innerHTML += "<div>"+desc+"</div>";
                     document.getElementById("winner-result-count").innerHTML +="<div>"+count+"</div>";
-                    document.getElementById("winner-result-info").innerHTML +="<div class = 'total-votes' id = '"+budgetpropId+"'>"+'result-table-info'+"</div>";
+                    /* document.getElementById("winner-result-info").innerHTML +="<div class = 'total-votes' id = '"+budgetpropId+"'>"+'result-table-info'+"</div>"; */
                  
                   }
                 }
