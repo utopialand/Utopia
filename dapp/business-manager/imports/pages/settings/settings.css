@@ -1,0 +1,65 @@
+.settings-container{
+    width: 90%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.settings-container h1{
+    text-align: center;
+}
+
+.settings-container label{
+    width: 150px;
+}
+
+.addemployee{
+    margin-top: 5%;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#addempbtn{
+    width: 150px;
+    height: 51px;
+    border: 0px;
+    font-size: 14px;
+    line-height: 15px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+    background:lightseagreen;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: white;
+    border-radius: 6px;
+}
+
+.rmemployee{
+    margin-top: 5%;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+#rmempbtn{
+    width: 150px;
+    height: 51px;
+    border: 0px;
+    font-size: 14px;
+    line-height: 15px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+    background: transparent;
+    color: white;
+    background: red;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 6px;
+}

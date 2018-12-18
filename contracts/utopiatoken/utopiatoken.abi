@@ -1,6 +1,6 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec  6 17:08:15 2018",
-    "version": "eosio::abi/1.1",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 14 13:02:33 2018",
+    "version": "eosio::abi/1.0",
     "structs": [
         {
             "name": "account",
@@ -211,7 +211,7 @@
             "key_types": []
         },
         {
-            "name": "identity2",
+            "name": "identity3",
             "type": "identityt",
             "index_type": "i64",
             "key_names": [],
@@ -226,6 +226,5 @@
         }
     ],
     "ricardian_clauses": [],
-    "variants": [],
     "abi_extensions": []
 }

@@ -9,65 +9,37 @@
                 <input type="text" />
             </div>
             <div class="my-business">
-                <button>my business</button>
+                <button id = "mybusinessbtn">my business</button>
             </div>
             <div class="all-business">
-                <button>all business</button>
+                <button id = "allbusinessbtn">all business</button>
+            </div>
+
+        </div>
+        <div class="scatterlogin">
+            <button class="loginbtn" id="loginButton">Login</button>
+        </div>
+        <div class="business-section">
+            {{#each businessList}}
+            <div class="company">
+                <p class="company-name">{{businessname}}</p>
+                <div class="stockdetails">
+                    <div class="stockname">{{token_maximum_supply}}</div>
+                    <div class="stockvalue"></div>
+                </div>
+                <p class="stock-fluctation">-8.46 <span>0.55%</span></p>
+            </div>
+            {{/each}}
+        </div>
+        <div class="new-business">
+            <div class="new-businessbtn">
+                <p>
+                    +<br>
+                    create a new <br>business
+                </p>
             </div>
         </div>
 
-        <div class="business-section">
-            <div class="business-section-top">
-                <div class="company">
-                    <p class="company-name"></p>
-                    <div class="stockdetails">
-                        <div class="stockname"></div>
-                        <div class="stockvalue"></div>
-                    </div>
-                    <p class="stock-fluctation">+8.46 <span>47.62%</span></p>
-                </div>
-                <div class="company">
-                    <p class="company-name"></p>
-                    <div class="stockdetails">
-                        <div class="stockname"></div>
-                        <div class="stockvalue"></div>
-                    </div>
-                    <p class="stock-fluctation">+1.06 <span>0.50%</span></p>
-                </div>
-                <div class="company">
-                    <p class="company-name"></p>
-                    <div class="stockdetails">
-                        <div class="stockname"></div>
-                        <div class="stockvalue"></div>
-                    </div>
-                    <p class="stock-fluctation">+0.22 <span>0.38%</span></p>
-                </div>
-            </div>
-            <div class="business-section-bottom">
-                <div class="company">
-                    <p class="company-name"></p>
-                    <div class="stockdetails">
-                        <div class="stockname"></div>
-                        <div class="stockvalue"></div>
-                    </div>
-                    <p class="stock-fluctation">-4.95 <span>1.45%</span></p>
-                </div>
-                <div class="company">
-                    <p class="company-name"></p>
-                    <div class="stockdetails">
-                        <div class="stockname"></div>
-                        <div class="stockvalue"></div>
-                    </div>
-                    <p class="stock-fluctation">-8.46 <span>0.55%</span></p>
-                </div>
-                <div class="company new-business">
-                    <p>
-                        +<br>
-                        create a new <br>business
-                    </p>
-                </div>
-            </div>
-        </div>
     </div>
     {{> App_footer}}
 </template>
