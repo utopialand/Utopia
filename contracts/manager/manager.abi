@@ -1,0 +1,60 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 14 11:08:14 2018",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "addmanager",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "managertab",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "remmanager",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "addmanager",
+            "type": "addmanager",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "remmanager",
+            "type": "remmanager",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "manager111",
+            "type": "managertab",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}

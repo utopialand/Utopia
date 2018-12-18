@@ -32,12 +32,11 @@ CONTRACT utopiatoken : public contract
     TABLE identityt
     {
         name username;
-        string fname;
-        string mname;
-        string lname;
+        string identityname;
         string dob;
         string contact;
         string email;
+        string dochash;
         bool citizen = false;
         uint64_t primary_key() const { return username.value; }
     };
@@ -83,7 +82,7 @@ CONTRACT utopiatoken : public contract
 
     typedef eosio::multi_index<"accounts"_n, account> accounts;
     typedef eosio::multi_index<"stat"_n, currency_stats> stats;
-    typedef eosio::multi_index<"identity2"_n, identityt> identity_table;
+    typedef eosio::multi_index<"identity3"_n, identityt> identity_table;
 
     void sub_balance(name owner, asset value);
     void add_balance(name owner, asset value, name ram_payer);

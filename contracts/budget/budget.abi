@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec  6 17:48:02 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 14 16:46:41 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -179,6 +179,10 @@
                 {
                     "name": "status",
                     "type": "uint16"
+                },
+                {
+                    "name": "votingstat",
+                    "type": "bool"
                 }
             ]
         },
@@ -191,15 +195,7 @@
                     "type": "name"
                 },
                 {
-                    "name": "fname",
-                    "type": "string"
-                },
-                {
-                    "name": "mname",
-                    "type": "string"
-                },
-                {
-                    "name": "lname",
+                    "name": "identityname",
                     "type": "string"
                 },
                 {
@@ -217,6 +213,16 @@
                 {
                     "name": "citizen",
                     "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "idsupply",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
                 }
             ]
         },
@@ -307,18 +313,6 @@
                 {
                     "name": "user",
                     "type": "name"
-                },
-                {
-                    "name": "details",
-                    "type": "string"
-                },
-                {
-                    "name": "duration",
-                    "type": "uint16"
-                },
-                {
-                    "name": "noofwinner",
-                    "type": "uint16"
                 }
             ]
         },
@@ -363,16 +357,16 @@
             ]
         },
         {
-            "name": "stvstatus",
+            "name": "stvon",
             "base": "",
             "fields": [
                 {
-                    "name": "fid",
+                    "name": "id",
                     "type": "uint64"
                 },
                 {
-                    "name": "status",
-                    "type": "uint8"
+                    "name": "identity",
+                    "type": "name"
                 }
             ]
         },
@@ -528,6 +522,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "stvon",
+            "type": "stvon",
+            "ricardian_contract": ""
+        },
+        {
             "name": "voteprop",
             "type": "voteprop",
             "ricardian_contract": ""
@@ -552,15 +551,22 @@
             "key_types": []
         },
         {
-            "name": "feature13",
+            "name": "feature112",
             "type": "featurelist",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "identity2",
+            "name": "identity3",
             "type": "identityt",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "idsupp111",
+            "type": "idsupply",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
@@ -587,14 +593,7 @@
             "key_types": []
         },
         {
-            "name": "stvstat",
-            "type": "stvstatus",
-            "index_type": "i64",
-            "key_names": [],
-            "key_types": []
-        },
-        {
-            "name": "votes12",
+            "name": "votes111",
             "type": "votes",
             "index_type": "i64",
             "key_names": [],

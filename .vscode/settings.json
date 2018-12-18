@@ -4,6 +4,11 @@
         "limits": "cpp",
         "initializer_list": "cpp",
         "string_view": "cpp",
+<<<<<<< HEAD
         "type_traits": "cpp"
+=======
+        "*.tcc": "cpp",
+        "tuple": "cpp"
+>>>>>>> 728155c57239f92bb8d6db6b1d391baedef782c0
     }
 }

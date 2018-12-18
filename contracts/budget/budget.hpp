@@ -10,7 +10,7 @@ CONTRACT budget : public contract
   public:
     ACTION createprop(name identity, string proposal, string detail, uint16_t duration, asset budget);
     ACTION delprop(uint64_t id, name user);
-    ACTION selectprop(name user, string details, uint16_t duration, uint16_t noofwinner);
+    ACTION selectprop(name user);
     ACTION voteprop(uint64_t feature_id, vector<uint8_t> choices, name identity);
     ACTION decidewinner(uint64_t id, name user);
     ACTION addmanager(name user);
@@ -24,7 +24,8 @@ CONTRACT budget : public contract
     ACTION votingon(name manager);
     ACTION votingoff(name manager);
     ACTION stvoff(uint64_t fid, name manager);
-    ACTION startstv(uint64_t id, name identity, string details,uint64_t duration,uint64_t noofwinner);
+    ACTION stvon(uint64_t id, name identity);
+    ACTION startstv(uint64_t id, name identity, string details, uint64_t duration, uint64_t noofwinner);
     vector<int> surplusdist(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx);
     vector<int> elimination(int votes_required, vector<vector<uint8_t>> votes, vector<int> votes_count, int idx);
     int repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, vector<int> votes_count);
@@ -56,6 +57,7 @@ CONTRACT budget : public contract
         uint64_t duration;
         uint64_t num_of_winners;
         uint16_t status = 0;
+        bool votingstat;
         uint64_t primary_key() const { return id; }
     };
 
@@ -78,14 +80,6 @@ CONTRACT budget : public contract
         uint64_t primary_key() const { return id; }
     };
 
-    TABLE stvstatus
-    {
-        uint64_t fid;
-        uint8_t status = 0;
-
-        uint64_t primary_key() const { return fid; }
-    };
-
     TABLE catvote
     {
 
@@ -99,6 +93,11 @@ CONTRACT budget : public contract
         uint64_t id;
         uint64_t feature_id;
         vector<uint64_t> selected;
+        uint64_t primary_key() const { return id; }
+    };
+    TABLE idsupply
+    {
+        uint64_t id;
         uint64_t primary_key() const { return id; }
     };
 
@@ -121,9 +120,7 @@ CONTRACT budget : public contract
     TABLE identityt
     {
         name username;
-        string fname;
-        string mname;
-        string lname;
+        string identityname;
         string dob;
         string contact;
         string email;
@@ -132,19 +129,19 @@ CONTRACT budget : public contract
     };
 
   private:
-    typedef multi_index<"identity2"_n, identityt> identity_table;
+    typedef multi_index<"identity3"_n, identityt> identity_table;
+    typedef multi_index<"idsupp111"_n, idsupply> idsupp_table;
     typedef multi_index<"manager11"_n, manager> manager_table;
     typedef multi_index<"proposal13"_n, proposal> proposal_table;
-    typedef multi_index<"feature13"_n, featurelist> feature_table;
+    typedef multi_index<"feature112"_n, featurelist> feature_table;
     typedef multi_index<"catvote12"_n, catvote> catvote_table;
-    typedef multi_index<"votes12"_n, votes,
+    typedef multi_index<"votes111"_n, votes,
                         indexed_by<"propid"_n,
                                    const_mem_fun<votes, uint64_t, &votes::by_secondary>>>
         votes_table;
 
     typedef multi_index<"result12"_n, result> result_table;
     typedef multi_index<"votestat"_n, votestatus> votestat_table;
-    typedef multi_index<"stvstat"_n, stvstatus> stvstat_table;
 
     vector<int> findrept(vector<int> votes_count, int idx)
     {

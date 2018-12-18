@@ -19,7 +19,7 @@ ACTION utopiatoken::create(name issuer, asset maximum_supply)
     //cheacking identity from identity table
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(issuer.value);
-    eosio_assert(itr != iden_table.end(), "identity not found !!!");
+    eosio_assert(itr != iden_table.end(), "identity not found !!!"); 
 
     statstable.emplace(_self, [&](auto &s) {
         s.supply.symbol = maximum_supply.symbol;
@@ -59,7 +59,7 @@ ACTION utopiatoken::issue(name to, asset quantity, string memo)
 
     if (to != st.issuer)
     {
-        SEND_INLINE_ACTION(*this, transfer, {st.issuer, "active"_n}, {st.issuer, to, quantity, memo});
+        SEND_INLINE_ACTION(*this, transfer, {st.issuer, "active"_n}, {st.issuer, to, quantity, std::string(memo)});
     }
 }
 
@@ -95,8 +95,8 @@ ACTION utopiatoken::transfer(name from, name to, asset quantity, string memo)
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(from.value);
     auto itr1 = iden_table.find(to.value);
-    eosio_assert(itr != iden_table.end(), "identity not found !!!");
-    eosio_assert(itr1 != iden_table.end(), "identity not found !!!");
+    eosio_assert(itr != iden_table.end(), "from identity not found !!!");
+    eosio_assert(itr1 != iden_table.end(), "to identity not found !!!");
 
     require_auth(from);
     eosio_assert(is_account(to), "to account does not exist");
@@ -119,7 +119,7 @@ ACTION utopiatoken::transfer(name from, name to, asset quantity, string memo)
     commission = (quantity * 5) / 100;
     quantity1 = quantity - commission;
 
-    print("quantity--", quantity);
+    print("quantity-", quantity);
     sub_balance(from, quantity);
     add_balance(to, quantity1, payer);
     add_balance("utopiatoken1"_n, commission, _self);
