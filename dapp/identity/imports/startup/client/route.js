@@ -11,10 +11,15 @@ import "../../ui/pages/main/citizenship.js"
 import "../../ui/pages/main/newproposal.js";
 import "../../ui/pages/main/manager.js";
 import "../../ui/pages/main/result.js";
-//import "../../ui/pages/main/budgetResult.js";
-//import "../../ui/pages/main/selected-bgt-prop.js";
+import "../../ui/pages/main/budgetResult.js";
+import "../../ui/pages/main/selected-bgt-prop.js";
 import "../../ui/pages/main/Budget.js";
 import "../../ui/pages/main/Createbudget.js";
+import "../../ui/pages/main/Createbond.js";
+import "../../ui/pages/main/Buybond.js";
+import "../../ui/pages/main/stvvoting.js"
+import "../../ui/pages/main/stvresult.js"
+import "../../ui/pages/main/stvstatus.js"
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
@@ -84,20 +89,20 @@ FlowRouter.route('/identity', {
   }
 });
 
-/* FlowRouter.route('/budget-result', {
+FlowRouter.route('/budget-result', {
   name: "budget_result",
   action(){
     BlazeLayout.render('App_body', { main: 'App_budget_result'});
   }
-}); */
+});
 
 
-/* FlowRouter.route('/selected-bgt', {
+FlowRouter.route('/selected-bgt', {
   name: "selected-bgt",
   action(){
     BlazeLayout.render('App_body', { main: 'App_selected_bgt_prop'});
   }
-}); */
+});
 FlowRouter.route('/budget', {
   name: 'Budget',
   action() {
@@ -105,8 +110,44 @@ FlowRouter.route('/budget', {
   }
 });
 FlowRouter.route('/createbudget', {
-  name: 'createion',
+  name: 'creation',
   action() {
     BlazeLayout.render('App_body', { main: 'Budget_newproposal' });
+  }
+});
+
+
+FlowRouter.route('/stvvote', {
+  name: 'stvvote',
+  action() {
+    BlazeLayout.render('App_body', { main: 'App_stvvote' });
+  }
+});
+
+FlowRouter.route('/stvresult', {
+  name: 'stvresult',
+  action() {
+    BlazeLayout.render('App_body', { main: 'App_stvresult' });
+  }
+});
+
+FlowRouter.route('/stvstatus', {
+  name: 'stvstatus',
+  action() {
+    BlazeLayout.render('App_body', { main: 'App_stvstatus' });
+  }
+});
+
+FlowRouter.route('/createbond', {
+  name: 'createbond',
+  action() {
+    BlazeLayout.render('App_body', { main: 'bond' });
+  }
+});
+
+FlowRouter.route('/buybond', {
+  name: 'buybond',
+  action() {
+    BlazeLayout.render('App_body', { main: 'buybond' });
   }
 });

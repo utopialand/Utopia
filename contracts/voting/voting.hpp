@@ -3,6 +3,8 @@
 using namespace eosio;
 using namespace std;
 
+//testing this comment
+
 CONTRACT voting : public contract
 {
     using contract::contract;
