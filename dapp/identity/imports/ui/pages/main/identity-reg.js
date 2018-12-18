@@ -83,7 +83,7 @@ Template.identity_reg.events({
          bodyFormData.append('userPhoto',picname);
          axios({
              method: 'post',
-             url: 'http://ipfs.zero2pi.com/api/uploadipfsimage',
+             url: 'https://ipfs.zero2pi.com/api/uploadipfsimage',
              data: bodyFormData,
              config: { headers: {'Content-Type': 'multipart/form-data' }}
              })

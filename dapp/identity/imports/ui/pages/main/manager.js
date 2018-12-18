@@ -27,7 +27,9 @@ let resultdata;
 let resfeature;
 let winnerresults;
 let flag = 0;
-
+let couponid;
+var bondid;
+var count=0;
 Template.App_manager.onCreated(function() {
   ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
@@ -175,7 +177,7 @@ Template.App_manager.onCreated(function() {
            await eosinstance.getTableRows({
               code: "bondborrower",
               scope: "bondborrower",
-              table: 'bonddetail1',
+              table: 'bonddetail33',
               limit: 50,
               json: true,
           }).then((resp)=>{
@@ -602,8 +604,7 @@ Template.App_manager.events({
     console.log("noOfwinner", noOfwinner);
     console.log("id", id);
     eosinstance.contract("propbudget11").then(propbudget11 => {
-      propbudget11
-        .startstv(id, username, details, duration, noOfwinner, {
+      propbudget11.startstv(id, username, details, duration, noOfwinner, {
           authorization: username
         })
         .then(response => {
@@ -617,43 +618,90 @@ Template.App_manager.events({
     });
     FlowRouter.go("/budget");
   },
-  /* "click #coupondetails": function() {
+  "click #coupondetails": function() {
     document.getElementById("userList").style.display = "none";
     document.getElementById("proposalList").style.display = "none";
+    document.getElementsByClassName("bondprop")[0].innerHTML ="";
     document.getElementsByClassName("bondprop")[0].innerHTML +=
     "<div class='bond-form'><label>bond id</label><input type='text' id='bondid'/>"
     + "</div>"+" <div class='createbutton'><button class='buttonbond' id ='submitid'>Submission</button></div>";
-  
-    for (var i = 0; i < bonddata.rows.length; i++) {
-      var bond = bonddata.rows[i].bondholders;     
-  }
   },
-  "click #submitid": function() {
-    var username = localStorage.getItem("username");
-       eosinstance.getTableRows({
-              code: "bondborrower",
-              scope: username,
-              table: "buyerdata1",
-              limit: 50,
-              json: true
-            })
-            .then(resp => {
-              buyerdata = resp;
+  "click #submitid": function() {    
               document.getElementById("userList").style.display = "none";
               document.getElementById("proposalList").style.display = "none";
-              var bondid=$("#bondid").val();
+              bondid=$("#bondid").val();
               document.getElementsByClassName("bondprop")[0].innerHTML = "";
               for (var i = 0; i < bonddata.rows.length; i++) {
                 if(bonddata.rows[i].id == bondid){
-                  var bondholder = bonddata.rows[i].bondholders[i]; 
-                  console.log("---",resp);
-                  if(bondholder == buyerdata.rows[i].bondbuyer){
-                    var datearr = buyerdata.rows[i].returningdate.length-1000;
-                    document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+bondholder+"</div><div class='holders'>status -> "+datearr+" coupon are remain</div></div>";   
+                  couponid=bonddata.rows[i].id;
+                  for(var j=0; j<bonddata.rows[i].bondholders.length; j++){
+                    var bondholder = bonddata.rows[i].bondholders[j]; 
+                    var username = localStorage.getItem("username");
+                    eosinstance.getTableRows({
+                          code: "bondborrower",
+                          scope: bondholder,
+                          table: "buyerdata33",
+                          limit: 50,
+                          json: true
+                        })
+                  .then(resp => {
+                    buyerdata = resp;
+                    console.log(j,"bondbuyer--",resp);
+                        var datearr = buyerdata.rows[0].returningdate.length-1;
+                        document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+buyerdata.rows[0].bondbuyer+"</div><div class='holders'>status -> "+datearr+" coupon are submitted</div></div>";   
+                  });
                   }
+                  document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='coupondiv'><button class='couponbond' id='getcoupon'>coupondistirbution</button></div>";
                 }      
             }
-            });
+    
    
-  } */
+  },
+  "click #getcoupon": function() {
+    var num;
+    var username = localStorage.getItem("username");
+    eosinstance.contract("bondborrower").then(bondborrow => {
+      bondborrow.getcoupon(couponid,{
+          authorization: username
+        })
+        .then(response => {
+          if (response) {
+            for (var i = 0; i < bonddata.rows.length; i++) {
+              if(bonddata.rows[i].id == bondid){
+                couponid=bonddata.rows[i].id;
+                num=i;
+                for(var j=0; j<bonddata.rows[i].bondholders.length; j++){
+                  var bondholder = bonddata.rows[i].bondholders[j]; 
+                  eosinstance.getTableRows({
+                        code: "bondborrower",
+                        scope: bondholder,
+                        table: "buyerdata33",
+                        limit: 50,
+                        json: true
+                      })
+                .then(resp => {
+                  buyerdata = resp;
+                      var datearr = buyerdata.rows[0].returningdate[buyerdata.rows[0].returningdate.length-1];
+                      console.log(buyerdata.rows[0].returningdate.length,"dataarr--",i)
+                      if (buyerdata.rows[0].returningdate.length-1 == bonddata.rows[i-1].maturitycount){
+                        console.log("-success-"); 
+                        count++;                       
+                      }else if (buyerdata.rows[0].returningdate.length-1 <= bonddata.rows[i-1].maturitycount){
+                        if(datearr <= Chronos.now()){
+                          console.log("--time remain--");  
+                        }else{
+                          console.log("--done--");  
+                        }                   
+                      }                                   
+                });
+                }
+              }      
+          } 
+            //alert("coupon distributed !!!!");
+          } else {
+            alert("some problems!!!!");
+          }
+        });
+    });
+  }
 });

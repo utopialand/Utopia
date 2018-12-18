@@ -482,3 +482,23 @@
     width:15%;
     border:0px;
 }
+.couponbond{
+    margin-top:40px;
+    height: 60px;
+    width: 250px;
+    color: white; font-family: Colfax Medium;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 14px;
+    background:#04030F;
+}
+.couponbond:hover{
+    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
+}
+.coupondiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
