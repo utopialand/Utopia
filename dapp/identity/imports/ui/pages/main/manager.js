@@ -158,6 +158,7 @@ Template.App_manager.onCreated(function() {
             })
             .then(resp => {
               budgetpropstart = resp;
+              console.log("votestat==>",budgetpropstart)
             });
 
           await eosinstance
@@ -195,6 +196,7 @@ Template.App_manager.onCreated(function() {
             })
             .then(response => {
               resultdata = response;
+              console.log("votes11>><< = ",resultdata);
             });
         } else {
           FlowRouter.go("/");
@@ -373,8 +375,9 @@ Template.App_manager.events({
         "<div class = 'stv-stop' id = 'stv-stop'>" +
         "<button>stop</button>" +
         "</div>";
-    } else {
-      document.getElementById("result-container").style.display = "none";
+    } 
+
+      /* document.getElementById("result-container").style.display = "none"; */
       console.log("budgetButton clicked");
       console.log("budgetprop: -->", budgetprop);
       console.log("budgetpropstart", budgetpropstart.rows[0]);
@@ -408,11 +411,16 @@ Template.App_manager.events({
         }
       }
       let flag = 0
+      let set = 0;
       for(var i=0;i<budgetprop.rows.length;i++)
       {
         if(budgetprop.rows[i].selected==0)
         {
           flag=1;
+          if(budgetprop.rows[i].count!=0)
+          {
+            set = 1;
+          }
           break;
         }
       }
@@ -422,13 +430,18 @@ Template.App_manager.events({
           budgetpropstart.rows[0] == null || budgetpropstart.rows[0].status == false ) {
           document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
             "<div class  = 'start-stop'  id = 'starton'><button>START</button></div>";
+            if(set ==1)
+            {
+              document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
+              "<div class  = 'start-stop' id = 'SelectedProposal'><button>SelectedProposal</button></div>";
+            }
         } else {
           document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
             "<div class  = 'start-stop' id = 'stopon'><button>STOP</button></div>";
         }
       }
      
-    }
+    
   },
   "click #condidateButton": async function() {
     console.log("candidateList");
@@ -481,6 +494,7 @@ Template.App_manager.events({
           if (response) {
             console.log("hello--", response);
             document.getElementById("starton").style.display="none";
+            document.getElementById("SelectedProposal").style.display="none";
             document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
             "<div class  = 'start-stop' id = 'stopon'><button>STOP</button></div>";
           } else {
@@ -501,7 +515,7 @@ Template.App_manager.events({
             console.log("hello--", response);
             document.getElementById("stopon").style.display = "none";
             document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
-            "<div class  = 'selectedStatusButton' id = 'selectedStatus'><button>SelectedProposal</button></div>";
+            "<div class  = 'start-stop' id = 'SelectedProposal'><button>SelectedProposal</button></div>";
  
           } else {
             alert("identity is not registered !!!!");
@@ -509,14 +523,14 @@ Template.App_manager.events({
         });
     });
   },
-  "click #selectedStatus": async function() {
-    console.log("selectedStatus");
+  "click #SelectedProposal": async function() {
+    console.log("SelectedProposal");
     var username = localStorage.getItem("username");
     let rescontract = await eosinstance.contract("propbudget11");
     console.log("response---",rescontract);
-    let response = await rescontract.selectprop(username, { authorization: username }); 
-          if (response) {
-            console.log("hello--", response);
+   
+         
+            
             /////////////////////////////////////////
             resfeature = await eosinstance.getTableRows({
               code: "propbudget11",
@@ -525,60 +539,62 @@ Template.App_manager.events({
               limit: 50,
               json: true
             });
+            console.log("len------",resfeature.rows.length!=0);
             /////////////////////////////////////////
-            if(resfeature)
+            if(resfeature.rows.length!=0)
             {
-              console.log("===", resfeature.rows[0].proposal_options);
-               document.getElementById("budgetProposalsList").innerHTML = "";
-            console.log(
-              "===============budgetprop==================",
-              budgetprop
-            );
-            console.log("===", resfeature.rows[0].proposal_options);
-            let arr;
-            arr = resfeature.rows[0].proposal_options;
-            console.log("arr------===>", arr);
-            console.log("arr------===>", arr[0]);
-            console.log("arr------===>", arr[1]);
-            console.log("arr------===>", arr[2]);
-            console.log("=====bdg", budgetprop.rows[0].id);
-            console.log("length==>", budgetprop.rows.length);
-
-            for (var i = 0; i < budgetprop.rows.length; i++) {
-              for (var j = 0; j < arr.length; j++) {
-                if (budgetprop.rows[i].id == arr[j]) {
-                  var desc = budgetprop.rows[i].proposal_description;
-                  var count = budgetprop.rows[i].count;
-                  var budgetpropId = budgetprop.rows[i].id;
-                  console.log("proposal_description-->", desc);
-                  console.log("count-->", count);
-                  console.log("id-->", budgetpropId);
-                  document.getElementById("budgetProposalsList").innerHTML +=
-                    "<div class = 'bpFlex'>" +
-                    "<div class = 'bpClass'>" +
-                    desc +
-                    "</div>" +
-                    "<div class = 'bpCount'>" +
-                    count +
-                    "</div>" +
-                    "</div>";
-                }
-              }
-            }
-            document.getElementById("budgetProposalsList").innerHTML +=
-              "<div class = 'managerSelection'>" +
-              "<input type='text' placeholder='details' id = 'details'/>" +
-              "<input  type='text' placeholder='duration' id = 'duration'/>" +
-              "<input  type='text' placeholder='noOfwinner' id = 'noOfwinner'/>" +
-              " </div>" +
-              "<button class = 'submitButton' id = 'submitButton'>submit</button>";
+              alert("other stv is on-- ");
             ////////////////////////////////////////
             }
-           
-          } else {
-            alert("error");
-          }
-      
+            else {
+
+              console.log("in else------------");
+              let response = await rescontract.selectprop(username, { authorization: username }); 
+              if(response)
+              {
+                console.log("===", resfeature.rows[0].proposal_options);
+                document.getElementById("budgetProposalsList").innerHTML = "";
+                console.log( "===============budgetprop==================",budgetprop);
+                console.log("===", resfeature.rows[0].proposal_options);
+                let arr;
+                arr = resfeature.rows[0].proposal_options;
+                console.log("arr------===>", arr);
+                console.log("arr------===>", arr[0]);
+                console.log("arr------===>", arr[1]);
+                console.log("arr------===>", arr[2]);
+                console.log("=====bdg", budgetprop.rows[0].id);
+                console.log("length==>", budgetprop.rows.length);
+    
+                for (var i = 0; i < budgetprop.rows.length; i++) {
+                  for (var j = 0; j < arr.length; j++) {
+                    if (budgetprop.rows[i].id == arr[j]) {
+                      var desc = budgetprop.rows[i].proposal_description;
+                      var count = budgetprop.rows[i].count;
+                      var budgetpropId = budgetprop.rows[i].id;
+                      console.log("proposal_description-->", desc);
+                      console.log("count-->", count);
+                      console.log("id-->", budgetpropId);
+                      document.getElementById("budgetProposalsList").innerHTML +=
+                        "<div class = 'bpFlex'>" +
+                        "<div class = 'bpClass'>" +
+                        desc +
+                        "</div>" +
+                        "<div class = 'bpCount'>" +
+                        count +
+                        "</div>" +
+                        "</div>";
+                    }
+                  }
+                }
+                document.getElementById("budgetProposalsList").innerHTML +=
+                  "<div class = 'managerSelection'>" +
+                  "<input type='text' placeholder='details' id = 'details'/>" +
+                  "<input  type='text' placeholder='duration' id = 'duration'/>" +
+                  "<input  type='text' placeholder='noOfwinner' id = 'noOfwinner'/>" +
+                  " </div>" +
+                  "<button class = 'submitButton' id = 'submitButton'>submit</button>";
+              }
+            }      
     
   },
   "click #submitButton": async function() {

@@ -43,6 +43,7 @@ Template.App_result.onCreated(function () {
                         index_position: 2 */
                     }).then((response) => {
                         resultdata = response;
+                        console.log("resultdata===>><<=",resultdata);
                         //getting the length of list of all choices for a  particular proposal
                         var length = 0;
                         for (var i = 0; i < resultdata.rows.length; i++) {
