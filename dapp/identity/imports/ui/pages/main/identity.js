@@ -3,6 +3,7 @@ import "../../stylesheets/identity.css";
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";
+import axios from "axios";
 const network = {
     protocol: "https", // Defaults to https
     blockchain: "eos",
@@ -19,6 +20,8 @@ var eosinstance = {};
 var residentity;
 var idname;
 var email;
+let profilepic ;
+let imagegeResponse;
 Template.App_identity.onCreated(function () {
     ScatterJS.scatter.connect('utopia').then(async(connected) => {
         if (connected) {
@@ -38,7 +41,8 @@ Template.App_identity.onCreated(function () {
                         limit: 50,
                         json: true
                       });
-console.log("identity--------",residentity);
+                      
+                    console.log("identity--------",residentity);
                       if(residentity)
                       {
                         for (var i=0;i<residentity.rows.length;i++)
@@ -48,19 +52,17 @@ console.log("identity--------",residentity);
                                 idname = residentity.rows[i].identityname;
                                 contact = residentity.rows[i].contact;
                                 email = residentity.rows[i].email;
+                                profilepic = residentity.rows[i].dochash;
+                                console.log("kdjbisb==>",profilepic);
                                 break;
+                            
                             }
                         }
                       }
-                     
-
-
-
-
-
-
-
-
+                        var img = new Image();
+                        img.src = "https://ipfs.io/ipfs/"+profilepic;
+                        document.getElementById("profileImage1").style.backgroundImage = "url("+img.src+")";
+                        console.log("imagegeResponse",imagegeResponse);
                    
                     document.getElementById("profileName").innerHTML +=idname;
                     document.getElementById("profileInfo").innerHTML +="contact : "+contact+"<br><br> " + "email : "+email;
