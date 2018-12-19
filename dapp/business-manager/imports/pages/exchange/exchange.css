@@ -1,0 +1,54 @@
+.exchange-container{
+    width: 90%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.exchange-container h1{
+    text-align: center;
+}
+
+.buyothertoken{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5%;
+}
+
+.buyothertoken input{
+    width: 30%;
+}
+
+.buyothertoken button{
+    width: 30%;
+    height: 50px;
+    border: 0px;
+    background: teal;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.buyutptoken{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5%;
+}
+
+.buyutptoken input{
+    width: 30%;
+}
+
+.buyutptoken button{
+    width: 30%;
+    height: 50px;
+    border: 0px;
+    background:teal;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
