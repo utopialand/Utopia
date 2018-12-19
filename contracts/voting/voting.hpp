@@ -62,13 +62,10 @@ CONTRACT voting : public contract
         uint64_t primary_key() const { return id; }
     };
 
-
     TABLE identityt
     {
         name username;
-        string fname;
-        string mname;
-        string lname;
+        string identityname;
         string dob;
         string contact;
         string email;
