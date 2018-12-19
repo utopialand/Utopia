@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 14 11:08:14 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec 19 10:52:23 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -9,6 +9,36 @@
                 {
                     "name": "user",
                     "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "identityt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "identityname",
+                    "type": "string"
+                },
+                {
+                    "name": "dob",
+                    "type": "string"
+                },
+                {
+                    "name": "contact",
+                    "type": "string"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "name": "citizen",
+                    "type": "bool"
                 }
             ]
         },
@@ -47,6 +77,13 @@
         }
     ],
     "tables": [
+        {
+            "name": "identity3",
+            "type": "identityt",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
         {
             "name": "manager111",
             "type": "managertab",
