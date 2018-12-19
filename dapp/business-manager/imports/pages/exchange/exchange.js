@@ -4,6 +4,7 @@ import "../../templates/header/header.js";
 import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
+import { Session } from "meteor/session";
 
 ScatterJS.plugins(new ScatterEOS());
 
@@ -30,6 +31,21 @@ Template.App_exchange.onRendered(function () {
                 const eos = scatter.eos(network, Eos, eosOptions);
                 if (scatter.identity) {
                     eosinstance = eos;
+                    eos.getTableRows({
+                        code: "ubsconverter",
+                        scope: "ubsconverter",
+                        table: "exchange",
+                        limit: "50",
+                        json: true,
+                    }).then((response)=>{
+                        var tokenlist = [];
+                        for(var i=0;i<response.rows.length;i++){
+                            var currency = response.rows[i].currency;
+                            currency = currency.split(" ")[1];
+                            tokenlist.push(currency);
+                        }
+                        Session.set("tokenlist", tokenlist);
+                    });
                 } else {
                     FlowRouter.go("/");
                 }
@@ -38,6 +54,13 @@ Template.App_exchange.onRendered(function () {
             console.log("scatter not installed")
         }
     });
+});
+
+Template.App_exchange.helpers({
+    getTokenList: function(){
+        console.log("tokenlist", Session.get("tokenlist"));
+        return Session.get("tokenlist");
+    }
 });
 
 Template.App_exchange.events({

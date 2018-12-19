@@ -105,6 +105,19 @@ ACTION BancorConverter::setreserve(name contract, asset currency, uint64_t ratio
     EMIT_PRICE_DATA_EVENT(current_smart_supply, contract, currency.symbol.code(), reserve_balance, ratio);
 }
 
+void BancorConverter::listtoken(asset currency){
+    stats statstable("utopbusiness"_n, currency.symbol.code().raw());
+    auto itr = statstable.find(currency.symbol.code().raw());
+    eosio_assert(itr != statstable.end(), "token doesnt exist");
+    require_auth(itr->issuer);
+    exchanges et(_self, _self.value);
+    auto itr2 = et.find(currency.symbol.code().raw());
+    eosio_assert(itr2 == et.end(),"token already listed");
+    et.emplace(_self, [&](auto &s){
+        s.currency = currency;
+    });
+}
+
 void BancorConverter::convert(name from, eosio::asset quantity, std::string memo, name code)
 {
     eosio_assert(quantity.is_valid(), "invalid quantity");
@@ -399,7 +412,7 @@ extern "C"
         {
             switch (action)
             {
-                EOSIO_DISPATCH_HELPER(BancorConverter, (init)(update)(setreserve)
+                EOSIO_DISPATCH_HELPER(BancorConverter, (init)(update)(setreserve)(listtoken))
             }
         }
         eosio_exit(0);

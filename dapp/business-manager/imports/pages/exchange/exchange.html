@@ -1,17 +1,22 @@
-<template name = "App_exchange">
+<template name="App_exchange">
     {{>App_header}}
     <div class="exchange-container">
-        <h1>buy and sell tokens</h1>
-        <div class = "buyothertoken">
-            <input type = "text" placeholder="Enter UTP" id = "buytokenfield"/>
-            <input type = "text" placeholder="symbol of token" id = "returntokenfield"/>
-            <button id = "buytokenbtn">buy tokens</button>
+        <h1>buy or sell tokens </h1>
+
+        {{#each getTokenList}}
+        <div class = "buyselltoken">
+            <h3>buy or sell {{this}}</h3>
+            <div class="buyothertoken">
+                <input type="text" placeholder="format(0.0000 UTP)" id="buytokenfield" />
+                <input type="text" id="returntokenfield" value={{this}} disabled/>
+                <button id="buytokenbtn">buy {{this}} token</button>
+            </div>
+            <div class="buyutptoken">
+                <input type="text" placeholder="format(0.0000 {{this}})" id="selltokenfield" />
+                <button id="selltokenbtn">sell {{this}} token</button>
+            </div>
         </div>
-        <div class = "buyutptoken">
-            <input type = "text" placeholder="Enter token with symbol" id = "selltokenfield"/>
-            <button id = "selltokenbtn">sell tokens</button>
-        </div>
-        
+
+        {{/each}}
     </div>
-    
 </template>

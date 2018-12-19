@@ -73,10 +73,15 @@ CONTRACT BancorConverter : public eosio::contract
         uint64_t primary_key() const { return currency.symbol.code().raw(); }
     };
 
+    TABLE exchange_t{
+        asset currency;
+        uint64_t primary_key() const { return currency.symbol.code().raw(); }
+    };
+
     typedef eosio::singleton<"settings"_n, settings_t> settings;
     typedef eosio::multi_index<"settings"_n, settings_t> dummy_for_abi; // hack until abi generator generates correct name
     typedef eosio::multi_index<"reserves"_n, reserve_t> reserves;
-
+    typedef eosio::multi_index<"exchange"_n, exchange_t> exchanges;
     // initializes the converter settings
     // can only be called once, by the contract account
     ACTION init(name smart_contract,  // contract name of the smart token governed by the converter
@@ -107,6 +112,8 @@ CONTRACT BancorConverter : public eosio::contract
     // path             conversion path, see conversion path in the BancorNetwork contract
     // minimum return   conversion minimum return amount, the conversion will fail if the amount returned is lower than the given amount
     // target account   account to receive the conversion return
+
+    ACTION listtoken(asset currency);
     void transfer(name from, name to, asset quantity, string memo);
 
   private:

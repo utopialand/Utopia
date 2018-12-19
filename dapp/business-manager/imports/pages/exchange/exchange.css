@@ -5,8 +5,16 @@
     margin-right: auto;
 }
 
-.exchange-container h1{
+.exchange-container h1,h3{
     text-align: center;
+    text-transform: capitalize;
+}
+
+.buyselltoken{
+    margin-top: 5%;
+    border: 1px solid black;
+    padding: 0% 2% 5% 2%;
+    box-shadow: 0px 0px 30px #ccc;
 }
 
 .buyothertoken{
@@ -16,11 +24,12 @@
 }
 
 .buyothertoken input{
-    width: 30%;
+    width: 25%;
+    text-align: center;
 }
 
 .buyothertoken button{
-    width: 30%;
+    width: 25%;
     height: 50px;
     border: 0px;
     background: teal;
@@ -31,6 +40,10 @@
     cursor: pointer;
 }
 
+#returntokenfield{
+    cursor: not-allowed;
+}
+
 .buyutptoken{
     display: flex;
     justify-content: space-between;
@@ -38,11 +51,12 @@
 }
 
 .buyutptoken input{
-    width: 30%;
+    width: 25%;
+    text-align: center;
 }
 
 .buyutptoken button{
-    width: 30%;
+    width: 25%;
     height: 50px;
     border: 0px;
     background:teal;
