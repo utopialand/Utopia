@@ -101,5 +101,9 @@ Template.App_business_manager_home.events({
     },
     "click #mybusinessbtn": function(){
         FlowRouter.go("/mybusiness");
+    },
+    "click #exchangebtn": function(){
+        FlowRouter.go("/exchange");
     }
+
 });

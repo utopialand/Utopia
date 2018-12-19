@@ -8,6 +8,7 @@ import "../../pages/newbusiness/newbusiness.js"
 import "../../pages/allbusiness/allbusiness.js";
 import "../../pages/mybusiness/mybusiness.js";
 import "../../pages/settings/settings.js";
+import "../../pages/exchange/exchange.js";
 
 FlowRouter.route('/', {
     name: 'App_business_manager_home',
@@ -58,4 +59,11 @@ FlowRouter.route('/mybusiness/settings/:id', {
         var id = params.id;
         BlazeLayout.render('App_body', { main: 'App_business_settings', id: id });
     }
+});
+
+FlowRouter.route('/exchange', {
+    name: 'App_exchange',
+    action() {
+        BlazeLayout.render('App_body', { main: 'App_exchange' });
+    },
 });
