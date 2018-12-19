@@ -22,6 +22,8 @@ let arr = [];
 Template.App_stvresult.onCreated(function() {
   ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
+      /* var ts = Math.round((new Date()).getTime() / 1000);
+      console.log("time===>",ts); */
       if (ScatterJS.scatter.connect("utopia")) {
         scatter = ScatterJS.scatter;
         const requiredFields = { accounts: [network] };
@@ -53,11 +55,6 @@ Template.App_stvresult.onCreated(function() {
               budgetprop = resp;
               console.log("budgetprop-----", budgetprop);
             });
-            document.getElementById("winner-result-name").innerHTML +=
-                    "<div><h2> Winner Name</h2></div>"
-                    document.getElementById("winner-result-count").innerHTML +=
-                    "<div><h2>Vote Count</h2></div>"
-
             for(var k = 0; k< winnerresult.rows.length;k++)
             {
               arr = winnerresult.rows[k].selected;
@@ -71,19 +68,14 @@ Template.App_stvresult.onCreated(function() {
                     console.log("proposal_description-->", desc);
                     console.log("count-->", count);
                     console.log("id-->", budgetpropId);
-                    document.getElementById("winner-result-name").innerHTML +=
-                    "<div class = 'winner-result-box'>"
-                    +desc+"</div>"
-                    document.getElementById("winner-result-count").innerHTML +=
-                    "<div class = 'winner-result-box'>"
-                    +count+"</div>"
+                    document.getElementById("winner-result-name").innerHTML += "<div>"+desc+"</div>";
+                    document.getElementById("winner-result-count").innerHTML +="<div>"+count+"</div>";
+                    /* document.getElementById("winner-result-info").innerHTML +="<div class = 'total-votes' id = '"+budgetpropId+"'>"+'result-table-info'+"</div>"; */
+                 
                   }
                 }
               }
             }
-           
-            
-         /*   */
         } else {
           FlowRouter.go("/");
         }
@@ -93,3 +85,10 @@ Template.App_stvresult.onCreated(function() {
     }
   });
 });
+Template.App_stvresult.events({
+  "click .total-votes": function() {
+    var id = event.target.id;
+    console.log("id==>",id);
+  }});
+  
+  

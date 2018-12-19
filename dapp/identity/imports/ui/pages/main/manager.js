@@ -650,8 +650,9 @@ Template.App_manager.events({
               for (var i = 0; i < bonddata.rows.length; i++) {
                 if(bonddata.rows[i].id == bondid){
                   couponid=bonddata.rows[i].id;
-                  for(var j=0; j<bonddata.rows[i].bondholders.length; j++){
-                    var bondholder = bonddata.rows[i].bondholders[j]; 
+                  var iip=i;
+                  for(var j=0; j<bonddata.rows[iip].bondholders.length; j++){
+                    var bondholder = bonddata.rows[iip].bondholders[j]; 
                     var username = localStorage.getItem("username");
                     eosinstance.getTableRows({
                           code: "bondborrower",
@@ -662,9 +663,15 @@ Template.App_manager.events({
                         })
                   .then(resp => {
                     buyerdata = resp;
-                    console.log(j,"bondbuyer--",resp);
-                        var datearr = buyerdata.rows[0].returningdate.length-1;
-                        document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+buyerdata.rows[0].bondbuyer+"</div><div class='holders'>status -> "+datearr+" coupon are submitted</div></div>";   
+                    console.log(i,"bondbuyer--",resp);
+                    for(var k=0;k<buyerdata.rows.length;k++){
+                      if(buyerdata.rows[k].id==couponid){
+                        var datearr = buyerdata.rows[k].returningdate.length-1;
+                        document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+buyerdata.rows[k].bondbuyer+"</div><div class='holders'>status -> "+datearr+" coupon are submitted</div></div>";   
+                      }
+                    }
+                    
+                        
                   });
                   }
                   document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='coupondiv'><button class='couponbond' id='getcoupon'>coupondistirbution</button></div>";
@@ -697,18 +704,25 @@ Template.App_manager.events({
                       })
                 .then(resp => {
                   buyerdata = resp;
-                      var datearr = buyerdata.rows[0].returningdate[buyerdata.rows[0].returningdate.length-1];
-                      console.log(buyerdata.rows[0].returningdate.length,"dataarr--",i)
-                      if (buyerdata.rows[0].returningdate.length-1 == bonddata.rows[i-1].maturitycount){
-                        console.log("-success-"); 
-                        count++;                       
-                      }else if (buyerdata.rows[0].returningdate.length-1 <= bonddata.rows[i-1].maturitycount){
-                        if(datearr <= Chronos.now()){
-                          console.log("--time remain--");  
-                        }else{
-                          console.log("--done--");  
-                        }                   
-                      }                                   
+
+                  for(var k=0;k<buyerdata.rows.length;k++){
+                    if(buyerdata.rows[k].id==couponid){
+                      var datearr = buyerdata.rows[k].returningdate[buyerdata.rows[k].returningdate.length-1];
+                      console.log(buyerdata.rows[k].returningdate.length,"dataarr--",k)
+                      if (buyerdata.rows[k].returningdate.length-1 == bonddata.rows[k].maturitycount){
+                      
+                       count++;
+                       if(count==bonddata.rows[k].bondholders.length){
+                         alert("-payement----successfull---");       
+                       }              
+                      }else if (buyerdata.rows[k].returningdate.length-1 < bonddata.rows[k].maturitycount){
+                      
+                          alert("--time remain--");  
+                                        
+                      }  
+                    }
+                  }
+                                                      
                 });
                 }
               }      

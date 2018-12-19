@@ -7,7 +7,6 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import '../../../api/identity/methods';
 import ScatterJS from "scatterjs-core";
-import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";
 const axios = require('axios');
 const cors =require('cors');

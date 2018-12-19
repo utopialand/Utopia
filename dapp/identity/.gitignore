@@ -1,8 +1,8 @@
-node_modules/
 # ------------- meteor gitignore
 
 .meteor/local
 .meteor/meteorite
+node_modules/
 
 # ------------- OSX gitignore
 
@@ -132,7 +132,4 @@ crashlytics.properties
 crashlytics-build.properties
 
 
-<<<<<<< HEAD
-=======
 node_modules/
->>>>>>> 728155c57239f92bb8d6db6b1d391baedef782c0

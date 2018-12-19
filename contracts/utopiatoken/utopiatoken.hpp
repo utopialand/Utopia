@@ -32,12 +32,11 @@ CONTRACT utopiatoken : public contract
     TABLE identityt
     {
         name username;
-        string fname;
-        string mname;
-        string lname;
+        string identityname;
         string dob;
         string contact;
         string email;
+        string dochash;
         bool citizen = false;
         uint64_t primary_key() const { return username.value; }
     };

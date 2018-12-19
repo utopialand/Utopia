@@ -59,19 +59,6 @@ Template.App_identity.onCreated(function () {
                             }
                         }
                       }
-                      /* axios({
-                        method: 'get',
-                        url: 'https://ipfs.io/ipfs/'+profilepic
-                        })
-                        .then(function (response) {
-                        //handle success
-                        imagegeResponse =response.data;
-                       
-                        })
-                        .catch(function (response) {
-                        //handle error
-                        console.log("err--",response);
-                        }); */
                         var img = new Image();
                         img.src = "https://ipfs.io/ipfs/"+profilepic;
                         document.getElementById("profileImage1").style.backgroundImage = "url("+img.src+")";
