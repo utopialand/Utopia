@@ -159,40 +159,45 @@ Template.App_business_settings.events({
         });
 
         console.log("result :", createAccResult); */
-        /*  var name = "sidesideside";
-         var result2, result3;
-         result2 = await eosinstance.setcode(name, 0, 0, wasm, abi)
-         if (result2 != null) {
-             result3 = await eosinstance.setabi(name, JSON.parse(abi)) */
-        /* if(result3!=null)
-        {
-            let perm = await setPermission(name1)
-            res.status(200).send(name1)
-            
-        } */
 
-        /* }
-        console.log("resultwasm: ", result2);
-        console.log("resultabi: ", result3); */
-        console.log("hello");
-        var wasm = new ReactiveVar(0);
-        var abi = new ReactiveVar(0);
-        Meteor.call('loadWasm',function (err, result) {
+        /* var wasm;
+        var abi;
+        var a, b;
+        Meteor.call('loadWasm', async function (err, result) {
             if (!err) {
-                wasm.set(result);
+                wasm = result;
+                a = result;
+                Meteor.call('loadAbi', async function (err, result1) {
+                    if (!err) {
+                        abi = result1;
+                        b = result1;
+                        console.log("wasm :", a);
+                        console.log("abi ", b);
+                        var name = "si";
+                        var result2, result3;
+                        try {
+                            result2 = await eosinstance.setcode(name, 0, 0, Buffer.from(wasm))
+                            result3 = await eosinstance.setabi(name, JSON.parse(abi));
+                        } catch (err) {
+                            console.log("err--", err)
+                        }
+
+                        if (result2 != null) {
+                            result3 = await eosinstance.setabi(name, JSON.parse(abi))
+
+
+                        }
+                    } else {
+                        console.error('Error loadabi', err)
+                    }
+                });
             } else {
                 console.error('Error load wasm', err)
             }
-        });
-        Meteor.call('loadAbi',function (err, result) {
-            if (!err) {
-                abi.set(result);
-            } else {
-                console.error('Error loadabi', err)
-            }
-        });
-        console.log("wasm : ",wasm);
-        console.log("abi : ",abi);
+        }); */
+
+
+
     }
 });
 
