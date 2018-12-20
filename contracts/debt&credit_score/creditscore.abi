@@ -1,0 +1,119 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 20 11:40:03 2018",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "addcredscore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "cscore",
+                    "type": "float32"
+                }
+            ]
+        },
+        {
+            "name": "credscore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "creditscore",
+                    "type": "float32"
+                },
+                {
+                    "name": "isdefaulter",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "identityt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "identityname",
+                    "type": "string"
+                },
+                {
+                    "name": "dob",
+                    "type": "string"
+                },
+                {
+                    "name": "contact",
+                    "type": "string"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "name": "dochash",
+                    "type": "string"
+                },
+                {
+                    "name": "citizen",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "managertab",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "addcredscore",
+            "type": "addcredscore",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "cscore112",
+            "type": "credscore",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "identity3",
+            "type": "identityt",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "manager111",
+            "type": "managertab",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}
