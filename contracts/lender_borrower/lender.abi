@@ -1,7 +1,21 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec 19 17:45:42 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 20 17:26:24 2018",
     "version": "eosio::abi/1.0",
     "structs": [
+        {
+            "name": "addcollat",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "desc",
+                    "type": "string"
+                }
+            ]
+        },
         {
             "name": "addloancatg",
             "base": "",
@@ -11,34 +25,16 @@
                     "type": "name"
                 },
                 {
-                    "name": "category_id",
-                    "type": "uint64"
-                },
-                {
                     "name": "desc",
                     "type": "string"
                 },
                 {
                     "name": "interestrate",
-                    "type": "uint8"
+                    "type": "float32"
                 },
                 {
                     "name": "period",
-                    "type": "uint8"
-                }
-            ]
-        },
-        {
-            "name": "addupdatecr",
-            "base": "",
-            "fields": [
-                {
-                    "name": "identity",
-                    "type": "name"
-                },
-                {
-                    "name": "crscore",
-                    "type": "uint16"
+                    "type": "int32"
                 }
             ]
         },
@@ -91,52 +87,6 @@
                 {
                     "name": "borrower",
                     "type": "name"
-                },
-                {
-                    "name": "approvedAt",
-                    "type": "uint64"
-                },
-                {
-                    "name": "totaldue",
-                    "type": "asset"
-                },
-                {
-                    "name": "finalduedt",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "businessst",
-            "base": "",
-            "fields": [
-                {
-                    "name": "company_id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "status",
-                    "type": "uint8"
-                },
-                {
-                    "name": "owner",
-                    "type": "name"
-                },
-                {
-                    "name": "businessname",
-                    "type": "string"
-                },
-                {
-                    "name": "token_maximum_supply",
-                    "type": "asset"
-                },
-                {
-                    "name": "shareholders",
-                    "type": "name[]"
-                },
-                {
-                    "name": "employees",
-                    "type": "name[]"
                 }
             ]
         },
@@ -173,18 +123,9 @@
             ]
         },
         {
-            "name": "creditscore",
+            "name": "hi",
             "base": "",
-            "fields": [
-                {
-                    "name": "borrower",
-                    "type": "name"
-                },
-                {
-                    "name": "credscore",
-                    "type": "uint16"
-                }
-            ]
+            "fields": []
         },
         {
             "name": "identityt",
@@ -244,29 +185,11 @@
                 },
                 {
                     "name": "interestrate",
-                    "type": "uint8"
+                    "type": "float32"
                 },
                 {
                     "name": "period",
-                    "type": "uint8"
-                }
-            ]
-        },
-        {
-            "name": "loanpayment",
-            "base": "",
-            "fields": [
-                {
-                    "name": "borrower",
-                    "type": "name"
-                },
-                {
-                    "name": "reqloanid",
-                    "type": "uint64"
-                },
-                {
-                    "name": "amt",
-                    "type": "asset"
+                    "type": "int32"
                 }
             ]
         },
@@ -320,7 +243,7 @@
                 },
                 {
                     "name": "prop_id",
-                    "type": "vector<uint64_t>[]"
+                    "type": "uint64[]"
                 },
                 {
                     "name": "income",
@@ -328,33 +251,7 @@
                 },
                 {
                     "name": "colatopt",
-                    "type": "uint64[]"
-                }
-            ]
-        },
-        {
-            "name": "reqloanincm",
-            "base": "",
-            "fields": [
-                {
-                    "name": "identity",
-                    "type": "name"
-                },
-                {
-                    "name": "catgid",
                     "type": "uint64"
-                },
-                {
-                    "name": "amt",
-                    "type": "asset"
-                },
-                {
-                    "name": "purpose",
-                    "type": "string"
-                },
-                {
-                    "name": "income",
-                    "type": "asset"
                 }
             ]
         },
@@ -384,11 +281,11 @@
                 },
                 {
                     "name": "colatopt",
-                    "type": "uint64[]"
+                    "type": "uint64"
                 },
                 {
                     "name": "prop_id",
-                    "type": "vector<uint64_t>[]"
+                    "type": "uint64[]"
                 },
                 {
                     "name": "incomepm",
@@ -408,13 +305,13 @@
     "types": [],
     "actions": [
         {
-            "name": "addloancatg",
-            "type": "addloancatg",
+            "name": "addcollat",
+            "type": "addcollat",
             "ricardian_contract": ""
         },
         {
-            "name": "addupdatecr",
-            "type": "addupdatecr",
+            "name": "addloancatg",
+            "type": "addloancatg",
             "ricardian_contract": ""
         },
         {
@@ -428,18 +325,13 @@
             "ricardian_contract": ""
         },
         {
-            "name": "loanpayment",
-            "type": "loanpayment",
+            "name": "hi",
+            "type": "hi",
             "ricardian_contract": ""
         },
         {
             "name": "reqloancolat",
             "type": "reqloancolat",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "reqloanincm",
-            "type": "reqloanincm",
             "ricardian_contract": ""
         }
     ],
@@ -452,22 +344,8 @@
             "key_types": []
         },
         {
-            "name": "businesstb",
-            "type": "businessst",
-            "index_type": "i64",
-            "key_names": [],
-            "key_types": []
-        },
-        {
             "name": "collat111",
             "type": "collateral",
-            "index_type": "i64",
-            "key_names": [],
-            "key_types": []
-        },
-        {
-            "name": "credscore111",
-            "type": "creditscore",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
@@ -487,7 +365,7 @@
             "key_types": []
         },
         {
-            "name": "loancatg111",
+            "name": "loancatg113",
             "type": "loancatg",
             "index_type": "i64",
             "key_names": [],
@@ -508,7 +386,7 @@
             "key_types": []
         },
         {
-            "name": "reqloan111",
+            "name": "reqloan112",
             "type": "requestloan",
             "index_type": "i64",
             "key_names": [],
