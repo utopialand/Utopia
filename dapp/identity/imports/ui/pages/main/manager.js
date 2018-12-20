@@ -117,10 +117,13 @@ Template.App_manager.onCreated(function() {
             })
             .then(resp => {
               userdata = resp;
+              console.log("users==><",userdata);
               if (document.getElementById("userList")) {
                 for (var i = 0; i < userdata.rows.length; i++) {
                   var users = userdata.rows[i].identity;
-                  var ids = userdata.rows[i].id;
+                  var ids = i;
+                  console.log("users==><",users);
+                  console.log("users==><",ids);
                   document.getElementById("manager-user-group").innerHTML +=
                     "<div class = 'manager-user-redo' id = '" +
                     users +
@@ -215,6 +218,8 @@ Template.App_manager.events({
     document.getElementById("userList").style.display = "block";
     document.getElementById("proposalList").style.display = "none";
     document.getElementById("result-container").style.display = "none";
+    document.getElementsByClassName("bondprop")[0].innerHTML ="";
+    
   },
   
   "click #proposalDetails": function() {
@@ -225,7 +230,7 @@ Template.App_manager.events({
       "none";
     document.getElementsByClassName("manager-below-section")[0].style.display =
       "block";
-
+      document.getElementsByClassName("bondprop")[0].innerHTML ="";
     /* reqcitizen (username) */
   },
   "click .approved-button": async function() {
@@ -234,10 +239,10 @@ Template.App_manager.events({
     var userName = event.target.parentElement.id;
     console.log("id----", id);
     console.log("username------", userName);
-    let contract = eosinstance.contract("identityreg1");
+    let contract = await eosinstance.contract("identityreg1");
     console.log("===", contract);
     try {
-      let res = contract.addcitizen(id, userName, "identityreg1", {
+      let res = await contract.addcitizen(userName,"identityreg1", {
         authorization: "identityreg1"
       });
     } catch (err) {

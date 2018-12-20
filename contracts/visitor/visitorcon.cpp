@@ -6,7 +6,6 @@ ve.emplace(_self,[&] (auto &e){
 e.id=ve.available_primary_key();
 e.visitor=visitor;
 e.duration=now()+(24 * 60 * 60 * stduration);
-//e.duration = now()+(60*2);
 e.visitorstatus = false;
 });
 print("done---");

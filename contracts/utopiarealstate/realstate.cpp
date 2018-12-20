@@ -92,7 +92,6 @@ ACTION realstate::reqbuypropt(uint64_t id, name buyer, asset amount)
 
     name rsdeposite = "rsdeposite11"_n;
     string memo = "fund transfer";
-
     buyer_table bt(_self, _self.value);
     auto itr1 = bt.find(id);
 
@@ -150,6 +149,12 @@ ACTION realstate::accbuyerreq(uint64_t id, name seller)
         "amartesttest"_n, "transfer"_n,
         make_tuple(rsdeposite, seller, itr1->price, memo))
         .send();
+
+    pt.modify(itr, _self, [&](auto &b) {
+        b.owner = itr1->buyername;
+        b.price = itr1->price;
+    });
+    itr1 = bt.erase(itr1);
 }
 
 ACTION realstate::reqsellpropt(uint64_t id, name seller, asset amount)
@@ -169,4 +174,4 @@ ACTION realstate::reqsellpropt(uint64_t id, name seller, asset amount)
 
 /* ACTION realstate::reqbuypropt(uint64_t id,) */
 
-EOSIO_DISPATCH(realstate, (landproposal)(bid)(approvedprop)(reqbuypropt)(reqsellpropt))
+EOSIO_DISPATCH(realstate, (landproposal)(bid)(approvedprop)(reqbuypropt)(reqsellpropt)(accbuyerreq))
