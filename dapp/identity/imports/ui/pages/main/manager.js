@@ -215,6 +215,8 @@ Template.App_manager.events({
     document.getElementById("userList").style.display = "block";
     document.getElementById("proposalList").style.display = "none";
     document.getElementById("result-container").style.display = "none";
+    document.getElementsByClassName("bondprop")[0].innerHTML ="";
+    
   },
   
   "click #proposalDetails": function() {
@@ -225,7 +227,7 @@ Template.App_manager.events({
       "none";
     document.getElementsByClassName("manager-below-section")[0].style.display =
       "block";
-
+      document.getElementsByClassName("bondprop")[0].innerHTML ="";
     /* reqcitizen (username) */
   },
   "click .approved-button": async function() {
