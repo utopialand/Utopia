@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec 19 14:10:35 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 20 17:13:33 2018",
     "version": "eosio::abi/1.1",
     "structs": [
         {
@@ -13,6 +13,24 @@
                 {
                     "name": "seller",
                     "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "accsellreq",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "buyer",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
                 }
             ]
         },
@@ -253,6 +271,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "accsellreq",
+            "type": "accsellreq",
+            "ricardian_contract": ""
+        },
+        {
             "name": "approvedprop",
             "type": "approvedprop",
             "ricardian_contract": ""
@@ -308,7 +331,7 @@
             "key_types": []
         },
         {
-            "name": "reqsellertab",
+            "name": "reqselltab11",
             "type": "reqsellers",
             "index_type": "i64",
             "key_names": [],
