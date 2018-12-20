@@ -204,6 +204,4 @@ ACTION realstate::accsellreq(uint64_t id, name buyer, asset amount)
     itr1 = st.erase(itr1);
 }
 
-/* ACTION realstate::reqbuypropt(uint64_t id,) */
-
 EOSIO_DISPATCH(realstate, (landproposal)(bid)(approvedprop)(reqbuypropt)(accbuyerreq)(reqsellpropt)(accsellreq))
