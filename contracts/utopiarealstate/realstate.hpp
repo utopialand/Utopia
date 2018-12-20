@@ -12,6 +12,7 @@ CONTRACT realstate : public contract
     ACTION approvedprop(uint64_t id);
     ACTION reqbuypropt(uint64_t id, name buyer, asset amount);
     ACTION reqsellpropt(uint64_t id,name seller,asset amount);
+    ACTION accbuyerreq(uint64_t id, name seller);
     TABLE bidtable
     {
         uint64_t id;
@@ -64,6 +65,6 @@ CONTRACT realstate : public contract
     typedef eosio::multi_index<"identity2"_n, identityt> identity_table;
     typedef multi_index<"bidtable"_n, bidtable> bid_table;
     typedef multi_index<"properties"_n, properties> properties_table;
-    typedef multi_index<"reqbuyertab"_n, reqbuyers> buyer_table;
+    typedef multi_index<"reqbuyertab1"_n, reqbuyers> buyer_table;
     typedef multi_index<"reqsellertab"_n, reqsellers> seller_table;
 };
