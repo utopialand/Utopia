@@ -7,16 +7,16 @@
         <div class = "buyselltoken">
             <h3>buy or sell {{this}}</h3>
             <div class="buyothertoken">
-                <input type="text" placeholder="format(0.0000 UTP)" id="buytokenfield" />
-                <input type="text" id="returntokenfield" value={{this}} disabled/>
-                <button id="buytokenbtn">buy {{this}} token</button>
+                <input type="text" placeholder="format(0.0000 UTP)" id="buytokenfield-{{this}}" />
+                <button id="buttokenbtn-{{this}}" class = "buytokenbtn">buy {{this}} token</button>
             </div>
             <div class="buyutptoken">
-                <input type="text" placeholder="format(0.0000 {{this}})" id="selltokenfield" />
-                <button id="selltokenbtn">sell {{this}} token</button>
+                <input type="text" placeholder="format(0.0000 {{this}})" id="selltokenfield-{{this}}" />
+                <button id="selltokenbtn-{{this}}" class = "selltokenbtn">sell {{this}} token</button>
             </div>
         </div>
 
         {{/each}}
     </div>
+    {{>App_footer}}
 </template>

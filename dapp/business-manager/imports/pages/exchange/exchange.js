@@ -1,10 +1,12 @@
 import "./exchange.html";
 import "./exchange.css";
 import "../../templates/header/header.js";
+import "../../templates/footer/footer.js";
 import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
 import { Session } from "meteor/session";
+
 
 ScatterJS.plugins(new ScatterEOS());
 
@@ -32,8 +34,8 @@ Template.App_exchange.onRendered(function () {
                 if (scatter.identity) {
                     eosinstance = eos;
                     eos.getTableRows({
-                        code: "ubsconverter",
-                        scope: "ubsconverter",
+                        code: "utopbusiness",
+                        scope: "utopbusiness",
                         table: "exchange",
                         limit: "50",
                         json: true,
@@ -64,9 +66,12 @@ Template.App_exchange.helpers({
 });
 
 Template.App_exchange.events({
-    "click #selltokenbtn": function(){
-        var token = $("#selltokenfield").val();
-        var symbol = token.split(" ")[1];
+    "click .selltokenbtn": function(e){
+        var id = e.target.id;
+        var symbol = id.split("-")[1];
+        var selltokenfield = "selltokenfield-"+symbol;
+        var token = $("#"+selltokenfield).val();
+        console.log("token ", token);
         var username = localStorage.getItem("username");
         var version = 1;
         var contractname = symbol.toLowerCase()+"2utprelay";
@@ -74,6 +79,7 @@ Template.App_exchange.events({
         var utp = "UTP";
         var networkContract = "utopbnetwork";
         var memo = version+","+contractname+" "+utp+","+fee+","+username;
+        console.log("memo ",memo);
         
         eosinstance.contract('utopbusiness').then(utopbusiness => {
             utopbusiness.transfer(username, networkContract, token, memo, { authorization: username }).then((response) => {
@@ -87,15 +93,20 @@ Template.App_exchange.events({
 
         });
     },
-    "click #buytokenbtn": function(){
-        var symbol = $("#returntokenfield").val();
-        var utpvalue = $("#buytokenfield").val(); 
+    "click .buytokenbtn": function(e){
+        
+        var id = e.target.id;
+        var symbol = id.split("-")[1];
+        var buytokenfield = "buytokenfield-"+symbol;
+        var utpvalue = $("#"+buytokenfield).val();
+        console.log("utpvalue",utpvalue);
         var username = localStorage.getItem("username");
         var version = 1;
         var contractname = symbol.toLowerCase()+"2utprelay";
         var fee = "0.2";
         var networkContract = "utopbnetwork";
         var memo = version+","+contractname+" "+symbol+","+fee+","+username;
+        console.log("memo ", memo); 
 
         eosinstance.contract('utopbusiness').then(utopbusiness => {
             utopbusiness.transfer(username, networkContract, utpvalue, memo, { authorization: username }).then((response) => {
