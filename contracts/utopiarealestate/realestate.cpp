@@ -1,8 +1,8 @@
-#include "realstate.hpp"
+#include "realestate.hpp"
 
-ACTION realstate::landproposal(string location, uint64_t area, name currentOwner, asset currentprice, uint64_t startdate, uint64_t enddate)
+ACTION realestate::landproposal(string location, uint64_t area, name currentOwner, asset currentprice, uint64_t startdate, uint64_t enddate)
 {
-    print("land proposal!!!");
+    print("land proposal!!!!!!!");
     require_auth(currentOwner);
 
     bid_table bt(_self, _self.value);
@@ -17,7 +17,7 @@ ACTION realstate::landproposal(string location, uint64_t area, name currentOwner
     });
 };
 
-ACTION realstate::bid(uint64_t id, name buyername, asset amount)
+ACTION realestate::bid(uint64_t id, name buyername, asset amount)
 {
     bid_table bt(_self, _self.value);
     auto itr = bt.find(id);
@@ -62,7 +62,7 @@ ACTION realstate::bid(uint64_t id, name buyername, asset amount)
     });
 }
 
-ACTION realstate::approvedprop(uint64_t id)
+ACTION realestate::approvedprop(uint64_t id)
 {
     bid_table bt(_self, _self.value);
     auto itr = bt.find(id);
@@ -82,7 +82,7 @@ ACTION realstate::approvedprop(uint64_t id)
     });
 }
 
-ACTION realstate::reqbuypropt(uint64_t id, name buyer, asset amount)
+ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
 {
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
@@ -92,7 +92,6 @@ ACTION realstate::reqbuypropt(uint64_t id, name buyer, asset amount)
 
     name rsdeposite = "rsdeposite11"_n;
     string memo = "fund transfer";
-
     buyer_table bt(_self, _self.value);
     auto itr1 = bt.find(id);
 
@@ -130,7 +129,7 @@ ACTION realstate::reqbuypropt(uint64_t id, name buyer, asset amount)
     }
 }
 
-ACTION realstate::accbuyerreq(uint64_t id, name seller)
+ACTION realestate::accbuyerreq(uint64_t id, name seller)
 {
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
@@ -140,7 +139,7 @@ ACTION realstate::accbuyerreq(uint64_t id, name seller)
 
     buyer_table bt(_self, _self.value);
     auto itr1 = bt.find(id);
-    eosio_assert(itr != pt.end(), "no available buyer for this id");
+    eosio_assert(itr1 != bt.end(), "no available buyer for this id");
 
     name rsdeposite = "rsdeposite11"_n;
     string memo = "fund transfer";
@@ -150,9 +149,15 @@ ACTION realstate::accbuyerreq(uint64_t id, name seller)
         "amartesttest"_n, "transfer"_n,
         make_tuple(rsdeposite, seller, itr1->price, memo))
         .send();
+
+    pt.modify(itr, _self, [&](auto &b) {
+        b.owner = itr1->buyername;
+        b.price = itr1->price;
+    });
+    itr1 = bt.erase(itr1);
 }
 
-ACTION realstate::reqsellpropt(uint64_t id, name seller, asset amount)
+ACTION realestate::reqsellpropt(uint64_t id, name seller, asset amount)
 {
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
@@ -166,7 +171,37 @@ ACTION realstate::reqsellpropt(uint64_t id, name seller, asset amount)
         s.sellingprice = amount;
     });
 }
+ACTION realestate::accsellreq(uint64_t id, name buyer, asset amount)
+{
+    properties_table pt(_self, _self.value);
+    auto itr = pt.find(id);
+    require_auth(buyer);
+    eosio_assert(itr != pt.end(), "no available properties for this id !!");
+    eosio_assert(itr->owner != buyer, "you are alredy owner of this propertity!!!!");
+    seller_table st(_self, _self.value);
+    auto itr1 = st.find(id);
+    eosio_assert(itr1 != st.end(), "no available seller for this id");
+    eosio_assert(amount == itr1->sellingprice, "not valid amount to buy this property");
+    eosio_assert(itr1->sellername != buyer, "you are alredy owner of this propertity!!!!");
+    name rsdeposite = "rsdeposite11"_n;
+    string memo = "fund transfer";
 
-/* ACTION realstate::reqbuypropt(uint64_t id,) */
+    action(
+        permission_level{buyer, "active"_n},
+        "amartesttest"_n, "transfer"_n,
+        make_tuple(buyer, rsdeposite, amount, memo))
+        .send();
 
-EOSIO_DISPATCH(realstate, (landproposal)(bid)(approvedprop)(reqbuypropt)(reqsellpropt))
+    action(
+        permission_level{rsdeposite, "active"_n},
+        "amartesttest"_n, "transfer"_n,
+        make_tuple(rsdeposite, itr1->sellername, amount, memo))
+        .send();
+    pt.modify(itr, _self, [&](auto &b) {
+        b.owner = buyer;
+        b.price = amount;
+    });
+    itr1 = st.erase(itr1);
+}
+
+EOSIO_DISPATCH(realestate, (landproposal)(bid)(approvedprop)(reqbuypropt)(accbuyerreq)(reqsellpropt)(accsellreq))

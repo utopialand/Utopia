@@ -1,14 +1,40 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec 19 10:52:23 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 20 11:40:03 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
-            "name": "addmanager",
+            "name": "addcredscore",
             "base": "",
             "fields": [
                 {
-                    "name": "user",
+                    "name": "identity",
                     "type": "name"
+                },
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "cscore",
+                    "type": "float32"
+                }
+            ]
+        },
+        {
+            "name": "credscore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "creditscore",
+                    "type": "float32"
+                },
+                {
+                    "name": "isdefaulter",
+                    "type": "bool"
                 }
             ]
         },
@@ -37,6 +63,10 @@
                     "type": "string"
                 },
                 {
+                    "name": "dochash",
+                    "type": "string"
+                },
+                {
                     "name": "citizen",
                     "type": "bool"
                 }
@@ -51,32 +81,24 @@
                     "type": "name"
                 }
             ]
-        },
-        {
-            "name": "remmanager",
-            "base": "",
-            "fields": [
-                {
-                    "name": "user",
-                    "type": "name"
-                }
-            ]
         }
     ],
     "types": [],
     "actions": [
         {
-            "name": "addmanager",
-            "type": "addmanager",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "remmanager",
-            "type": "remmanager",
+            "name": "addcredscore",
+            "type": "addcredscore",
             "ricardian_contract": ""
         }
     ],
     "tables": [
+        {
+            "name": "cscore112",
+            "type": "credscore",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
         {
             "name": "identity3",
             "type": "identityt",

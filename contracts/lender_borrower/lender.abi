@@ -1,0 +1,398 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 20 17:26:24 2018",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "addcollat",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "desc",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "addloancatg",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "desc",
+                    "type": "string"
+                },
+                {
+                    "name": "interestrate",
+                    "type": "float32"
+                },
+                {
+                    "name": "period",
+                    "type": "int32"
+                }
+            ]
+        },
+        {
+            "name": "approvedloan",
+            "base": "",
+            "fields": [
+                {
+                    "name": "reqloanid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "borrower",
+                    "type": "name"
+                },
+                {
+                    "name": "approvedAt",
+                    "type": "uint64"
+                },
+                {
+                    "name": "amtapproved",
+                    "type": "asset"
+                },
+                {
+                    "name": "totaldue",
+                    "type": "asset"
+                },
+                {
+                    "name": "finalduedt",
+                    "type": "uint64"
+                },
+                {
+                    "name": "status",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "approveloan",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "reqloanid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "borrower",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "checkdefault",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "reqloanid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "borrower",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "collateral",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "type",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "hi",
+            "base": "",
+            "fields": []
+        },
+        {
+            "name": "identityt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "identityname",
+                    "type": "string"
+                },
+                {
+                    "name": "dob",
+                    "type": "string"
+                },
+                {
+                    "name": "contact",
+                    "type": "string"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "name": "dochash",
+                    "type": "string"
+                },
+                {
+                    "name": "citizen",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "idsupply",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "loancatg",
+            "base": "",
+            "fields": [
+                {
+                    "name": "category_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "desc",
+                    "type": "string"
+                },
+                {
+                    "name": "interestrate",
+                    "type": "float32"
+                },
+                {
+                    "name": "period",
+                    "type": "int32"
+                }
+            ]
+        },
+        {
+            "name": "managertab",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "properties",
+            "base": "",
+            "fields": [
+                {
+                    "name": "propt_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "price",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "reqloancolat",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "catgid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "amt",
+                    "type": "asset"
+                },
+                {
+                    "name": "purpose",
+                    "type": "string"
+                },
+                {
+                    "name": "prop_id",
+                    "type": "uint64[]"
+                },
+                {
+                    "name": "income",
+                    "type": "asset"
+                },
+                {
+                    "name": "colatopt",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "requestloan",
+            "base": "",
+            "fields": [
+                {
+                    "name": "reqloanid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "catgid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "borrower",
+                    "type": "name"
+                },
+                {
+                    "name": "loanamt",
+                    "type": "asset"
+                },
+                {
+                    "name": "purpose",
+                    "type": "string"
+                },
+                {
+                    "name": "colatopt",
+                    "type": "uint64"
+                },
+                {
+                    "name": "prop_id",
+                    "type": "uint64[]"
+                },
+                {
+                    "name": "incomepm",
+                    "type": "asset"
+                },
+                {
+                    "name": "status",
+                    "type": "string"
+                },
+                {
+                    "name": "type",
+                    "type": "bool"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "addcollat",
+            "type": "addcollat",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addloancatg",
+            "type": "addloancatg",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "approveloan",
+            "type": "approveloan",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "checkdefault",
+            "type": "checkdefault",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "hi",
+            "type": "hi",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "reqloancolat",
+            "type": "reqloancolat",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "approved111",
+            "type": "approvedloan",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "collat111",
+            "type": "collateral",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "identity3",
+            "type": "identityt",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "idsupp111",
+            "type": "idsupply",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "loancatg113",
+            "type": "loancatg",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "manager111",
+            "type": "managertab",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "properties",
+            "type": "properties",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "reqloan112",
+            "type": "requestloan",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}

@@ -117,10 +117,13 @@ Template.App_manager.onCreated(function() {
             })
             .then(resp => {
               userdata = resp;
+              console.log("users==><",userdata);
               if (document.getElementById("userList")) {
                 for (var i = 0; i < userdata.rows.length; i++) {
                   var users = userdata.rows[i].identity;
-                  var ids = userdata.rows[i].id;
+                  var ids = i;
+                  console.log("users==><",users);
+                  console.log("users==><",ids);
                   document.getElementById("manager-user-group").innerHTML +=
                     "<div class = 'manager-user-redo' id = '" +
                     users +
@@ -215,6 +218,8 @@ Template.App_manager.events({
     document.getElementById("userList").style.display = "block";
     document.getElementById("proposalList").style.display = "none";
     document.getElementById("result-container").style.display = "none";
+    document.getElementsByClassName("bondprop")[0].innerHTML ="";
+    
   },
   
   "click #proposalDetails": function() {
@@ -225,7 +230,7 @@ Template.App_manager.events({
       "none";
     document.getElementsByClassName("manager-below-section")[0].style.display =
       "block";
-
+      document.getElementsByClassName("bondprop")[0].innerHTML ="";
     /* reqcitizen (username) */
   },
   "click .approved-button": async function() {
@@ -234,10 +239,10 @@ Template.App_manager.events({
     var userName = event.target.parentElement.id;
     console.log("id----", id);
     console.log("username------", userName);
-    let contract = eosinstance.contract("identityreg1");
+    let contract = await eosinstance.contract("identityreg1");
     console.log("===", contract);
     try {
-      let res = contract.addcitizen(id, userName, "identityreg1", {
+      let res = await contract.addcitizen(userName,"identityreg1", {
         authorization: "identityreg1"
       });
     } catch (err) {
@@ -650,8 +655,9 @@ Template.App_manager.events({
               for (var i = 0; i < bonddata.rows.length; i++) {
                 if(bonddata.rows[i].id == bondid){
                   couponid=bonddata.rows[i].id;
-                  for(var j=0; j<bonddata.rows[i].bondholders.length; j++){
-                    var bondholder = bonddata.rows[i].bondholders[j]; 
+                  var iip=i;
+                  for(var j=0; j<bonddata.rows[iip].bondholders.length; j++){
+                    var bondholder = bonddata.rows[iip].bondholders[j]; 
                     var username = localStorage.getItem("username");
                     eosinstance.getTableRows({
                           code: "bondborrower",
@@ -662,9 +668,15 @@ Template.App_manager.events({
                         })
                   .then(resp => {
                     buyerdata = resp;
-                    console.log(j,"bondbuyer--",resp);
-                        var datearr = buyerdata.rows[0].returningdate.length-1;
-                        document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+buyerdata.rows[0].bondbuyer+"</div><div class='holders'>status -> "+datearr+" coupon are submitted</div></div>";   
+                    console.log(i,"bondbuyer--",resp);
+                    for(var k=0;k<buyerdata.rows.length;k++){
+                      if(buyerdata.rows[k].id==couponid){
+                        var datearr = buyerdata.rows[k].returningdate.length-1;
+                        document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+buyerdata.rows[k].bondbuyer+"</div><div class='holders'>status -> "+datearr+" coupon are submitted</div></div>";   
+                      }
+                    }
+                    
+                        
                   });
                   }
                   document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='coupondiv'><button class='couponbond' id='getcoupon'>coupondistirbution</button></div>";
@@ -697,18 +709,25 @@ Template.App_manager.events({
                       })
                 .then(resp => {
                   buyerdata = resp;
-                      var datearr = buyerdata.rows[0].returningdate[buyerdata.rows[0].returningdate.length-1];
-                      console.log(buyerdata.rows[0].returningdate.length,"dataarr--",i)
-                      if (buyerdata.rows[0].returningdate.length-1 == bonddata.rows[i-1].maturitycount){
-                        console.log("-success-"); 
-                        count++;                       
-                      }else if (buyerdata.rows[0].returningdate.length-1 <= bonddata.rows[i-1].maturitycount){
-                        if(datearr <= Chronos.now()){
-                          console.log("--time remain--");  
-                        }else{
-                          console.log("--done--");  
-                        }                   
-                      }                                   
+
+                  for(var k=0;k<buyerdata.rows.length;k++){
+                    if(buyerdata.rows[k].id==couponid){
+                      var datearr = buyerdata.rows[k].returningdate[buyerdata.rows[k].returningdate.length-1];
+                      console.log(buyerdata.rows[k].returningdate.length,"dataarr--",k)
+                      if (buyerdata.rows[k].returningdate.length-1 == bonddata.rows[k].maturitycount){
+                      
+                       count++;
+                       if(count==bonddata.rows[k].bondholders.length){
+                         alert("-payement----successfull---");       
+                       }              
+                      }else if (buyerdata.rows[k].returningdate.length-1 < bonddata.rows[k].maturitycount){
+                      
+                          alert("--time remain--");  
+                                        
+                      }  
+                    }
+                  }
+                                                      
                 });
                 }
               }      
