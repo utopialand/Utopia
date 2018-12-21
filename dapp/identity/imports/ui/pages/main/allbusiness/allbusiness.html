@@ -1,0 +1,14 @@
+<template name="App_all_business">
+    <div class="allbusiness-container">
+        <h1>all business</h1>
+        {{#each allBusinessList}}
+        <div class="mycompany">
+            <p>Owner: {{owner}}</p>
+            <p>Name: {{businessname}}</p>
+            <p>Token: {{token_maximum_supply}}</p>
+            <button class="details" id={{company_id}}>details</button>
+        </div>
+        {{/each}}
+    </div>
+    {{>App_footer}}
+</template>

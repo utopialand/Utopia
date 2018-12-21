@@ -77,7 +77,7 @@ ACTION business::printnames()
     }
 }
 
-ACTION business::create(asset maximum_supply, name owner, string businessname)
+ACTION business::createtandb(asset maximum_supply, name owner, string businessname)
 {
     require_auth(owner);
 
@@ -107,6 +107,25 @@ ACTION business::create(asset maximum_supply, name owner, string businessname)
         c.company_id = bt.available_primary_key();
         c.owner = owner;
         c.businessname = businessname;
+    });
+}
+
+ACTION business::create(asset maximum_supply, name issuer){
+    require_auth(issuer);
+
+    auto sym = maximum_supply.symbol;
+    eosio_assert(sym.is_valid(), "invalid symbol name");
+    eosio_assert(maximum_supply.is_valid(), "invalid supply");
+    eosio_assert(maximum_supply.amount > 0, "max-supply must be positive");
+
+    stats statstable(_self, sym.code().raw());
+    auto existing = statstable.find(sym.code().raw());
+    eosio_assert(existing == statstable.end(), "token with symbol already exists");
+
+    statstable.emplace(_self, [&](auto &s) {
+        s.supply.symbol = maximum_supply.symbol;
+        s.max_supply = maximum_supply;
+        s.issuer = issuer;
     });
 }
 
@@ -171,14 +190,57 @@ ACTION business::retire(asset quantity, string memo)
     sub_balance(st.issuer, quantity);
 }
 
+ACTION business::dilute(asset quantity, string memo){
+    auto sym = quantity.symbol;
+    eosio_assert(sym.is_valid(), "invalid symbol name");
+    eosio_assert(memo.size() <= 256, "memo has more than 256 bytes");
+
+    auto sym_name = sym.code().raw();
+    stats statstable(_self, sym_name);
+    auto existing = statstable.find(sym_name);
+    eosio_assert(existing != statstable.end(), "token with symbol does not exist");
+    const auto &st = *existing;
+    require_auth(st.issuer);
+    eosio_assert(quantity.is_valid(), "invalid quantity");
+    eosio_assert(quantity.amount > 0, "must retire positive quantity");
+
+    eosio_assert(quantity.symbol == st.supply.symbol, "symbol precision mismatch");
+
+    statstable.modify(st, eosio::same_payer, [&](auto &s) {
+        s.max_supply += quantity;
+    });
+}
+
+ACTION business::concentrate(asset quantity, string memo){
+    auto sym = quantity.symbol;
+    eosio_assert(sym.is_valid(), "invalid symbol name");
+    eosio_assert(memo.size() <= 256, "memo has more than 256 bytes");
+
+    auto sym_name = sym.code().raw();
+    stats statstable(_self, sym_name);
+    auto existing = statstable.find(sym_name);
+    eosio_assert(existing != statstable.end(), "token with symbol does not exist");
+    const auto &st = *existing;
+    require_auth(st.issuer);
+    eosio_assert(quantity.is_valid(), "invalid quantity");
+    eosio_assert(quantity.amount > 0, "must retire positive quantity");
+
+    eosio_assert(quantity.symbol == st.supply.symbol, "symbol precision mismatch");
+    eosio_assert(st.max_supply - quantity >= st.supply, "Cannot delete tokens");
+
+    statstable.modify(st, eosio::same_payer, [&](auto &s) {
+        s.max_supply -= quantity;
+    });
+}
+
 ACTION business::transfer(name from, name to, asset quantity, string memo)
 {
 
-    identity_table idtb("identityreg1"_n, "identityreg1"_n.value);
+  /*   identity_table idtb("identityreg1"_n, "identityreg1"_n.value);
     auto fromitr = idtb.find(from.value);
     auto toitr = idtb.find(to.value);
     eosio_assert(fromitr != idtb.end(), "Not a member of Utopia community");
-    eosio_assert(toitr != idtb.end(), "Not a member of Utopia community");
+    eosio_assert(toitr != idtb.end(), "Not a member of Utopia community"); */
 
     eosio_assert(from != to, "cannot transfer to self");
     require_auth(from);
@@ -262,8 +324,21 @@ ACTION business::close(name owner, symbol_code symbol)
     acnts.erase(it);
 }
 
+void business::listtoken(asset currency){
+    stats statstable("utopbusiness"_n, currency.symbol.code().raw());
+    auto itr = statstable.find(currency.symbol.code().raw());
+    eosio_assert(itr != statstable.end(), "token doesnt exist");
+    require_auth(itr->issuer);
+    exchanges et(_self, _self.value);
+    auto itr2 = et.find(currency.symbol.code().raw());
+    eosio_assert(itr2 == et.end(),"token already listed");
+    et.emplace(_self, [&](auto &s){
+        s.currency = currency;
+    });
+}
+
 EOSIO_DISPATCH(business,(deleteall)(delcompany)(addemployee)
-(rmemployee)(printnames)(create)(issue)(transfer)(open)
-(close)(retire))
+(rmemployee)(printnames)(createtandb)(create)(issue)(transfer)(open)
+(close)(retire)(dilute)(concentrate)(listtoken))
 
 

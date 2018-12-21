@@ -1,0 +1,60 @@
+.settings-container{
+    width: 90%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+.settings-container h1{
+    text-align: center;
+}
+
+.settings-container label{
+    width: 150px;
+}
+
+.settings-tab input{
+    display: block;
+}
+
+.settings-tab{
+    margin-top: 5%;
+    width: 50%;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.settings-tab button{
+    width: 150px;
+    height: 51px;
+    border: 0px;
+    font-size: 14px;
+    line-height: 15px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+    background:lightseagreen;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: white;
+    border-radius: 6px;
+}
+
+#rmempbtn{
+    width: 150px;
+    height: 51px;
+    border: 0px;
+    font-size: 14px;
+    line-height: 15px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+    background: transparent;
+    color: white;
+    background: red;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 6px;
+}
