@@ -1,0 +1,22 @@
+<template name="App_my_business">
+    
+    <div class="mybusiness-container">
+        <h1>my business</h1>
+        {{#if myBusinessList.length}}
+        {{#each myBusinessList}}
+        
+        <div class="mycompany">
+            <p>{{owner}}</p>
+            <p>{{businessname}}</p>
+            <p>{{token_maximum_supply}}</p>
+            <button class="settingsbtn" id={{company_id}}>Settings</button>
+        </div>
+        {{/each}}
+        
+        {{else}}
+        <div class = "no-business"><p>you currently down own a business</p></div>
+        
+        {{/if}}
+    </div>
+    {{>App_footer}}
+</template>

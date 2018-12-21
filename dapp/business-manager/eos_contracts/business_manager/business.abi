@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec  7 13:55:32 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 20 14:23:35 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -75,7 +75,35 @@
             ]
         },
         {
+            "name": "concentrate",
+            "base": "",
+            "fields": [
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
+        },
+        {
             "name": "create",
+            "base": "",
+            "fields": [
+                {
+                    "name": "maximum_supply",
+                    "type": "asset"
+                },
+                {
+                    "name": "issuer",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "createtandb",
             "base": "",
             "fields": [
                 {
@@ -124,6 +152,30 @@
             "name": "deleteall",
             "base": "",
             "fields": []
+        },
+        {
+            "name": "dilute",
+            "base": "",
+            "fields": [
+                {
+                    "name": "quantity",
+                    "type": "asset"
+                },
+                {
+                    "name": "memo",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "exchange_t",
+            "base": "",
+            "fields": [
+                {
+                    "name": "currency",
+                    "type": "asset"
+                }
+            ]
         },
         {
             "name": "identityt",
@@ -178,6 +230,16 @@
                 {
                     "name": "memo",
                     "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "listtoken",
+            "base": "",
+            "fields": [
+                {
+                    "name": "currency",
+                    "type": "asset"
                 }
             ]
         },
@@ -268,8 +330,18 @@
             "ricardian_contract": ""
         },
         {
+            "name": "concentrate",
+            "type": "concentrate",
+            "ricardian_contract": ""
+        },
+        {
             "name": "create",
             "type": "create",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "createtandb",
+            "type": "createtandb",
             "ricardian_contract": ""
         },
         {
@@ -283,8 +355,18 @@
             "ricardian_contract": ""
         },
         {
+            "name": "dilute",
+            "type": "dilute",
+            "ricardian_contract": ""
+        },
+        {
             "name": "issue",
             "type": "issue",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "listtoken",
+            "type": "listtoken",
             "ricardian_contract": ""
         },
         {
@@ -324,6 +406,13 @@
         {
             "name": "businesstb",
             "type": "businessst",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "exchange",
+            "type": "exchange_t",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

@@ -1,0 +1,32 @@
+.allbusiness-container{
+    width: 90%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+.allbusiness-container h1{
+    text-align: center;
+}
+
+
+.mycompany{
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    padding: 3% 0 3% 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 3% auto 0 auto;
+    width: 300px;
+}
+
+.mycompany button{
+    width: 150px;
+    height: 40px;
+    border: 0px;
+    text-transform: uppercase;
+    font-weight: bolder;
+    border-radius: 6px;
+}

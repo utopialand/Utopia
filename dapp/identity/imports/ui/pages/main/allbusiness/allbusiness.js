@@ -1,0 +1,20 @@
+import "./allbusiness.html";
+import "./allbusiness.css";
+import "../../../../templates/footer/footer.js";
+import "../../../../templates/header/header.js";
+import { Session } from "meteor/session";
+
+Template.App_all_business.helpers({
+    allBusinessList(){
+        console.log("my business helper  ",Session.get("allBusinessList"));
+        return Session.get("allBusinessList");
+    }
+});
+//this is a comment 
+
+Template.App_all_business.events({
+    "click .details": function(e){
+        var id = e.target.id;
+        FlowRouter.go("/business/allbusiness/"+id);
+    }
+});

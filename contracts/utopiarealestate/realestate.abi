@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec 19 14:10:35 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 21 17:20:08 2018",
     "version": "eosio::abi/1.1",
     "structs": [
         {
@@ -17,11 +17,51 @@
             ]
         },
         {
+            "name": "accsellreq",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "buyer",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
             "name": "approvedprop",
             "base": "",
             "fields": [
                 {
                     "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "auction",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "manager",
+                    "type": "name"
+                },
+                {
+                    "name": "startdate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "enddate",
                     "type": "uint64"
                 }
             ]
@@ -155,6 +195,16 @@
             ]
         },
         {
+            "name": "managertab",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
             "name": "properties",
             "base": "",
             "fields": [
@@ -253,8 +303,18 @@
             "ricardian_contract": ""
         },
         {
+            "name": "accsellreq",
+            "type": "accsellreq",
+            "ricardian_contract": ""
+        },
+        {
             "name": "approvedprop",
             "type": "approvedprop",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "auction",
+            "type": "auction",
             "ricardian_contract": ""
         },
         {
@@ -294,6 +354,13 @@
             "key_types": []
         },
         {
+            "name": "manager111",
+            "type": "managertab",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
             "name": "properties",
             "type": "properties",
             "index_type": "i64",
@@ -308,7 +375,7 @@
             "key_types": []
         },
         {
-            "name": "reqsellertab",
+            "name": "reqselltab11",
             "type": "reqsellers",
             "index_type": "i64",
             "key_names": [],

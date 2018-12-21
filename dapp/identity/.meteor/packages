@@ -21,5 +21,5 @@ insecure@1.0.7                # Allow all DB writes from clients (for prototypin
 aldeed:simple-schema
 kadira:flow-router
 kadira:blaze-layout
-session@1.2.0
+session
 remcoder:chronos

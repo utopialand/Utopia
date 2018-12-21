@@ -22,17 +22,25 @@ CONTRACT business : public contract
 
     ACTION printnames();
 
-    ACTION create(asset maximum_supply, name owner, string businessname);
+    ACTION createtandb(asset maximum_supply, name owner, string businessname);
+
+    ACTION create(asset maximum_supply, name issuer);
 
     ACTION issue(name to, asset quantity, string memo);
 
     ACTION retire(asset quantity, string memo);
+
+    ACTION dilute(asset quantity, string memo);
+
+    ACTION concentrate(asset quantity, string memo);
 
     ACTION transfer(name from, name to, asset quantity, string memo);
 
     ACTION open(name owner, symbol_code symbol, name ram_payer);
 
     ACTION close(name owner, symbol_code symbol);
+
+    ACTION listtoken(asset currency);
 
     static asset get_supply(name token_contract_account, symbol_code sym)
     {
@@ -74,9 +82,15 @@ CONTRACT business : public contract
         uint64_t primary_key() const { return username.value; }
     };
 
+    TABLE exchange_t
+    {
+        asset currency;
+        uint64_t primary_key() const { return currency.symbol.code().raw(); }
+    };
     typedef multi_index<"businesstb"_n, businessst> businesstb;
     typedef multi_index<"identity2"_n, identityt> identity_table;
-    
+    typedef eosio::multi_index<"exchange"_n, exchange_t> exchanges;
+
     struct transfer_args
     {
         name from;

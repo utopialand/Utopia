@@ -1,0 +1,76 @@
+.exchange-container{
+    width: 90%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+.exchange-container h1,h3{
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.buyselltoken{
+    margin-top: 5%;
+    border: 1px solid white;
+    padding: 0% 2% 5% 2%;
+}
+
+.buyothertoken{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5%;
+}
+
+.buyothertoken input{
+    width: 25%;
+    text-align: center;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+}
+
+.buyothertoken button{
+    width: 25%;
+    height: 50px;
+    border: 0px;
+    background: teal;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#returntokenfield{
+    cursor: not-allowed;
+}
+
+.buyutptoken{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 5%;
+}
+
+.buyutptoken input{
+    width: 25%;
+    text-align: center;
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
+}
+
+.buyutptoken button{
+    width: 25%;
+    height: 50px;
+    border: 0px;
+    background:teal;
+    color: white;
+    text-transform: uppercase;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
