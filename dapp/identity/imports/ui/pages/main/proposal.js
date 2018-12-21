@@ -5,74 +5,74 @@ import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";
 const network = {
-  protocol: "https", // Defaults to https
-  blockchain: "eos",
-  host: "jungle2.cryptolions.io",
-  port: 443,
-  chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
+    protocol: "https", // Defaults to https
+    blockchain: "eos",
+    host: "jungle2.cryptolions.io",
+    port: 443,
+    chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
 const eosOptions = {
-  chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
+    chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
-let tabledata ;
+let tabledata;
 let winnerresult;
-var scatter={};
+var scatter = {};
 var eosinstance = {};
 var flag = 0;
 Template.App_proposal.onCreated(function () {
-  Meteor.subscribe('identity');
-  ScatterJS.scatter.connect('utopia').then((connected) => {
-      if (connected) {
-          if (ScatterJS.scatter.connect('utopia')) {
-              scatter = ScatterJS.scatter;
-              const requiredFields = { accounts: [network] };
-              const eos = scatter.eos(network, Eos, eosOptions);
-              if (scatter.identity) {
-                  eosinstance = eos;                  
-                   eosinstance.getTableRows({
-                    code: "voteproposal",
-                    scope: "voteproposal",
-                    table: 'proposal11',
-                    limit: 50,
-                    json: true,
-                }).then((resp)=>{
-                    tabledata=resp;
-                    console.log("tabledata====>",tabledata);
+    Meteor.subscribe('identity');
+    ScatterJS.scatter.connect('utopia').then((connected) => {
+        if (connected) {
+            if (ScatterJS.scatter.connect('utopia')) {
+                scatter = ScatterJS.scatter;
+                const requiredFields = { accounts: [network] };
+                const eos = scatter.eos(network, Eos, eosOptions);
+                if (scatter.identity) {
+                    eosinstance = eos;
+                    eosinstance.getTableRows({
+                        code: "voteproposal",
+                        scope: "voteproposal",
+                        table: 'proposal11',
+                        limit: 50,
+                        json: true,
+                    }).then((resp) => {
+                        tabledata = resp;
+                        console.log("tabledata====>", tabledata);
 
-                });     
-                 
-                eosinstance.getTableRows({
-                  code: "voteproposal",
-                  scope: "voteproposal",
-                  table: "result13",
-                  limit: 50,
-                  json: true
-                })
-                .then(resp => {
-                  winnerresult =  resp; 
-                  console.log("winner response!!==>", resp);
-                });
+                    });
+
+                    eosinstance.getTableRows({
+                        code: "voteproposal",
+                        scope: "voteproposal",
+                        table: "result13",
+                        limit: 50,
+                        json: true
+                    })
+                        .then(resp => {
+                            winnerresult = resp;
+                            console.log("winner response!!==>", resp);
+                        });
 
 
-              } else {
-                  FlowRouter.go("/");
-              }
-          }
-      } else {
-          console.log("scatter not installed")
-      }
-  });
+                } else {
+                    FlowRouter.go("/");
+                }
+            }
+        } else {
+            console.log("scatter not installed")
+        }
+    });
 });
 
 
 
 Template.App_proposal.events({
-    "click #0":function(e){
-        if($(e.target).text() == "User proposal"){
+    "click #0": function (e) {
+        if ($(e.target).text() == "User proposal") {
             $(e.target).text("Create new user proposal");
-            document.getElementById("proposal-group").innerHTML = "";     
-            document.getElementById("listhead").innerHTML = "";      
-            document.getElementById("listhead").innerHTML += "<h1>Here is the list of proposals</h1>";        
+            document.getElementById("proposal-group").innerHTML = "";
+            document.getElementById("listhead").innerHTML = "";
+            document.getElementById("listhead").innerHTML += "<h1>Here is the list of proposals</h1>";
 
 
 
@@ -83,31 +83,28 @@ Template.App_proposal.events({
                 var resultbutton = "resultbutton";
                 votebutton = votebutton + tabledata.rows[i].id;
                 resultbutton = resultbutton + tabledata.rows[i].id;
-                for(let j=0 ; j<winnerresult.rows.length; j++)
-                {
-                    if(tabledata.rows[i].id==winnerresult.rows[j].proposal_id)
-                    {
+                for (let j = 0; j < winnerresult.rows.length; j++) {
+                    if (tabledata.rows[i].id == winnerresult.rows[j].proposal_id) {
                         document.getElementById("proposal-group").innerHTML +=
-                        "<div class = 'redo'><p>" + desc + "</p>"
-                        + "<button class = 'result-button' id = '" + resultbutton + "'>result</button>" + "</div>";
-                        flag =1;
+                            "<div class = 'redo'><p>" + desc + "</p>"
+                            + "<button class = 'result-button' id = '" + resultbutton + "'>result</button>" + "</div>";
+                        flag = 1;
                         break;
                     }
                 }
-                    if(flag == 0)
-                    {
-                        document.getElementById("proposal-group").innerHTML +=
+                if (flag == 0) {
+                    document.getElementById("proposal-group").innerHTML +=
                         "<div class = 'redo'><p>" + desc + "</p><button class = 'vote-button' id = '" + votebutton + "'>vote</button>"
                         + "<button class = 'result-button' id = '" + resultbutton + "'>vote_status</button>" + "</div>";
-                    }
-               
-        
+                }
+
+
             }
-        }else{
+        } else {
             FlowRouter.go('/newproposal');
         }
-        
-       
+
+
     },
     "click #1": function () {
         /* document.getElementById("form-section").style.display = "block";

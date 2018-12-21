@@ -13,9 +13,8 @@
 
 .buyselltoken{
     margin-top: 5%;
-    border: 1px solid black;
+    border: 1px solid white;
     padding: 0% 2% 5% 2%;
-    box-shadow: 0px 0px 30px #ccc;
 }
 
 .buyothertoken{
@@ -28,6 +27,9 @@
     width: 25%;
     text-align: center;
     background: transparent;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
 }
 
 .buyothertoken button{
@@ -56,6 +58,9 @@
     width: 25%;
     text-align: center;
     background: transparent;
+    border: 1px solid white;
+    color: white;
+    font-weight: bold;
 }
 
 .buyutptoken button{

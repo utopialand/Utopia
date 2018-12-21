@@ -43,6 +43,9 @@ function getAllBusinessList(){
                         Session.set("allBusinessList", allBusinessList);
                     });
                 }
+                else{
+                    FlowRouter.go("/");
+                }
             }
         }
     });
