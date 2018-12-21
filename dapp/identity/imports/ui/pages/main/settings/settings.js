@@ -1,7 +1,7 @@
 import "./settings.html";
 import "./settings.css";
-import "../../templates/header/header.js";
-import "../../templates/footer/footer.js";
+import "../../../../templates/footer/footer.js";
+import "../../../../templates/header/header.js";
 import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
@@ -39,9 +39,9 @@ const wasm = fs.readFile(wasmPath)
 const abi = fs.readFile(abiPath) */
 
 Template.App_business_settings.onRendered(function () {
-    ScatterJS.scatter.connect('businessManager').then((connected) => {
+    ScatterJS.scatter.connect('utopia').then((connected) => {
         if (connected) {
-            if (ScatterJS.scatter.connect('businessManager')) {
+            if (ScatterJS.scatter.connect('utopia')) {
                 scatter = ScatterJS.scatter;
                 const requiredFields = { accounts: [network] };
                 const eos = scatter.eos(network, Eos, eosOptions);
