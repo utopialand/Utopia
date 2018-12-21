@@ -20,6 +20,7 @@ import "../../ui/pages/main/Buybond.js";
 import "../../ui/pages/main/stvvoting.js"
 import "../../ui/pages/main/stvresult.js"
 import "../../ui/pages/main/stvstatus.js"
+import "../../ui/pages/main/realestate.js";
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
@@ -149,5 +150,12 @@ FlowRouter.route('/buybond', {
   name: 'buybond',
   action() {
     BlazeLayout.render('App_body', { main: 'buybond' });
+  }
+});
+
+FlowRouter.route('/realestate', {
+  name: 'realestate',
+  action() {
+    BlazeLayout.render('App_body', { main: 'App_realestate' });
   }
 });

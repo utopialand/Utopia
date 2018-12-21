@@ -74,12 +74,25 @@ ACTION realestate::approvedprop(uint64_t id)
         b.bidstatus = false;
         b.rsproposal = "finished";
     });
+
     properties_table pt(_self, _self.value);
-    pt.emplace(_self, [&](auto &p) {
-        p.propt_id = id;
-        p.owner = itr->currentOwner;
-        p.price = itr->currentprice;
-    });
+    auto itr1 = pt.find(id);
+    if (itr1 != pt.end())
+    {
+         pt.modify(itr1, _self, [&](auto &pt) {
+            pt.owner = itr->currentOwner;
+            pt.price = itr->currentprice;
+        });
+    }
+    else
+    {
+        pt.emplace(_self, [&](auto &p) {
+            p.propt_id = id;
+            p.owner = itr->currentOwner;
+            p.price = itr->currentprice;
+        });
+    }
+   
 }
 
 ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
@@ -204,4 +217,31 @@ ACTION realestate::accsellreq(uint64_t id, name buyer, asset amount)
     itr1 = st.erase(itr1);
 }
 
-EOSIO_DISPATCH(realestate, (landproposal)(bid)(approvedprop)(reqbuypropt)(accbuyerreq)(reqsellpropt)(accsellreq))
+ACTION realestate::auction(uint64_t id, name managername, uint64_t startdate, uint64_t enddate)
+{
+    manager_table manager("utpmanager11"_n, "utpmanager11"_n.value);
+    auto mitr = manager.find(managername.value);
+    eosio_assert(mitr != manager.end(), "manager not found !!!");
+
+    properties_table pt(_self, _self.value);
+    auto itr = pt.find(id);
+    eosio_assert(itr != pt.end(), "no available properties for this id!!!!");
+    require_auth(managername);
+    pt.modify(itr, _self, [&](auto &b) {
+        b.owner = managername;
+    });
+
+    asset amount = itr->price;
+    bid_table bt(_self, _self.value);
+    auto itr1 = bt.find(id);
+    bt.modify(itr1, _self, [&](auto &b) {
+        b.currentOwner = managername;
+        b.currentprice = amount;
+        b.startdate = startdate;
+        b.enddate = enddate;
+        b.bidstatus = true;
+        b.rsproposal = "created";
+    });
+};
+
+EOSIO_DISPATCH(realestate, (landproposal)(bid)(approvedprop)(reqbuypropt)(accbuyerreq)(reqsellpropt)(accsellreq)(auction))

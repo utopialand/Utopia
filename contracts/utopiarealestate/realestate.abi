@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 21 13:27:07 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 21 17:20:08 2018",
     "version": "eosio::abi/1.1",
     "structs": [
         {
@@ -40,6 +40,28 @@
             "fields": [
                 {
                     "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "auction",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "manager",
+                    "type": "name"
+                },
+                {
+                    "name": "startdate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "enddate",
                     "type": "uint64"
                 }
             ]
@@ -173,6 +195,16 @@
             ]
         },
         {
+            "name": "managertab",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
             "name": "properties",
             "base": "",
             "fields": [
@@ -281,6 +313,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "auction",
+            "type": "auction",
+            "ricardian_contract": ""
+        },
+        {
             "name": "bid",
             "type": "bid",
             "ricardian_contract": ""
@@ -312,6 +349,13 @@
         {
             "name": "identity2",
             "type": "identityt",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "manager111",
+            "type": "managertab",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

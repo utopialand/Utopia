@@ -1,0 +1,19 @@
+.realestate-container {
+    max-width: 1440px;
+    width: 90%;
+    margin: 5% auto 0 auto;
+    margin-bottom: 5%;
+    color: white;
+  }
+  .realestate-flex-box{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height:200px;
+    width:100%;
+    margin-left: auto;
+    margin-right: auto;
+    background: white;
+    color:black;
+  }
+  
