@@ -90,5 +90,15 @@ Template.App_stvresult.events({
     var id = event.target.id;
     console.log("id==>",id);
   }});
-  
+  Template.App_stvresult.events({
+    "submit .new-task": function (event) {
+        // Prevent default browser form submit
+        event.preventDefault();
+        // Get value from form element
+        var text = event.target.text.value;
+        console.log(text)
+        
+    }
+    });
+    
   

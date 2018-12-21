@@ -2,7 +2,7 @@
 #include <eosiolib/asset.hpp>
 using namespace eosio;
 using namespace std;
-CONTRACT realstate : public contract
+CONTRACT realestate : public contract
 {
     using contract::contract;
 
