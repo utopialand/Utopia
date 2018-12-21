@@ -29,3 +29,10 @@
     font-weight: bolder;
     border-radius: 6px;
 }
+
+.no-business p{
+    text-align: center;
+    font-size: 32px;
+    font-weight: bolder;
+    text-transform: capitalize;
+}
