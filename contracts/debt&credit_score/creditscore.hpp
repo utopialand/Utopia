@@ -9,6 +9,7 @@ CONTRACT creditscore : public contract
 
   public:
     ACTION addcredscore(name identity, name username, float cscore);
+    ACTION modcreditsc(name identity, name username, float cscore, bool isdefaulter);
 
     TABLE credscore
     {

@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 20 11:40:03 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 21 14:49:26 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -81,6 +81,28 @@
                     "type": "name"
                 }
             ]
+        },
+        {
+            "name": "modcreditsc",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "cscore",
+                    "type": "float32"
+                },
+                {
+                    "name": "isdefaulter",
+                    "type": "bool"
+                }
+            ]
         }
     ],
     "types": [],
@@ -88,6 +110,11 @@
         {
             "name": "addcredscore",
             "type": "addcredscore",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "modcreditsc",
+            "type": "modcreditsc",
             "ricardian_contract": ""
         }
     ],
