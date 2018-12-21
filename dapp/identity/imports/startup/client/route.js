@@ -30,7 +30,6 @@ import "../../ui/pages/main/newbusiness/newbusiness.js";
 import "../../ui/pages/main/settings/settings.js";
 
 
-
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {

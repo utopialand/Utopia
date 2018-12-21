@@ -81,6 +81,7 @@ Template.welcomePage.events({
             document.getElementById("loginButton").innerHTML = "logout";
             document.getElementsByClassName("optionFlex")[0].style.display =
               "flex";
+              document.getElementsByClassName("identitySection")[0].style.display = "flex";
           })
           .catch(error => {
             console.error(error);
@@ -95,6 +96,7 @@ Template.welcomePage.events({
         localStorage.setItem("username", "");
         console.log("logout");
         document.getElementsByClassName("optionFlex")[0].style.display = "none";
+        document.getElementsByClassName("identitySection")[0].style.display = "none";
       });
     }
   }
