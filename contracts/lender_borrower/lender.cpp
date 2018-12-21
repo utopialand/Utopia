@@ -69,8 +69,7 @@ ACTION lender::reqloancolat(name identity, uint64_t catgid,
     });
 }
 ACTION lender::approveloan(name identity, uint64_t reqloanid,
-                           name borrower
-                          )
+                           name borrower)
 {
     require_auth(identity);
     manager_table manager("utpmanager11"_n, "utpmanager11"_n.value);
@@ -81,8 +80,8 @@ ACTION lender::approveloan(name identity, uint64_t reqloanid,
     reqloan_tab req(_self, _self.value);
     collat_tab colat(_self, _self.value);
     properties_table prop("realstateutp"_n, "realstateutp"_n.value);
-   // businesstb business("utopbusiness"_n, "utopbusiness"_n.value);
-  //  credscore_tab credit(_self, _self.value);
+    // businesstb business("utopbusiness"_n, "utopbusiness"_n.value);
+    //  credscore_tab credit(_self, _self.value);
     loancatg_table catg(_self, _self.value);
 
     auto itr = req.find(reqloanid);
@@ -94,7 +93,7 @@ ACTION lender::approveloan(name identity, uint64_t reqloanid,
     auto income = itr->incomepm;
     auto loanamt = itr->loanamt;
     auto catgid = itr->catgid;
-    int64_t total=0;
+    int64_t total = 0;
 
     if (type == true)
     {
@@ -135,7 +134,7 @@ ACTION lender::approveloan(name identity, uint64_t reqloanid,
     }
     else
     {
-       /*  auto creditr = credit.find(borrower.value);
+        /*  auto creditr = credit.find(borrower.value);
         auto cscore = creditr->credscore;
 
         eosio_assert(cscore >= 3, "You are not eligible for lending money!!!");
@@ -156,13 +155,17 @@ ACTION lender::approveloan(name identity, uint64_t reqloanid,
     print("final due dt---", now() + (period * 86400));
     print("final due asset---", asset(finaldue, symbol(symbol_code("UTP"), 4)));
 
-     approve.emplace(_self, [&](auto &a) {
+    approve.emplace(_self, [&](auto &a) {
         a.reqloanid = reqloanid;
         a.borrower = borrower;
         a.approvedAt = now();
         a.amtapproved = loanamt;
-        a.totaldue = asset(finaldue, symbol(symbol_code("UTP"),4));
-        a.finalduedt = now() + (period * 86400);
+        a.totaldue = asset(finaldue, symbol(symbol_code("UTP"), 4));
+        a.finalduedt = now() + 600;//(period * 86400);
+    });
+
+    req.modify(itr, _self, [&](auto &a) {
+        a.status = "request approved";
     });
 }
 
@@ -175,58 +178,159 @@ ACTION lender::checkdefault(name identity, uint64_t reqloanid, name borrower)
     eosio_assert(itr->status != "defaulter", "Already declared as a defaulter!!!");
     if (now() > itr->finalduedt + 86400 * 10 && itr->status == "due")
     {
-        auto creditscore = -1;
-        auto isdefault = true;
+
         print("call modify func of credit score contract---");
+        float creditscore = -1;
+        bool isdefault = true;
         /* approve.modify(itr, _self, [&](auto &a) {
             a.status = "defaulter";
         }); */
+        action(
+            permission_level{identity, "active"_n},
+            "utpcreditsc1"_n, "modcreditsc"_n,
+            std::make_tuple(identity, borrower, creditscore, isdefault))
+            .send();
     }
 
-    else {
+    else
+    {
         print("You have time for loan payment--");
     }
 }
 
-ACTION lender::loanpayment(name borrower, uint64_t reqloanid, asset amt)
+ACTION lender::checkauction(name identity, uint64_t reqloanid, name borrower)
 {
+    approveloan_tab approve(_self, _self.value);
+    reqloan_tab req(_self, _self.value);
+    vector <uint64_t> properties;
+    auto itr = approve.find(reqloanid);
+    auto reqitr = req.find(reqloanid);
+    eosio_assert(itr != approve.end(), "requested loan id not found!!!");
+    eosio_assert(reqitr != req.end(), "requested loan id not found!!!");
+    properties = reqitr -> prop_id;
+
+
+    if (now() > (itr->finalduedt + 86400 * 10) + 50 && itr->status == "defaulter")
+    {
+
+        print("call auction func of real estate contract---");
+        
+        approve.modify(itr, _self, [&](auto &a) {
+            a.status = "auction called";
+        });
+        action(
+            permission_level{identity, "active"_n},
+            "realstateutp"_n, "auction"_n,
+            std::make_tuple(properties[0],identity, now()+(5*86400),(now()+(5*86400))+(5*86400)))
+            .send();
+    }
+
+    else
+    {
+        print("You have time for loan payment--");
+    }
+}
+
+ACTION lender::loanpayment(name payer, uint64_t reqloanid, asset amt)
+{
+    require_auth(payer);
     reqloan_tab req(_self, _self.value);
     approveloan_tab approve(_self, _self.value);
+    paymentdet_tab payment(_self, _self.value);
     auto itr = req.find(reqloanid);
     auto appritr = approve.find(reqloanid);
     eosio_assert(itr != req.end(), "requested loan id not found!!!");
+    eosio_assert(appritr != approve.end(), "requested loan id was not approved!!!");
+
+    payment.emplace(payer, [&](auto &p) {
+        p.reqloanid = reqloanid;
+        p.payer = payer;
+        p.amount = amt;
+        p.paymentAt = now();
+    });
+}
+
+ACTION lender::paymentacpt(name identity, uint64_t reqloanid)
+{
+    require_auth(identity);
+    manager_table manager("utpmanager11"_n, "utpmanager11"_n.value);
+    auto mitr = manager.find(identity.value);
+    eosio_assert(mitr != manager.end(), "manager not found !!!");
+
+    reqloan_tab req(_self, _self.value);
+    approveloan_tab approve(_self, _self.value);
+    paymentdet_tab payment(_self, _self.value);
+
+    auto itr = payment.find(reqloanid);
+    auto appritr = approve.find(reqloanid);
+    auto reqitr = req.find(reqloanid);
+    eosio_assert(itr != payment.end(), "Payment from loan id not found!!!");
     auto dueamt = appritr->totaldue;
-    auto paymentAt = now();
+    auto paymentAt = itr->paymentAt;
+    auto amt = itr->amount;
+    auto borrower = itr->payer;
+    float creditscore;
+    bool isdefault;
+    string statusApprove;
     string status;
     asset left;
-    if (paymentAt > appritr->finalduedt)
-        auto creditscore = -.5;
-    else
-        auto creditscore = .1;
-    print("call modify function in credit score contract--");
+
     if (amt < dueamt)
     {
-        print("transfer---", amt);
         left = dueamt - amt;
         status = "due";
     }
     else if (amt == dueamt)
     {
-        print("transfer---", amt);
-        left.amount = 0;
+        left = dueamt - amt;
         status = "complete";
+
+        if (paymentAt > appritr->finalduedt)
+        {
+            if (paymentAt > appritr->finalduedt + 86400 * 10)
+            {
+                creditscore = -1;
+                isdefault = true;
+                status = "complete, defaulter";
+            }
+            else
+            {
+                creditscore = -.5;
+                isdefault = false;
+            }
+        }
+
+        else
+        {
+            creditscore = .1;
+            isdefault = false;
+        }
+
+        ///////////////////////////////////////////
+        print("call modify function in credit score contract--");
+
+        action(
+            permission_level{identity, "active"_n},
+            "utpcreditsc1"_n, "modcreditsc"_n,
+            std::make_tuple(identity, borrower, creditscore, isdefault))
+            .send();
+        //////////////////////////////////////////
+
+        req.modify(reqitr, _self, [&](auto &a) {
+            a.status = "loan payment complete";
+        });
     }
     else
     {
-        print("transfer---", dueamt - amt);
-        left.amount = 0;
-        status = "complete";
+        print("excess amt--");
     }
 
-    /* approve.modify(appritr, _self, [&](auto &a) {
+    approve.modify(appritr, _self, [&](auto &a) {
         a.totaldue = left;
         a.status = status;
-    }); */
+    });
+
+    payment.erase(itr);
 }
 
 /* 
@@ -286,4 +390,4 @@ ACTION lender::hi()
 
 //EOSIO_DISPATCH(lender, (addloancatg)(addcatg)(hi)(addupdatecr)(reqloancolat)(reqloanincm)(approveloan)(loanpayment)(checkdefault))
 
-EOSIO_DISPATCH(lender, (hi)(addloancatg)(addcollat)(reqloancolat)(approveloan)(checkdefault))
+EOSIO_DISPATCH(lender, (hi)(addloancatg)(addcollat)(reqloancolat)(approveloan)(checkdefault)(loanpayment)(paymentacpt))

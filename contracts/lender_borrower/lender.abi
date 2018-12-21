@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 20 17:26:24 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 21 17:29:16 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -91,6 +91,24 @@
             ]
         },
         {
+            "name": "checkauction",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "reqloanid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "borrower",
+                    "type": "name"
+                }
+            ]
+        },
+        {
             "name": "checkdefault",
             "base": "",
             "fields": [
@@ -119,6 +137,24 @@
                 {
                     "name": "type",
                     "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "credscore",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "creditscore",
+                    "type": "float32"
+                },
+                {
+                    "name": "isdefaulter",
+                    "type": "bool"
                 }
             ]
         },
@@ -194,12 +230,66 @@
             ]
         },
         {
+            "name": "loanpayment",
+            "base": "",
+            "fields": [
+                {
+                    "name": "payer",
+                    "type": "name"
+                },
+                {
+                    "name": "reqloanid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "amt",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
             "name": "managertab",
             "base": "",
             "fields": [
                 {
                     "name": "user",
                     "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "paymentacpt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "reqloanid",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "paymentdet",
+            "base": "",
+            "fields": [
+                {
+                    "name": "reqloanid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "payer",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
+                },
+                {
+                    "name": "paymentAt",
+                    "type": "uint64"
                 }
             ]
         },
@@ -320,6 +410,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "checkauction",
+            "type": "checkauction",
+            "ricardian_contract": ""
+        },
+        {
             "name": "checkdefault",
             "type": "checkdefault",
             "ricardian_contract": ""
@@ -330,6 +425,16 @@
             "ricardian_contract": ""
         },
         {
+            "name": "loanpayment",
+            "type": "loanpayment",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "paymentacpt",
+            "type": "paymentacpt",
+            "ricardian_contract": ""
+        },
+        {
             "name": "reqloancolat",
             "type": "reqloancolat",
             "ricardian_contract": ""
@@ -337,7 +442,7 @@
     ],
     "tables": [
         {
-            "name": "approved111",
+            "name": "approved112",
             "type": "approvedloan",
             "index_type": "i64",
             "key_names": [],
@@ -346,6 +451,13 @@
         {
             "name": "collat111",
             "type": "collateral",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "cscore112",
+            "type": "credscore",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
@@ -374,6 +486,13 @@
         {
             "name": "manager111",
             "type": "managertab",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "payment111",
+            "type": "paymentdet",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

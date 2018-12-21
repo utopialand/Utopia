@@ -21,9 +21,12 @@ CONTRACT lender : public contract
                      string desc);
 
     ACTION approveloan(name identity, uint64_t reqloanid,
-                           name borrower
-                          );
+                       name borrower);
     ACTION checkdefault(name identity, uint64_t reqloanid, name borrower);
+    ACTION checkauction(name identity, uint64_t reqloanid, name borrower);
+    ACTION loanpayment(name payer, uint64_t reqloanid, asset amt);
+    ACTION paymentacpt(name identity, uint64_t reqloanid);
+    
     /*ACTION addupdatecr(name identity, uint16_t crscore);
    
     ACTION reqloanincm(name identity, uint64_t catgid,
@@ -31,7 +34,7 @@ CONTRACT lender : public contract
                        string purpose,
                        asset income);
   
-    ACTION loanpayment(name borrower, uint64_t reqloanid, asset amt);
+   
 
     
  */
@@ -103,7 +106,7 @@ CONTRACT lender : public contract
         uint64_t primary_key() const { return reqloanid; }
     };
 
-     TABLE properties
+    TABLE properties
     {
         uint64_t propt_id;
         name owner;
@@ -111,11 +114,21 @@ CONTRACT lender : public contract
         uint64_t primary_key() const { return propt_id; }
     };
 
-    /*  
- */
-    /*
-
-   */
+    TABLE paymentdet
+    {
+        uint64_t reqloanid;
+        name payer;
+        asset amount;
+        uint64_t paymentAt;
+        uint64_t primary_key() const { return reqloanid; }
+    };
+    TABLE credscore
+    {
+        name username;
+        float creditscore;
+        bool isdefaulter = false;
+        uint64_t primary_key() const { return username.value; }
+    };
 
     /*   
     
@@ -161,6 +174,8 @@ CONTRACT lender : public contract
     typedef multi_index<"identity3"_n, identityt> identity_table;
     typedef multi_index<"reqloan112"_n, requestloan> reqloan_tab;
     typedef multi_index<"idsupp111"_n, idsupply> idsupp_table;
-    typedef multi_index<"approved111"_n, approvedloan> approveloan_tab;
+    typedef multi_index<"approved112"_n, approvedloan> approveloan_tab;
     typedef multi_index<"properties"_n, properties> properties_table;
+    typedef multi_index<"payment111"_n, paymentdet> paymentdet_tab;
+    typedef multi_index<"cscore112"_n, credscore> cscore_table;
 };
