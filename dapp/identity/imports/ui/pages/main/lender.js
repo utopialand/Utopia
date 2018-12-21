@@ -67,6 +67,7 @@ Template.lender.onCreated( function (){
 Template.lender.onRendered( function (){
     document.getElementById("apply-section").style.display="none";
     document.getElementById("loanpay-section").style.display="none";
+    document.getElementById("paying").style.display="none";
     document.getElementById("managertask-section").style.display="none";
 })
 Template.lender.events({
@@ -74,6 +75,8 @@ Template.lender.events({
         console.log("user");
         document.getElementById("apply-section").style.display="block";
         document.getElementById("loanpay-section").style.display="none";
+        document.getElementById("paying").style.display="block";
+        document.getElementById("manager").style.display="none";
         document.getElementById("managertask-section").style.display="none";
         document.getElementById("catgid").innerHTML ="";
         document.getElementById("colatoptn").innerHTML ="";
@@ -105,5 +108,12 @@ Template.lender.events({
         document.getElementById("managertask-section").style.display="block";
         document.getElementById("apply-section").style.display="none";
         document.getElementById("loanpay-section").style.display="none";
+    },
+    'click #paying':function(){
+        document.getElementById("apply-section").style.display="none";
+        document.getElementById("managertask-section").style.display="none";
+        document.getElementById("loanpay-section").style.display="block";
+        document.getElementById("manager").style.display="block";
+        document.getElementById("user").style.display="none";
     }
 })
