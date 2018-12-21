@@ -38,9 +38,7 @@ Template.App_manager.onCreated(function() {
         const requiredFields = { accounts: [network] };
         const eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
-          eosinstance = eos;
-
-          ////////////////////////////////////////////
+          eosinstance = eos;       
 
           await eosinstance.getTableRows({
             code: "voteproposal",
@@ -53,9 +51,6 @@ Template.App_manager.onCreated(function() {
             winnerresults =  resp; 
             console.log("winner response!!==>", winnerresults);
           });
-          ////////////////////////////////////////////
-
-
           await eosinstance
             .getTableRows({
               code: "voteproposal",
@@ -191,8 +186,6 @@ Template.App_manager.onCreated(function() {
               table: "votes111",
               limit: "50",
               json: true
-              /* key_type: "i64",
-              index_position: 2 */
             })
             .then(response => {
               resultdata = response;
@@ -228,7 +221,6 @@ Template.App_manager.events({
     document.getElementsByClassName("manager-below-section")[0].style.display =
       "block";
       document.getElementsByClassName("bondprop")[0].innerHTML ="";
-    /* reqcitizen (username) */
   },
   "click .approved-button": async function() {
     console.log("helllllllloManager");
@@ -362,11 +354,6 @@ Template.App_manager.events({
             var desc = budgetprop.rows[j].proposal_description;
             var count = budgetprop.rows[j].count;
             var budgetpropId = budgetprop.rows[j].id;
-            console.log("proposal_description-->", desc);
-            console.log("count-->", count);
-            console.log("id-->", budgetpropId);
-            console.log("arr.length-->", arr.length);
-
             document.getElementById("proposal-result-name").innerHTML +=
               "<div class = 'epmanager'>" + desc + "</div><br>";
           }
@@ -379,12 +366,6 @@ Template.App_manager.events({
         "</div>";
     } 
 
-      /* document.getElementById("result-container").style.display = "none"; */
-      console.log("budgetButton clicked");
-      console.log("budgetprop: -->", budgetprop);
-      console.log("budgetpropstart", budgetpropstart.rows[0]);
-
-      console.log("dhsdhs", tabledata);
       document.getElementsByClassName(
         "manager-below-section"
       )[0].style.display = "none";
@@ -395,11 +376,6 @@ Template.App_manager.events({
         var desc = budgetprop.rows[i].proposal_description;
         var count = budgetprop.rows[i].count;
         var budgetpropId = budgetprop.rows[i].id;
-        console.log("proposal_description-->", desc);
-        console.log("count-->", count);
-        console.log("id-->", budgetpropId);
-        console.log("budgetprop.rows.length === >", budgetprop.rows.length);
-        console.log("budgetprop.rows[i].selected", budgetprop.rows[i].selected);
         if (budgetprop.rows[i].selected == 0) {
           document.getElementById("budgetProposalsList").innerHTML +=
             "<div class = 'bpFlex'>" +
@@ -530,10 +506,6 @@ Template.App_manager.events({
     var username = localStorage.getItem("username");
     let rescontract = await eosinstance.contract("propbudget11");
     console.log("response---",rescontract);
-   
-         
-            
-            /////////////////////////////////////////
             resfeature = await eosinstance.getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
@@ -542,11 +514,9 @@ Template.App_manager.events({
               json: true
             });
             console.log("len------",resfeature.rows.length!=0);
-            /////////////////////////////////////////
             if(resfeature.rows.length!=0)
             {
               alert("other stv is on-- ");
-            ////////////////////////////////////////
             }
             else {
 
@@ -556,16 +526,8 @@ Template.App_manager.events({
               {
                 console.log("===", resfeature.rows[0].proposal_options);
                 document.getElementById("budgetProposalsList").innerHTML = "";
-                console.log( "===============budgetprop==================",budgetprop);
-                console.log("===", resfeature.rows[0].proposal_options);
                 let arr;
                 arr = resfeature.rows[0].proposal_options;
-                console.log("arr------===>", arr);
-                console.log("arr------===>", arr[0]);
-                console.log("arr------===>", arr[1]);
-                console.log("arr------===>", arr[2]);
-                console.log("=====bdg", budgetprop.rows[0].id);
-                console.log("length==>", budgetprop.rows.length);
     
                 for (var i = 0; i < budgetprop.rows.length; i++) {
                   for (var j = 0; j < arr.length; j++) {
@@ -573,9 +535,6 @@ Template.App_manager.events({
                       var desc = budgetprop.rows[i].proposal_description;
                       var count = budgetprop.rows[i].count;
                       var budgetpropId = budgetprop.rows[i].id;
-                      console.log("proposal_description-->", desc);
-                      console.log("count-->", count);
-                      console.log("id-->", budgetpropId);
                       document.getElementById("budgetProposalsList").innerHTML +=
                         "<div class = 'bpFlex'>" +
                         "<div class = 'bpClass'>" +
@@ -601,7 +560,6 @@ Template.App_manager.events({
   },
   "click #submitButton": async function() {
 
-    ///////////////////////////////////////
     resfeature = await eosinstance.getTableRows({
       code: "propbudget11",
       scope: "propbudget11",
@@ -609,18 +567,13 @@ Template.App_manager.events({
       limit: 50,
       json: true
     });
-    ///////////////////////////////////////
     console.log("manager submit");
     var username = localStorage.getItem("username");
     var details = $("#details").val();
     var duration = $("#duration").val();
     var noOfwinner = $("#noOfwinner").val();
     var id = resfeature .rows[0].id;
-    console.log("username", username);
-    console.log("details", details);
-    console.log("duration", duration);
-    console.log("noOfwinner", noOfwinner);
-    console.log("id", id);
+   
     eosinstance.contract("propbudget11").then(propbudget11 => {
       propbudget11.startstv(id, username, details, duration, noOfwinner, {
           authorization: username
@@ -729,7 +682,6 @@ Template.App_manager.events({
                 }
               }      
           } 
-            //alert("coupon distributed !!!!");
           } else {
             alert("some problems!!!!");
           }

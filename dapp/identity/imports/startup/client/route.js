@@ -20,6 +20,8 @@ import "../../ui/pages/main/Buybond.js";
 import "../../ui/pages/main/stvvoting.js"
 import "../../ui/pages/main/stvresult.js"
 import "../../ui/pages/main/stvstatus.js"
+import "../../ui/pages/main/Allutopians.js"
+import "../../ui/pages/main/lender.js"
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
@@ -32,7 +34,12 @@ FlowRouter.route('/vote/:id', {
     BlazeLayout.render('App_body', { main: 'Vote' });
   }
 });
-
+FlowRouter.route('/allutopians', {
+  name: 'allutopians',
+  action() {
+    BlazeLayout.render('App_body', { main: 'allutopians' });
+  }
+});
 FlowRouter.route('/identity-reg', {
   name: 'identity-reg',
   action() {
@@ -149,5 +156,11 @@ FlowRouter.route('/buybond', {
   name: 'buybond',
   action() {
     BlazeLayout.render('App_body', { main: 'buybond' });
+  }
+});
+FlowRouter.route('/lender', {
+  name: 'lender',
+  action() {
+    BlazeLayout.render('App_body', { main: 'lender' });
   }
 });
