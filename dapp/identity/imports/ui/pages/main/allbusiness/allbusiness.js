@@ -15,6 +15,6 @@ Template.App_all_business.helpers({
 Template.App_all_business.events({
     "click .details": function(e){
         var id = e.target.id;
-        FlowRouter.go("/allbusiness/business/"+id);
+        FlowRouter.go("/business/allbusiness/"+id);
     }
 });
