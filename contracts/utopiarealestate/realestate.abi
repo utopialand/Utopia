@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec 24 12:36:46 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec 24 18:11:26 2018",
     "version": "eosio::abi/1.1",
     "structs": [
         {
@@ -223,6 +223,16 @@
             ]
         },
         {
+            "name": "rejbuyerreq",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "reqbuyers",
             "base": "",
             "fields": [
@@ -328,6 +338,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "rejbuyerreq",
+            "type": "rejbuyerreq",
+            "ricardian_contract": ""
+        },
+        {
             "name": "reqbuypropt",
             "type": "reqbuypropt",
             "ricardian_contract": ""
@@ -368,7 +383,7 @@
             "key_types": []
         },
         {
-            "name": "reqbuyertab1",
+            "name": "reqbuyertab2",
             "type": "reqbuyers",
             "index_type": "i64",
             "key_names": [],

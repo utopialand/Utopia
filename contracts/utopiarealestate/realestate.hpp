@@ -8,13 +8,14 @@ CONTRACT realestate : public contract
 
   public:
     ACTION landproposal(string location, uint64_t area, name currentOwner, asset currentprice, uint64_t startdate, uint64_t enddate);
-    ACTION bid(uint64_t id, name buyername,asset amount);
+    ACTION bid(uint64_t id, name buyername, asset amount);
     ACTION approvedprop(uint64_t id);
     ACTION reqbuypropt(uint64_t id, name buyer, asset amount);
     ACTION accbuyerreq(uint64_t id, name seller);
     ACTION reqsellpropt(uint64_t id, name seller, asset amount);
     ACTION accsellreq(uint64_t id, name buyer, asset amount);
-    ACTION auction(uint64_t id,name manager, uint64_t startdate, uint64_t enddate);
+    ACTION auction(uint64_t id, name manager, uint64_t startdate, uint64_t enddate);
+    ACTION rejbuyerreq(uint64_t id);
     TABLE bidtable
     {
         uint64_t id;
@@ -72,7 +73,7 @@ CONTRACT realestate : public contract
     typedef eosio::multi_index<"identity2"_n, identityt> identity_table;
     typedef multi_index<"bidtable"_n, bidtable> bid_table;
     typedef multi_index<"properties"_n, properties> properties_table;
-    typedef multi_index<"reqbuyertab1"_n, reqbuyers> buyer_table;
+    typedef multi_index<"reqbuyertab2"_n, reqbuyers> buyer_table;
     typedef multi_index<"reqselltab11"_n, reqsellers> seller_table;
     typedef multi_index<"manager111"_n, managertab> manager_table;
 };
