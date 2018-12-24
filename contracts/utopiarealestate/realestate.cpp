@@ -69,7 +69,7 @@ ACTION realestate::approvedprop(uint64_t id)
     require_auth(_self);
     eosio_assert(itr->bidstatus != false, "already aprroved");
     uint64_t t = now();
-    eosio_assert(t >= itr->enddate, "available for bidding");
+    eosio_assert(t >= itr->enddate, "available for bidding !!!");
     bt.modify(itr, _self, [&](auto &b) {
         b.bidstatus = false;
         b.rsproposal = "finished";
@@ -77,22 +77,35 @@ ACTION realestate::approvedprop(uint64_t id)
 
     properties_table pt(_self, _self.value);
     auto itr1 = pt.find(id);
-    if (itr1 != pt.end())
+    name rsdeposite = "rsdeposite11"_n;
+    string memo = "fund transfer";
+    if (itr->rsproposal == "finished")
     {
-         pt.modify(itr1, _self, [&](auto &pt) {
-            pt.owner = itr->currentOwner;
-            pt.price = itr->currentprice;
-        });
+        if (itr1 != pt.end())
+        {
+            name currentOwner = itr1->owner;
+            asset amount = itr1->price;
+           
+                action(
+                    permission_level{rsdeposite, "active"_n},
+                    "amartesttest"_n, "transfer"_n,
+                    make_tuple(rsdeposite, currentOwner, amount, memo))
+                    .send();
+
+            pt.modify(itr1, _self, [&](auto &pt) {
+                pt.owner = itr->currentOwner;
+                pt.price = itr->currentprice;
+            });
+        }
+        else
+        {
+            pt.emplace(_self, [&](auto &p) {
+                p.propt_id = id;
+                p.owner = itr->currentOwner;
+                p.price = itr->currentprice;
+            });
+        }
     }
-    else
-    {
-        pt.emplace(_self, [&](auto &p) {
-            p.propt_id = id;
-            p.owner = itr->currentOwner;
-            p.price = itr->currentprice;
-        });
-    }
-   
 }
 
 ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
