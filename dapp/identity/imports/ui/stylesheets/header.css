@@ -62,6 +62,18 @@
   cursor: pointer;
 }
 
+.identitySection .real-estate-link{
+  font-family: Colfax Black;
+  line-height: 19px;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-right: 5%;
+  cursor: pointer;
+}
+
 .headLineBoundary{
   max-width: 100%;
   margin-top:3%;

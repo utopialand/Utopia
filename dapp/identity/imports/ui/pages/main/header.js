@@ -58,5 +58,8 @@ Template.header.events({
     },
     "click .business-link": function(){
         FlowRouter.go("/business");
+    },
+    "click .real-estate-link": function(){
+      FlowRouter.go("/realestate");
     }
 });

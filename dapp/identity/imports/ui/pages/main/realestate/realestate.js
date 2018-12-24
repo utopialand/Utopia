@@ -1,12 +1,12 @@
-import "./mybusiness.html";
-import "./mybusiness.css";
+import "./realestate.html";
+import "./realestate.css";
 import "../../../../templates/footer/footer.js";
-import "../../../../templates/header/header.js";
-import { Session } from "meteor/session";
 import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
-import ScatterEOS from 'scatterjs-plugin-eosjs'
+import ScatterEOS from 'scatterjs-plugin-eosjs';
+import { Session } from "meteor/session";
 ScatterJS.plugins( new ScatterEOS() );
+
 
 const network = {
     protocol: "https", // Defaults to https
@@ -22,30 +22,24 @@ const eosOptions = {
 var scatter = {};
 var eosinstance = {};
 
-function getMyBusinessList(){
+function allProperties(){
     ScatterJS.scatter.connect('utopia').then((connected) => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
                 scatter = ScatterJS.scatter;
                 const requiredFields = { accounts: [network] };
                 const eos = scatter.eos(network, Eos, eosOptions);
+                eosinstance = eos;
                 if (scatter.identity) {
                     eos.getTableRows({
-                        code: "utopbusiness",
-                        scope: "utopbusiness",
-                        table: "businesstb",
+                        code: "realstateutp",
+                        scope: "realstateutp",
+                        table: "properties",
                         limit: "50",
                         json: true,
                     }).then((response)=>{
-                        var myBusinessList = [];
-                        var username = localStorage.getItem("username");
-                        for(var i=0;i<response.rows.length;i++){
-                            if(username == response.rows[i].owner){
-                                myBusinessList.push(response.rows[i]);
-                            }
-                        }
-                        console.log("my business list", myBusinessList);
-                        Session.set("myBusinessList", myBusinessList);
+                        console.log("response of all properties ", response.rows);
+                        Session.set("allPropertyList", response.rows);
                     });                  
                 }
                 else{
@@ -56,16 +50,17 @@ function getMyBusinessList(){
     });
 }
 
-Template.App_my_business.helpers({
-    myBusinessList(){
-        getMyBusinessList();
-        return Session.get("myBusinessList");
+Template.App_real_estate.helpers({
+    getAllProperties: function(){
+        allProperties();
+        return Session.get("allPropertyList");
     }
 });
 
-Template.App_my_business.events({
-    "click .settingsbtn": function(e){
-        var id = e.target.id;
-        FlowRouter.go("/business/mybusiness/settings/"+id);
+Template.App_real_estate.events({
+    "click .enquire-btn": function(e){
+        var id = e.target.id.split("-")[1]
+        console.log("id ",id);
+        FlowRouter.go("/realestate/"+id);
     }
 });

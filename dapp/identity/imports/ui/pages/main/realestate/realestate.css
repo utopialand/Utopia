@@ -1,0 +1,88 @@
+.real-estate-container{
+    width: 90%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+.real-estate-container h1{
+    color: white;
+    text-align: center;
+}
+
+.real-estate-container .property-header{
+    display: flex;
+    justify-content: space-between;
+    text-transform: capitalize;
+    color: black;
+    margin-top: 5%;
+}
+
+.real-estate-container .property-list{
+    display: flex;
+    flex-wrap: wrap;
+    color: white;
+    margin-top: 5%;
+}
+
+.real-estate-container .propertyItem{
+    width: 31.9%;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%;
+    border: 1px solid white;
+    border-radius: 6px;
+    padding: 2% 0%;
+}
+
+.propertyItem button{
+    width: 80%;
+}
+
+.propertyItem .owner{
+    background: teal;
+    width: 50%;
+    text-align: center;
+    margin: 3% 0%;
+    padding: 3% 0%;
+    font-weight: bolder;
+    border-radius: 6px;
+}
+
+.propertyItem .price{
+    background:skyblue;
+    width: 50%;
+    text-align: center;
+    margin: 3% 0%;
+    padding: 3% 0%;
+    font-weight: bolder;
+    border-radius: 6px;
+    color: black;
+}
+
+.propertyItem .house{
+    background-image: url("img/house.jpg");
+    background-size: cover;
+    width: 250px;
+    height: 250px;
+    margin: 5% 0%;
+}
+
+.propertyItem .enquire-btn{
+    margin-top: 5%;
+    background: green;
+    font-weight: bold;
+    text-transform: capitalize;
+    border-radius: 6px;
+}
+
+.real-estate-container .propertyItem:nth-child(3n+2){
+    margin-left: 2%;
+}
+
+.real-estate-container .propertyItem:nth-child(3n+3){
+    margin-left: 2%;
+}
