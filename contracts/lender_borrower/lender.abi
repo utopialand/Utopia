@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 21 17:29:16 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec 24 17:11:13 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -91,7 +91,67 @@
             ]
         },
         {
+            "name": "bidtable",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "location",
+                    "type": "string"
+                },
+                {
+                    "name": "area",
+                    "type": "uint64"
+                },
+                {
+                    "name": "currentOwner",
+                    "type": "name"
+                },
+                {
+                    "name": "currentprice",
+                    "type": "asset"
+                },
+                {
+                    "name": "startdate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "enddate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "bidstatus",
+                    "type": "bool"
+                },
+                {
+                    "name": "rsproposal",
+                    "type": "string"
+                }
+            ]
+        },
+        {
             "name": "checkauction",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "reqloanid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "borrower",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "checkbid",
             "base": "",
             "fields": [
                 {
@@ -155,6 +215,16 @@
                 {
                     "name": "isdefaulter",
                     "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "delreqloan",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
                 }
             ]
         },
@@ -415,8 +485,18 @@
             "ricardian_contract": ""
         },
         {
+            "name": "checkbid",
+            "type": "checkbid",
+            "ricardian_contract": ""
+        },
+        {
             "name": "checkdefault",
             "type": "checkdefault",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "delreqloan",
+            "type": "delreqloan",
             "ricardian_contract": ""
         },
         {
@@ -444,6 +524,13 @@
         {
             "name": "approved112",
             "type": "approvedloan",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "bidtable",
+            "type": "bidtable",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

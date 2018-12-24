@@ -24,9 +24,11 @@ CONTRACT lender : public contract
                        name borrower);
     ACTION checkdefault(name identity, uint64_t reqloanid, name borrower);
     ACTION checkauction(name identity, uint64_t reqloanid, name borrower);
+    ACTION checkbid(name identity, uint64_t reqloanid, name borrower);
     ACTION loanpayment(name payer, uint64_t reqloanid, asset amt);
     ACTION paymentacpt(name identity, uint64_t reqloanid);
-    
+    ACTION delreqloan(uint64_t id);
+
     /*ACTION addupdatecr(name identity, uint16_t crscore);
    
     ACTION reqloanincm(name identity, uint64_t catgid,
@@ -130,6 +132,19 @@ CONTRACT lender : public contract
         uint64_t primary_key() const { return username.value; }
     };
 
+    TABLE bidtable
+    {
+        uint64_t id;
+        string location;
+        uint64_t area;
+        name currentOwner;
+        asset currentprice;
+        uint64_t startdate;
+        uint64_t enddate;
+        bool bidstatus = true;
+        string rsproposal = "created";
+        uint64_t primary_key() const { return id; }
+    };
     /*   
     
 
@@ -178,4 +193,5 @@ CONTRACT lender : public contract
     typedef multi_index<"properties"_n, properties> properties_table;
     typedef multi_index<"payment111"_n, paymentdet> paymentdet_tab;
     typedef multi_index<"cscore112"_n, credscore> cscore_table;
+    typedef multi_index<"bidtable"_n, bidtable> bid_table;
 };
