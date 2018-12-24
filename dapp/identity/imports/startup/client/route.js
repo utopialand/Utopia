@@ -232,6 +232,9 @@ FlowRouter.route('/realestate/:id', {
   action(params) {
       var id = params.id;
       BlazeLayout.render('App_body', { main: 'App_realestate_enquire', id: id });
+  }
+});
+
 FlowRouter.route('/lender', {
   name: 'lender',
   action() {
