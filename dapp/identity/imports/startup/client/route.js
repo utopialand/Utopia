@@ -30,6 +30,8 @@ import "../../ui/pages/main/settings/settings.js";
 import "../../ui/pages/main/realestate/realestate.js";
 import "../../ui/pages/main/realstate-enquire/enquire.js";
 
+import "../../ui/pages/main/Allutopians.js"
+import "../../ui/pages/main/lender.js"
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
@@ -42,7 +44,12 @@ FlowRouter.route('/vote/:id', {
     BlazeLayout.render('App_body', { main: 'Vote' });
   }
 });
-
+FlowRouter.route('/allutopians', {
+  name: 'allutopians',
+  action() {
+    BlazeLayout.render('App_body', { main: 'allutopians' });
+  }
+});
 FlowRouter.route('/identity-reg', {
   name: 'identity-reg',
   action() {
@@ -225,5 +232,9 @@ FlowRouter.route('/realestate/:id', {
   action(params) {
       var id = params.id;
       BlazeLayout.render('App_body', { main: 'App_realestate_enquire', id: id });
+FlowRouter.route('/lender', {
+  name: 'lender',
+  action() {
+    BlazeLayout.render('App_body', { main: 'lender' });
   }
 });

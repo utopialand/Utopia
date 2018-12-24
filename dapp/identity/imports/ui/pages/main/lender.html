@@ -1,0 +1,83 @@
+<template name="lender">
+<div class="lender-container">
+        <div class="group">
+                <button class="lenders-button" id="user">User </button>
+                <button class="lenders-button" id="manager">manager</button>
+                <button class="lenders-button" id="mantask">other task</button>
+                <button class="lenders-button" id="acceptpay">accept payment</button>
+                <button class="lenders-button" id="paying">loan payment</button>
+        </div>
+                <div id="apply-section">
+                    <div class="userdata">
+                            <label>amount</label>
+                            <input type="text" id="amt"/>
+                            <label>purpose</label>
+                            <input type="text" id="purpose"/>
+                            <label>income</label>
+                            <input type="text" id="income"/>
+                            <label>category id</label>
+                            <div class="catgid" id="catgid">
+                            </div>
+                            <label>collateral option</label><br>
+                            <div class="colatoptn" id="colatoptn">
+                            </div>
+                            <label>property option</label><br>
+                            <div class="propid" id="propid">
+                            </div>
+                            <div class="createpropt">
+                                    <button class="buttonpropt" id="apply">Apply loan</button>
+                            </div>
+                            
+                    </div>
+                                
+                  </div>
+                  <div id="loanpay-section">
+                      <div class="paydata">
+                            <label>loanid</label>
+                            <input type="text" id="idloan"/>
+                            <label>amount</label>
+                            <input type="text" id="loanamt"/>                        
+                            <div class="createpropt">
+                                    <button class="buttonpropt" id="pay">loan payment</button>
+                            </div>
+                      </div>
+                     
+                  </div>
+                  <div id="create-section">
+                        <div class="createdata">
+                            <label>interest rate</label>
+                            <input type="text" id="rate"/>
+                            <label>period</label>
+                            <input type="text" id="period"/>                      
+                            <label>description</label>
+                            <input type="text" id="desc"/>
+                            <div class="createpropt">
+                                <button class="buttonpropt" id="create">create loan</button>
+                            </div>
+                        </div>
+                  </div>
+                  <div id="manager-section">
+                        <div class="task">
+                            <label>loanid</label>
+                            <input type="text" id="manloanid"/>                      
+                            <label>borrower</label>
+                            <input type="text" id="borr"/>
+                            <div class="createpropt">
+                                <button class="buttonpropt" id="approve">approve loan</button>
+                                <button class="buttonpropt" id="default">check default</button>
+                                <button class="buttonpropt" id="auction">check auction</button>
+                            </div>
+                        </div>
+                  </div>
+                  <div id="accept-section">
+                        <div class="acceptdata">
+                            <label>loan id</label>
+                            <input type="text" id="acceptid"/>
+                            <div class="createpropt">
+                                <button class="buttonpropt" id="accept">accept payment</button>
+                            </div>
+                        </div>
+                  </div>
+               
+</div>
+</template>
