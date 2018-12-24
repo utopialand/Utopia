@@ -1,0 +1,31 @@
+<template name="App_real_estate">
+    <div class="real-estate-container">
+        <h1>Properties</h1>
+        <div class = "property-header">
+            <button>Manage your properties</button>
+            <button>Buy or sell</button>
+            <button>bid property</button>
+        </div>
+        {{#if getAllProperties.length}}
+        <div class="property-list">
+            {{#each getAllProperties}}
+            <div class="propertyItem">
+                <div>Property id: {{propt_id}}</div>
+                <div class="owner">Owner: {{owner}}</div>
+                <div class="price">Price: {{price}}</div>
+                <div class="house"></div>
+                <button id = "enquirepropertyid-{{propt_id}}" class = "enquire-btn">enquire</button>
+            </div>
+            {{/each}}
+        </div>
+        {{else}}
+        <div class="no-business">
+            <p>No properties in Utopia</p>
+        </div>
+        {{/if}}
+
+    </div>
+
+
+    {{>App_footer}}
+</template>

@@ -161,7 +161,7 @@ ACTION lender::approveloan(name identity, uint64_t reqloanid,
         a.approvedAt = now();
         a.amtapproved = loanamt;
         a.totaldue = asset(finaldue, symbol(symbol_code("UTP"), 4));
-        a.finalduedt = now() + 600;//(period * 86400);
+        a.finalduedt = now() + 600; //(period * 86400);
     });
 
     req.modify(itr, _self, [&](auto &a) {
@@ -171,20 +171,24 @@ ACTION lender::approveloan(name identity, uint64_t reqloanid,
 
 ACTION lender::checkdefault(name identity, uint64_t reqloanid, name borrower)
 {
-    approveloan_tab approve(_self, _self.value);
+    require_auth(identity);
+    manager_table manager("utpmanager11"_n, "utpmanager11"_n.value);
+    auto mitr = manager.find(identity.value);
+    eosio_assert(mitr != manager.end(), "manager not found !!!");
 
+    approveloan_tab approve(_self, _self.value);
     auto itr = approve.find(reqloanid);
     eosio_assert(itr != approve.end(), "requested loan id not found!!!");
     eosio_assert(itr->status != "defaulter", "Already declared as a defaulter!!!");
-    if (now() > itr->finalduedt + 86400 * 10 && itr->status == "due")
+    if (now() > itr->finalduedt + 86400 * 1 && itr->status == "due")
     {
 
         print("call modify func of credit score contract---");
         float creditscore = -1;
         bool isdefault = true;
-        /* approve.modify(itr, _self, [&](auto &a) {
+        approve.modify(itr, _self, [&](auto &a) {
             a.status = "defaulter";
-        }); */
+        });
         action(
             permission_level{identity, "active"_n},
             "utpcreditsc1"_n, "modcreditsc"_n,
@@ -198,30 +202,108 @@ ACTION lender::checkdefault(name identity, uint64_t reqloanid, name borrower)
     }
 }
 
+ACTION lender::checkbid(name identity, uint64_t reqloanid, name borrower)
+{
+
+    require_auth(identity);
+    manager_table manager("utpmanager11"_n, "utpmanager11"_n.value);
+    auto mitr = manager.find(identity.value);
+    eosio_assert(mitr != manager.end(), "manager not found !!!");
+
+    vector<uint64_t> properties;
+    approveloan_tab approve(_self, _self.value);
+    properties_table prop("realstateutp"_n, "realstateutp"_n.value);
+    bid_table bid("realstateutp"_n, "realstateutp"_n.value);
+    reqloan_tab req(_self, _self.value);
+    auto reqitr = req.find(reqloanid);
+    auto itr = approve.find(reqloanid);
+    properties = reqitr->prop_id;
+    auto propitr = prop.find(properties[0]);
+    auto biditr = bid.find(properties[0]);
+    eosio_assert(itr != approve.end(), "requested loan id not found!!!");
+    //auto amt = propitr->price - itr->totaldue;
+    print("total due--", itr->totaldue);
+    print("price due--", propitr->price);
+
+    if (itr->status == "auction called")
+    {
+        if (biditr->rsproposal == "finished")
+        {
+
+            if (propitr->owner != identity)
+            {
+                auto amt = propitr->price - itr->totaldue;
+
+                if (amt.amount >= 0)
+                {
+                    approve.modify(itr, _self, [&](auto &a) {
+                        a.status = "complete by auction";
+                    });
+                    print("transfer excess to borrower--");
+                    auto amount = propitr->price.amount - itr->totaldue.amount;
+                    asset excess = asset(amount, symbol(symbol_code("UTP"), 4));
+                    print("excess amt--", excess);
+                    action(
+                        permission_level{identity, "active"_n},
+                        "amartesttest"_n, "transfer"_n,
+                        std::make_tuple(identity, borrower, excess, std::string("excess amount")))
+                        .send();
+                }
+                else
+                {
+                    uint64_t startdate = now();
+                    uint64_t enddate = now() + (60 * 20);
+                    action(
+                        permission_level{identity, "active"_n},
+                        "realstateutp"_n, "auction"_n,
+                        std::make_tuple(properties[0], identity, startdate, enddate))
+                        .send();
+                }
+            }
+        }
+
+        else
+        {
+            print("Auction for this property id is in progress--");
+        }
+    }
+    else
+    {
+        print("Auction for this property id has not taken place--");
+    }
+}
+
 ACTION lender::checkauction(name identity, uint64_t reqloanid, name borrower)
 {
+    require_auth(identity);
+    manager_table manager("utpmanager11"_n, "utpmanager11"_n.value);
+    auto mitr = manager.find(identity.value);
+    eosio_assert(mitr != manager.end(), "manager not found !!!");
+    
     approveloan_tab approve(_self, _self.value);
     reqloan_tab req(_self, _self.value);
-    vector <uint64_t> properties;
+    vector<uint64_t> properties;
     auto itr = approve.find(reqloanid);
     auto reqitr = req.find(reqloanid);
     eosio_assert(itr != approve.end(), "requested loan id not found!!!");
     eosio_assert(reqitr != req.end(), "requested loan id not found!!!");
-    properties = reqitr -> prop_id;
+    properties = reqitr->prop_id;
 
-
-    if (now() > (itr->finalduedt + 86400 * 10) + 50 && itr->status == "defaulter")
+    if (now() > (itr->finalduedt + 86400 * 10) && itr->status == "defaulter")
     {
 
-        print("call auction func of real estate contract---");
-        
+        print("call auction func of real estate contract!!!");
+        print("property id--", properties[0]);
+
         approve.modify(itr, _self, [&](auto &a) {
             a.status = "auction called";
         });
+        uint64_t startdate = now();
+        uint64_t enddate = now() + (60 * 20);
         action(
             permission_level{identity, "active"_n},
             "realstateutp"_n, "auction"_n,
-            std::make_tuple(properties[0],identity, now()+(5*86400),(now()+(5*86400))+(5*86400)))
+            std::make_tuple(properties[0], identity, startdate, enddate))
             .send();
     }
 
@@ -333,6 +415,13 @@ ACTION lender::paymentacpt(name identity, uint64_t reqloanid)
     payment.erase(itr);
 }
 
+ACTION lender::delreqloan(uint64_t id)
+{
+    reqloan_tab req(_self, _self.value);
+    auto itr = req.find(id);
+    req.erase(itr);
+}
+
 /* 
  */
 /*ACTION lender::addupdatecr(name identity, uint16_t crscore)
@@ -390,4 +479,4 @@ ACTION lender::hi()
 
 //EOSIO_DISPATCH(lender, (addloancatg)(addcatg)(hi)(addupdatecr)(reqloancolat)(reqloanincm)(approveloan)(loanpayment)(checkdefault))
 
-EOSIO_DISPATCH(lender, (hi)(addloancatg)(addcollat)(reqloancolat)(approveloan)(checkdefault)(loanpayment)(paymentacpt))
+EOSIO_DISPATCH(lender, (hi)(addloancatg)(addcollat)(reqloancolat)(approveloan)(checkdefault)(checkbid)(checkauction)(loanpayment)(paymentacpt)(delreqloan))

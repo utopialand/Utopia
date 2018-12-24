@@ -32,6 +32,7 @@
 }
 .optionFlex p {
   text-align: center;
+  margin: 0;
 }
 .optionBox1 {
   flex: 1;
@@ -62,6 +63,9 @@
   text-transform: uppercase;
   color: #ffffff;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .optionText2 {
   font-family: Colfax Regular;
@@ -70,6 +74,9 @@
   text-transform: uppercase;
   color: #ffffff;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .scatterlogin-button {

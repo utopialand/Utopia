@@ -20,7 +20,6 @@ import "../../ui/pages/main/Buybond.js";
 import "../../ui/pages/main/stvvoting.js"
 import "../../ui/pages/main/stvresult.js"
 import "../../ui/pages/main/stvstatus.js"
-import "../../ui/pages/main/realestate.js";
 import "../../ui/pages/main/business-manager-home/business-manager-home.js";
 import "../../ui/pages/main/allbusiness/allbusiness.js";
 import "../../ui/pages/main/business/business.js";
@@ -28,8 +27,11 @@ import "../../ui/pages/main/exchange/exchange.js";
 import "../../ui/pages/main/mybusiness/mybusiness.js";
 import "../../ui/pages/main/newbusiness/newbusiness.js";
 import "../../ui/pages/main/settings/settings.js";
+import "../../ui/pages/main/realestate/realestate.js";
+import "../../ui/pages/main/realstate-enquire/enquire.js";
 
-
+import "../../ui/pages/main/Allutopians.js"
+import "../../ui/pages/main/lender.js"
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
@@ -42,7 +44,12 @@ FlowRouter.route('/vote/:id', {
     BlazeLayout.render('App_body', { main: 'Vote' });
   }
 });
-
+FlowRouter.route('/allutopians', {
+  name: 'allutopians',
+  action() {
+    BlazeLayout.render('App_body', { main: 'allutopians' });
+  }
+});
 FlowRouter.route('/identity-reg', {
   name: 'identity-reg',
   action() {
@@ -162,12 +169,6 @@ FlowRouter.route('/buybond', {
   }
 });
 
-FlowRouter.route('/realestate', {
-  name: 'realestate',
-  action() {
-    BlazeLayout.render('App_body', { main: 'App_realestate' });
-  }
-});
 FlowRouter.route('/business', {
   name: 'App_business_manager_home',
   action() {
@@ -217,4 +218,23 @@ FlowRouter.route('/business/exchange', {
   action() {
       BlazeLayout.render('App_body', { main: 'App_exchange' });
   },
+});
+
+FlowRouter.route('/realestate', {
+  name: 'App_real_estate',
+  action() {
+      BlazeLayout.render('App_body', { main: 'App_real_estate' });
+  },
+});
+
+FlowRouter.route('/realestate/:id', {
+  name: 'App_realestate_enquire',
+  action(params) {
+      var id = params.id;
+      BlazeLayout.render('App_body', { main: 'App_realestate_enquire', id: id });
+FlowRouter.route('/lender', {
+  name: 'lender',
+  action() {
+    BlazeLayout.render('App_body', { main: 'lender' });
+  }
 });
