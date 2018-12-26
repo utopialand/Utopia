@@ -237,6 +237,7 @@ Template.App_manager.events({
       let res = await contract.addcitizen(userName,"identityreg1", {
         authorization: "identityreg1"
       });
+      alert("citizenship approved !!!!");
     } catch (err) {
       console.log("----", err);
     }

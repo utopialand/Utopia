@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec 24 18:11:26 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec 26 12:15:17 2018",
     "version": "eosio::abi/1.1",
     "structs": [
         {
@@ -31,6 +31,32 @@
                 {
                     "name": "amount",
                     "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "addproperty",
+            "base": "",
+            "fields": [
+                {
+                    "name": "proptname",
+                    "type": "string"
+                },
+                {
+                    "name": "address",
+                    "type": "string"
+                },
+                {
+                    "name": "description",
+                    "type": "string"
+                },
+                {
+                    "name": "propttype",
+                    "type": "string"
+                },
+                {
+                    "name": "area",
+                    "type": "string"
                 }
             ]
         },
@@ -93,14 +119,6 @@
                     "type": "uint64"
                 },
                 {
-                    "name": "location",
-                    "type": "string"
-                },
-                {
-                    "name": "area",
-                    "type": "uint64"
-                },
-                {
                     "name": "currentOwner",
                     "type": "name"
                 },
@@ -123,6 +141,16 @@
                 {
                     "name": "rsproposal",
                     "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "delpropt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
                 }
             ]
         },
@@ -169,11 +197,7 @@
             "base": "",
             "fields": [
                 {
-                    "name": "location",
-                    "type": "string"
-                },
-                {
-                    "name": "area",
+                    "name": "id",
                     "type": "uint64"
                 },
                 {
@@ -219,6 +243,36 @@
                 {
                     "name": "price",
                     "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "proptlist",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "proptname",
+                    "type": "string"
+                },
+                {
+                    "name": "address",
+                    "type": "string"
+                },
+                {
+                    "name": "description",
+                    "type": "string"
+                },
+                {
+                    "name": "propttype",
+                    "type": "string"
+                },
+                {
+                    "name": "area",
+                    "type": "string"
                 }
             ]
         },
@@ -318,6 +372,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "addproperty",
+            "type": "addproperty",
+            "ricardian_contract": ""
+        },
+        {
             "name": "approvedprop",
             "type": "approvedprop",
             "ricardian_contract": ""
@@ -330,6 +389,11 @@
         {
             "name": "bid",
             "type": "bid",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "delpropt",
+            "type": "delpropt",
             "ricardian_contract": ""
         },
         {
@@ -355,7 +419,7 @@
     ],
     "tables": [
         {
-            "name": "bidtable",
+            "name": "bidtable1",
             "type": "bidtable",
             "index_type": "i64",
             "key_names": [],
@@ -376,14 +440,21 @@
             "key_types": []
         },
         {
-            "name": "properties",
+            "name": "properties1",
             "type": "properties",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "reqbuyertab2",
+            "name": "proptlist1",
+            "type": "proptlist",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "reqbuyertab3",
             "type": "reqbuyers",
             "index_type": "i64",
             "key_names": [],

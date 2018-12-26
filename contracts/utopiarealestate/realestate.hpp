@@ -7,7 +7,8 @@ CONTRACT realestate : public contract
     using contract::contract;
 
   public:
-    ACTION landproposal(string location, uint64_t area, name currentOwner, asset currentprice, uint64_t startdate, uint64_t enddate);
+    ACTION addproperty(string proptname, string address, string description, string propttype, string area);
+    ACTION landproposal(uint64_t id, name currentOwner, asset currentprice, uint64_t startdate, uint64_t enddate);
     ACTION bid(uint64_t id, name buyername, asset amount);
     ACTION approvedprop(uint64_t id);
     ACTION reqbuypropt(uint64_t id, name buyer, asset amount);
@@ -16,11 +17,22 @@ CONTRACT realestate : public contract
     ACTION accsellreq(uint64_t id, name buyer, asset amount);
     ACTION auction(uint64_t id, name manager, uint64_t startdate, uint64_t enddate);
     ACTION rejbuyerreq(uint64_t id);
+    ACTION delpropt(uint64_t id);
+
+    TABLE proptlist
+    {
+        uint64_t id;
+        string proptname;
+        string address;
+        string description;
+        string propttype;
+        string area;
+        uint64_t primary_key() const { return id; }
+    };
+
     TABLE bidtable
     {
         uint64_t id;
-        string location;
-        uint64_t area;
         name currentOwner;
         asset currentprice;
         uint64_t startdate;
@@ -71,9 +83,10 @@ CONTRACT realestate : public contract
 
   private:
     typedef eosio::multi_index<"identity2"_n, identityt> identity_table;
-    typedef multi_index<"bidtable"_n, bidtable> bid_table;
-    typedef multi_index<"properties"_n, properties> properties_table;
-    typedef multi_index<"reqbuyertab2"_n, reqbuyers> buyer_table;
+    typedef multi_index<"proptlist1"_n, proptlist> proptlist_table;
+    typedef multi_index<"bidtable1"_n, bidtable> bid_table;
+    typedef multi_index<"properties1"_n, properties> properties_table;
+    typedef multi_index<"reqbuyertab3"_n, reqbuyers> buyer_table;
     typedef multi_index<"reqselltab11"_n, reqsellers> seller_table;
     typedef multi_index<"manager111"_n, managertab> manager_table;
 };

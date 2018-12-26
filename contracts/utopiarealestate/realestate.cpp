@@ -1,19 +1,44 @@
 #include "realestate.hpp"
 
-ACTION realestate::landproposal(string location, uint64_t area, name currentOwner, asset currentprice, uint64_t startdate, uint64_t enddate)
+ACTION realestate::addproperty(string proptname, string address, string description, string propttype, string area)
+{
+    print("property!!!!!!!");
+    require_auth(_self);
+
+    proptlist_table proptab(_self, _self.value);
+    proptab.emplace(_self, [&](auto &b) {
+        b.id = proptab.available_primary_key();
+        b.proptname = proptname;
+        b.address = address;
+        b.description = description;
+        b.propttype = propttype;
+        b.area = area;
+    });
+}
+ACTION realestate::delpropt(uint64_t id)
+{
+    require_auth(_self);
+    proptlist_table proptab(_self, _self.value);
+    auto itr = proptab.find(id);
+    eosio_assert(itr != proptab.end(), "no available properties for this id");
+    itr = proptab.erase(itr);
+}
+
+ACTION realestate::landproposal(uint64_t id, name currentOwner, asset currentprice, uint64_t startdate, uint64_t enddate)
 {
     print("land proposal!!!!!!!");
-    require_auth(currentOwner);
+    proptlist_table proptab(_self, _self.value);
+    auto itr = proptab.find(id);
+    eosio_assert(itr != proptab.end(), "no available properties for this id");
+    require_auth(_self);
 
     bid_table bt(_self, _self.value);
     bt.emplace(_self, [&](auto &b) {
-        b.id = bt.available_primary_key();
-        b.location = location;
-        b.area = area;
+        b.id = id;
         b.currentOwner = currentOwner;
+        b.currentprice = currentprice;
         b.startdate = startdate;
         b.enddate = enddate;
-        b.currentprice = currentprice;
     });
 };
 
@@ -85,12 +110,12 @@ ACTION realestate::approvedprop(uint64_t id)
         {
             name currentOwner = itr1->owner;
             asset amount = itr1->price;
-           
-                action(
-                    permission_level{rsdeposite, "active"_n},
-                    "amartesttest"_n, "transfer"_n,
-                    make_tuple(rsdeposite, currentOwner, amount, memo))
-                    .send();
+
+            action(
+                permission_level{rsdeposite, "active"_n},
+                "amartesttest"_n, "transfer"_n,
+                make_tuple(rsdeposite, currentOwner, amount, memo))
+                .send();
 
             pt.modify(itr1, _self, [&](auto &pt) {
                 pt.owner = itr->currentOwner;
@@ -113,12 +138,12 @@ ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
     require_auth(buyer);
-    eosio_assert(itr != pt.end(), "no available properties for this id");
+    eosio_assert(itr != pt.end(), "no available properties for this id !!");
     eosio_assert(itr->owner != buyer, "you are already owner !!");
 
     name rsdeposite = "rsdeposite11"_n;
     string memo = "fund transfer";
-    buyer_table bt(_self,itr->owner.value);
+    buyer_table bt(_self, itr->owner.value);
     auto itr1 = bt.find(id);
 
     if (itr1 == bt.end())
@@ -164,7 +189,7 @@ ACTION realestate::rejbuyerreq(uint64_t id)
     eosio_assert(itr != pt.end(), "no available properties for this id");
     require_auth(itr->owner);
 
-    buyer_table bt(_self, _self.value);
+    buyer_table bt(_self, itr->owner.value);
     auto itr1 = bt.find(id);
     eosio_assert(itr1 != bt.end(), "no available buyer for this id");
 
@@ -187,7 +212,7 @@ ACTION realestate::accbuyerreq(uint64_t id, name seller)
     eosio_assert(itr != pt.end(), "no available properties for this id");
     eosio_assert(itr->owner == seller, "you are not valid owner of this property");
 
-    buyer_table bt(_self, _self.value);
+    buyer_table bt(_self, itr->owner.value);
     auto itr1 = bt.find(id);
     eosio_assert(itr1 != bt.end(), "no available buyer for this id");
 
@@ -281,4 +306,4 @@ ACTION realestate::auction(uint64_t id, name managername, uint64_t startdate, ui
     });
 };
 
-EOSIO_DISPATCH(realestate, (landproposal)(bid)(approvedprop)(reqbuypropt)(rejbuyerreq)(accbuyerreq)(reqsellpropt)(accsellreq)(auction))
+EOSIO_DISPATCH(realestate, (addproperty)(delpropt)(landproposal)(bid)(approvedprop)(reqbuypropt)(rejbuyerreq)(accbuyerreq)(reqsellpropt)(accsellreq)(auction))
