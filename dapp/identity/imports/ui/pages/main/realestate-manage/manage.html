@@ -1,6 +1,25 @@
 <Template name = "App_real_estate_manager">
     <div class="real-estate-manager-container">
             <h1>Manage your real estate</h1>
+            {{#if propertyRequest.length}}
+            <div class="property-list">
+                {{#each propertyRequest}}
+                <div class="propertyItem">
+                    <div class="owner">Owner: {{buyername}}</div>
+                    <div class="price">Price: {{price}}</div>
+                    <div class="house"></div>
+                    <div class = "button-options">
+                        <button class = "accept-btn" id = "acceptreqbtn-{{id}}">Accept</button>
+                        <button class = "reject-btn" id = "rejectreqbtn-{{id}}">Reject</button>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{else}}
+            <div class="no-business">
+                <p>No requests on your property</p>
+            </div>
+            {{/if}}
     </div>
     {{>App_footer}}
 </Template>

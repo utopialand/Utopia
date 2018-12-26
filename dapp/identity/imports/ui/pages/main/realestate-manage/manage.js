@@ -27,12 +27,13 @@ function getBuyPropertyRequest(){
                 scatter = ScatterJS.scatter;
                 const requiredFields = { accounts: [network] };
                 const eos = scatter.eos(network, Eos, eosOptions);
+                eosinstance = eos;
                 var username = localStorage.getItem("username");
                 if (scatter.identity) {
                     eos.getTableRows({
                         code: "realstateutp",
                         scope: username,
-                        table: "reqbuyertab2",
+                        table: "reqbuyertab3",
                         limit: "50",
                         json: true,
                     }).then((response)=>{
@@ -46,3 +47,44 @@ function getBuyPropertyRequest(){
         }
     });
 }
+
+Template.App_real_estate_manager.helpers({
+    propertyRequest(){
+        getBuyPropertyRequest();
+        console.log("request to buy my property ", Session.get("propertyRequest"));
+        return Session.get("propertyRequest")
+    }
+});
+
+Template.App_real_estate_manager.events({
+    "click .accept-btn": function(e){
+        var id = e.target.id.split("-")[1];
+        var username = localStorage.getItem("username");
+        eosinstance.contract('realstateutp').then(realstateutp => {
+            realstateutp.accbuyerreq(id, username, { authorization: username }).then((response) => {
+                if (response) {
+                    console.log("response of accepting to sell", response);
+                } else {
+                    alert("Unable to accept");
+                }
+
+            });
+
+        });
+    },
+    "click .reject-btn": function(e){
+        var id = e.target.id.split("-")[1];
+        var username = localStorage.getItem("username");
+        eosinstance.contract('realstateutp').then(realstateutp => {
+            realstateutp.rejbuyerreq(id, { authorization: username }).then((response) => {
+                if (response) {
+                    console.log("response of rejecting to buy", response);
+                } else {
+                    alert("Unable to reject");
+                }
+
+            });
+
+        });
+    }
+});
