@@ -50,7 +50,7 @@ Template.lender.onCreated( function (){
                 eosinstance.getTableRows({
                     code: "realstateutp",
                     scope: "realstateutp",
-                    table: 'properties',
+                    table: 'properties1',
                     limit: 50,
                     json: true,
                 }).then((resp)=>{
@@ -90,12 +90,18 @@ Template.lender.events({
         document.getElementById("manager").style.display="none";
         document.getElementById("catgid").innerHTML ="";
         document.getElementById("colatoptn").innerHTML ="";
+        document.getElementById("colat").style.display="none";
         for(var i=0;i<loandata.rows.length;i++){
             var desc=loandata.rows[i].desc;
             var catid=loandata.rows[i].category_id;
             document.getElementById("catgid").innerHTML += "<div class='inputcatg'><label>"+desc+"</label>"+
             "<input type='radio' class ='catgidoptn' name='radio' value='"+catid+"'></div>"
         }
+       
+    },
+    'click #col':function(){
+        document.getElementById("colat").style.display="flex";
+        document.getElementById("colatoptn").innerHTML = "";
         for(var i=0;i<colatdata.rows.length;i++){
             var desc=colatdata.rows[i].type;
             var catid=colatdata.rows[i].id;
@@ -112,6 +118,9 @@ Template.lender.events({
             }
            
         }
+    },
+    'click #noncol':function(){
+        document.getElementById("colat").style.display="none";
     },
     'click #manager':function(){
         console.log("manager");
@@ -160,19 +169,32 @@ Template.lender.events({
     'click #apply':function(event){
         var sym="UTP";
         var username = localStorage.getItem("username");
+        var colopn = $( ".coloptn:checked" ).val();
+        console.log("colat----",colopn);
         var id = parseInt($( ".catgidoptn:checked" ).val());
         var amt =`${parseFloat($("#amt").val()).toFixed(4)} ${sym}`;
-        var purpose = $("#purpose").val();
-        propid.push(parseInt($(".propidoptn:checked").val()));
-        var income = `${parseFloat($("#income").val()).toFixed(4)} ${sym}`;
-        var colatoptn = parseInt($(".colatidoptn:checked").val());
-        eosinstance.contract("utplendercon").then(utplendercon => {
-            console.log("amt----",amt,"catid---",id,"pur---",purpose,"propid---",propid,"income--",income,"colat--",colatoptn);
-            utplendercon.reqloancolat(username,id,amt,purpose,propid,income,colatoptn, { authorization: username }).then(response => {
-              alert("success");
-              console.log("response==>", response);
+        var purpose = $("#purpose").val();       
+        var income = `${parseFloat($("#income").val()).toFixed(4)} ${sym}`;       
+        if(colopn == "col"){
+            propid.push(parseInt($(".propidoptn:checked").val()));
+            var colatoptn = parseInt($(".colatidoptn:checked").val());
+            eosinstance.contract("utplendercon").then(utplendercon => {
+                console.log("amt----",amt,"catid---",id,"pur---",purpose,"propid---",propid,"income--",income,"colat--",colatoptn);
+                utplendercon.reqloancolat(username,id,amt,purpose,propid,income,colatoptn, { authorization: username }).then(response => {
+                  alert("success");
+                  console.log("response==>", response);
+                });
             });
-        });
+        }else{
+            eosinstance.contract("utplendercon").then(utplendercon => {
+                console.log("amt----",amt,"catid---",id,"pur---",purpose,"income--",income);
+                utplendercon.reqloanincm(username,id,amt,purpose,income, { authorization: username }).then(response => {
+                  alert("success");
+                  console.log("response==>", response);
+                });
+            });
+        }
+        
     },
     'click #pay':function(){
         var sym="UTP";

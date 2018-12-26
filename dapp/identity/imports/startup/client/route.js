@@ -32,6 +32,7 @@ import "../../ui/pages/main/realstate-enquire/enquire.js";
 
 import "../../ui/pages/main/Allutopians.js"
 import "../../ui/pages/main/lender.js"
+import "../../ui/pages/main/Viewdetails.js"
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
@@ -238,5 +239,12 @@ FlowRouter.route('/lender', {
   name: 'lender',
   action() {
     BlazeLayout.render('App_body', { main: 'lender' });
+  }
+});
+
+FlowRouter.route('/viewdetail', {
+  name: 'viewdetail',
+  action() {
+    BlazeLayout.render('App_body', { main: 'viewdetail' });
   }
 });
