@@ -1,0 +1,23 @@
+<template name="App_real_estate_buy">
+    <div class="real-estate-buy-container">
+        <h1>Buy a Property</h1>
+        {{#if allPropertyToBuy.length}}
+        <div class="property-list">
+            {{#each allPropertyToBuy}}
+            <div class="propertyItem">
+                <div class="owner">Owner: {{owner}}</div>
+                <div class="price">Price: {{price}}</div>
+                <div class="house"></div>
+                <input type = "text" class = "buyfield" id = "buypropertyfield-{{propt_id}}" placeholder="format(0.0000 UTP)"/>
+                <button class = "buy-btn" id = "buypropertybtn-{{propt_id}}">Buy</button>
+            </div>
+            {{/each}}
+        </div>
+        {{else}}
+        <div class="no-business">
+            <p>No properties in Utopia</p>
+        </div>
+        {{/if}}
+    </div>
+    {{> App_footer}}
+</template>

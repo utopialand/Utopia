@@ -1,12 +1,12 @@
-import "./realestate.html";
-import "./realestate.css";
+import "./buy.html";
+import "./buy.css";
 import "../../../../templates/footer/footer.js";
+import { Session } from "meteor/session";
 import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
-import { Session } from "meteor/session";
-ScatterJS.plugins( new ScatterEOS() );
 
+ScatterJS.plugins( new ScatterEOS() );
 
 const network = {
     protocol: "https", // Defaults to https
@@ -22,7 +22,7 @@ const eosOptions = {
 var scatter = {};
 var eosinstance = {};
 
-function allProperties(){
+function getAllPropertyToBuy(){
     ScatterJS.scatter.connect('utopia').then((connected) => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
@@ -34,12 +34,11 @@ function allProperties(){
                     eos.getTableRows({
                         code: "realstateutp",
                         scope: "realstateutp",
-                        table: "proptlist1",
+                        table: "properties1",
                         limit: "50",
                         json: true,
                     }).then((response)=>{
-                        console.log("response of all properties ", response.rows);
-                        Session.set("allPropertyList", response.rows);
+                        Session.set("allPropertyToBuy", response.rows);
                     });                  
                 }
                 else{
@@ -50,26 +49,31 @@ function allProperties(){
     });
 }
 
-Template.App_real_estate.helpers({
-    getAllProperties: function(){
-        allProperties();
-        return Session.get("allPropertyList");
+Template.App_real_estate_buy.helpers({
+    allPropertyToBuy(){
+        getAllPropertyToBuy();
+        console.log("All propt to buy", Session.get("allPropertyToBuy"));
+        return Session.get("allPropertyToBuy");
     }
 });
 
-Template.App_real_estate.events({
-    "click .enquire-btn": function(e){
-        var id = e.target.id.split("-")[1]
-        console.log("id ",id);
-        FlowRouter.go("/realestate/"+id);
-    },
-    "click .manageproperty": function(){
-        FlowRouter.go("/realestatemanage");
-    },
-    "click .bidpropertypagebtn": function(){
-        FlowRouter.go("/realestatebid");
-    },
-    "click .buypropertypagebtn": function(){
-        FlowRouter.go("/realestatebuy");
+Template.App_real_estate_buy.events({
+    "click .buy-btn": function(e){
+        var id = e.target.id.split("-")[1];
+        var username = localStorage.getItem("username");
+        var tokenfield = "#buypropertyfield-"+id;
+        var utpvalue = $(tokenfield).val();
+
+        eosinstance.contract('realstateutp').then(realstateutp => {
+            realstateutp.reqbuypropt(id, username, utpvalue, { authorization: username }).then((response) => {
+                if (response) {
+                    console.log("response of buy", response);
+                } else {
+                    alert("Unable to buy");
+                }
+
+            });
+
+        });
     }
 });

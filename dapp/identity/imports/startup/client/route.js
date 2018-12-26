@@ -31,9 +31,10 @@ import "../../ui/pages/main/realestate/realestate.js";
 import "../../ui/pages/main/realstate-enquire/enquire.js";
 import "../../ui/pages/main/realestate-manage/manage.js";
 import "../../ui/pages/main/realestate-bid/bid.js";
-
 import "../../ui/pages/main/Allutopians.js"
 import "../../ui/pages/main/lender.js"
+import "../../ui/pages/main/realestate-buy/buy.js";
+
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
@@ -254,6 +255,13 @@ FlowRouter.route('/realestatebid', {
   name: 'App_real_estate_bid',
   action() {
       BlazeLayout.render('App_body', { main: 'App_real_estate_bid' });
+  },
+});
+
+FlowRouter.route('/realestatebuy', {
+  name: 'App_real_estate_buy',
+  action() {
+      BlazeLayout.render('App_body', { main: 'App_real_estate_buy' });
   },
 });
 
