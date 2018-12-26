@@ -33,12 +33,8 @@ import "../../ui/pages/main/realestate-manage/manage.js";
 import "../../ui/pages/main/realestate-bid/bid.js";
 import "../../ui/pages/main/Allutopians.js"
 import "../../ui/pages/main/lender.js"
-<<<<<<< HEAD
 import "../../ui/pages/main/realestate-buy/buy.js";
-
-=======
 import "../../ui/pages/main/Viewdetails.js"
->>>>>>> 0c9bffb40c6456b2d39004f6d1e3345ca5f2a7ae
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
