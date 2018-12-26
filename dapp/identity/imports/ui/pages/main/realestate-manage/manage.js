@@ -32,7 +32,7 @@ function getBuyPropertyRequest(){
                 if (scatter.identity) {
                     eos.getTableRows({
                         code: "realstateutp",
-                        scope: "username",
+                        scope: username,
                         table: "reqbuyertab3",
                         limit: "50",
                         json: true,
