@@ -29,6 +29,8 @@ import "../../ui/pages/main/newbusiness/newbusiness.js";
 import "../../ui/pages/main/settings/settings.js";
 import "../../ui/pages/main/realestate/realestate.js";
 import "../../ui/pages/main/realstate-enquire/enquire.js";
+import "../../ui/pages/main/realestate-manage/manage.js";
+import "../../ui/pages/main/realestate-bid/bid.js";
 
 import "../../ui/pages/main/Allutopians.js"
 import "../../ui/pages/main/lender.js"
@@ -240,3 +242,18 @@ FlowRouter.route('/lender', {
     BlazeLayout.render('App_body', { main: 'lender' });
   }
 });
+
+FlowRouter.route('/realestatemanage', {
+  name: 'App_real_estate_manager',
+  action() {
+      BlazeLayout.render('App_body', { main: 'App_real_estate_manager' });
+  },
+});
+
+FlowRouter.route('/realestatebid', {
+  name: 'App_real_estate_bid',
+  action() {
+      BlazeLayout.render('App_body', { main: 'App_real_estate_bid' });
+  },
+});
+
