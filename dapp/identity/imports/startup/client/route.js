@@ -29,6 +29,8 @@ import "../../ui/pages/main/newbusiness/newbusiness.js";
 import "../../ui/pages/main/settings/settings.js";
 import "../../ui/pages/main/realestate/realestate.js";
 import "../../ui/pages/main/realstate-enquire/enquire.js";
+import "../../ui/pages/main/realestate-manage/manage.js";
+import "../../ui/pages/main/realestate-bid/bid.js";
 
 FlowRouter.route('/', {
   name: 'welcomePage',
@@ -227,3 +229,18 @@ FlowRouter.route('/realestate/:id', {
       BlazeLayout.render('App_body', { main: 'App_realestate_enquire', id: id });
   }
 });
+
+FlowRouter.route('/realestatemanage', {
+  name: 'App_real_estate_manager',
+  action() {
+      BlazeLayout.render('App_body', { main: 'App_real_estate_manager' });
+  },
+});
+
+FlowRouter.route('/realestatebid', {
+  name: 'App_real_estate_bid',
+  action() {
+      BlazeLayout.render('App_body', { main: 'App_real_estate_bid' });
+  },
+});
+

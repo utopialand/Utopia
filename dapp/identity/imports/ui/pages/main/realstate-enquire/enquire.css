@@ -9,4 +9,19 @@
 .real-estate-enquire h1{
     color: white;
     text-align: center;
+    text-transform: uppercase;
+}
+
+.real-estate-enquire .enquire-form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.real-estate-details{
+    margin-top: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 18px;
 }

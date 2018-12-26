@@ -19,14 +19,14 @@
     margin-top: 5%;
 }
 
-.real-estate-container .property-list{
+.property-list{
     display: flex;
     flex-wrap: wrap;
     color: white;
     margin-top: 5%;
 }
 
-.real-estate-container .propertyItem{
+.propertyItem{
     width: 31.9%;
     color: white;
     display: flex;
@@ -79,10 +79,10 @@
     border-radius: 6px;
 }
 
-.real-estate-container .propertyItem:nth-child(3n+2){
+.propertyItem:nth-child(3n+2){
     margin-left: 2%;
 }
 
-.real-estate-container .propertyItem:nth-child(3n+3){
+.propertyItem:nth-child(3n+3){
     margin-left: 2%;
 }
