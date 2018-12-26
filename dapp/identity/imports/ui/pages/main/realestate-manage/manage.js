@@ -4,7 +4,7 @@ import "../../../../templates/footer/footer.js";
 import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs'
-ScatterJS.plugins( new ScatterEOS() );
+ScatterJS.plugins(new ScatterEOS());
 
 const network = {
     protocol: "https", // Defaults to https
@@ -20,7 +20,7 @@ const eosOptions = {
 var scatter = {};
 var eosinstance = {};
 
-function getBuyPropertyRequest(){
+function getBuyPropertyRequest() {
     ScatterJS.scatter.connect('utopia').then((connected) => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
@@ -36,11 +36,11 @@ function getBuyPropertyRequest(){
                         table: "reqbuyertab3",
                         limit: "50",
                         json: true,
-                    }).then((response)=>{
+                    }).then((response) => {
                         Session.set("propertyRequest", response.rows);
-                    });                  
+                    });
                 }
-                else{
+                else {
                     FlowRouter.go("/");
                 }
             }
@@ -48,16 +48,44 @@ function getBuyPropertyRequest(){
     });
 }
 
+function getMyPropertyList() {
+
+    scatter = ScatterJS.scatter;
+    const requiredFields = { accounts: [network] };
+    const eos = scatter.eos(network, Eos, eosOptions);
+    eos.getTableRows({
+        code: "realstateutp",
+        scope: "realstateutp",
+        table: "properties1",
+        limit: "50",
+        json: true,
+    }).then((response) => {
+        var data = [];
+        var username = localStorage.getItem("username");
+        for(var i=0;i<response.rows.length;i++){
+            if(username == response.rows[i].owner){
+                data.push(response.rows[i]);
+            }
+        }
+        console.log("response of my property", data);
+        Session.set("myPropertyList", data);
+    });
+}
+
 Template.App_real_estate_manager.helpers({
-    propertyRequest(){
+    propertyRequest() {
         getBuyPropertyRequest();
         console.log("request to buy my property ", Session.get("propertyRequest"));
         return Session.get("propertyRequest")
+    },
+    myPropertyList() {
+        getMyPropertyList();
+        return Session.get("myPropertyList");
     }
 });
 
 Template.App_real_estate_manager.events({
-    "click .accept-btn": function(e){
+    "click .accept-btn": function (e) {
         var id = e.target.id.split("-")[1];
         var username = localStorage.getItem("username");
         eosinstance.contract('realstateutp').then(realstateutp => {
@@ -72,7 +100,7 @@ Template.App_real_estate_manager.events({
 
         });
     },
-    "click .reject-btn": function(e){
+    "click .reject-btn": function (e) {
         var id = e.target.id.split("-")[1];
         var username = localStorage.getItem("username");
         eosinstance.contract('realstateutp').then(realstateutp => {
