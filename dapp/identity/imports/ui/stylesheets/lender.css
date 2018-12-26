@@ -31,7 +31,7 @@
     display: flex;
     flex-direction: column;   
 }
-label{
+.lender-container label{
     margin-top: 5%;
     color: gray;
     font-size: 18px;
@@ -43,7 +43,7 @@ label{
     flex: 1;
     display: flex;
 }
-input{
+.lender-container input{
     margin-top: 5%;
     background: transparent;
     width: 100%;
@@ -76,7 +76,10 @@ display: flex;
 .colatoptn{
     display: flex;
 }
-
+.colat{
+    display: flex;
+    flex-direction: column;  
+}
 .propid{
     display: flex;
 }
