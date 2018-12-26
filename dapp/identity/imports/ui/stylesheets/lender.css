@@ -39,7 +39,10 @@ label{
     letter-spacing: 1.5px;
     text-transform: uppercase;
 }
-
+.inputcatg{
+    flex: 1;
+    display: flex;
+}
 input{
     margin-top: 5%;
     background: transparent;

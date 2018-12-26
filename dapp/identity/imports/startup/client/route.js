@@ -234,7 +234,6 @@ FlowRouter.route('/realestate/:id', {
       BlazeLayout.render('App_body', { main: 'App_realestate_enquire', id: id });
   }
 });
-
 FlowRouter.route('/lender', {
   name: 'lender',
   action() {

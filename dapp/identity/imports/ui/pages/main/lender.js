@@ -93,22 +93,22 @@ Template.lender.events({
         for(var i=0;i<loandata.rows.length;i++){
             var desc=loandata.rows[i].desc;
             var catid=loandata.rows[i].category_id;
-            document.getElementById("catgid").innerHTML += "<label>"+desc+"</label>"+
-            "<input type='radio' class ='catgidoptn' name='radio' value='"+catid+"'>"
+            document.getElementById("catgid").innerHTML += "<div class='inputcatg'><label>"+desc+"</label>"+
+            "<input type='radio' class ='catgidoptn' name='radio' value='"+catid+"'></div>"
         }
         for(var i=0;i<colatdata.rows.length;i++){
             var desc=colatdata.rows[i].type;
             var catid=colatdata.rows[i].id;
-            document.getElementById("colatoptn").innerHTML += "<label>"+desc+"</label>"+
-            "<input type='checkbox' class ='colatidoptn' name='checkbox' value='"+catid+"'>"
+            document.getElementById("colatoptn").innerHTML += "<div class='inputcatg'><label>"+desc+"</label>"+
+            "<input type='checkbox' class ='colatidoptn' name='checkbox' value='"+catid+"'></div>"
         }
         for(var i=0;i<propdata.rows.length;i++){
             var username = localStorage.getItem("username");
             if(propdata.rows[i].owner == username){
                 var propt_id=propdata.rows[i].propt_id;
                 var catid=propdata.rows[i].price;
-                document.getElementById("propid").innerHTML += "<label>"+catid+"</label>"+
-                "<input type='checkbox' class='propidoptn' name='checkbox' value='"+propt_id+"'>"
+                document.getElementById("propid").innerHTML += "<div class='inputcatg'><label>"+catid+"</label>"+
+                "<input type='checkbox' class='propidoptn' name='checkbox' value='"+propt_id+"'></div>"
             }
            
         }
