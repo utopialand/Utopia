@@ -19,17 +19,17 @@
 .button-options .accept-btn{
     background: green;
     color: white;
+    margin-right:1%;
     text-transform: uppercase;
     font-weight: bold;
-    border-top-left-radius: 6px;
-    border-bottom-left-radius: 6px;
+    border-radius: 6px;
 }
 
 .button-options .reject-btn{
     background: red;
+    margin-left:1%;
     color: white;
     text-transform: uppercase;
     font-weight: bold;
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
+    border-radius: 6px;
 }

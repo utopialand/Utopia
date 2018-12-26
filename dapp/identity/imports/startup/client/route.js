@@ -34,6 +34,7 @@ import "../../ui/pages/main/realestate-bid/bid.js";
 import "../../ui/pages/main/Allutopians.js"
 import "../../ui/pages/main/lender.js"
 import "../../ui/pages/main/realestate-buy/buy.js";
+
 import "../../ui/pages/main/Viewdetails.js"
 FlowRouter.route('/', {
   name: 'welcomePage',
