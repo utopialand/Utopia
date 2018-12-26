@@ -38,8 +38,7 @@ Template.App_manager.onCreated(function() {
         const requiredFields = { accounts: [network] };
         const eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
-          eosinstance = eos;       
-
+          eosinstance = eos;     
           await eosinstance.getTableRows({
             code: "voteproposal",
             scope: "voteproposal",
@@ -211,6 +210,7 @@ Template.App_manager.events({
     document.getElementById("userList").style.display = "block";
     document.getElementById("proposalList").style.display = "none";
     document.getElementById("result-container").style.display = "none";
+    document.getElementById("rsmanagerpage").style.display = "none";  
     document.getElementsByClassName("bondprop")[0].innerHTML ="";
     
   },
@@ -219,11 +219,10 @@ Template.App_manager.events({
     console.log("proposalDetails");
     document.getElementById("userList").style.display = "none";
     document.getElementById("proposalList").style.display = "block";
-    document.getElementsByClassName("budgetProposalsList")[0].style.display =
-      "none";
-    document.getElementsByClassName("manager-below-section")[0].style.display =
-      "block";
-      document.getElementsByClassName("bondprop")[0].innerHTML ="";
+    document.getElementsByClassName("budgetProposalsList")[0].style.display ="none"; 
+    document.getElementById("rsmanagerpage").style.display = "none"; 
+    document.getElementsByClassName("manager-below-section")[0].style.display ="block";
+    document.getElementsByClassName("bondprop")[0].innerHTML ="";
   },
   "click .approved-button": async function() {
     console.log("helllllllloManager");
@@ -596,6 +595,7 @@ Template.App_manager.events({
   "click #coupondetails": function() {
     document.getElementById("userList").style.display = "none";
     document.getElementById("proposalList").style.display = "none";
+    document.getElementById("rsmanagerpage").style.display = "none";
     document.getElementsByClassName("bondprop")[0].innerHTML ="";
     document.getElementsByClassName("bondprop")[0].innerHTML +=
     "<div class='bond-form'><label>bond id</label><input type='text' id='bondid'/>"
@@ -691,6 +691,13 @@ Template.App_manager.events({
           }
         });
     });
+  },
+  "click #realestatemanager":function()
+  {
+    console.log("realestate");
+    
+    document.getElementById("proposalList").style.display = "none"; 
+    document.getElementById("rsmanagerpage").style.display = "block";  
   }
-  
+
 });

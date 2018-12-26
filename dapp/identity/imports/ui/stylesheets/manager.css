@@ -497,3 +497,6 @@
     justify-content: center;
     align-items: center;
 }
+#rsmanagerpage{
+    display:none;
+}
