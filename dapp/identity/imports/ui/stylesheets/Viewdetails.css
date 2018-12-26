@@ -1,0 +1,68 @@
+.detail-container {
+    max-width: 1140px;
+    width: 90%;
+    margin: 5% auto 0 auto;
+    color: white;
+  }
+.viewtask{
+    display: flex;
+    justify-content: space-around;
+}
+
+.detail-button{
+    width: 255px;
+    height: 50px;
+    border: 0;
+    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 50px;
+}
+.list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.datalist{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.listofuser{
+    display: flex;
+    flex-direction: column;
+}
+.listofstatus{
+    display: flex;
+    flex-direction: column;
+}
+.datalist2{
+    flex:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.headloan{
+    flex: 1;
+    margin-top: 5%;
+    font-size: 18px;
+    line-height: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+.data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.holder{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

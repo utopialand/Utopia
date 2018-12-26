@@ -65,7 +65,7 @@ Template.header.events({
     },
     "click .loanText": function(){
         console.log("loan");
-        FlowRouter.go("/lender");
+        FlowRouter.go("/viewdetail");
 
     }
 });

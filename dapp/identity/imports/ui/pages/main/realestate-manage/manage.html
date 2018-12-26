@@ -1,8 +1,9 @@
 <Template name="App_real_estate_manager">
     <div class="real-estate-manager-container">
         <h1>Manage your real estate</h1>
-        <h1>your properties</h1>
+
         {{#if myPropertyList.length}}
+        <h1>your properties</h1>
         <div class="property-list">
             {{#each myPropertyList}}
             <div class="propertyItem">
@@ -16,9 +17,10 @@
             <p>You dont own a property</p>
         </div>
         {{/if}}
-        <h1>Request to buy your properties</h1>
+
         {{#if propertyRequest.length}}
         <div class="property-list">
+            <h1>Request to buy your properties</h1>
             {{#each propertyRequest}}
             <div class="propertyItem">
                 <div class="owner">Owner: {{buyername}}</div>
