@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec 26 12:15:17 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec 26 15:51:29 2018",
     "version": "eosio::abi/1.1",
     "structs": [
         {
@@ -141,6 +141,16 @@
                 {
                     "name": "rsproposal",
                     "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "cancelbuyreq",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
                 }
             ]
         },
@@ -301,6 +311,10 @@
                 {
                     "name": "price",
                     "type": "asset"
+                },
+                {
+                    "name": "reqdate",
+                    "type": "uint64"
                 }
             ]
         },
@@ -389,6 +403,11 @@
         {
             "name": "bid",
             "type": "bid",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "cancelbuyreq",
+            "type": "cancelbuyreq",
             "ricardian_contract": ""
         },
         {

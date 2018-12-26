@@ -181,7 +181,29 @@ ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
         });
     }
 }
+ACTION realestate::cancelbuyreq(uint64_t id)
+{
+    properties_table pt(_self, _self.value);
+    auto itr = pt.find(id);
+    eosio_assert(itr != pt.end(), "no available properties for this id");
 
+    buyer_table bt(_self, itr->owner.value);
+    auto itr1 = bt.find(id);
+    eosio_assert(itr1 != bt.end(), "no available buyer for this id");
+    require_auth(itr1->buyername);
+    uint64_t canceldate = now();
+    /* eosio_assert(canceldate > (itr1->reqdate + 864000),"you can not cancel buy request before 10 days !!"); */
+    eosio_assert(canceldate > (itr1->reqdate + 120),"you can not cancel buy request before 10 days !!");
+    name rsdeposite = "rsdeposite11"_n;
+    string memo = "fund transfer";
+    name buyername = itr1->buyername;
+    action(
+        permission_level{rsdeposite, "active"_n},
+        "amartesttest"_n, "transfer"_n,
+        make_tuple(rsdeposite, buyername, itr1->price, memo))
+        .send();
+    itr1 = bt.erase(itr1);
+}
 ACTION realestate::rejbuyerreq(uint64_t id)
 {
     properties_table pt(_self, _self.value);
@@ -306,4 +328,4 @@ ACTION realestate::auction(uint64_t id, name managername, uint64_t startdate, ui
     });
 };
 
-EOSIO_DISPATCH(realestate, (addproperty)(delpropt)(landproposal)(bid)(approvedprop)(reqbuypropt)(rejbuyerreq)(accbuyerreq)(reqsellpropt)(accsellreq)(auction))
+EOSIO_DISPATCH(realestate, (addproperty)(delpropt)(landproposal)(bid)(approvedprop)(reqbuypropt)(rejbuyerreq)(cancelbuyreq)(accbuyerreq)(reqsellpropt)(accsellreq)(auction))

@@ -18,6 +18,7 @@ CONTRACT realestate : public contract
     ACTION auction(uint64_t id, name manager, uint64_t startdate, uint64_t enddate);
     ACTION rejbuyerreq(uint64_t id);
     ACTION delpropt(uint64_t id);
+    ACTION cancelbuyreq(uint64_t id);
 
     TABLE proptlist
     {
@@ -59,6 +60,7 @@ CONTRACT realestate : public contract
         uint64_t id;
         name buyername;
         asset price;
+        uint64_t reqdate = now();
         uint64_t primary_key() const { return id; }
     };
     TABLE reqsellers

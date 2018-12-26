@@ -692,4 +692,5 @@ Template.App_manager.events({
         });
     });
   }
+  
 });
