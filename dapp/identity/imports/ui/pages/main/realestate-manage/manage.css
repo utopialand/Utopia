@@ -9,3 +9,27 @@
     color: white;
     text-align: center;
 }
+
+.button-options{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.button-options .accept-btn{
+    background: green;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px;
+}
+
+.button-options .reject-btn{
+    background: red;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+}
