@@ -17,6 +17,12 @@ CONTRACT lender : public contract
                         asset amt,
                         string purpose, vector<uint64_t> prop_id,
                         asset income, uint64_t colatopt);
+    
+    ACTION reqloanincm(name identity, uint64_t catgid,
+                       asset amt,
+                       string purpose,
+                       asset income);
+
     ACTION addcollat(name identity,
                      string desc);
 
@@ -31,11 +37,7 @@ CONTRACT lender : public contract
 
     /*ACTION addupdatecr(name identity, uint16_t crscore);
    
-    ACTION reqloanincm(name identity, uint64_t catgid,
-                       asset amt,
-                       string purpose,
-                       asset income);
-  
+   
    
 
     
@@ -104,7 +106,7 @@ CONTRACT lender : public contract
         asset totaldue;
         uint64_t finalduedt;
         string status = "due";
-
+        asset fineamt;
         uint64_t primary_key() const { return reqloanid; }
     };
 
@@ -135,8 +137,6 @@ CONTRACT lender : public contract
     TABLE bidtable
     {
         uint64_t id;
-        string location;
-        uint64_t area;
         name currentOwner;
         asset currentprice;
         uint64_t startdate;
@@ -187,11 +187,11 @@ CONTRACT lender : public contract
     typedef multi_index<"manager111"_n, managertab> manager_table;
     typedef multi_index<"collat111"_n, collateral> collat_tab;
     typedef multi_index<"identity3"_n, identityt> identity_table;
-    typedef multi_index<"reqloan112"_n, requestloan> reqloan_tab;
+    typedef multi_index<"reqloan113"_n, requestloan> reqloan_tab;
     typedef multi_index<"idsupp111"_n, idsupply> idsupp_table;
-    typedef multi_index<"approved112"_n, approvedloan> approveloan_tab;
-    typedef multi_index<"properties"_n, properties> properties_table;
+    typedef multi_index<"approved113"_n, approvedloan> approveloan_tab;
+    typedef multi_index<"properties1"_n, properties> properties_table;
     typedef multi_index<"payment111"_n, paymentdet> paymentdet_tab;
     typedef multi_index<"cscore112"_n, credscore> cscore_table;
-    typedef multi_index<"bidtable"_n, bidtable> bid_table;
+    typedef multi_index<"bidtable1"_n, bidtable> bid_table;
 };

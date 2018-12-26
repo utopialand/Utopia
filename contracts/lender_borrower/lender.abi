@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec 24 17:11:13 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec 26 17:57:01 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -69,6 +69,10 @@
                 {
                     "name": "status",
                     "type": "string"
+                },
+                {
+                    "name": "fineamt",
+                    "type": "asset"
                 }
             ]
         },
@@ -96,14 +100,6 @@
             "fields": [
                 {
                     "name": "id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "location",
-                    "type": "string"
-                },
-                {
-                    "name": "area",
                     "type": "uint64"
                 },
                 {
@@ -416,6 +412,32 @@
             ]
         },
         {
+            "name": "reqloanincm",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "catgid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "amt",
+                    "type": "asset"
+                },
+                {
+                    "name": "purpose",
+                    "type": "string"
+                },
+                {
+                    "name": "income",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
             "name": "requestloan",
             "base": "",
             "fields": [
@@ -518,18 +540,23 @@
             "name": "reqloancolat",
             "type": "reqloancolat",
             "ricardian_contract": ""
+        },
+        {
+            "name": "reqloanincm",
+            "type": "reqloanincm",
+            "ricardian_contract": ""
         }
     ],
     "tables": [
         {
-            "name": "approved112",
+            "name": "approved113",
             "type": "approvedloan",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "bidtable",
+            "name": "bidtable1",
             "type": "bidtable",
             "index_type": "i64",
             "key_names": [],
@@ -585,14 +612,14 @@
             "key_types": []
         },
         {
-            "name": "properties",
+            "name": "properties1",
             "type": "properties",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "reqloan112",
+            "name": "reqloan113",
             "type": "requestloan",
             "index_type": "i64",
             "key_names": [],
