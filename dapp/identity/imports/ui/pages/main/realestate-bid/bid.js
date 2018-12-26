@@ -38,7 +38,13 @@ function getAllPropertyForAuction(){
                         limit: "50",
                         json: true,
                     }).then((response)=>{
-                        Session.set("allPropertyForAuction", response.rows);
+                        var data = [];
+                        for(var i=0;i<response.rows.length;i++){
+                            if(response.rows[i].rsproposal != "finished"){
+                                data.push(response.rows[i]);
+                            }
+                        }
+                        Session.set("allPropertyForAuction", data);
                     });                  
                 }
                 else{
