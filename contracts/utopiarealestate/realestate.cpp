@@ -27,7 +27,7 @@ ACTION realestate::bid(uint64_t id, name buyername, asset amount)
     eosio_assert(itr != bt.end(), "no available properties for this id");
     uint64_t t = now();
     eosio_assert(t >= itr->startdate, "bid is not start yet please wait !!");
-    eosio_assert(t < itr->enddate, "time limit over to buy this properties");
+    eosio_assert(t < itr->enddate, "time limit over to buy this properties!!");
     eosio_assert(amount.symbol == itr->currentprice.symbol, "invalid amount symbol");
     eosio_assert(amount > itr->currentprice, "insufficient amount to buy property !!");
     name rsdeposite = "rsdeposite11"_n;
@@ -118,7 +118,7 @@ ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
 
     name rsdeposite = "rsdeposite11"_n;
     string memo = "fund transfer";
-    buyer_table bt(_self, _self.value);
+    buyer_table bt(_self,itr->owner.value);
     auto itr1 = bt.find(id);
 
     if (itr1 == bt.end())
@@ -136,6 +136,8 @@ ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
     }
     else
     {
+        eosio_assert(itr1->buyername != buyer, "you are alredy highest amount requester of this property");
+        eosio_assert(itr1->price < amount, "anyone already provide amount more than you for this property");
         print("else part running !!!!!!!");
         action(
             permission_level{buyer, "active"_n},
@@ -153,6 +155,28 @@ ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
             b.price = amount;
         });
     }
+}
+
+ACTION realestate::rejbuyerreq(uint64_t id)
+{
+    properties_table pt(_self, _self.value);
+    auto itr = pt.find(id);
+    eosio_assert(itr != pt.end(), "no available properties for this id");
+    require_auth(itr->owner);
+
+    buyer_table bt(_self, _self.value);
+    auto itr1 = bt.find(id);
+    eosio_assert(itr1 != bt.end(), "no available buyer for this id");
+
+    name rsdeposite = "rsdeposite11"_n;
+    string memo = "fund transfer";
+    name buyername = itr1->buyername;
+    action(
+        permission_level{rsdeposite, "active"_n},
+        "amartesttest"_n, "transfer"_n,
+        make_tuple(rsdeposite, buyername, itr1->price, memo))
+        .send();
+    itr1 = bt.erase(itr1);
 }
 
 ACTION realestate::accbuyerreq(uint64_t id, name seller)
@@ -257,4 +281,4 @@ ACTION realestate::auction(uint64_t id, name managername, uint64_t startdate, ui
     });
 };
 
-EOSIO_DISPATCH(realestate, (landproposal)(bid)(approvedprop)(reqbuypropt)(accbuyerreq)(reqsellpropt)(accsellreq)(auction))
+EOSIO_DISPATCH(realestate, (landproposal)(bid)(approvedprop)(reqbuypropt)(rejbuyerreq)(accbuyerreq)(reqsellpropt)(accsellreq)(auction))
