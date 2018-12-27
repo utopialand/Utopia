@@ -8,6 +8,8 @@
 .real-estate-manager-container h1{
     color: white;
     text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .button-options{

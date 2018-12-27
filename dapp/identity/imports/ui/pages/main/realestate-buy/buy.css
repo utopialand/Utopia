@@ -7,6 +7,9 @@
 
 .real-estate-buy-container h1{
     color: white;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .real-estate-buy-container .buyfield{
