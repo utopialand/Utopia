@@ -116,14 +116,16 @@ Template.App_real_estate_manager.events({
 
         });
     },
-    "click .sellpropertybtn": function(e){
+    "click .modifypricebtn": function(e){
+        console.log("id ", e.target.id);
         var id = e.target.id.split("-")[1];
-        var fieldid = "#sellpropertyfield-"+ id;
+        var fieldid = "#modifypricefield-"+ id;
         var utpvalue = $(fieldid).val();
+        console.log("utpvalue ", utpvalue);
         var username = localStorage.getItem("username");
         
         eosinstance.contract('realstateutp').then(realstateutp => {
-            realstateutp.reqsellpropt(id,username,utpvalue, { authorization: username }).then((response) => {
+            realstateutp.modifyprice(id,utpvalue, { authorization: username }).then((response) => {
                 if (response) {
                     console.log("response of selling properties", response);
                 } else {
