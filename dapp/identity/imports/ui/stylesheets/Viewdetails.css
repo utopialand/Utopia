@@ -10,7 +10,7 @@
 }
 
 .detail-button{
-    width: 255px;
+    width: 200px;
     height: 50px;
     border: 0;
     background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
@@ -24,6 +24,21 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    background-color: gray;
+    margin-top: 5%;
+    color: #04030F;
+    height: 80px; 
+    
+}
+.data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: gray;
+    margin-top: 5%;
+    color: #04030F;
+    height: 80px; 
 }
 .datalist{
     flex: 1;
@@ -55,14 +70,86 @@
     letter-spacing: 1.5px;
     text-transform: uppercase;
 }
-.data{
+.mainhead{
+    flex: 1;
+    font-size: 18px;
+    line-height: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+/* lender */
+.userdata{
+    display: flex;
+    flex-direction: column;    
+}
+.acceptdata{
+    display: flex;
+    flex-direction: column;    
+}
+.task{
+    display: flex;
+    flex-direction: column;   
+}
+.buttonpropt{
+    margin-top:40px;
+    margin-right: 20px;
+    height: 60px;
+    width: 250px;
+    color: white; font-family: Colfax Medium;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 14px;
+    background:#04030F;
+}
+.buttonpropt:hover{
+    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
+}
+
+.buttonaction{
+    margin-top:40px;
+    margin-right: 20px;
+    height: 50px;
+    width: 200px;
+    color: white;
+    font-family: Colfax Medium;
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 14px;
+    background:#04030F;
+}
+.buttonaction:hover{
+    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
+}
+.createpropt{
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: center;
+    flex-direction: row;
 }
-.holder{
-    display: flex;
-    flex-direction: column;
+
+.detail-container input{
+    margin-top: 5%;
+    background: transparent;
     width: 100%;
+    border: 0;
+    border-bottom: 2px solid gray;
+    font-family: Colfax Medium;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 14px;
+}
+.detail-container label{
+    margin-top: 5%;
+    color: gray;
+    font-size: 18px;
+    line-height: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }

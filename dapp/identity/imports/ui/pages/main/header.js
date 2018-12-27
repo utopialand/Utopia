@@ -15,22 +15,31 @@ const eosOptions = {
 };
 
 var eosinstance = {};
+var userdetail;
+var manager=["propbudget11","identityreg1"];
 Template.header.onCreated(function() {
     console.log("onCreated");
   ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
-      /* var ts = Math.round((new Date()).getTime() / 1000);
-      console.log("time===>",ts); */
       if (ScatterJS.scatter.connect("utopia")) {
         scatter = ScatterJS.scatter;
         const requiredFields = { accounts: [network] };
         const eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
           eosinstance = eos;
-          document.getElementsByClassName("identitySection")[0].style.display = "flex";
+          eosinstance.getTableRows({
+            code: "identityreg1",
+            scope: "identityreg1",
+            table: "identity3",
+            limit: 50,
+            json: true
+          }).then((resp)=>{
+           userdetail=resp;
+           console.log("user---",userdetail);
+          });
+          localStorage.setItem("manager", manager);
         } else {
           FlowRouter.go("/");
-          document.getElementsByClassName("identitySection")[0].style.display = "none";
         }
       }
     } else {
@@ -64,8 +73,26 @@ Template.header.events({
 
     },
     "click .loanText": function(){
-        console.log("loan");
-        FlowRouter.go("/viewdetail");
+        console.log("loan",localStorage.getItem("username"));
+        var nameuser=localStorage.getItem("username");
+        for (var i=0;i<userdetail.rows.length;i++)
+        {
+          console.log(userdetail.rows[i].username ,"----",nameuser);
+            if(userdetail.rows[i].username == nameuser)
+            {
+              console.log("enter");
+              FlowRouter.go("/lender");
+              break;
+            }else if(nameuser == manager[0] || nameuser == manager[1]){
+              console.log("enter man");
+              FlowRouter.go("/viewdetail");
+              break;
+            } else{
+              console.log("enter else");
+              FlowRouter.go("/");
+            } 
+        }
+       
 
     }
 });

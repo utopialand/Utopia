@@ -23,10 +23,7 @@
     display: flex;
     flex-direction: column;   
 }
-.task{
-    display: flex;
-    flex-direction: column;   
-}
+
 .createdata{
     display: flex;
     flex-direction: column;   
@@ -57,18 +54,11 @@
     line-height: 14px;
 }
 
-input:hover{
+.lender-container input:hover{
     border-bottom: 2px solid white;
     transition: 0.5s;
 }
-.userdata{
-    display: flex;
-    flex-direction: column;    
-}
-.acceptdata{
-    display: flex;
-    flex-direction: column;    
-}
+
 .catgid{
 display: flex;
 }
@@ -105,4 +95,66 @@ display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
+}
+/* view detail */
+.datalist{
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.listofuser{
+    display: flex;
+    flex-direction: column;
+}
+.listofstatus{
+    display: flex;
+    flex-direction: column;
+}
+.datalist2{
+    flex:1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.nonkey{
+    text-align: center;
+}
+.headloan{
+    flex: 1;
+    margin-top: 5%;
+    font-size: 18px;
+    line-height: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+.list{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: gray;
+    margin-top: 5%;
+    color: #04030F;
+    height: 80px; 
+    
+}
+.data{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: gray;
+    margin-top: 5%;
+    color: #04030F;
+    height: 80px; 
+}
+.mainhead{
+    flex: 1;
+    font-size: 18px;
+    line-height: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
 }
