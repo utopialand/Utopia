@@ -20,7 +20,16 @@
   justify-content: center;
   align-items: center;
 }
-
+.non-profile{
+  font-family: Colfax Medium;
+  margin-top: 13%;
+  font-size: 32px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+}
 .profileImage {
   width: 130px;
   height: 130px;

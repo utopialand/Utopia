@@ -20,6 +20,13 @@
   background-size: 100% 100%;
   cursor: pointer;
 }
+.identitySectionman {
+  flex: 4;
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  color: white;
+}
 .identitySection {
   flex: 4;
   display: none;
@@ -27,7 +34,7 @@
   justify-content: flex-end;
   color: white;
 }
-.identitySection .identityText {
+.header .identityText {
   font-family: Colfax Black;
   line-height: 19px;
   font-size: 18px;
@@ -38,7 +45,7 @@
   margin-right: 5%;
   cursor: pointer;
 }
-.identitySection .managerText {
+.header .managerText {
   font-family: Colfax Black;
   line-height: 19px;
   font-size: 18px;
@@ -49,19 +56,7 @@
   margin-right: 5%;
   cursor: pointer;
 }
-.identitySection .loanText {
-  font-family: Colfax Black;
-  line-height: 19px;
-  font-size: 18px;
-  text-align: center;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #ffffff;
-  margin-right: 5%;
-  cursor: pointer;
-}
-
-.identitySection .business-link{
+.header .loanText {
   font-family: Colfax Black;
   line-height: 19px;
   font-size: 18px;
@@ -73,7 +68,19 @@
   cursor: pointer;
 }
 
-.identitySection .real-estate-link{
+.header .business-link{
+  font-family: Colfax Black;
+  line-height: 19px;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-right: 5%;
+  cursor: pointer;
+}
+
+.header .real-estate-link{
   font-family: Colfax Black;
   line-height: 19px;
   font-size: 18px;

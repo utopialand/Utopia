@@ -15,8 +15,10 @@ const eosOptions = {
 };
 let loandata ;
 let colatdata ;
+let viewdata;
 let propdata;
 var propid=[];
+let appdata;
 var eosinstance;
 Template.lender.onCreated( function (){
     ScatterJS.scatter.connect('utopia').then((connected) => {
@@ -36,7 +38,17 @@ Template.lender.onCreated( function (){
                   }).then((resp)=>{
                       loandata=resp;
                       console.log("loandata====>",loandata);  
-                  });       
+                  });   
+                  eosinstance.getTableRows({
+                    code: "utplendercon",
+                    scope: "utplendercon",
+                    table: 'reqloan113',
+                    limit: 50,
+                    json: true,
+                }).then((resp)=>{
+                    viewdata=resp;
+                    console.log("details====>",viewdata);  
+                });     
                   eosinstance.getTableRows({
                     code: "utplendercon",
                     scope: "utplendercon",
@@ -56,6 +68,16 @@ Template.lender.onCreated( function (){
                 }).then((resp)=>{
                     propdata=resp;
                     console.log("realstate====>",propdata);  
+                }); 
+                eosinstance.getTableRows({
+                    code: "utplendercon",
+                    scope: "utplendercon",
+                    table: 'approved113',
+                    limit: 50,
+                    json: true,
+                }).then((resp)=>{
+                    appdata=resp;
+                    console.log("details====>",appdata);  
                 });  
                 } else {
                     FlowRouter.go("/");
@@ -68,26 +90,17 @@ Template.lender.onCreated( function (){
 })
 Template.lender.onRendered( function (){
     document.getElementById("apply-section").style.display="none";
-    document.getElementById("create-section").style.display="none";
+    document.getElementById("list").style.display="none";
+    document.getElementById("data").style.display="none";
     document.getElementById("loanpay-section").style.display="none";
-    document.getElementById("manager-section").style.display="none";
-    document.getElementById("accept-section").style.display="none";
-    document.getElementById("acceptpay").style.display="none";
-    document.getElementById("mantask").style.display="none";
-    document.getElementById("paying").style.display="none";
 })
 Template.lender.events({
     'click #user':function(){
         console.log("user");
         document.getElementById("apply-section").style.display="block";
-        document.getElementById("create-section").style.display="none";
+        document.getElementById("list").style.display="none";
+        document.getElementById("data").style.display="none";
         document.getElementById("loanpay-section").style.display="none";
-        document.getElementById("manager-section").style.display="none";
-        document.getElementById("accept-section").style.display="none";
-        document.getElementById("acceptpay").style.display="none";
-        document.getElementById("mantask").style.display="none";
-        document.getElementById("paying").style.display="block";
-        document.getElementById("manager").style.display="none";
         document.getElementById("catgid").innerHTML ="";
         document.getElementById("colatoptn").innerHTML ="";
         document.getElementById("colat").style.display="none";
@@ -122,49 +135,57 @@ Template.lender.events({
     'click #noncol':function(){
         document.getElementById("colat").style.display="none";
     },
-    'click #manager':function(){
-        console.log("manager");
-        document.getElementById("apply-section").style.display="none";
-        document.getElementById("create-section").style.display="block";
-        document.getElementById("loanpay-section").style.display="none";
-        document.getElementById("accept-section").style.display="none";
-        document.getElementById("mantask").style.display="block";
-        document.getElementById("acceptpay").style.display="block";
-        document.getElementById("manager-section").style.display="none";
-        document.getElementById("user").style.display="none";
-        document.getElementById("paying").style.display="none";
-    },
     'click #paying':function(){
         document.getElementById("apply-section").style.display="none";
-        document.getElementById("acceptpay").style.display="none";
-        document.getElementById("create-section").style.display="none";
+        document.getElementById("list").style.display="none";
+        document.getElementById("data").style.display="none";
         document.getElementById("loanpay-section").style.display="block";
-        document.getElementById("accept-section").style.display="none";
-        document.getElementById("user").style.display="none";
-        document.getElementById("manager").style.display="block";
-        document.getElementById("manager-section").style.display="none";
-        document.getElementById("mantask").style.display="none";
     },
-    'click #mantask':function(){
-
+    'click #detail':function(){
         document.getElementById("apply-section").style.display="none";
-        document.getElementById("create-section").style.display="none";
         document.getElementById("loanpay-section").style.display="none";
-        document.getElementById("mantask").style.display="block";
-        document.getElementById("accept-section").style.display="none";
-        document.getElementById("manager-section").style.display="block";
-        document.getElementById("user").style.display="none";
-        document.getElementById("paying").style.display="none";
-    },
-    'click #acceptpay':function(){
-        document.getElementById("apply-section").style.display="none";
-        document.getElementById("create-section").style.display="none";
-        document.getElementById("loanpay-section").style.display="none";
-        document.getElementById("mantask").style.display="block";
-        document.getElementById("accept-section").style.display="block";
-        document.getElementById("manager-section").style.display="none";
-        document.getElementById("user").style.display="none";
-        document.getElementById("paying").style.display="none";
+        var username = localStorage.getItem("username");
+        console.log("enter user",viewdata);
+        for(var i=0;i<viewdata.rows.length;i++){
+         if(viewdata.rows[i].borrower == username){
+             console.log("enter user");
+             if(viewdata.rows[i].status == "requested"){
+                 var borr = viewdata.rows[i].borrower;
+                 var purpose=viewdata.rows[i].purpose;
+                 var status=viewdata.rows[i].status;
+                 var income=viewdata.rows[i].incomepm;
+                 var loanamt=viewdata.rows[i].loanamt;
+                 document.getElementById("data").style.display="none"  ;
+                 document.getElementById("list").style.display="flex"  ;
+                 document.getElementById("listofuser").innerHTML += "<div class='datalist'>"+
+                 "<div class='headloan'>"+borr+"</div>"+
+                 "<div class='headloan'>"+purpose+"</div>"+
+                 "<div class='headloan'>"+income+"</div>"+
+                 "<div class='headloan'>"+loanamt+"</div>"+
+                 "<div class='headloan'>"+status+"<div></div>";
+             }else{
+                 for(var i=0;i<appdata.rows.length;i++){
+                     console.log("enter user app",appdata.rows[i].borrower );
+                     if(appdata.rows[i].borrower == username){
+                         console.log("enter user");
+                             
+                             var amnt=appdata.rows[i].amtapproved;
+                             var finaldue=appdata.rows[i].finalduedt*1000;
+                             var date = new Date(parseInt(finaldue));
+                             var finaldate = date.toUTCString('MM/dd/yy  HH:mm:ss');
+                             var totaldue=appdata.rows[i].totaldue;
+                             document.getElementById("list").style.display="none"  ;
+                             document.getElementById("data").style.display="flex"  ;
+                             document.getElementById("listofstatus").innerHTML += "<div class='datalist2'><div class='headloan'>"+amnt+"</div>"+
+                     "<div class='headloan'>"+totaldue+"</div>"+
+                     "<div class='headloan'>"+finaldate+"</div></div>"
+                     }
+                 }
+             }
+            
+         }
+     }
+        
     },
     'click #apply':function(event){
         var sym="UTP";
@@ -205,99 +226,6 @@ Template.lender.events({
             utplendercon.loanpayment(username,id,amt, { authorization: username }).then(response => {
                 alert("success");
                 console.log("response==>", response);
-              });
-          });
-    },
-    'click #create':function(){
-        var username = localStorage.getItem("username");
-        var rate = $("#rate").val();
-        var period =parseInt( $("#period").val());
-        var desc = $("#desc").val();
-        eosinstance.contract("utplendercon").then(utplendercon => {
-            utplendercon.addloancatg(username,desc,rate,period, { authorization: username }).then(response => {
-                alert("success");
-                console.log("response==>", response);
-              });
-          });
-    },
-    'click #approve':function(){
-        var username = localStorage.getItem("username");
-        var id = $("#manloanid").val();
-        var borr = $("#borr").val();
-        eosinstance.contract("utplendercon").then(utplendercon => {
-            utplendercon.approveloan(username,id,borr, { authorization: username }).then(response => {
-                alert("success");
-                console.log("response==>", response);
-              });
-          });
-    },
-    'click #accept':function(){
-        var username = localStorage.getItem("username");
-        var id = $("#acceptid").val();
-        eosinstance.contract("utplendercon").then(utplendercon => {
-            utplendercon.paymentacpt(username,id, { authorization: username }).then(response => {
-                alert("success");
-                console.log("response==>", response);
-              });
-          });
-    },
-    'click #default':function(){
-        var username = localStorage.getItem("username");
-        var id = $("#manloanid").val();
-        var borr = $("#borr").val();
-        eosinstance.contract("utplendercon").then(utplendercon => {
-            utplendercon.checkdefault(username,id,borr, { authorization: username }).then(response => {
-                eosinstance.getTableRows({
-                    code: "utplendercon",
-                    scope: "utplendercon",
-                    table: 'approved112',
-                    limit: 50,
-                    json: true,
-                }).then((resp)=>{
-                    console.log("loandata====>",resp);  
-                    for(var i=0;i<resp.rows.length;i++){
-                        if(resp.rows[i].reqloanid == id){
-                            if(resp.rows[i].status == "due"){
-                                alert("there is a time in payment");
-                            }else if(resp.rows[i].status == "complete"){
-                                alert("payment complete");
-                            }else if(resp.rows[i].status == "complete in auction"){
-                                alert("payment complete by auction");
-                            }else if(resp.rows[i].status == "complete, defaulter "){
-                                alert("payment complete as defaulter");
-                            }else{
-                                alert("defaulter");
-                            }
-                        }
-                    }
-                });
-              });
-          });
-    },
-    'click #auction':function(){
-        var username = localStorage.getItem("username");
-        var id = $("#manloanid").val();
-        var borr = $("#borr").val();
-        eosinstance.contract("utplendercon").then(utplendercon => {
-            utplendercon.checkauction(username,id,borr, { authorization: username }).then(response => {
-                eosinstance.getTableRows({
-                    code: "utplendercon",
-                    scope: "utplendercon",
-                    table: 'approved112',
-                    limit: 50,
-                    json: true,
-                }).then((resp)=>{
-                    console.log("loandata====>",resp);  
-                    for(var i=0;i<resp.rows.length;i++){
-                        if(resp.rows[i].reqloanid == id){
-                            if(resp.rows[i].status == "auction called"){
-                                alert("your property is handover to manager for bidding");
-                            }else{
-                                alert("time remain in auction action");
-                            }
-                        }
-                    }
-                });
               });
           });
     }

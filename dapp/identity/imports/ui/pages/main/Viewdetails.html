@@ -1,24 +1,52 @@
 <template name="viewdetail">
     <div class="detail-container">
             <div class="viewtask">
-                    <button class="detail-button" id="userview">User view</button>
+                    <button class="detail-button" id="manager">add loan</button>
+                    <button class="detail-button" id="acceptpay">accept payment</button>
                     <button class="detail-button" id="managerview">manager view</button>
                     <button class="detail-button" id="application">check status for loan</button>
             </div>
+            <!-- lender -->
+            <div id="create-section">
+                <div class="createdata">
+                    <label>interest rate</label>
+                    <input type="text" id="rate"/>
+                    <label>period</label>
+                    <input type="text" id="period"/>                      
+                    <label>description</label>
+                    <input type="text" id="desc"/>
+                    <div class="createpropt">
+                        <button class="buttonpropt" id="create">create loan</button>
+                    </div>
+                </div>
+          </div>
+          <div id="accept-section">
+                <div class="acceptdata">
+                    <label>loan id</label>
+                    <input type="text" id="acceptid"/>
+                    <div class="createpropt">
+                        <button class="buttonpropt" id="accept">accept payment</button>
+                        <button class="buttonpropt" id="default">check default</button>
+                        <button class="buttonpropt" id="auction">check auction</button>
+                    </div>
+                </div>
+          </div>
+            <!-- lender end -->
             <div class="list" id="list">
-                    <div class="headloan">borrower name</div>
-                    <div class="headloan">loan purpose</div>
-                    <div class="headloan">income per month</div>
-                    <div class="headloan">loan amount</div>
-                    <div class="headloan">status</div>
+                    <div class="mainhead">borrower name</div>
+                    <div class="mainhead">loan purpose</div>
+                    <div class="mainhead">income per month</div>
+                    <div class="mainhead">loan amount</div>
+                    <div class="mainhead">status</div>
+                    <div class="mainhead">action</div>
             </div>
             <div class="listofuser" id="listofuser">
 
             </div>
             <div class="data" id="data">
-                    <div class="headloan">approved amount</div>
-                    <div class="headloan">due amount</div>
-                    <div class="headloan">final due date</div>
+                    <div class="mainhead">approved amount</div>
+                    <div class="mainhead">due amount</div>
+                    <div class="mainhead">final due date</div>
             </div>
             <div class="listofstatus" id="listofstatus">
                 

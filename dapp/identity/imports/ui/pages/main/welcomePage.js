@@ -17,6 +17,7 @@ const eosOptions = {
   chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
 let eos = {};
+var manager=["propbudget11","identityreg1"];
 Template.welcomePage.onCreated(function bodyOnCreated() {
   ScatterJS.scatter.connect("utopia").then(connected => {
     if (connected) {
@@ -25,7 +26,8 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
         const requiredFields = { accounts: [network] };
          eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
-          const acc = scatter.identity.accounts.find(
+          var username=localStorage.getItem("loginstatus");
+         /*  const acc = scatter.identity.accounts.find(
             x => x.blockchain === "eos"
           );
           const account = acc.name;
@@ -34,20 +36,30 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
           console.log(
             "inside created----1",
             localStorage.getItem("loginstatus")
-          );
+          ); */
+          if(username ==manager[0] || username ==manager[1]){
+            console.log("1");
+            document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+            document.getElementById("managerText").style.display = "block";
+          }else{
+            console.log("2");
+            document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+            document.getElementById("managerText").style.display = "none";
+               }  
           document.getElementById("loginButton").innerHTML = "logout";
           document.getElementsByClassName("optionFlex")[0].style.display =
             "flex";
         } else {
-          localStorage.setItem("loginstatus", JSON.stringify(false));
+         /*  localStorage.setItem("loginstatus", JSON.stringify(false));
           localStorage.setItem("username", "");
           console.log(
             "inside created----2",
             localStorage.getItem("loginstatus")
-          );
+          ); */
+         // document.getElementsByClassName("identitySection")[0].style.display = "none";
+          document.getElementsByClassName("identitySectionman")[0].style.display = "none";
           document.getElementById("loginButton").innerHTML = "login";
-          document.getElementsByClassName("optionFlex")[0].style.display =
-            "none";
+          document.getElementsByClassName("optionFlex")[0].style.display ="none";
         }
       }
     } else {
@@ -81,7 +93,15 @@ Template.welcomePage.events({
             document.getElementById("loginButton").innerHTML = "logout";
             document.getElementsByClassName("optionFlex")[0].style.display =
               "flex";
-              document.getElementsByClassName("identitySection")[0].style.display = "flex";
+              if(account ==manager[0] || account ==manager[1]){
+                console.log("1");
+                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+                document.getElementById("managerText").style.display = "block";
+              }else{
+                console.log("2");
+                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+                document.getElementById("managerText").style.display = "none";
+                   }  
           })
           .catch(error => {
             console.error(error);
@@ -96,7 +116,7 @@ Template.welcomePage.events({
         localStorage.setItem("username", "");
         console.log("logout");
         document.getElementsByClassName("optionFlex")[0].style.display = "none";
-        document.getElementsByClassName("identitySection")[0].style.display = "none";
+        document.getElementsByClassName("identitySectionman")[0].style.display = "none";
       });
     }
   }

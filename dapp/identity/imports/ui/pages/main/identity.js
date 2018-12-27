@@ -53,19 +53,26 @@ Template.App_identity.onCreated(function () {
                                 contact = residentity.rows[i].contact;
                                 email = residentity.rows[i].email;
                                 profilepic = residentity.rows[i].dochash;
-                                console.log("kdjbisb==>",profilepic);
+                                console.log("kdjbisb==>",residentity.rows[i].username);
+                                var img = new Image();
+                                img.src = "https://ipfs.io/ipfs/"+profilepic;
+                                document.getElementById("non-profile").style.display="none";
+                                document.getElementById("profile-container").style.display="flex";
+                                document.getElementById("profileImage1").style.backgroundImage = "url("+img.src+")";
+                                console.log("imagegeResponse",username);                   
+                                document.getElementById("profileName").innerHTML +=idname;
+                                document.getElementById("profileInfo").innerHTML +="contact : "+contact+"<br><br> " + "email : "+email;
+                                
                                 break;
                             
+                            }else{
+                                console.log("non-profile",residentity.rows[i].username);
+                                document.getElementById("profile-container").style.display="none";
+                                document.getElementById("non-profile").style.display="block";
+                                
                             }
                         }
                       }
-                        var img = new Image();
-                        img.src = "https://ipfs.io/ipfs/"+profilepic;
-                        document.getElementById("profileImage1").style.backgroundImage = "url("+img.src+")";
-                        console.log("imagegeResponse",imagegeResponse);
-                   
-                    document.getElementById("profileName").innerHTML +=idname;
-                    document.getElementById("profileInfo").innerHTML +="contact : "+contact+"<br><br> " + "email : "+email;
                 } else {
                     FlowRouter.go("/");
                 }
