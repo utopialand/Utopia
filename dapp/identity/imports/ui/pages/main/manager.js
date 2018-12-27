@@ -703,8 +703,83 @@ Template.App_manager.events({
   "click #addprop":function()
   {
     console.log("add property");
-   /*  document.getElementById("addprop").innerHTML +=""; */
+    document.getElementsByClassName("adding-land-proposal")[0].style.display = "none";
+    document.getElementsByClassName("approved-property")[0].style.display = "none";
+    document.getElementsByClassName("adding-property")[0].style.display = "flex";
+  },
+  "click #createplandroposal":function()
+  {
+    console.log("createplandroposal");
+    document.getElementsByClassName("adding-property")[0].style.display = "none";
+    document.getElementsByClassName("approved-property")[0].style.display = "none";
+    document.getElementsByClassName("adding-land-proposal")[0].style.display = "flex";
+  },
+  "click #approvedproperty":function()
+  {
+    console.log("approvedproperty");
+    document.getElementsByClassName("adding-property")[0].style.display = "none";
+    document.getElementsByClassName("adding-land-proposal")[0].style.display = "none";
+    document.getElementsByClassName("approved-property")[0].style.display = "flex";
+  },
+  
+  "click #add-property-btn":function()
+  {
+    console.log("add-property");
+    var username = localStorage.getItem("username");
+    var proptname = $("#proptname").val();
+    var address = $("#address").val();
+    var description = $("#description").val();
+    var propttype = $("#propttype").val();
+    var area = $("#area").val();
+    eosinstance.contract('realstateutp').then(realstateutp => {
+      realstateutp.addproperty(proptname, address, description, propttype, area, { authorization: username }).then((response) => {
+          if (response) {
+              console.log("response to adding a property", response);
+              alert("adding property successfully");
+          } else {
+              alert("Unable to add property");
+          }
+
+      });
+  });
+  },
+  "click #add-land-proposal-btn":function()
+  {
+    console.log("create auction");
     
+    var username = localStorage.getItem("username");
+    var propid = $("#propid").val();
+    var currentprice = $("#currentprice").val();
+    var startdate = $("#startdate").val();
+    var enddate = $("#enddate").val();
+    eosinstance.contract('realstateutp').then(realstateutp => {
+      realstateutp.landproposal(propid, username, currentprice, startdate, enddate, { authorization: username }).then((response) => {
+          if (response) {
+              console.log("response to creating land proposal", response);
+              alert("land proposal for bid created successfully");
+          } else {
+              alert("Unable to create land proposal");
+          }
+
+      });
+  });
+  },
+  "click #approved-property-btn":function()
+  {
+    console.log("approved click");
+    
+    var username = localStorage.getItem("username");
+    var approvedid = $("#approvedid").val();
+    eosinstance.contract('realstateutp').then(realstateutp => {
+      realstateutp.approvedprop(approvedid , { authorization: username }).then((response) => {
+          if (response) {
+              console.log("response to creating land proposal", response);
+              alert("property approved successfully");
+          } else {
+              alert("Unable to approved");
+          }
+      });
+  });
   }
 
 });
