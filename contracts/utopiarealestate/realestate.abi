@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec 26 15:51:29 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 27 13:02:01 2018",
     "version": "eosio::abi/1.1",
     "structs": [
         {
@@ -13,24 +13,6 @@
                 {
                     "name": "seller",
                     "type": "name"
-                }
-            ]
-        },
-        {
-            "name": "accsellreq",
-            "base": "",
-            "fields": [
-                {
-                    "name": "id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "buyer",
-                    "type": "name"
-                },
-                {
-                    "name": "amount",
-                    "type": "asset"
                 }
             ]
         },
@@ -239,6 +221,20 @@
             ]
         },
         {
+            "name": "modifyprice",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
             "name": "properties",
             "base": "",
             "fields": [
@@ -335,42 +331,6 @@
                     "type": "asset"
                 }
             ]
-        },
-        {
-            "name": "reqsellers",
-            "base": "",
-            "fields": [
-                {
-                    "name": "id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "sellername",
-                    "type": "name"
-                },
-                {
-                    "name": "sellingprice",
-                    "type": "asset"
-                }
-            ]
-        },
-        {
-            "name": "reqsellpropt",
-            "base": "",
-            "fields": [
-                {
-                    "name": "id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "seller",
-                    "type": "name"
-                },
-                {
-                    "name": "amount",
-                    "type": "asset"
-                }
-            ]
         }
     ],
     "types": [],
@@ -378,11 +338,6 @@
         {
             "name": "accbuyerreq",
             "type": "accbuyerreq",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "accsellreq",
-            "type": "accsellreq",
             "ricardian_contract": ""
         },
         {
@@ -421,6 +376,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "modifyprice",
+            "type": "modifyprice",
+            "ricardian_contract": ""
+        },
+        {
             "name": "rejbuyerreq",
             "type": "rejbuyerreq",
             "ricardian_contract": ""
@@ -428,11 +388,6 @@
         {
             "name": "reqbuypropt",
             "type": "reqbuypropt",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "reqsellpropt",
-            "type": "reqsellpropt",
             "ricardian_contract": ""
         }
     ],
@@ -475,13 +430,6 @@
         {
             "name": "reqbuyertab3",
             "type": "reqbuyers",
-            "index_type": "i64",
-            "key_names": [],
-            "key_types": []
-        },
-        {
-            "name": "reqselltab11",
-            "type": "reqsellers",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

@@ -13,12 +13,13 @@ CONTRACT realestate : public contract
     ACTION approvedprop(uint64_t id);
     ACTION reqbuypropt(uint64_t id, name buyer, asset amount);
     ACTION accbuyerreq(uint64_t id, name seller);
-    ACTION reqsellpropt(uint64_t id, name seller, asset amount);
-    ACTION accsellreq(uint64_t id, name buyer, asset amount);
     ACTION auction(uint64_t id, name manager, uint64_t startdate, uint64_t enddate);
     ACTION rejbuyerreq(uint64_t id);
     ACTION delpropt(uint64_t id);
     ACTION cancelbuyreq(uint64_t id);
+    ACTION modifyprice(uint64_t id, asset amount);
+    /* ACTION reqsellpropt(uint64_t id, name seller, asset amount);
+    ACTION accsellreq(uint64_t id, name buyer, asset amount); */
 
     TABLE proptlist
     {
@@ -63,13 +64,13 @@ CONTRACT realestate : public contract
         uint64_t reqdate = now();
         uint64_t primary_key() const { return id; }
     };
-    TABLE reqsellers
+    /* TABLE reqsellers
     {
         uint64_t id;
         name sellername;
         asset sellingprice;
         uint64_t primary_key() const { return id; }
-    };
+    }; */
     TABLE properties
     {
         uint64_t propt_id;
@@ -89,6 +90,6 @@ CONTRACT realestate : public contract
     typedef multi_index<"bidtable1"_n, bidtable> bid_table;
     typedef multi_index<"properties1"_n, properties> properties_table;
     typedef multi_index<"reqbuyertab3"_n, reqbuyers> buyer_table;
-    typedef multi_index<"reqselltab11"_n, reqsellers> seller_table;
     typedef multi_index<"manager111"_n, managertab> manager_table;
+     /* typedef multi_index<"reqselltab11"_n, reqsellers> seller_table; */
 };

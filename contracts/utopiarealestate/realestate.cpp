@@ -29,7 +29,7 @@ ACTION realestate::landproposal(uint64_t id, name currentOwner, asset currentpri
     print("land proposal!!!!!!!");
     proptlist_table proptab(_self, _self.value);
     auto itr = proptab.find(id);
-    eosio_assert(itr != proptab.end(), "no available properties for this id");
+    eosio_assert(itr != proptab.end(), "no available properties for this id !!!");
     require_auth(_self);
 
     bid_table bt(_self, _self.value);
@@ -254,7 +254,18 @@ ACTION realestate::accbuyerreq(uint64_t id, name seller)
     itr1 = bt.erase(itr1);
 }
 
-ACTION realestate::reqsellpropt(uint64_t id, name seller, asset amount)
+ ACTION realestate::modifyprice(uint64_t id, asset amount)
+{
+    properties_table pt(_self, _self.value);
+    auto itr = pt.find(id);
+    eosio_assert(itr != pt.end(), "no available properties for this id !!");
+    require_auth(itr->owner);
+    pt.modify(itr,_self, [&](auto &s) {
+        s.price = amount;
+    });
+}
+
+/* ACTION realestate::reqsellpropt(uint64_t id, name seller, asset amount)
 {
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
@@ -267,8 +278,8 @@ ACTION realestate::reqsellpropt(uint64_t id, name seller, asset amount)
         s.sellername = seller;
         s.sellingprice = amount;
     });
-}
-ACTION realestate::accsellreq(uint64_t id, name buyer, asset amount)
+} */
+/* ACTION realestate::accsellreq(uint64_t id, name buyer, asset amount)
 {
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
@@ -299,7 +310,7 @@ ACTION realestate::accsellreq(uint64_t id, name buyer, asset amount)
         b.price = amount;
     });
     itr1 = st.erase(itr1);
-}
+} */
 
 ACTION realestate::auction(uint64_t id, name managername, uint64_t startdate, uint64_t enddate)
 {
@@ -328,4 +339,4 @@ ACTION realestate::auction(uint64_t id, name managername, uint64_t startdate, ui
     });
 };
 
-EOSIO_DISPATCH(realestate, (addproperty)(delpropt)(landproposal)(bid)(approvedprop)(reqbuypropt)(rejbuyerreq)(cancelbuyreq)(accbuyerreq)(reqsellpropt)(accsellreq)(auction))
+EOSIO_DISPATCH(realestate, (addproperty)(delpropt)(landproposal)(bid)(approvedprop)(reqbuypropt)(rejbuyerreq)(cancelbuyreq)(accbuyerreq)(modifyprice)(auction))
