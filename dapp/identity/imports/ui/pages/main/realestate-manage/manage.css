@@ -33,3 +33,16 @@
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
 }
+
+.sellpropertyfield{
+    width: 80%;
+}
+
+.sellpropertybtn{
+    margin-top: 5%;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    background: green;
+    border-radius: 6px;
+}
