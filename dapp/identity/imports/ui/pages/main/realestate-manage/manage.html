@@ -7,10 +7,11 @@
         <div class="property-list">
             {{#each myPropertyList}}
             <div class="propertyItem">
+                <div class="owner">Property ID: {{propt_id}}</div>
                 <div class="price">Price: {{price}}</div>
                 <div class="house"></div>
-                <input type = "text" class = "sellpropertyfield" id = "sellpropertyfield-{{propt_id}}" placeholder="format(0.0000 UTP)">
-                <button class = "sellpropertybtn" id = "sellpropertybtn-{{propt_id}}">sell</button>
+                <input type = "text" class = "modifypricefield" id = "modifypricefield-{{propt_id}}" placeholder="format(0.0000 UTP)">
+                <button class = "modifypricebtn" id = "modifypricebtn-{{propt_id}}">Modify Price</button>
             </div>
             {{/each}}
         </div>
@@ -25,8 +26,9 @@
         <div class="property-list">
             {{#each propertyRequest}}
             <div class="propertyItem">
-                <div class="owner">Owner: {{buyername}}</div>
-                <div class="price">Price: {{price}}</div>
+                <div class="owner">Property ID: {{id}}</div>
+                <div class="owner">Buyer: {{buyername}}</div>
+                <div class="price">Req. Price: {{price}}</div>
                 <div class="house"></div>
                 <div class="button-options">
                     <button class="accept-btn" id="acceptreqbtn-{{id}}">Accept</button>

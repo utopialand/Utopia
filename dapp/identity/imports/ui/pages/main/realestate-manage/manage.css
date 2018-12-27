@@ -31,15 +31,16 @@
     color: white;
     text-transform: uppercase;
     font-weight: bold;
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
+    border-radius: 6px;
 }
 
-.sellpropertyfield{
+.modifypricefield{
     width: 80%;
+    background: black;
+    color: white;
 }
 
-.sellpropertybtn{
+.modifypricebtn{
     margin-top: 5%;
     color: white;
     text-transform: uppercase;
