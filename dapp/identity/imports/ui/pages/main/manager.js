@@ -697,7 +697,14 @@ Template.App_manager.events({
     console.log("realestate");
     
     document.getElementById("proposalList").style.display = "none"; 
-    document.getElementById("rsmanagerpage").style.display = "block";  
+    document.getElementsByClassName("bondprop")[0].innerHTML ="none";
+    document.getElementById("rsmanagerpage").style.display = "block"; 
+  },
+  "click #addprop":function()
+  {
+    console.log("add property");
+   /*  document.getElementById("addprop").innerHTML +=""; */
+    
   }
 
 });

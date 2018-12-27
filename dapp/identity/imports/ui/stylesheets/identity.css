@@ -9,6 +9,7 @@
   display: flex;
   margin-bottom: 10%;
   align-items: center;
+  flex-direction: row;
 }
 .imageBox {
   width: 170px;

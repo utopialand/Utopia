@@ -497,6 +497,57 @@
     justify-content: center;
     align-items: center;
 }
+
+
+/* ======================================= Real Estate ================================================== */
+
 #rsmanagerpage{
     display:none;
 }
+.rsmanager-button-group{
+    display: flex;
+    justify-content: space-around;
+}
+.rsmanager-button{
+    width: 255px;
+    height: 50px;
+    border: 0;
+    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 50px;
+}
+.rsmanager-button:hover{
+    background:green;;
+    transition: 0.5s;
+}
+
+
+.adding-property-flex{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+  }
+  
+  .adding-property .row1{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .adding-property .row1 input{
+    width: 29%;
+    height: 50px;
+    background: transparent;
+    border :0;
+    border-bottom : 2px solid #aaa;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 14px;
+    font-family: Colfax Medium;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+  }
