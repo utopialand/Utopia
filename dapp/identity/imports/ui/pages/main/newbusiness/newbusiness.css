@@ -26,8 +26,17 @@
     margin-top: 3%;
     width: 300px;
     height: 35px;
+    background: black;
+    color: white;
+    border: 0;
+    border-bottom: 1px solid white;;
 }
 
 .new-business-form button{
     margin-top: 3%;
+    background: black;
+    color: white;
+    text-transform: uppercase;
+    border: 1px solid white;
+    border-radius: 6px;
 }

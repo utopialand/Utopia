@@ -28,6 +28,8 @@
     text-transform: uppercase;
     font-weight: bolder;
     border-radius: 6px;
+    background: teal;
+    color: white;
 }
 
 .no-business p{

@@ -301,4 +301,4 @@ Template.lender.events({
               });
           });
     }
-})
+});
