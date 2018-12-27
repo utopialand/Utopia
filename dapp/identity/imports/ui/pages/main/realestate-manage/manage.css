@@ -8,6 +8,8 @@
 .real-estate-manager-container h1{
     color: white;
     text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .button-options{
@@ -38,6 +40,8 @@
     width: 80%;
     background: black;
     color: white;
+    border: 0;
+    border-bottom: 1px solid white;
 }
 
 .modifypricebtn{

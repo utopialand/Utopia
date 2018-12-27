@@ -7,12 +7,17 @@
 
 .real-estate-bid-container h1{
     color: white;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .real-estate-bid-container .bidpropertyfield{
     background: black;
     width: 80%;
     color: white;
+    border: 0;
+    border-bottom: 1px solid white;
 
 }
 

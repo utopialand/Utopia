@@ -9,6 +9,8 @@
 .real-estate-container h1{
     color: white;
     text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .real-estate-container .property-header{
@@ -17,6 +19,14 @@
     text-transform: capitalize;
     color: black;
     margin-top: 5%;
+}
+
+.property-header button{
+    background: black;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 3px solid white;
 }
 
 .property-list{
@@ -44,7 +54,7 @@
 
 .propertyItem .owner{
     background: teal;
-    width: 50%;
+    width: 80%;
     text-align: center;
     margin: 3% 0%;
     padding: 3% 0%;
@@ -54,7 +64,7 @@
 
 .propertyItem .price{
     background:skyblue;
-    width: 50%;
+    width: 80%;
     text-align: center;
     margin: 3% 0%;
     padding: 3% 0%;
