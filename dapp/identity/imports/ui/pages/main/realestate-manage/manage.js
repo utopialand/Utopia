@@ -60,6 +60,7 @@ function getMyPropertyList() {
         limit: "50",
         json: true,
     }).then((response) => {
+        console.log("response ", response);
         var data = [];
         var username = localStorage.getItem("username");
         for(var i=0;i<response.rows.length;i++){
@@ -109,6 +110,24 @@ Template.App_real_estate_manager.events({
                     console.log("response of rejecting to buy", response);
                 } else {
                     alert("Unable to reject");
+                }
+
+            });
+
+        });
+    },
+    "click .sellpropertybtn": function(e){
+        var id = e.target.id.split("-")[1];
+        var fieldid = "#sellpropertyfield-"+ id;
+        var utpvalue = $(fieldid).val();
+        var username = localStorage.getItem("username");
+        
+        eosinstance.contract('realstateutp').then(realstateutp => {
+            realstateutp.reqsellpropt(id,username,utpvalue, { authorization: username }).then((response) => {
+                if (response) {
+                    console.log("response of selling properties", response);
+                } else {
+                    alert("Unable to sell");
                 }
 
             });
