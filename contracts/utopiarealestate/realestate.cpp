@@ -150,7 +150,7 @@ ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
 
     name rsdeposite = "rsdeposite11"_n;
     string memo = "fund transfer";
-    buyer_table bt(_self, itr->owner.value);
+    buyer_table bt(_self, _self.value);
     auto itr1 = bt.find(id);
 
     if (itr1 == bt.end())
@@ -163,6 +163,7 @@ ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
         bt.emplace(_self, [&](auto &b) {
             b.id = itr->propt_id;
             b.buyername = buyer;
+            b.reqowner = itr->owner;
             b.price = amount;
             b.proptname = itr->proptname;
         });
@@ -195,7 +196,7 @@ ACTION realestate::cancelbuyreq(uint64_t id)
     auto itr = pt.find(id);
     eosio_assert(itr != pt.end(), "no available properties for this id");
 
-    buyer_table bt(_self, itr->owner.value);
+    buyer_table bt(_self, _self.value);
     auto itr1 = bt.find(id);
     eosio_assert(itr1 != bt.end(), "no available buyer for this id");
     require_auth(itr1->buyername);
@@ -219,7 +220,7 @@ ACTION realestate::rejbuyerreq(uint64_t id)
     eosio_assert(itr != pt.end(), "no available properties for this id");
     require_auth(itr->owner);
 
-    buyer_table bt(_self, itr->owner.value);
+    buyer_table bt(_self, _self.value);
     auto itr1 = bt.find(id);
     eosio_assert(itr1 != bt.end(), "no available buyer for this id");
 
@@ -242,7 +243,7 @@ ACTION realestate::accbuyerreq(uint64_t id, name seller)
     eosio_assert(itr != pt.end(), "no available properties for this id");
     eosio_assert(itr->owner == seller, "you are not valid owner of this property");
 
-    buyer_table bt(_self, itr->owner.value);
+    buyer_table bt(_self, _self.value);
     auto itr1 = bt.find(id);
     eosio_assert(itr1 != bt.end(), "no available buyer for this id");
 

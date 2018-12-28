@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 28 15:38:06 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 28 16:28:28 2018",
     "version": "eosio::abi/1.1",
     "structs": [
         {
@@ -322,6 +322,10 @@
                     "type": "name"
                 },
                 {
+                    "name": "reqowner",
+                    "type": "name"
+                },
+                {
                     "name": "price",
                     "type": "asset"
                 },
@@ -450,7 +454,7 @@
             "key_types": []
         },
         {
-            "name": "reqbuyertab4",
+            "name": "reqbuyertab5",
             "type": "reqbuyers",
             "index_type": "i64",
             "key_names": [],

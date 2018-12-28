@@ -63,6 +63,7 @@ CONTRACT realestate : public contract
         uint64_t id;
         string proptname;
         name buyername;
+        name reqowner;
         asset price;
         uint64_t reqdate = now();
         uint64_t primary_key() const { return id; }
@@ -93,7 +94,7 @@ CONTRACT realestate : public contract
     typedef multi_index<"proptlist1"_n, proptlist> proptlist_table;
     typedef multi_index<"bidtable1"_n, bidtable> bid_table;
     typedef multi_index<"properties1"_n, properties> properties_table;
-    typedef multi_index<"reqbuyertab4"_n, reqbuyers> buyer_table;
+    typedef multi_index<"reqbuyertab5"_n, reqbuyers> buyer_table;
     typedef multi_index<"manager111"_n, managertab> manager_table;
      /* typedef multi_index<"reqselltab11"_n, reqsellers> seller_table; */
 };
