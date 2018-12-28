@@ -37,7 +37,8 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
            userdetail=resp;
            console.log("user---",userdetail);
           });
-          var username=localStorage.getItem("loginstatus");
+          var username=localStorage.getItem("username");
+          console.log("wlcm---",username);
           if(username ==manager[0] || username ==manager[1] || username== manager[2]){
             console.log("1");
             document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
@@ -85,7 +86,6 @@ Template.welcomePage.events({
             localStorage.setItem("username", account);
             console.log("inlogin");
             localStorage.setItem("loginstatus", JSON.stringify(true));
-            localStorage.setItem("username", account);
             document.getElementById("loginButton").innerHTML = "logout";
             document.getElementsByClassName("optionFlex")[0].style.display =
               "flex";
@@ -93,12 +93,12 @@ Template.welcomePage.events({
                 console.log("1");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "block";
-                var s = document.getElementById("len").setAttribute("value","manager");
+                document.getElementById("len").setAttribute("value","manager");
               }else{
                 console.log("2");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
-                var s = document.getElementById("len").setAttribute("value","userid");
+                document.getElementById("len").setAttribute("value","userid");
                    }  
           })
           .catch(error => {

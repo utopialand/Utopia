@@ -13,7 +13,7 @@ const network = {
 const eosOptions = {
   chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
-
+var manager=["propbudget11","identityreg1","realstateutp"];
 Template.header.onCreated(function() {
     console.log("onCreated");
   ScatterJS.scatter.connect("utopia").then(async connected => {
@@ -22,15 +22,23 @@ Template.header.onCreated(function() {
         scatter = ScatterJS.scatter;
         const requiredFields = { accounts: [network] };
         const eos = scatter.eos(network, Eos, eosOptions);
-        if (scatter.identity) {
           if (scatter.identity) {
+            console.log("iden")
             eosinstance = eos;
+            var username=localStorage.getItem("username");
+           console.log("wlcm---",username);
+          if(username ==manager[0] || username ==manager[1] || username== manager[2]){
             document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+            document.getElementById("managerText").style.display = "block";
+          }else{
+            document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+            document.getElementById("managerText").style.display = "none";
+               }  
           } else {
+            console.log("idennot")
             FlowRouter.go("/");
             document.getElementsByClassName("identitySectionman")[0].style.display = "none";
           }
-        }
       }
     } else {
       console.log("scatter not installed");
