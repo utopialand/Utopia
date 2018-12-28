@@ -19,12 +19,14 @@
     display:flex;
     justify-content: center;
     align-content: center;
+    border:0.5px solid black;
     height: 48px;
     font-weight: bold;
     cursor:pointer;
     background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
     color: white;
     text-transform: uppercase;
+    
 }
 .flexOption button:hover{
     background:gray;
@@ -495,3 +497,141 @@
     justify-content: center;
     align-items: center;
 }
+
+
+/* ======================================= Real Estate ================================================== */
+
+#rsmanagerpage{
+    display:none;
+}
+.rsmanager-button-group{
+    display: flex;
+    justify-content: space-around;
+}
+.rsmanager-button{
+    width: 255px;
+    height: 50px;
+    border: 0;
+    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 50px;
+}
+.rsmanager-button:hover{
+    background:green;;
+    transition: 0.5s;
+}
+
+
+.adding-property{
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.adding-property-tab{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top:3%;
+}
+
+.adding-property-tab label{
+    color:white;
+    height: 14px;
+    width:150px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin:0% 3% 0% 0%;
+    
+}
+.adding-property-tab input{
+    background-color: black;
+    width : 150px;
+    color:white;
+    border:0;
+    border-bottom: 1px solid white;
+}
+.adding-property button{
+    margin-top:5%;
+    width:20%;
+    border:0;
+    background: green;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+
+.adding-land-proposal{
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.adding-land-proposal-tab{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top:3%;
+}
+
+.adding-land-proposal-tab label{
+    color:white;
+    height: 14px;
+    width:150px;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 14px;
+    margin:0% 3% 0% 0%;
+    
+}
+.adding-land-proposal-tab input{
+    background-color: black;
+    width : 150px;
+    color:white;
+    border:0;
+    border-bottom: 1px solid white;
+}
+.adding-land-proposal button{
+    margin-top:5%;
+    width:20%;
+    border:0;
+    background: green;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+.approved-property{
+    width: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5%;
+}
+.approved-property input{
+    background-color: black;
+    width : 10%;
+    color:white;
+    border:0;
+    border-bottom: 1px solid white;
+}
+.approved-property button{
+    margin-top:5%;
+    width:20%;
+    border:0;
+    background: green;
+    color: white;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+
+  

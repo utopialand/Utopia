@@ -13,25 +13,32 @@ const network = {
 const eosOptions = {
   chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
-
-var eosinstance = {};
+var manager=["propbudget11","identityreg1","realstateutp"];
 Template.header.onCreated(function() {
     console.log("onCreated");
   ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
-      /* var ts = Math.round((new Date()).getTime() / 1000);
-      console.log("time===>",ts); */
       if (ScatterJS.scatter.connect("utopia")) {
         scatter = ScatterJS.scatter;
         const requiredFields = { accounts: [network] };
         const eos = scatter.eos(network, Eos, eosOptions);
-        if (scatter.identity) {
-          eosinstance = eos;
-          document.getElementsByClassName("identitySection")[0].style.display = "flex";
-        } else {
-          FlowRouter.go("/");
-          document.getElementsByClassName("identitySection")[0].style.display = "none";
-        }
+          if (scatter.identity) {
+            console.log("iden")
+            eosinstance = eos;
+            var username=localStorage.getItem("username");
+           console.log("wlcm---",username);
+          if(username ==manager[0] || username ==manager[1] || username== manager[2]){
+            document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+            document.getElementById("managerText").style.display = "block";
+          }else{
+            document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+            document.getElementById("managerText").style.display = "none";
+               }  
+          } else {
+            console.log("idennot")
+            FlowRouter.go("/");
+            document.getElementsByClassName("identitySectionman")[0].style.display = "none";
+          }
       }
     } else {
       console.log("scatter not installed");
@@ -64,8 +71,19 @@ Template.header.events({
 
     },
     "click .loanText": function(){
-        console.log("loan");
-        FlowRouter.go("/lender");
+      var val=document.getElementById("len").getAttribute("value");
+        console.log( document.getElementById("len").getAttribute("value"),"loan",localStorage.getItem("username"));
+            if(val=="userid")
+            {
+              console.log("enter");
+              FlowRouter.go("/lender");
+            }else if(val =="manager"){
+              console.log("enter man");
+              FlowRouter.go("/viewdetail");
+            } else{
+              console.log("enter else");
+              FlowRouter.go("/");
+            }        
 
     }
 });

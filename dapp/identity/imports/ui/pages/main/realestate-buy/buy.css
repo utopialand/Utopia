@@ -1,0 +1,41 @@
+.real-estate-buy-container{
+    width: 90%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.real-estate-buy-container h1{
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.real-estate-buy-container .buyfield{
+    background: black;
+    width: 80%;
+    color: white;
+    border: 0;
+    border-bottom: 1px solid white;
+}
+
+.real-estate-buy-container .buy-btn{
+    background: skyblue;
+    width: 80%;
+    color: black;
+    margin-top: 5%;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+.property-details-btn{
+    background: skyblue;
+    border: 0;
+    border-radius: 6px;
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 3%;
+}

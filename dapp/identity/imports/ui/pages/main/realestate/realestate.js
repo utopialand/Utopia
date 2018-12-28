@@ -34,7 +34,7 @@ function allProperties(){
                     eos.getTableRows({
                         code: "realstateutp",
                         scope: "realstateutp",
-                        table: "properties",
+                        table: "proptlist1",
                         limit: "50",
                         json: true,
                     }).then((response)=>{
@@ -62,5 +62,14 @@ Template.App_real_estate.events({
         var id = e.target.id.split("-")[1]
         console.log("id ",id);
         FlowRouter.go("/realestate/"+id);
+    },
+    "click .manageproperty": function(){
+        FlowRouter.go("/realestatemanage");
+    },
+    "click .bidpropertypagebtn": function(){
+        FlowRouter.go("/realestatebid");
+    },
+    "click .buypropertypagebtn": function(){
+        FlowRouter.go("/realestatebuy");
     }
 });

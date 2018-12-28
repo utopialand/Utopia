@@ -1,0 +1,75 @@
+.real-estate-manager-container{
+    width: 90%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.real-estate-manager-container h1{
+    color: white;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 3%;
+}
+
+.button-options{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+
+.button-options .accept-btn{
+    background: green;
+    color: white;
+    margin-right:1%;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+.button-options .reject-btn{
+    background: red;
+    margin-left:1%;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 6px;
+}
+
+.modifypricefield{
+    width: 80%;
+    background: black;
+    color: white;
+    border: 0;
+    border-bottom: 1px solid white;
+}
+
+.modifypricebtn{
+    margin-top: 5%;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    background: green;
+    border-radius: 6px;
+}
+
+.property-details-btn{
+    background: skyblue;
+    border: 0;
+    border-radius: 6px;
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 3%;
+}
+
+.cancel-req-btn{
+    background: red;
+    border: 0;
+    margin-top: 3%;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 6px;
+}

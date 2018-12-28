@@ -1,30 +1,16 @@
 <template name="App_identity">
   <div class="identity-container">
-    <div class="profile-container">
+    <div class="profile-container" id="profile-container">
       <div class="imageBox">
           <div class="profileImage" id = "profileImage1"></div>
     </div>
       <div class = "profileDetails">
         <p class="profileName" id = "profileName"></p>
         <p class="profileInfo" id = "profileInfo"></p>
+        <button class = "view-real-estate-btn">view real estate</button>
       </div>
     </div>
-  <!--   <div class="transactions">
-      <h1>transactions</h1>
-      <button>SHOW ALL</button>
-    </div>
-    <div class="transactionList">
-      <div class="details">
-        <p>SENT 50 UTD to SMITH CONSULTING, ULC</p>
-        <p>RECEIVED 5000 UTD from ANDREW SMITH</p>
-        <p>SENT 50 UTD to SMITH CONSULTING, ULC</p>
-      </div>
-      <div class="date">
-        <p>Septeber 13, 2018</p>
-        <p>July 05, 2018</p>
-        <p>April 27, 2018</p>
-      </div>
-    </div> -->
+  <div id="non-profile" class="non-profile">You don't have utopia identity</div>
   </div>
   {{> footer}}
 </template>

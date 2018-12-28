@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec 24 12:36:46 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 27 13:02:01 2018",
     "version": "eosio::abi/1.1",
     "structs": [
         {
@@ -17,20 +17,28 @@
             ]
         },
         {
-            "name": "accsellreq",
+            "name": "addproperty",
             "base": "",
             "fields": [
                 {
-                    "name": "id",
-                    "type": "uint64"
+                    "name": "proptname",
+                    "type": "string"
                 },
                 {
-                    "name": "buyer",
-                    "type": "name"
+                    "name": "address",
+                    "type": "string"
                 },
                 {
-                    "name": "amount",
-                    "type": "asset"
+                    "name": "description",
+                    "type": "string"
+                },
+                {
+                    "name": "propttype",
+                    "type": "string"
+                },
+                {
+                    "name": "area",
+                    "type": "string"
                 }
             ]
         },
@@ -93,14 +101,6 @@
                     "type": "uint64"
                 },
                 {
-                    "name": "location",
-                    "type": "string"
-                },
-                {
-                    "name": "area",
-                    "type": "uint64"
-                },
-                {
                     "name": "currentOwner",
                     "type": "name"
                 },
@@ -123,6 +123,26 @@
                 {
                     "name": "rsproposal",
                     "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "cancelbuyreq",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "delpropt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
                 }
             ]
         },
@@ -169,11 +189,7 @@
             "base": "",
             "fields": [
                 {
-                    "name": "location",
-                    "type": "string"
-                },
-                {
-                    "name": "area",
+                    "name": "id",
                     "type": "uint64"
                 },
                 {
@@ -205,6 +221,20 @@
             ]
         },
         {
+            "name": "modifyprice",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
             "name": "properties",
             "base": "",
             "fields": [
@@ -223,6 +253,46 @@
             ]
         },
         {
+            "name": "proptlist",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "proptname",
+                    "type": "string"
+                },
+                {
+                    "name": "address",
+                    "type": "string"
+                },
+                {
+                    "name": "description",
+                    "type": "string"
+                },
+                {
+                    "name": "propttype",
+                    "type": "string"
+                },
+                {
+                    "name": "area",
+                    "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "rejbuyerreq",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "reqbuyers",
             "base": "",
             "fields": [
@@ -237,6 +307,10 @@
                 {
                     "name": "price",
                     "type": "asset"
+                },
+                {
+                    "name": "reqdate",
+                    "type": "uint64"
                 }
             ]
         },
@@ -257,42 +331,6 @@
                     "type": "asset"
                 }
             ]
-        },
-        {
-            "name": "reqsellers",
-            "base": "",
-            "fields": [
-                {
-                    "name": "id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "sellername",
-                    "type": "name"
-                },
-                {
-                    "name": "sellingprice",
-                    "type": "asset"
-                }
-            ]
-        },
-        {
-            "name": "reqsellpropt",
-            "base": "",
-            "fields": [
-                {
-                    "name": "id",
-                    "type": "uint64"
-                },
-                {
-                    "name": "seller",
-                    "type": "name"
-                },
-                {
-                    "name": "amount",
-                    "type": "asset"
-                }
-            ]
         }
     ],
     "types": [],
@@ -303,8 +341,8 @@
             "ricardian_contract": ""
         },
         {
-            "name": "accsellreq",
-            "type": "accsellreq",
+            "name": "addproperty",
+            "type": "addproperty",
             "ricardian_contract": ""
         },
         {
@@ -323,24 +361,39 @@
             "ricardian_contract": ""
         },
         {
+            "name": "cancelbuyreq",
+            "type": "cancelbuyreq",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "delpropt",
+            "type": "delpropt",
+            "ricardian_contract": ""
+        },
+        {
             "name": "landproposal",
             "type": "landproposal",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "modifyprice",
+            "type": "modifyprice",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "rejbuyerreq",
+            "type": "rejbuyerreq",
             "ricardian_contract": ""
         },
         {
             "name": "reqbuypropt",
             "type": "reqbuypropt",
             "ricardian_contract": ""
-        },
-        {
-            "name": "reqsellpropt",
-            "type": "reqsellpropt",
-            "ricardian_contract": ""
         }
     ],
     "tables": [
         {
-            "name": "bidtable",
+            "name": "bidtable1",
             "type": "bidtable",
             "index_type": "i64",
             "key_names": [],
@@ -361,22 +414,22 @@
             "key_types": []
         },
         {
-            "name": "properties",
+            "name": "properties1",
             "type": "properties",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "reqbuyertab1",
-            "type": "reqbuyers",
+            "name": "proptlist1",
+            "type": "proptlist",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "reqselltab11",
-            "type": "reqsellers",
+            "name": "reqbuyertab3",
+            "type": "reqbuyers",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

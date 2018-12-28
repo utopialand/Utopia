@@ -9,6 +9,7 @@
   display: flex;
   margin-bottom: 10%;
   align-items: center;
+  flex-direction: row;
 }
 .imageBox {
   width: 170px;
@@ -19,7 +20,16 @@
   justify-content: center;
   align-items: center;
 }
-
+.non-profile{
+  font-family: Colfax Medium;
+  margin-top: 13%;
+  font-size: 32px;
+  line-height: 24px;
+  letter-spacing: 1px;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+}
 .profileImage {
   width: 130px;
   height: 130px;
@@ -99,5 +109,14 @@
   text-align: right;
   margin-top: 4%;
   margin-bottom: 4%;
+}
+
+.view-real-estate-btn{
+  margin-top: 5%;
+  background: black;
+  color: white;
+  border: 2px solid white;
+  text-transform: capitalize;
+  font-weight: bold;
 }
 
