@@ -59,23 +59,23 @@ ACTION realestate::bid(uint64_t id, name buyername, asset amount)
     string memo = "fund transfer";
     if (itr->rsproposal == "created")
     {
-        action(
+       /*  action(
             permission_level{buyername, "active"_n},
             "amartesttest"_n, "transfer"_n,
             make_tuple(buyername, rsdeposite, amount, memo))
-            .send();
+            .send(); */
     }
     else
     {
-        action(
+        /* action(
             permission_level{buyername, "active"_n},
             "amartesttest"_n, "transfer"_n,
             make_tuple(buyername, rsdeposite, amount, memo))
-            .send();
+            .send();*/
 
         action(
             permission_level{rsdeposite, "active"_n},
-            "amartesttest"_n, "transfer"_n,
+            "utopbusiness"_n, "transfer"_n,
             make_tuple(rsdeposite, itr->currentOwner, itr->currentprice, memo))
             .send();
     }
@@ -148,11 +148,11 @@ ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
 
     if (itr1 == bt.end())
     {
-        action(
+        /* action(
             permission_level{buyer, "active"_n},
             "amartesttest"_n, "transfer"_n,
             make_tuple(buyer, rsdeposite, amount, memo))
-            .send();
+            .send(); */
         bt.emplace(_self, [&](auto &b) {
             b.id = itr->propt_id;
             b.buyername = buyer;
@@ -161,17 +161,17 @@ ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
     }
     else
     {
-        eosio_assert(itr1->buyername != buyer, "you are alredy highest amount requester of this property");
+       /*  eosio_assert(itr1->buyername != buyer, "you are alredy highest amount requester of this property"); */
         eosio_assert(itr1->price < amount, "anyone already provide amount more than you for this property");
         print("else part running !!!!!!!");
-        action(
+       /*  action(
             permission_level{buyer, "active"_n},
             "amartesttest"_n, "transfer"_n,
             make_tuple(buyer, rsdeposite, amount, memo))
-            .send();
+            .send(); */
         action(
             permission_level{rsdeposite, "active"_n},
-            "amartesttest"_n, "transfer"_n,
+            "utopbusiness"_n, "transfer"_n,
             make_tuple(rsdeposite, itr1->buyername, itr1->price, memo))
             .send();
 
@@ -199,7 +199,7 @@ ACTION realestate::cancelbuyreq(uint64_t id)
     name buyername = itr1->buyername;
     action(
         permission_level{rsdeposite, "active"_n},
-        "amartesttest"_n, "transfer"_n,
+        "utopbusiness"_n, "transfer"_n,
         make_tuple(rsdeposite, buyername, itr1->price, memo))
         .send();
     itr1 = bt.erase(itr1);

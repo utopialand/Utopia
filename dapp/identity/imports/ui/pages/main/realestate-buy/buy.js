@@ -75,6 +75,13 @@ Template.App_real_estate_buy.events({
                 let result = await realstateutp.reqbuypropt(id, username, utpvalue, { authorization: username });
                 if(result){
                     let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "i want to buy this", { authorization: username });
+                    if(transfer_result)
+                    {
+                        alert("successful transfer");
+                    }
+                    else {
+                        alert("transfer failed");
+                    }
                 }
             }
         } catch(err)
