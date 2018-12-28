@@ -82,3 +82,9 @@ Template.App_identity.onCreated(function () {
         }
     });
 });
+
+Template.App_identity.events({
+    "click .view-real-estate-btn": function(){
+        FlowRouter.go("/realestatemanage");
+    }
+});
