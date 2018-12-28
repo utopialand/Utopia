@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 21 14:49:26 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 27 15:59:12 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -15,8 +15,26 @@
                     "type": "name"
                 },
                 {
-                    "name": "cscore",
-                    "type": "float32"
+                    "name": "liqasset",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "byrealest",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "liqasset",
+                    "type": "asset"
                 }
             ]
         },
@@ -103,6 +121,24 @@
                     "type": "bool"
                 }
             ]
+        },
+        {
+            "name": "properties",
+            "base": "",
+            "fields": [
+                {
+                    "name": "propt_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "owner",
+                    "type": "name"
+                },
+                {
+                    "name": "price",
+                    "type": "asset"
+                }
+            ]
         }
     ],
     "types": [],
@@ -110,6 +146,11 @@
         {
             "name": "addcredscore",
             "type": "addcredscore",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "byrealest",
+            "type": "byrealest",
             "ricardian_contract": ""
         },
         {
@@ -136,6 +177,13 @@
         {
             "name": "manager111",
             "type": "managertab",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "properties1",
+            "type": "properties",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
