@@ -111,3 +111,12 @@
   margin-bottom: 4%;
 }
 
+.view-real-estate-btn{
+  margin-top: 5%;
+  background: black;
+  color: white;
+  border: 2px solid white;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
