@@ -14,35 +14,28 @@ CONTRACT lender : public contract
                        int period);
 
     ACTION reqloancolat(name identity, uint64_t catgid,
-                        asset amt,
-                        string purpose, vector<uint64_t> prop_id,
-                        asset income, uint64_t colatopt);
-    
+                            asset amt,
+                            string purpose, vector<uint64_t> prop_id,
+                            asset income, uint64_t colatopt, string type);
+
     ACTION reqloanincm(name identity, uint64_t catgid,
-                       asset amt,
-                       string purpose,
-                       asset income);
+                           asset amt,
+                           string purpose,
+                           asset income, string type);
 
     ACTION addcollat(name identity,
                      string desc);
 
-    ACTION approveloan(name identity, uint64_t reqloanid,
-                       name borrower);
-    ACTION checkdefault(name identity, uint64_t reqloanid, name borrower);
-    ACTION checkauction(name identity, uint64_t reqloanid, name borrower);
-    ACTION checkbid(name identity, uint64_t reqloanid, name borrower);
+    ACTION approveloan(name identity, uint64_t reqloanid);
+    ACTION approveinst(name identity, uint64_t reqloanid);
+    ACTION checkdefault(name identity, uint64_t reqloanid);
+    ACTION checkauction(name identity, uint64_t reqloanid);
+    ACTION checkbid(name identity, uint64_t reqloanid);
     ACTION loanpayment(name payer, uint64_t reqloanid, asset amt);
     ACTION paymentacpt(name identity, uint64_t reqloanid);
+    ACTION paymentinst(name identity, uint64_t reqloanid);
     ACTION delreqloan(uint64_t id);
 
-    /*ACTION addupdatecr(name identity, uint16_t crscore);
-   
-   
-   
-
-    
- */
-    ACTION hi();
     TABLE loancatg
     {
         uint64_t category_id;
@@ -93,6 +86,7 @@ CONTRACT lender : public contract
         asset incomepm;
         string status;
         bool type;
+        string loantype;
 
         uint64_t primary_key() const { return reqloanid; }
     };
@@ -105,6 +99,22 @@ CONTRACT lender : public contract
         asset amtapproved;
         asset totaldue;
         uint64_t finalduedt;
+        string status = "due";
+        asset fineamt;
+        uint64_t primary_key() const { return reqloanid; }
+    };
+
+    TABLE instalment
+    {
+        uint64_t reqloanid;
+        name borrower;
+        uint64_t approvedAt;
+        asset amtapproved;
+        asset totaldue;
+        asset monthlydue;
+        uint64_t finalduedt;
+        uint64_t monthlyduedt;
+        int noofinst;
         string status = "due";
         asset fineamt;
         uint64_t primary_key() const { return reqloanid; }
@@ -190,6 +200,7 @@ CONTRACT lender : public contract
     typedef multi_index<"reqloan113"_n, requestloan> reqloan_tab;
     typedef multi_index<"idsupp111"_n, idsupply> idsupp_table;
     typedef multi_index<"approved113"_n, approvedloan> approveloan_tab;
+    typedef multi_index<"instalment11"_n, instalment> instalment_tab;
     typedef multi_index<"properties1"_n, properties> properties_table;
     typedef multi_index<"payment111"_n, paymentdet> paymentdet_tab;
     typedef multi_index<"cscore112"_n, credscore> cscore_table;

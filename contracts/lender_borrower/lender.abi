@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec 26 17:57:01 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 28 17:28:10 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -77,6 +77,20 @@
             ]
         },
         {
+            "name": "approveinst",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "reqloanid",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "approveloan",
             "base": "",
             "fields": [
@@ -87,10 +101,6 @@
                 {
                     "name": "reqloanid",
                     "type": "uint64"
-                },
-                {
-                    "name": "borrower",
-                    "type": "name"
                 }
             ]
         },
@@ -139,10 +149,6 @@
                 {
                     "name": "reqloanid",
                     "type": "uint64"
-                },
-                {
-                    "name": "borrower",
-                    "type": "name"
                 }
             ]
         },
@@ -157,10 +163,6 @@
                 {
                     "name": "reqloanid",
                     "type": "uint64"
-                },
-                {
-                    "name": "borrower",
-                    "type": "name"
                 }
             ]
         },
@@ -175,10 +177,6 @@
                 {
                     "name": "reqloanid",
                     "type": "uint64"
-                },
-                {
-                    "name": "borrower",
-                    "type": "name"
                 }
             ]
         },
@@ -225,11 +223,6 @@
             ]
         },
         {
-            "name": "hi",
-            "base": "",
-            "fields": []
-        },
-        {
             "name": "identityt",
             "base": "",
             "fields": [
@@ -270,6 +263,56 @@
                 {
                     "name": "id",
                     "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "instalment",
+            "base": "",
+            "fields": [
+                {
+                    "name": "reqloanid",
+                    "type": "uint64"
+                },
+                {
+                    "name": "borrower",
+                    "type": "name"
+                },
+                {
+                    "name": "approvedAt",
+                    "type": "uint64"
+                },
+                {
+                    "name": "amtapproved",
+                    "type": "asset"
+                },
+                {
+                    "name": "totaldue",
+                    "type": "asset"
+                },
+                {
+                    "name": "monthlydue",
+                    "type": "asset"
+                },
+                {
+                    "name": "finalduedt",
+                    "type": "uint64"
+                },
+                {
+                    "name": "monthlyduedt",
+                    "type": "uint64"
+                },
+                {
+                    "name": "noofinst",
+                    "type": "int32"
+                },
+                {
+                    "name": "status",
+                    "type": "string"
+                },
+                {
+                    "name": "fineamt",
+                    "type": "asset"
                 }
             ]
         },
@@ -360,6 +403,20 @@
             ]
         },
         {
+            "name": "paymentinst",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "reqloanid",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
             "name": "properties",
             "base": "",
             "fields": [
@@ -408,6 +465,10 @@
                 {
                     "name": "colatopt",
                     "type": "uint64"
+                },
+                {
+                    "name": "type",
+                    "type": "string"
                 }
             ]
         },
@@ -434,6 +495,10 @@
                 {
                     "name": "income",
                     "type": "asset"
+                },
+                {
+                    "name": "type",
+                    "type": "string"
                 }
             ]
         },
@@ -480,6 +545,10 @@
                 {
                     "name": "type",
                     "type": "bool"
+                },
+                {
+                    "name": "loantype",
+                    "type": "string"
                 }
             ]
         }
@@ -494,6 +563,11 @@
         {
             "name": "addloancatg",
             "type": "addloancatg",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "approveinst",
+            "type": "approveinst",
             "ricardian_contract": ""
         },
         {
@@ -522,11 +596,6 @@
             "ricardian_contract": ""
         },
         {
-            "name": "hi",
-            "type": "hi",
-            "ricardian_contract": ""
-        },
-        {
             "name": "loanpayment",
             "type": "loanpayment",
             "ricardian_contract": ""
@@ -534,6 +603,11 @@
         {
             "name": "paymentacpt",
             "type": "paymentacpt",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "paymentinst",
+            "type": "paymentinst",
             "ricardian_contract": ""
         },
         {
@@ -586,6 +660,13 @@
         {
             "name": "idsupp111",
             "type": "idsupply",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "instalment11",
+            "type": "instalment",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
