@@ -176,6 +176,10 @@ Template.App_real_estate_manager.events({
             }
         }catch(err){
             console.log(err);
+            alert("something went wrong");
         }
     }
 });
+
+
+/* var ts = Math.round((new Date()).getTime() / 1000); */

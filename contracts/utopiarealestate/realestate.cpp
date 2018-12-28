@@ -29,6 +29,9 @@ ACTION realestate::landproposal(uint64_t id, name currentOwner, asset currentpri
     print("land proposal!!!!!!!");
     proptlist_table proptab(_self, _self.value);
     auto itr = proptab.find(id);
+    uint64_t t = now();
+    eosio_assert((t>=startdate) && (t<enddate),"start and end date is not correct");
+    eosio_assert(startdate < enddate,"enddate should be more than start date !!");
     eosio_assert(itr != proptab.end(), "no available properties for this id !!!");
     require_auth(_self);
 
@@ -53,10 +56,10 @@ ACTION realestate::bid(uint64_t id, name buyername, asset amount)
     eosio_assert(itr->currentOwner != buyername, "you have already top bidder");
     require_auth(buyername);
     eosio_assert(itr->bidstatus == true, "no available bid for this properties");
-    eosio_assert(itr != bt.end(), "no available properties for this id");
+    eosio_assert(itr != bt.end(), "no available property for this id");
     uint64_t t = now();
-    eosio_assert(t >= itr->startdate, "bid is not start yet please wait !!");
-    eosio_assert(t < itr->enddate, "time limit over to buy this properties!!");
+    eosio_assert(t >= itr->startdate, "bid has not started yet !!");
+    eosio_assert(t < itr->enddate, "time limit over to buy this property!!");
     eosio_assert(amount.symbol == itr->currentprice.symbol, "invalid amount symbol");
     eosio_assert(amount > itr->currentprice, "insufficient amount to buy property !!");
     name rsdeposite = "rsdeposite11"_n;
