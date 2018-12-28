@@ -77,15 +77,17 @@ Template.App_real_estate_buy.events({
                 if(result){
                     let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "i want to buy this", { authorization: username });
                     if(transfer_result){
-                        alert("transfer successful");
+                        alert("buy request sent to owner");
                     }else{
-                        alert("transfer failed");
+                        alert("Something went wrong");
                     }
                 }
             }
         } catch(err)
         {
-            console.log(err);
+            var parseResponse = JSON.parse(err);
+            var msg = parseResponse.error.details[0].message.split(":")[1]
+            alert(msg);
         }
         
     },
