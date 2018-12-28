@@ -62,3 +62,13 @@
     font-weight: bold;
     margin-top: 3%;
 }
+
+.cancel-req-btn{
+    background: red;
+    border: 0;
+    margin-top: 3%;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 6px;
+}

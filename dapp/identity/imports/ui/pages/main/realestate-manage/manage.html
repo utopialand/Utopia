@@ -22,10 +22,10 @@
         </div>
         {{/if}}
 
-        {{#if propertyRequest.length}}
+        {{#if propertyRequestToYou.length}}
         <h1>Request to buy your properties</h1>
         <div class="property-list">
-            {{#each propertyRequest}}
+            {{#each propertyRequestToYou}}
             <div class="propertyItem">
                 <div class="owner">Property Name: {{proptname}}</div>
                 <div class="owner">Buyer: {{buyername}}</div>
@@ -42,6 +42,26 @@
         {{else}}
         <div class="no-business">
             <p>No requests on your property</p>
+        </div>
+        {{/if}}
+
+        {{#if propertyRequestByMe.length}}
+        <h1>Request By You</h1>
+        <div class="property-list">
+            {{#each propertyRequestByMe}}
+            <div class="propertyItem">
+                <div class="owner">Property Name: {{proptname}}</div>
+                <div class="owner">Owner: {{reqowner}}</div>
+                <div class="price">Price: {{price}}</div>
+                <div class="house"></div>
+                <button class = "cancel-req-btn" id = "cancel-req-{{id}}">Cancel</button>
+                <button class = "property-details-btn" id = "req-pr-{{id}}">property details</button>
+            </div>
+            {{/each}}
+        </div>
+        {{else}}
+        <div class="no-business">
+            <p>No requests by you</p>
         </div>
         {{/if}}
 
