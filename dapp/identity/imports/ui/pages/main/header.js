@@ -14,9 +14,6 @@ const eosOptions = {
   chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
 
-var eosinstance = {};
-var userdetail;
-var manager=["propbudget11","identityreg1"];
 Template.header.onCreated(function() {
     console.log("onCreated");
   ScatterJS.scatter.connect("utopia").then(async connected => {
@@ -27,17 +24,6 @@ Template.header.onCreated(function() {
         const eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
           eosinstance = eos;
-          eosinstance.getTableRows({
-            code: "identityreg1",
-            scope: "identityreg1",
-            table: "identity3",
-            limit: 50,
-            json: true
-          }).then((resp)=>{
-           userdetail=resp;
-           console.log("user---",userdetail);
-          });
-          localStorage.setItem("manager", manager);
         } else {
           FlowRouter.go("/");
         }
@@ -73,26 +59,19 @@ Template.header.events({
 
     },
     "click .loanText": function(){
-        console.log("loan",localStorage.getItem("username"));
-        var nameuser=localStorage.getItem("username");
-        for (var i=0;i<userdetail.rows.length;i++)
-        {
-          console.log(userdetail.rows[i].username ,"----",nameuser);
-            if(userdetail.rows[i].username == nameuser)
+      var val=document.getElementById("len").getAttribute("value");
+        console.log( document.getElementById("len").getAttribute("value"),"loan",localStorage.getItem("username"));
+            if(val=="userid")
             {
               console.log("enter");
               FlowRouter.go("/lender");
-              break;
-            }else if(nameuser == manager[0] || nameuser == manager[1]){
+            }else if(val =="manager"){
               console.log("enter man");
               FlowRouter.go("/viewdetail");
-              break;
             } else{
               console.log("enter else");
               FlowRouter.go("/");
-            } 
-        }
-       
+            }        
 
     }
 });
