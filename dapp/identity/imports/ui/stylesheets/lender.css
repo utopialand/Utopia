@@ -1,0 +1,102 @@
+.lender-container {
+    max-width: 1140px;
+    width: 90%;
+    margin: 5% auto 0 auto;
+    color: white;
+  }
+.group{
+    display: flex;
+    justify-content: space-around;
+}
+
+.lenders-button{
+    width: 255px;
+    height: 50px;
+    border: 0;
+    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 50px;
+}
+.paydata{
+    display: flex;
+    flex-direction: column;   
+}
+.task{
+    display: flex;
+    flex-direction: column;   
+}
+.createdata{
+    display: flex;
+    flex-direction: column;   
+}
+label{
+    margin-top: 5%;
+    color: gray;
+    font-size: 18px;
+    line-height: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+input{
+    margin-top: 5%;
+    background: transparent;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid gray;
+    font-family: Colfax Medium;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 14px;
+}
+
+input:hover{
+    border-bottom: 2px solid white;
+    transition: 0.5s;
+}
+.userdata{
+    display: flex;
+    flex-direction: column;    
+}
+.acceptdata{
+    display: flex;
+    flex-direction: column;    
+}
+.catgid{
+display: flex;
+}
+
+.colatoptn{
+    display: flex;
+}
+
+.propid{
+    display: flex;
+}
+
+.buttonpropt{
+    margin-top:40px;
+    margin-right: 20px;
+    height: 60px;
+    width: 250px;
+    color: white; font-family: Colfax Medium;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 14px;
+    background:#04030F;
+}
+.buttonpropt:hover{
+    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
+}
+.createpropt{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
