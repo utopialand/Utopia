@@ -32,12 +32,28 @@ function getBuyPropertyRequest() {
                 if (scatter.identity) {
                     eos.getTableRows({
                         code: "realstateutp",
-                        scope: username,
-                        table: "reqbuyertab4",
+                        scope: "realstateutp",
+                        table: "reqbuyertab5",
                         limit: "50",
                         json: true,
                     }).then((response) => {
-                        Session.set("propertyRequest", response.rows);
+                        console.log("response of requests", response);
+                        var requestsToMe = [];
+                        var requestsByMe = [];
+
+                        for(var i = 0;i<response.rows.length;i++){
+                            if(username == response.rows[i].buyername){
+                                requestsByMe.push(response.rows[i]);
+                            }
+                            if(username == response.rows[i].reqowner){
+                                requestsToMe.push(response.rows[i]);
+                            }
+                        }
+
+                        console.log("requests to me", requestsToMe);
+                        console.log("requests by me", requestsByMe);
+                        Session.set("requestsToMe", requestsToMe);
+                        Session.set("requestsByMe", requestsByMe);
                     });
                 }
                 else {
@@ -74,14 +90,16 @@ function getMyPropertyList() {
 }
 
 Template.App_real_estate_manager.helpers({
-    propertyRequest() {
+    propertyRequestToYou() {
         getBuyPropertyRequest();
-        console.log("request to buy my property ", Session.get("propertyRequest"));
-        return Session.get("propertyRequest")
+        return Session.get("requestsToMe");
     },
     myPropertyList() {
         getMyPropertyList();
         return Session.get("myPropertyList");
+    },
+    propertyRequestByMe(){
+        return Session.get("requestsByMe");
     }
 });
 
@@ -139,5 +157,25 @@ Template.App_real_estate_manager.events({
     "click .property-details-btn": function(e){
         var id = e.target.id.split("-")[2];
         FlowRouter.go("/realestate/"+id);
+    },
+    "click .cancel-req-btn": async function(e){
+        var username = localStorage.getItem("username");
+        var id = e.target.id.split("-")[2];
+
+        try{
+            let realstateutp = await eosinstance.contract('realstateutp');
+            if(realstateutp){
+                var cancel_req = await realstateutp.cancelbuyreq(id, { authorization: username });
+
+                if(cancel_req){
+                    alert("You cancelled the request");
+                }
+                else{
+                    alert("something went wrong");
+                }
+            }
+        }catch(err){
+            console.log(err);
+        }
     }
 });
