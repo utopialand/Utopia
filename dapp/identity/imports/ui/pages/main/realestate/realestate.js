@@ -21,7 +21,7 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
-
+let userinfo;
 function allProperties(){
     ScatterJS.scatter.connect('utopia').then((connected) => {
         if (connected) {
@@ -31,16 +31,41 @@ function allProperties(){
                 const eos = scatter.eos(network, Eos, eosOptions);
                 eosinstance = eos;
                 if (scatter.identity) {
-                    eos.getTableRows({
+                    eosinstance.getTableRows({
                         code: "realstateutp",
                         scope: "realstateutp",
-                        table: "properties",
+                        table: "proptlist1",
                         limit: "50",
                         json: true,
                     }).then((response)=>{
                         console.log("response of all properties ", response.rows);
                         Session.set("allPropertyList", response.rows);
-                    });                  
+                    });
+                    eosinstance.getTableRows({
+                        code: "identityreg1",
+                        scope: "identityreg1",
+                        table: "identity3",
+                        limit: 50,
+                        json: true
+                      }).then((resp)=>{
+                        userinfo=resp;
+                        console.log("user--",userinfo);
+                        var username=localStorage.getItem("username");
+                        for(var i=0;i<userinfo.rows.length;i++){
+                        if(userinfo.rows[i].username == username)
+                        {
+                        document.getElementsByClassName("manageproperty")[0].style.display = "flex";
+                        document.getElementsByClassName("buypropertypagebtn")[0].style.display = "flex";
+                        document.getElementsByClassName("bidpropertypagebtn")[0].style.display = "flex";         
+                        break;
+                        }else{
+                        document.getElementsByClassName("manageproperty")[0].style.display = "none";
+                        document.getElementsByClassName("buypropertypagebtn")[0].style.display = "none";
+                        document.getElementsByClassName("bidpropertypagebtn")[0].style.display = "none";   
+                        }
+                    }
+                      });
+                      
                 }
                 else{
                     FlowRouter.go("/");
@@ -62,5 +87,14 @@ Template.App_real_estate.events({
         var id = e.target.id.split("-")[1]
         console.log("id ",id);
         FlowRouter.go("/realestate/"+id);
+    },
+    "click .manageproperty": function(){
+        FlowRouter.go("/realestatemanage");
+    },
+    "click .bidpropertypagebtn": function(){
+        FlowRouter.go("/realestatebid");
+    },
+    "click .buypropertypagebtn": function(){
+        FlowRouter.go("/realestatebuy");
     }
 });

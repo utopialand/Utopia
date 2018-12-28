@@ -16,6 +16,8 @@ const eosOptions = {
 var manager=["propbudget11","identityreg1","realstateutp"];
 Template.header.onCreated(function() {
     console.log("onCreated");
+    var username=localStorage.getItem("username");
+    console.log("wlcm---",username);
   ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
       if (ScatterJS.scatter.connect("utopia")) {
@@ -25,8 +27,6 @@ Template.header.onCreated(function() {
           if (scatter.identity) {
             console.log("iden")
             eosinstance = eos;
-            var username=localStorage.getItem("username");
-           console.log("wlcm---",username);
           if(username ==manager[0] || username ==manager[1] || username== manager[2]){
             document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
             document.getElementById("managerText").style.display = "block";
@@ -45,6 +45,9 @@ Template.header.onCreated(function() {
     }
   });
 });
+Template.header.onRendered(function() {
+
+})
 
 Template.header.events({
     "click .proposal": function(){
@@ -73,16 +76,12 @@ Template.header.events({
     "click .loanText": function(){
       var val=document.getElementById("len").getAttribute("value");
         console.log( document.getElementById("len").getAttribute("value"),"loan",localStorage.getItem("username"));
-            if(val=="userid")
-            {
-              console.log("enter");
-              FlowRouter.go("/lender");
-            }else if(val =="manager"){
+            if(val =="manager"){
               console.log("enter man");
               FlowRouter.go("/viewdetail");
             } else{
               console.log("enter else");
-              FlowRouter.go("/");
+              FlowRouter.go("/lender");
             }        
 
     }

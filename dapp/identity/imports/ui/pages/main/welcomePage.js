@@ -48,7 +48,7 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
             console.log("2");
             document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
             document.getElementById("managerText").style.display = "none";
-            var s = document.getElementById("len").setAttribute("value","userid");
+            //var s = document.getElementById("len").setAttribute("value","userid");
                }  
           document.getElementById("loginButton").innerHTML = "logout";
           document.getElementsByClassName("optionFlex")[0].style.display =
@@ -98,7 +98,7 @@ Template.welcomePage.events({
                 console.log("2");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
-                document.getElementById("len").setAttribute("value","userid");
+                //document.getElementById("len").setAttribute("value","userid");
                    }  
           })
           .catch(error => {
