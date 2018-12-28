@@ -94,5 +94,9 @@ Template.App_real_estate_bid.events({
             console.log("error ",err);
         }
 
+    },
+    "click .property-details-btn": function(e){
+        var id = e.target.id.split("-")[2];
+        FlowRouter.go("/realestate/"+id);
     }
 });

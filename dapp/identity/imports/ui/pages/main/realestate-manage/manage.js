@@ -33,7 +33,7 @@ function getBuyPropertyRequest() {
                     eos.getTableRows({
                         code: "realstateutp",
                         scope: username,
-                        table: "reqbuyertab3",
+                        table: "reqbuyertab4",
                         limit: "50",
                         json: true,
                     }).then((response) => {
@@ -135,5 +135,9 @@ Template.App_real_estate_manager.events({
             });
 
         });
+    },
+    "click .property-details-btn": function(e){
+        var id = e.target.id.split("-")[2];
+        FlowRouter.go("/realestate/"+id);
     }
 });
