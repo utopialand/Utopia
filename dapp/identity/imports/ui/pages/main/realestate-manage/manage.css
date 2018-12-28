@@ -52,3 +52,13 @@
     background: green;
     border-radius: 6px;
 }
+
+.property-details-btn{
+    background: skyblue;
+    border: 0;
+    border-radius: 6px;
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 3%;
+}

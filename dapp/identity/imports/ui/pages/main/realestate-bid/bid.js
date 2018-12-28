@@ -76,10 +76,13 @@ Template.App_real_estate_bid.events({
             let realstateutp = await eosinstance.contract('realstateutp');
             let utopbusiness = await eosinstance.contract("utopbusiness");
 
+            console.log("utopbusiness ", utopbusiness);
+            console.log("realstateutp ", realstateutp);
+
             if(realstateutp){
                 let bid_request = await realstateutp.bid(proptid, username, utpvalue, { authorization: username });
                 if(bid_request){
-                    let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "i want to buy this", { authorization: username });
+                    let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "bidding on this", { authorization: username });
                     if(transfer_result){
                         alert("transfer successful");
                     }else{
@@ -88,19 +91,12 @@ Template.App_real_estate_bid.events({
                 }
             }
         }catch(err){
-            console.log(err);
+            console.log("error ",err);
         }
 
-        /* eosinstance.contract('realstateutp').then(realstateutp => {
-            realstateutp.bid(proptid, username, utpvalue, { authorization: username }).then((response) => {
-                if (response) {
-                    console.log("response of bidding", response);
-                } else {
-                    alert("Unable to bid");
-                }
-
-            });
-
-        }); */
+    },
+    "click .property-details-btn": function(e){
+        var id = e.target.id.split("-")[2];
+        FlowRouter.go("/realestate/"+id);
     }
 });

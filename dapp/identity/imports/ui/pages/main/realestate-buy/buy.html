@@ -5,12 +5,13 @@
         <div class="property-list">
             {{#each allPropertyToBuy}}
             <div class="propertyItem">
-                <div class="owner">Property ID: {{propt_id}}</div>
+                <div class="owner">Property name: {{proptname}}</div>
                 <div class="owner">Owner: {{owner}}</div>
                 <div class="price">Price: {{price}}</div>
                 <div class="house"></div>
                 <input type = "text" class = "buyfield" id = "buypropertyfield-{{propt_id}}" placeholder="format(0.0000 UTP)"/>
                 <button class = "buy-btn" id = "buypropertybtn-{{propt_id}}">Buy</button>
+                <button class = "property-details-btn" id = "buy-prop-{{propt_id}}">property details</button>
             </div>
             {{/each}}
         </div>

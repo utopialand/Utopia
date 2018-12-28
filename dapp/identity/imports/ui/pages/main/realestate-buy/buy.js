@@ -88,5 +88,9 @@ Template.App_real_estate_buy.events({
             console.log(err);
         }
         
+    },
+    "click .property-details-btn": function(e){
+        var id = e.target.id.split("-")[2];
+        FlowRouter.go("/realestate/"+id);
     }
 });
