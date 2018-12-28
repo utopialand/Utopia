@@ -23,9 +23,13 @@ Template.header.onCreated(function() {
         const requiredFields = { accounts: [network] };
         const eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
-          eosinstance = eos;
-        } else {
-          FlowRouter.go("/");
+          if (scatter.identity) {
+            eosinstance = eos;
+            document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+          } else {
+            FlowRouter.go("/");
+            document.getElementsByClassName("identitySectionman")[0].style.display = "none";
+          }
         }
       }
     } else {
