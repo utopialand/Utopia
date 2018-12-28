@@ -45,13 +45,7 @@ Template.viewdetail.onCreated( function (){
                     appdata=resp;
                     console.log("details====>",appdata);  
                 });  
-                document.getElementById("data").style.display="none"  ;
-                document.getElementById("list").style.display="none"  ;
-                ;
-                ///
-                document.getElementById("create-section").style.display="none";
-                document.getElementById("accept-section").style.display="none";
-                ////
+                
                 } else {
                     FlowRouter.go("/");
                 }
@@ -60,6 +54,13 @@ Template.viewdetail.onCreated( function (){
             console.log("scatter not installed")
         }
     });
+})
+
+Template.viewdetail.onRendered( function (){
+document.getElementById("data").style.display="none"  ;
+document.getElementById("list").style.display="none"  ;
+document.getElementById("create-section").style.display="none";
+document.getElementById("accept-section").style.display="none";
 })
 //approved113
 Template.viewdetail.events({
@@ -82,7 +83,6 @@ Template.viewdetail.events({
         document.getElementById("listofuser").style.display="flex"  ;
         document.getElementById("listofuser").innerHTML=""  ;
 
-       // document.getElementById("application").style.display="block"  ;
         for(var i=0;i<loandata.rows.length;i++){
                 var borr = loandata.rows[i].borrower;
                 var purpose=loandata.rows[i].purpose;
