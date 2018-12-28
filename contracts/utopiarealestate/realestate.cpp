@@ -35,6 +35,7 @@ ACTION realestate::landproposal(uint64_t id, name currentOwner, asset currentpri
     bid_table bt(_self, _self.value);
     bt.emplace(_self, [&](auto &b) {
         b.id = id;
+        b.proptname = itr->proptname;
         b.currentOwner = currentOwner;
         b.currentprice = currentprice;
         b.startdate = startdate;
@@ -44,6 +45,9 @@ ACTION realestate::landproposal(uint64_t id, name currentOwner, asset currentpri
 
 ACTION realestate::bid(uint64_t id, name buyername, asset amount)
 {
+    asset sym = asset(0, symbol(symbol_code("UTP"), 4));
+    eosio_assert(sym.symbol == amount.symbol, "invalid symbol name");
+   
     bid_table bt(_self, _self.value);
     auto itr = bt.find(id);
     eosio_assert(itr->currentOwner != buyername, "you have already top bidder");
@@ -108,14 +112,14 @@ ACTION realestate::approvedprop(uint64_t id)
     {
         if (itr1 != pt.end())
         {
-            name currentOwner = itr1->owner;
+            /*name currentOwner = itr1->owner;
             asset amount = itr1->price;
 
-            action(
+             action(
                 permission_level{rsdeposite, "active"_n},
                 "amartesttest"_n, "transfer"_n,
                 make_tuple(rsdeposite, currentOwner, amount, memo))
-                .send();
+                .send(); */
 
             pt.modify(itr1, _self, [&](auto &pt) {
                 pt.owner = itr->currentOwner;
@@ -128,6 +132,7 @@ ACTION realestate::approvedprop(uint64_t id)
                 p.propt_id = id;
                 p.owner = itr->currentOwner;
                 p.price = itr->currentprice;
+                p.proptname = itr->proptname;
             });
         }
     }
@@ -135,6 +140,8 @@ ACTION realestate::approvedprop(uint64_t id)
 
 ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
 {
+    asset sym = asset(0, symbol(symbol_code("UTP"), 4));
+    eosio_assert(sym.symbol == amount.symbol, "invalid symbol name");
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
     require_auth(buyer);
@@ -157,6 +164,7 @@ ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
             b.id = itr->propt_id;
             b.buyername = buyer;
             b.price = amount;
+            b.proptname = itr->proptname;
         });
     }
     else
@@ -220,7 +228,7 @@ ACTION realestate::rejbuyerreq(uint64_t id)
     name buyername = itr1->buyername;
     action(
         permission_level{rsdeposite, "active"_n},
-        "amartesttest"_n, "transfer"_n,
+        "utopbusiness"_n, "transfer"_n,
         make_tuple(rsdeposite, buyername, itr1->price, memo))
         .send();
     itr1 = bt.erase(itr1);
@@ -243,7 +251,7 @@ ACTION realestate::accbuyerreq(uint64_t id, name seller)
 
     action(
         permission_level{rsdeposite, "active"_n},
-        "amartesttest"_n, "transfer"_n,
+        "utopbusiness"_n, "transfer"_n,
         make_tuple(rsdeposite, seller, itr1->price, memo))
         .send();
 
@@ -256,6 +264,8 @@ ACTION realestate::accbuyerreq(uint64_t id, name seller)
 
  ACTION realestate::modifyprice(uint64_t id, asset amount)
 {
+    asset sym = asset(0, symbol(symbol_code("UTP"), 4));
+    eosio_assert(sym.symbol == amount.symbol, "invalid symbol name");
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
     eosio_assert(itr != pt.end(), "no available properties for this id !!");
@@ -267,6 +277,8 @@ ACTION realestate::accbuyerreq(uint64_t id, name seller)
 
 /* ACTION realestate::reqsellpropt(uint64_t id, name seller, asset amount)
 {
+    asset sym = asset(0, symbol(symbol_code("UTP"), 4));
+    eosio_assert(sym.symbol == amount.symbol, "invalid symbol name");
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
     require_auth(seller);
@@ -281,6 +293,8 @@ ACTION realestate::accbuyerreq(uint64_t id, name seller)
 } */
 /* ACTION realestate::accsellreq(uint64_t id, name buyer, asset amount)
 {
+    asset sym = asset(0, symbol(symbol_code("UTP"), 4));
+    eosio_assert(sym.symbol == amount.symbol, "invalid symbol name");
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
     require_auth(buyer);
@@ -338,5 +352,21 @@ ACTION realestate::auction(uint64_t id, name managername, uint64_t startdate, ui
         b.rsproposal = "created";
     });
 };
+ACTION realestate::deletealltab()
+{
+    require_auth(_self);
+    bid_table bt(_self, _self.value);
+    auto itr1 = bt.begin();
+    while(itr1!=bt.end())
+    {
+        itr1 = bt.erase(itr1);
+    }
+    properties_table pt(_self, _self.value);
+   auto itr2 = pt.begin();
+   while(itr2!=pt.end())
+   {
+       itr2 = pt.erase(itr2);
+   }
+}
 
-EOSIO_DISPATCH(realestate, (addproperty)(delpropt)(landproposal)(bid)(approvedprop)(reqbuypropt)(rejbuyerreq)(cancelbuyreq)(accbuyerreq)(modifyprice)(auction))
+EOSIO_DISPATCH(realestate, (addproperty)(delpropt)(landproposal)(bid)(approvedprop)(reqbuypropt)(rejbuyerreq)(cancelbuyreq)(accbuyerreq)(modifyprice)(auction)(deletealltab))

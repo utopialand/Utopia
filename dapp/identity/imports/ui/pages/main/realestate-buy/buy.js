@@ -60,7 +60,7 @@ Template.App_real_estate_buy.helpers({
 Template.App_real_estate_buy.events({
     "click .buy-btn": async function(e){
 
-        console.log(" id ", e.target.id);
+
         var id = e.target.id.split("-")[1];
         var username = localStorage.getItem("username");
         var tokenfield = "#buypropertyfield-"+id;
@@ -70,16 +70,15 @@ Template.App_real_estate_buy.events({
         try{
             let realstateutp = await eosinstance.contract('realstateutp');
             let utopbusiness = await eosinstance.contract("utopbusiness")
+
             if(realstateutp)
             {
                 let result = await realstateutp.reqbuypropt(id, username, utpvalue, { authorization: username });
                 if(result){
                     let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "i want to buy this", { authorization: username });
-                    if(transfer_result)
-                    {
-                        alert("successful transfer");
-                    }
-                    else {
+                    if(transfer_result){
+                        alert("transfer successful");
+                    }else{
                         alert("transfer failed");
                     }
                 }
@@ -88,22 +87,6 @@ Template.App_real_estate_buy.events({
         {
             console.log(err);
         }
-        
-
-
-    /*     eosinstance.contract('realstateutp').then(realstateutp => {
-            realstateutp.reqbuypropt(id, username, utpvalue, { authorization: username }).then((response) => {
-                if (response) {
-                    console.log("response of buy", response);
-                } else {
-                    alert("Unable to buy");
-                }
-
-            });
-
-        }); */
-        
-        
         
     }
 });

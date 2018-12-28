@@ -18,6 +18,7 @@ CONTRACT realestate : public contract
     ACTION delpropt(uint64_t id);
     ACTION cancelbuyreq(uint64_t id);
     ACTION modifyprice(uint64_t id, asset amount);
+    ACTION deletealltab();
     /* ACTION reqsellpropt(uint64_t id, name seller, asset amount);
     ACTION accsellreq(uint64_t id, name buyer, asset amount); */
 
@@ -35,6 +36,7 @@ CONTRACT realestate : public contract
     TABLE bidtable
     {
         uint64_t id;
+        string proptname;
         name currentOwner;
         asset currentprice;
         uint64_t startdate;
@@ -59,6 +61,7 @@ CONTRACT realestate : public contract
     TABLE reqbuyers
     {
         uint64_t id;
+        string proptname;
         name buyername;
         asset price;
         uint64_t reqdate = now();
@@ -74,6 +77,7 @@ CONTRACT realestate : public contract
     TABLE properties
     {
         uint64_t propt_id;
+        string proptname;
         name owner;
         asset price;
         uint64_t primary_key() const { return propt_id; }
@@ -89,7 +93,7 @@ CONTRACT realestate : public contract
     typedef multi_index<"proptlist1"_n, proptlist> proptlist_table;
     typedef multi_index<"bidtable1"_n, bidtable> bid_table;
     typedef multi_index<"properties1"_n, properties> properties_table;
-    typedef multi_index<"reqbuyertab3"_n, reqbuyers> buyer_table;
+    typedef multi_index<"reqbuyertab4"_n, reqbuyers> buyer_table;
     typedef multi_index<"manager111"_n, managertab> manager_table;
      /* typedef multi_index<"reqselltab11"_n, reqsellers> seller_table; */
 };

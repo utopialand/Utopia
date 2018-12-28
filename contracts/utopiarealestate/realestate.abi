@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 28 12:44:28 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec 28 15:38:06 2018",
     "version": "eosio::abi/1.1",
     "structs": [
         {
@@ -101,6 +101,10 @@
                     "type": "uint64"
                 },
                 {
+                    "name": "proptname",
+                    "type": "string"
+                },
+                {
                     "name": "currentOwner",
                     "type": "name"
                 },
@@ -135,6 +139,11 @@
                     "type": "uint64"
                 }
             ]
+        },
+        {
+            "name": "deletealltab",
+            "base": "",
+            "fields": []
         },
         {
             "name": "delpropt",
@@ -243,6 +252,10 @@
                     "type": "uint64"
                 },
                 {
+                    "name": "proptname",
+                    "type": "string"
+                },
+                {
                     "name": "owner",
                     "type": "name"
                 },
@@ -299,6 +312,10 @@
                 {
                     "name": "id",
                     "type": "uint64"
+                },
+                {
+                    "name": "proptname",
+                    "type": "string"
                 },
                 {
                     "name": "buyername",
@@ -366,6 +383,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "deletealltab",
+            "type": "deletealltab",
+            "ricardian_contract": ""
+        },
+        {
             "name": "delpropt",
             "type": "delpropt",
             "ricardian_contract": ""
@@ -428,7 +450,7 @@
             "key_types": []
         },
         {
-            "name": "reqbuyertab3",
+            "name": "reqbuyertab4",
             "type": "reqbuyers",
             "index_type": "i64",
             "key_names": [],
