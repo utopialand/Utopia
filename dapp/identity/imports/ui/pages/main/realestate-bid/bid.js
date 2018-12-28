@@ -64,14 +64,34 @@ Template.App_real_estate_bid.helpers({
 });
 
 Template.App_real_estate_bid.events({
-    "click .bid-btn": function(e){
+    "click .bid-btn": async function(e){
         var proptid = e.target.id.split("-")[1];
         var fieldid = "#bidpropertyfield-"+e.target.id.split("-")[1];
         var utpvalue = $(fieldid).val();
         console.log("value ", utpvalue);
         var username = localStorage.getItem("username");
+        var to = "rsdeposite11";
 
-        eosinstance.contract('realstateutp').then(realstateutp => {
+        try{
+            let realstateutp = await eosinstance.contract('realstateutp');
+            let utopbusiness = await eosinstance.contract("utopbusiness");
+
+            if(realstateutp){
+                let bid_request = realstateutp.bid(proptid, username, utpvalue, { authorization: username });
+                if(bid_request){
+                    let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "i want to buy this", { authorization: username });
+                    if(transfer_result){
+                        alert("transfer successful");
+                    }else{
+                        alert("transfer failed");
+                    }
+                }
+            }
+        }catch(err){
+            console.log(err);
+        }
+
+        /* eosinstance.contract('realstateutp').then(realstateutp => {
             realstateutp.bid(proptid, username, utpvalue, { authorization: username }).then((response) => {
                 if (response) {
                     console.log("response of bidding", response);
@@ -81,6 +101,6 @@ Template.App_real_estate_bid.events({
 
             });
 
-        });
+        }); */
     }
 });
