@@ -175,7 +175,9 @@ Template.App_real_estate_manager.events({
                 }
             }
         }catch(err){
-            console.log(err);
+            var parseResponse = JSON.parse(err);
+            var msg = parseResponse.error.details[0].message.split(":")[1]
+            alert(msg);
         }
     }
 });
