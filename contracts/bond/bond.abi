@@ -1,72 +1,145 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec  6 14:59:07 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec 19 12:33:50 2018",
     "version": "eosio::abi/1.0",
     "structs": [
         {
-            "name": "migrate",
-            "base": "",
-            "fields": []
-        },
-        {
-            "name": "tab1",
+            "name": "addbond",
             "base": "",
             "fields": [
                 {
-                    "name": "user",
+                    "name": "bondissuer",
                     "type": "name"
                 },
                 {
-                    "name": "entry",
+                    "name": "bond",
                     "type": "string"
+                },
+                {
+                    "name": "maturity",
+                    "type": "uint64"
+                },
+                {
+                    "name": "couponrate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "couponintervel",
+                    "type": "uint64"
+                },
+                {
+                    "name": "facevalue",
+                    "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "bondbuyerdetails",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "bondbuyer",
+                    "type": "name"
+                },
+                {
+                    "name": "bond",
+                    "type": "string"
+                },
+                {
+                    "name": "buydate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "payamount",
+                    "type": "asset"
+                },
+                {
+                    "name": "returningdate",
+                    "type": "uint64[]"
+                }
+            ]
+        },
+        {
+            "name": "bondinfo",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "bondissuer",
+                    "type": "name"
+                },
+                {
+                    "name": "bond",
+                    "type": "string"
+                },
+                {
+                    "name": "issueddate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "maturity",
+                    "type": "uint64"
+                },
+                {
+                    "name": "maturitycount",
+                    "type": "uint64"
+                },
+                {
+                    "name": "couponrate",
+                    "type": "uint64"
+                },
+                {
+                    "name": "couponintervel",
+                    "type": "uint64"
+                },
+                {
+                    "name": "putprice",
+                    "type": "uint64"
+                },
+                {
+                    "name": "callprice",
+                    "type": "uint64"
+                },
+                {
+                    "name": "facevalue",
+                    "type": "asset"
+                },
+                {
+                    "name": "bondholders",
+                    "type": "name[]"
+                }
+            ]
+        },
+        {
+            "name": "buybond",
+            "base": "",
+            "fields": [
+                {
+                    "name": "bondbuyer",
+                    "type": "name"
                 },
                 {
                     "name": "id",
                     "type": "uint64"
+                },
+                {
+                    "name": "payamount",
+                    "type": "asset"
                 }
             ]
         },
         {
-            "name": "tab2",
+            "name": "getcoupon",
             "base": "",
             "fields": [
-                {
-                    "name": "user2",
-                    "type": "name"
-                },
-                {
-                    "name": "id2",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "table1",
-            "base": "",
-            "fields": [
-                {
-                    "name": "user",
-                    "type": "name"
-                },
-                {
-                    "name": "entry",
-                    "type": "string"
-                },
                 {
                     "name": "id",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "table2",
-            "base": "",
-            "fields": [
-                {
-                    "name": "user2",
-                    "type": "name"
-                },
-                {
-                    "name": "id2",
                     "type": "uint64"
                 }
             ]
@@ -75,32 +148,32 @@
     "types": [],
     "actions": [
         {
-            "name": "migrate",
-            "type": "migrate",
+            "name": "addbond",
+            "type": "addbond",
             "ricardian_contract": ""
         },
         {
-            "name": "tab1",
-            "type": "tab1",
+            "name": "buybond",
+            "type": "buybond",
             "ricardian_contract": ""
         },
         {
-            "name": "tab2",
-            "type": "tab2",
+            "name": "getcoupon",
+            "type": "getcoupon",
             "ricardian_contract": ""
         }
     ],
     "tables": [
         {
-            "name": "table111",
-            "type": "table1",
+            "name": "bonddetail33",
+            "type": "bondinfo",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "table4",
-            "type": "table2",
+            "name": "buyerdata33",
+            "type": "bondbuyerdetails",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

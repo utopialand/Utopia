@@ -19,7 +19,7 @@ ACTION utopiatoken::create(name issuer, asset maximum_supply)
     //cheacking identity from identity table
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(issuer.value);
-    eosio_assert(itr != iden_table.end(), "identity not found !!!"); 
+    eosio_assert(itr != iden_table.end(), "identity not found !!!");
 
     statstable.emplace(_self, [&](auto &s) {
         s.supply.symbol = maximum_supply.symbol;
@@ -59,7 +59,7 @@ ACTION utopiatoken::issue(name to, asset quantity, string memo)
 
     if (to != st.issuer)
     {
-        SEND_INLINE_ACTION(*this, transfer, {st.issuer, "active"_n}, {st.issuer, to, quantity, std::string(memo)});
+        SEND_INLINE_ACTION(*this, transfer, {st.issuer, "active"_n}, {st.issuer, to, quantity, memo});
     }
 }
 
@@ -164,7 +164,6 @@ ACTION utopiatoken::open(name owner, symbol_code symbol, name ram_payer)
     stats statstable(_self, sym);
     const auto &st = statstable.get(sym, "symbol does not exist");
     eosio_assert(st.supply.symbol.code().raw() == sym, "symbol precision mismatch");
-
     accounts acnts(_self, owner.value);
     auto it = acnts.find(sym);
     if (it == acnts.end())

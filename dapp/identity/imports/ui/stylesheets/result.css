@@ -71,27 +71,50 @@
     border: 1px solid white;
 }
 
-
-.winnerbutton{
-    margin-top:40px;
-    height: 60px;
-    width: 250px;
-    color: white; font-family: Colfax Medium;
+.result-container .resultbox{
+    width: 60%;
+    margin: 4% auto 0 auto;
     color: white;
-    font-size: 18px;
-    letter-spacing: 1.5px;
+    border: 2px solid white;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    color: white;
+    display: none;
+}
+
+.result-container .resultbox:hover{
+    border: 2px solid #C86DD7;
+    transition: 0.5s;
+}
+
+.resultbox .title{
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
     text-transform: uppercase;
-    line-height: 14px;
-    background:#04030F;
-  }
-  
-  .winnerbutton:hover{
-    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
-  }
-  .winner{
-      display: flex;
-      justify-content: center;
-  }
-  .namewinner{
-      color: green;
-  }
+}
+
+.resultbox .selected{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.resultbox .selected .options{
+    background: transparent;
+    color: white;
+    width: 100px;
+    height: 50px;
+    font-weight: bold;
+    border: 2px solid white;
+}
+
+.resultbox .selected .options:hover{
+    border: 2px solid #C86DD7;
+    transition: 0.5s;
+}
+
+.selected .options p{
+    text-align: center;
+    text-transform: uppercase;
+}

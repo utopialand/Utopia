@@ -1,0 +1,73 @@
+.header{
+    width: 100%;
+    min-height: 68px;
+    height: 68px;
+    background-color: #04030F;
+}
+
+.container{
+    width: 90%;
+    max-width: 1140px;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    align-items: center;
+}
+
+.container .logo-section{
+    flex: 1;
+}
+
+.container .logo{
+    color: white;   
+    width: 97px;
+    height: 36px;
+    background-image: url("img/utopialogo.png");
+    background-size: 100% 100%;
+    box-sizing: border-box;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.container .user-details{
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.container .notifications{
+    width: 13px;
+    height: 14px;
+    background-image: url("img/notifications.png");
+    background-size: 100% 100%;
+    margin-right: 3%;
+}
+
+.container .username{
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    line-height: 25px;
+    margin-right: 3%;
+}
+
+.container .profile-pic{
+    width: 32px;
+    height: 32px;
+    background-image: url("/img/profilepic.png");
+    background-size: 100% 100%; 
+    border-radius: 50%;
+    background-color: red;
+}
+
+@media only screen and (max-width: 600px){
+    .container .username{
+        display: none;
+    }
+
+    .container .notifications{
+        margin-right: 10%;
+    }
+}

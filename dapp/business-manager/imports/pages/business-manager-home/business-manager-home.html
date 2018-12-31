@@ -1,0 +1,48 @@
+<template name="App_business_manager_home">
+    {{> App_header}}
+    <div class="wrapper">
+        <div class="top-section">
+            <div class="heading">
+                <p>Business Manager</p>
+            </div>
+            <div class="search-box">
+                <input type="text" />
+            </div>
+            <div class="my-business">
+                <button id = "mybusinessbtn">my business</button>
+            </div>
+            <div class="all-business">
+                <button id = "allbusinessbtn">all business</button>
+            </div>
+
+        </div>
+        <div class="scatterlogin">
+            <button class="loginbtn" id="loginButton">Login</button>
+        </div>
+        <div class="exchange">
+            <button id = "exchangebtn">exchange</button>
+        </div>
+        <div class="business-section">
+            {{#each businessList}}
+            <div class="company">
+                <p class="company-name">{{businessname}}</p>
+                <div class="stockdetails">
+                    <div class="stockname">{{token_maximum_supply}}</div>
+                    <div class="stockvalue"></div>
+                </div>
+                <p class="stock-fluctation">-8.46 <span>0.55%</span></p>
+            </div>
+            {{/each}}
+        </div>
+        <div class="new-business">
+            <div class="new-businessbtn">
+                <p>
+                    +<br>
+                    create a new <br>business
+                </p>
+            </div>
+        </div>
+
+    </div>
+    {{> App_footer}}
+</template>

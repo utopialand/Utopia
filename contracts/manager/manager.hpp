@@ -20,6 +20,18 @@ CONTRACT manager : public contract
         uint64_t primary_key() const { return user.value; }
     };
 
+    TABLE identityt
+    {
+        name username;
+        string identityname;
+        string dob;
+        string contact;
+        string email;
+        bool citizen = false;
+        uint64_t primary_key() const { return username.value; }
+    };
+
+
 
   private:
     bool is_manager(name user)
@@ -45,6 +57,7 @@ CONTRACT manager : public contract
 
     
     typedef multi_index<"manager111"_n, managertab> manager_table;
+     typedef multi_index<"identity3"_n, identityt> identity_table;
     
     //
 };

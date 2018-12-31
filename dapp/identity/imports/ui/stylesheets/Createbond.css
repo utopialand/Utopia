@@ -1,0 +1,64 @@
+.new-proposal-container{
+    max-width: 1140px;
+    width: 90%;
+    margin: 5% auto 0 auto;
+    color: white;
+}
+
+.new-proposal-container h1{
+    text-align: left;
+    font-family: Colfax Medium;
+    letter-spacing: 1px;
+}
+
+.bond-form{
+    display: flex;
+    flex-direction: column;
+}
+
+.bond-form label{
+    margin-top: 5%;
+    color: gray;
+    font-size: 18px;
+    line-height: 14px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.bond-form input{
+    background: transparent;
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid gray;
+    font-family: Colfax Medium;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 14px;
+}
+
+.bond-form input:hover{
+    border-bottom: 2px solid white;
+    transition: 0.5s;
+}
+.buttonbond{
+    margin-top:40px;
+    height: 60px;
+    width: 250px;
+    color: white; font-family: Colfax Medium;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 14px;
+    background:#04030F;
+}
+.buttonbond:hover{
+    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
+}
+.createbutton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

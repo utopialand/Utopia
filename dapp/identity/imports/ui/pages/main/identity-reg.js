@@ -7,11 +7,10 @@ import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import '../../../api/identity/methods';
 import ScatterJS from "scatterjs-core";
-import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";
-const help=require('./helperadd.js');
 const axios = require('axios');
 const cors =require('cors');
+const fs = require('fs');
 // create a stream from a file, which enables uploads of big files without allocating memory twice
 
 
@@ -28,6 +27,8 @@ const eosOptions = {
 
 var scatter={};
 var eosinstance = {};
+var hash;
+var picname;
 Template.identity_reg.onCreated(function () {
 
     Meteor.subscribe('identity');
@@ -57,29 +58,44 @@ Template.identity_reg.events({
         var firstname = $('#firstname').val();
         var midname = $('#midname').val();
         var lastname = $('#lastname').val();
+        var identityname = firstname+" "+midname+" "+lastname;
         var dob = $('#dob').val();
         var phonenumber = $('#phonenumber').val();
-        var email = $('#email').val();
+        var email = $('#email').val();  
         var username = localStorage.getItem("username");
-        var hash="QmZbj5ruYneZb8FuR9wnLqJCpCXMQudhSdWhdhp5U1oPWJ";
-        console.log("----", username);
+        console.log("----", identityname);
         eosinstance.contract('identityreg1').then(identityreg1 => {
             console.log("----", eosinstance);
-            identityreg1.addidentity(username, firstname, midname, lastname, dob, phonenumber, email,hash, { authorization: username }).then((response) => {
+            identityreg1.addidentity(username, identityname, dob, phonenumber, email,hash, { authorization: username }).then((response) => {
                 if (response) {
                     FlowRouter.go("/reg-success");
                 } else {
                     alert("identity is not registered !!!!");;
                 }
-
             });
 
         })
     },
-   'click #upload-picture-button':function(){
-       console.log("----",help);       
-           
-   }
-
+    'change #picture':function(e){
+         picname = e.target.files[0];
+         var bodyFormData = new FormData();
+         bodyFormData.append('userPhoto',picname);
+         axios({
+             method: 'post',
+             url: 'https://ipfs.zero2pi.com/api/uploadipfsimage',
+             data: bodyFormData,
+             config: { headers: {'Content-Type': 'multipart/form-data' }}
+             })
+             .then(function (response) {
+                 //handle success
+                 hash=response.data.hash;
+                 console.log(hash,"resp--",response.data.hash);
+             })
+             .catch(function (response) {
+                 //handle error
+                 console.log("err--",response);
+             });
+         console.log("---",picname);
+    }
 });
 

@@ -1,0 +1,157 @@
+{
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Tue Dec 18 16:54:28 2018",
+    "version": "eosio::abi/1.0",
+    "structs": [
+        {
+            "name": "apply",
+            "base": "",
+            "fields": [
+                {
+                    "name": "visitor",
+                    "type": "name"
+                },
+                {
+                    "name": "stduration",
+                    "type": "uint64"
+                }
+            ]
+        },
+        {
+            "name": "approve",
+            "base": "",
+            "fields": [
+                {
+                    "name": "manager",
+                    "type": "name"
+                },
+                {
+                    "name": "visitor",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "identityt",
+            "base": "",
+            "fields": [
+                {
+                    "name": "username",
+                    "type": "name"
+                },
+                {
+                    "name": "identityname",
+                    "type": "string"
+                },
+                {
+                    "name": "dob",
+                    "type": "string"
+                },
+                {
+                    "name": "contact",
+                    "type": "string"
+                },
+                {
+                    "name": "email",
+                    "type": "string"
+                },
+                {
+                    "name": "dochash",
+                    "type": "string"
+                },
+                {
+                    "name": "citizen",
+                    "type": "bool"
+                }
+            ]
+        },
+        {
+            "name": "manager",
+            "base": "",
+            "fields": [
+                {
+                    "name": "user",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "move",
+            "base": "",
+            "fields": [
+                {
+                    "name": "manager",
+                    "type": "name"
+                },
+                {
+                    "name": "visitor",
+                    "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "visitor",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "visitor",
+                    "type": "name"
+                },
+                {
+                    "name": "duration",
+                    "type": "uint64"
+                },
+                {
+                    "name": "visitorstatus",
+                    "type": "bool"
+                }
+            ]
+        }
+    ],
+    "types": [],
+    "actions": [
+        {
+            "name": "apply",
+            "type": "apply",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "approve",
+            "type": "approve",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "move",
+            "type": "move",
+            "ricardian_contract": ""
+        }
+    ],
+    "tables": [
+        {
+            "name": "identity3",
+            "type": "identityt",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "manager11",
+            "type": "manager",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "visitordata",
+            "type": "visitor",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        }
+    ],
+    "ricardian_clauses": [],
+    "abi_extensions": []
+}

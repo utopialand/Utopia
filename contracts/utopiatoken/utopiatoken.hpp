@@ -23,7 +23,7 @@ CONTRACT utopiatoken : public contract
         name from;
         name to;
         asset quantity;
-        string memo;
+        std::string memo;
     };
 
 

@@ -746,7 +746,11 @@ int budget::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, ve
         pref++;
     }
 
+<<<<<<< HEAD
     eosio_assert(flag!=1, "Tie while resolving equality in number of votes among candidates till last preference!!!");
+=======
+    eosio_assert(flag != 1, "Tie while resolving equality in number of votes among candidates till last preference!!!");
+>>>>>>> 9a61a8663bca40cb006b3554877f53fef4585f79
     
     return idx;
 }

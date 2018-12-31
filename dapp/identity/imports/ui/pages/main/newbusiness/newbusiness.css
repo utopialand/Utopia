@@ -1,0 +1,33 @@
+.new-business-container{
+    max-width: 1140px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+}
+
+.new-business-form{
+    margin-top: 10%;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.new-business-form label{
+    margin-top: 3%;
+    font-size: 18px;
+    text-transform: uppercase;
+}
+
+.new-business-form input{
+    margin-top: 3%;
+    width: 300px;
+    height: 35px;
+}
+
+.new-business-form button{
+    margin-top: 3%;
+}

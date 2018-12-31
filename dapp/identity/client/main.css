@@ -1,8 +1,8 @@
 body {
   font-family: sans-serif;
-  background: #04030f;
   margin: 0;
   padding: 0;
+  background: black;
 }
 @font-face {
   font-family: 'Colfax Regular';

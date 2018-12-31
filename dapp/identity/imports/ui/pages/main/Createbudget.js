@@ -4,6 +4,7 @@ import "./footer.js";
 import { Template } from "meteor/templating";
 import ScatterJS from "scatterjs-core";
 import Eos from "eosjs";
+import "../../pages/main/Budget.js"
 
 const network = {
     protocol: "https", // Defaults to https
@@ -41,6 +42,7 @@ Template.Budget_newproposal.events({
             voting.createprop(username ,prop,propdesc,30,amount, { authorization: username }).then(
                 (res) => {
                       console.log("response--",res);
+                      FlowRouter.go("/budget");
                 }
             )
         })
