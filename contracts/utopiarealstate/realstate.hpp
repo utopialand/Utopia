@@ -61,7 +61,7 @@ CONTRACT realstate : public contract
     };
 
   private:
-    typedef eosio::multi_index<"identity2"_n, identityt> identity_table;
+    typedef eosio::multi_index<"identity3"_n, identityt> identity_table;
     typedef multi_index<"bidtable"_n, bidtable> bid_table;
     typedef multi_index<"properties"_n, properties> properties_table;
     typedef multi_index<"reqbuyertab"_n, reqbuyers> buyer_table;
