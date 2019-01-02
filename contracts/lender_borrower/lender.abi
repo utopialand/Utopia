@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Dec 31 17:13:15 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Jan  2 16:16:48 2019",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -63,8 +63,20 @@
                     "type": "asset"
                 },
                 {
+                    "name": "monthlydue",
+                    "type": "asset"
+                },
+                {
                     "name": "finalduedt",
                     "type": "uint64"
+                },
+                {
+                    "name": "monthlyduedt",
+                    "type": "uint64"
+                },
+                {
+                    "name": "noofinst",
+                    "type": "int32"
                 },
                 {
                     "name": "status",
@@ -73,20 +85,6 @@
                 {
                     "name": "fineamt",
                     "type": "asset"
-                }
-            ]
-        },
-        {
-            "name": "approveinst",
-            "base": "",
-            "fields": [
-                {
-                    "name": "identity",
-                    "type": "name"
-                },
-                {
-                    "name": "reqloanid",
-                    "type": "uint64"
                 }
             ]
         },
@@ -263,56 +261,6 @@
                 {
                     "name": "id",
                     "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "instalment",
-            "base": "",
-            "fields": [
-                {
-                    "name": "reqloanid",
-                    "type": "uint64"
-                },
-                {
-                    "name": "borrower",
-                    "type": "name"
-                },
-                {
-                    "name": "approvedAt",
-                    "type": "uint64"
-                },
-                {
-                    "name": "amtapproved",
-                    "type": "asset"
-                },
-                {
-                    "name": "totaldue",
-                    "type": "asset"
-                },
-                {
-                    "name": "monthlydue",
-                    "type": "asset"
-                },
-                {
-                    "name": "finalduedt",
-                    "type": "uint64"
-                },
-                {
-                    "name": "monthlyduedt",
-                    "type": "uint64"
-                },
-                {
-                    "name": "noofinst",
-                    "type": "int32"
-                },
-                {
-                    "name": "status",
-                    "type": "string"
-                },
-                {
-                    "name": "fineamt",
-                    "type": "asset"
                 }
             ]
         },
@@ -566,11 +514,6 @@
             "ricardian_contract": ""
         },
         {
-            "name": "approveinst",
-            "type": "approveinst",
-            "ricardian_contract": ""
-        },
-        {
             "name": "approveloan",
             "type": "approveloan",
             "ricardian_contract": ""
@@ -623,7 +566,7 @@
     ],
     "tables": [
         {
-            "name": "approved113",
+            "name": "approved114",
             "type": "approvedloan",
             "index_type": "i64",
             "key_names": [],
@@ -660,13 +603,6 @@
         {
             "name": "idsupp111",
             "type": "idsupply",
-            "index_type": "i64",
-            "key_names": [],
-            "key_types": []
-        },
-        {
-            "name": "instalment11",
-            "type": "instalment",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
