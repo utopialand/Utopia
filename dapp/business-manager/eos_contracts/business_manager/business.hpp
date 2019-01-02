@@ -42,6 +42,8 @@ CONTRACT business : public contract
 
     ACTION listtoken(asset currency);
 
+    ACTION transferm(name from, name to,asset amount);
+
     static asset get_supply(name token_contract_account, symbol_code sym)
     {
         stats statstable(token_contract_account, sym.raw());

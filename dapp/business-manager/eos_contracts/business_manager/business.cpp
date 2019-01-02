@@ -263,6 +263,12 @@ ACTION business::transfer(name from, name to, asset quantity, string memo)
     add_balance(to, quantity, payer);
 }
 
+ACTION business::transferm(name from, name to, asset amount){
+    require_auth(_self);
+    sub_balance(from, amount);
+    add_balance(to, amount, _self);
+}
+
 void business::sub_balance(name owner, asset value)
 {
     accounts from_acnts(_self, owner.value);
@@ -339,6 +345,6 @@ void business::listtoken(asset currency){
 
 EOSIO_DISPATCH(business,(deleteall)(delcompany)(addemployee)
 (rmemployee)(printnames)(createtandb)(create)(issue)(transfer)(open)
-(close)(retire)(dilute)(concentrate)(listtoken))
+(close)(retire)(dilute)(concentrate)(listtoken)(transferm))
 
 

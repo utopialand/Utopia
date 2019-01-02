@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 20 14:23:35 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Jan  2 16:44:25 2019",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -315,6 +315,24 @@
                     "type": "string"
                 }
             ]
+        },
+        {
+            "name": "transferm",
+            "base": "",
+            "fields": [
+                {
+                    "name": "from",
+                    "type": "name"
+                },
+                {
+                    "name": "to",
+                    "type": "name"
+                },
+                {
+                    "name": "amount",
+                    "type": "asset"
+                }
+            ]
         }
     ],
     "types": [],
@@ -392,6 +410,11 @@
         {
             "name": "transfer",
             "type": "transfer",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "transferm",
+            "type": "transferm",
             "ricardian_contract": ""
         }
     ],

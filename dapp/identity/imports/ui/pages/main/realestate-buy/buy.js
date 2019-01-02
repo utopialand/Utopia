@@ -65,6 +65,7 @@ Template.App_real_estate_buy.events({
         var username = localStorage.getItem("username");
         var tokenfield = "#buypropertyfield-"+id;
         var utpvalue = $(tokenfield).val();
+        console.log("utpvalue", utpvalue);
         var to = "rsdeposite11";
 
         try{
