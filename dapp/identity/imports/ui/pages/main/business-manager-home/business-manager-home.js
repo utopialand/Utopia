@@ -31,6 +31,7 @@ function getAllBusinessList(){
                 scatter = ScatterJS.scatter;
                 const requiredFields = { accounts: [network] };
                 const eos = scatter.eos(network, Eos, eosOptions);
+                eosinstance = eos;
                 if (scatter.identity) {
                     eos.getTableRows({
                         code: "utopbusiness",
@@ -106,6 +107,36 @@ Template.App_business_manager_home.events({
     },
     "click #exchangebtn": function(){
         FlowRouter.go("/business/exchange");
+    },
+    "submit #search-form-business":async function(e){
+        e.preventDefault();
+
+        var businessTable = await eosinstance.getTableRows({
+            code: "utopbusiness",
+            scope: "utopbusiness",
+            table: "businesstb",
+            limit: "50",
+            json: true
+        });
+
+        var id;
+        var serachResult = false;
+        var searchTerm = $("#search-box-business").val();
+    
+        for(var i=0; i<businessTable.rows.length;i++){
+            if(searchTerm == businessTable.rows[i].businessname){
+                id = businessTable.rows[i].company_id;
+                serachResult = true;
+                break;
+            }
+        }
+
+        if(serachResult){
+            FlowRouter.go("/business/allbusiness/"+id);
+        }
+        else{
+            alert("No such business");
+        }
     }
 
 });

@@ -750,8 +750,18 @@ Template.App_manager.events({
     var username = localStorage.getItem("username");
     var propid = $("#propid").val();
     var currentprice = $("#currentprice").val();
-    var startdate = $("#startdate").val();
-    var enddate = $("#enddate").val();
+    var x = document.getElementById("startdate").value;
+    var startdate = Math.round((new Date(x)).getTime() / 1000);
+    var y = document.getElementById("enddate").value;
+    var enddate = Math.round((new Date(y)).getTime() / 1000);
+    var currenttime = Math.round((new Date()).getTime() / 1000);
+    /* var ts = Math.round((new Date()).getTime() / 1000); */
+    /* console.log("ts",ts); */
+    console.log("x-->",x);
+    console.log("current time ->",currenttime);
+    console.log("startdate",startdate);
+    console.log("enddate",enddate);
+   
     eosinstance.contract('realstateutp').then(realstateutp => {
       realstateutp.landproposal(propid, username, currentprice, startdate, enddate, { authorization: username }).then((response) => {
           if (response) {

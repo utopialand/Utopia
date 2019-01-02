@@ -584,7 +584,6 @@
 
 .adding-land-proposal-tab label{
     color:white;
-    height: 14px;
     width:150px;
     text-align: center;
     text-transform: uppercase;
@@ -594,9 +593,8 @@
 }
 .adding-land-proposal-tab input{
     background-color: black;
-    width : 150px;
+    width : 60%;
     color:white;
-    border:0;
     border-bottom: 1px solid white;
 }
 .adding-land-proposal button{

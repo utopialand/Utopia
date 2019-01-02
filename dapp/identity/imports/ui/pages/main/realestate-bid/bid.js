@@ -76,22 +76,21 @@ Template.App_real_estate_bid.events({
             let realstateutp = await eosinstance.contract('realstateutp');
             let utopbusiness = await eosinstance.contract("utopbusiness");
 
-            console.log("utopbusiness ", utopbusiness);
-            console.log("realstateutp ", realstateutp);
-
             if(realstateutp){
                 let bid_request = await realstateutp.bid(proptid, username, utpvalue, { authorization: username });
                 if(bid_request){
                     let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "bidding on this", { authorization: username });
                     if(transfer_result){
-                        alert("transfer successful");
+                        alert("Successful Bid");
                     }else{
                         alert("transfer failed");
                     }
                 }
             }
         }catch(err){
-            console.log("error ",err);
+            var parseResponse = JSON.parse(err);
+            var msg = parseResponse.error.details[0].message.split(":")[1]
+            alert(msg);
         }
 
     },
