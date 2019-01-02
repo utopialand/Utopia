@@ -38,14 +38,13 @@ Template.viewdetail.onCreated( function (){
                   eosinstance.getTableRows({
                     code: "utplendercon",
                     scope: "utplendercon",
-                    table: 'approved113',
+                    table: 'approved114',
                     limit: 50,
                     json: true,
                 }).then((resp)=>{
                     appdata=resp;
                     console.log("details====>",appdata);  
                 });  
-                
                 } else {
                     FlowRouter.go("/");
                 }
@@ -82,22 +81,23 @@ Template.viewdetail.events({
         document.getElementById("listofstatus").style.display="none"  ;
         document.getElementById("listofuser").style.display="flex"  ;
         document.getElementById("listofuser").innerHTML=""  ;
-
+        console.log("pur---",loandata);
         for(var i=0;i<loandata.rows.length;i++){
                 var borr = loandata.rows[i].borrower;
+                var type = loandata.rows[i].loantype;
                 var purpose=loandata.rows[i].purpose;
                 var status=loandata.rows[i].status;
                 var income=loandata.rows[i].incomepm;
                 var loanamt=loandata.rows[i].loanamt;
                 var idl=loandata.rows[i].reqloanid;
-                console.log("pur---",purpose,"--stat--",status);
+                console.log("pur---",purpose,"--stat--",loandata.rows[i].reqloanid);
                 if(status == "requested"){
                     document.getElementById("listofuser").innerHTML += "<div class='datalist'>"+
                     "<div class='headloan'>"+borr+"</div>"+
                     "<div class='headloan'>"+purpose+"</div>"+
                     "<div class='headloan'>"+income+"</div>"+
                     "<div class='headloan'>"+loanamt+"</div>"+
-                    "<button class='buttonaction' id='"+idl+"'>approve</button>"+
+                    "<button class='buttonaction' id='"+idl+"' value='"+type+"'>approve</button>"+
                     "</div>";
                 }else{
                     document.getElementById("listofuser").innerHTML += "<div class='datalist'>"+
@@ -121,21 +121,23 @@ Template.viewdetail.events({
      'click #application':function(){
         document.getElementById("create-section").style.display="none";
         document.getElementById("accept-section").style.display="none";
-        for(var i=0;i<appdata.rows.length;i++){
-                           
+        document.getElementById("listofstatus").innerHTML=""  ;
+        for(var i=0;i<appdata.rows.length;i++){                           
                     var amnt=appdata.rows[i].amtapproved;
-                    console.log("enter user",amnt);     
+                    console.log("enter user",appdata);     
                     var finaldue=appdata.rows[i].finalduedt*1000;
                     var date = new Date(parseInt(finaldue));
                     var finaldate = date.toUTCString('MM/dd/yy  HH:mm:ss');
                     var totaldue=appdata.rows[i].totaldue;
+                    var name=appdata.rows[i].borrower;
                     document.getElementById("list").style.display="none"  ;
                     document.getElementById("data").style.display="flex"  ;
-                    document.getElementById("listofstatus").innerHTML=""  ;
                     document.getElementById("listofstatus").style.display="flex"  ;
                     document.getElementById("listofuser").style.display="none"  ;
                     document.getElementById("listofstatus").innerHTML += 
-                    "<div class='datalist2'><div class='headloan'>"+amnt+"</div>"+
+                    "<div class='datalist2'>"+
+                    "<div class='headloan'>"+name+"</div>"+
+                    "<div class='headloan'>"+amnt+"</div>"+
                     "<div class='headloan'>"+totaldue+"</div>"+
                     "<div class='headloan'>"+finaldate+"</div></div>";
         }
@@ -156,14 +158,16 @@ Template.viewdetail.events({
         var username = localStorage.getItem("username");
         event.preventDefault();
         var id = event.target.id;
-        id = id[id.length - 1];
-        console.log("id---",id);
-        eosinstance.contract("utplendercon").then(utplendercon => {
-            utplendercon.approveloan(username,id, { authorization: username }).then(response => {
-                alert("success");
-                console.log("response==>", response);
+        var val=event.target.value;
+        console.log("id---",event.target.value);
+        
+            eosinstance.contract("utplendercon").then(utplendercon => {
+                utplendercon.approveloan(username,id, { authorization: username }).then(response => {
+                    alert("success");
+                    console.log("response==>", response);
+                  });
               });
-          });
+       
     },
     'click #accept':function(){
         var username = localStorage.getItem("username");

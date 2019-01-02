@@ -1,9 +1,9 @@
 <template name="lender">
 <div class="lender-container">
         <div class="group">
-                <button class="lenders-button" id="user">User </button>
-                <button class="lenders-button" id="paying">loan payment</button>
-                <button class="lenders-button" id="detail">view details</button>
+                <button class="lenders-button" id="user">apply for loan </button>
+                <!-- <button class="lenders-button" id="paying">loan payment</button> -->
+                <button class="lenders-button" id="detail">loan payment</button>
         </div>
                 <div id="apply-section">
                     <div class="userdata">
@@ -30,25 +30,18 @@
                                     <div class="propid" id="propid">
                                     </div>
                             </div>
-                            
+                            <div class='paymenttype'>
+                                <label>installment</label>
+                                <input type='radio' class ='paytype' name='radioinst' value="instalment" id="instalment">
+                                <label>lump-sum</label>
+                                <input type='radio' class ='paytype' name='radioinst' value="lumpsum" id="lumpsum">
+                            </div>
                             <div class="createpropt">
                                     <button class="buttonpropt" id="apply">Apply loan</button>
                             </div>
                             
                     </div>
                                 
-                  </div>
-                  <div id="loanpay-section">
-                      <div class="paydata">
-                            <label>loanid</label>
-                            <input type="text" id="idloan"/>
-                            <label>amount</label>
-                            <input type="text" id="loanamt"/>                        
-                            <div class="createpropt">
-                                    <button class="buttonpropt" id="pay">loan payment</button>
-                            </div>
-                      </div>
-                     
                   </div>
                   
                   <div class="list" id="list">
@@ -62,10 +55,21 @@
 
                 </div>
                 <div class="data" id="data">
+                    <div class="mainhead">borrower name</div>
                     <div class="mainhead">approved amount</div>
                     <div class="mainhead">due amount</div>
                     <div class="mainhead">final due date</div>
+                    <div class="mainhead">action</div>
             </div>
+            <div class="data2" id="data2">
+                        <div class="mainhead">borrower name</div>
+                        <div class="mainhead">approved amount</div>
+                        <div class="mainhead">monthly due</div>
+                        <div class="mainhead">monthly due date</div>
+                        <div class="mainhead">due amount</div>
+                        <div class="mainhead">final due date</div>
+                        <div class="mainhead">action</div>
+                </div>
                 <div class="listofstatus" id="listofstatus">
                     
                 </div>

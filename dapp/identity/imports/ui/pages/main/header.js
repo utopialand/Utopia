@@ -33,7 +33,7 @@ Template.header.onCreated(function() {
           }else{
             document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
             document.getElementById("managerText").style.display = "none";
-               }  
+              }  
           } else {
             console.log("idennot")
             FlowRouter.go("/");
@@ -76,12 +76,16 @@ Template.header.events({
     "click .loanText": function(){
       var val=document.getElementById("len").getAttribute("value");
         console.log( document.getElementById("len").getAttribute("value"),"loan",localStorage.getItem("username"));
-            if(val =="manager"){
+            if(val=="userid")
+            {
+              console.log("enter");
+              FlowRouter.go("/lender");
+            }else if(val =="manager"){
               console.log("enter man");
               FlowRouter.go("/viewdetail");
             } else{
               console.log("enter else");
-              FlowRouter.go("/lender");
+              FlowRouter.go("/");
             }        
 
     }

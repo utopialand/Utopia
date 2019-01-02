@@ -40,6 +40,10 @@
     flex: 1;
     display: flex;
 }
+.paymenttype{
+    flex: 1;
+    display: flex;
+}
 .lender-container input{
     margin-top: 5%;
     background: transparent;
@@ -86,6 +90,7 @@ display: flex;
     text-transform: uppercase;
     line-height: 14px;
     background:#04030F;
+    border-radius: 2px;
 }
 .buttonpropt:hover{
     background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
@@ -103,6 +108,7 @@ display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    font-family: Colfax Medium;
 }
 .listofuser{
     display: flex;
@@ -118,6 +124,7 @@ display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    font-family: Colfax Medium;
 }
 .nonkey{
     text-align: center;
@@ -138,7 +145,8 @@ display: flex;
     background-color: gray;
     margin-top: 5%;
     color: #04030F;
-    height: 80px; 
+    height: 50px; 
+    border-radius: 2px;
     
 }
 .data{
@@ -149,7 +157,21 @@ display: flex;
     background-color: gray;
     margin-top: 5%;
     color: #04030F;
-    height: 80px; 
+    height: 50px; 
+    border-radius: 2px;
+    font-family: Colfax Medium;
+}
+.data2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: gray;
+    margin-top: 5%;
+    color: #04030F;
+    height: 50px; 
+    border-radius: 2px;
+    font-family: Colfax Medium;
 }
 .mainhead{
     flex: 1;
