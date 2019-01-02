@@ -53,7 +53,7 @@ ACTION realestate::bid(uint64_t id, name buyername, asset amount)
    
     bid_table bt(_self, _self.value);
     auto itr = bt.find(id);
-    eosio_assert(itr->currentOwner != buyername, "you have already top bidder");
+    eosio_assert(itr->currentOwner != buyername, "you are already the top bidder");
     require_auth(buyername);
     eosio_assert(itr->bidstatus == true, "no available bid for this properties");
     eosio_assert(itr != bt.end(), "no available property for this id");
@@ -272,7 +272,7 @@ ACTION realestate::accbuyerreq(uint64_t id, name seller)
     eosio_assert(sym.symbol == amount.symbol, "invalid symbol name");
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
-    eosio_assert(itr != pt.end(), "no available properties for this id !!");
+    eosio_assert(itr != pt.end(), "no available properties for this id !!!!");
     require_auth(itr->owner);
     pt.modify(itr,_self, [&](auto &s) {
         s.price = amount;
@@ -338,7 +338,7 @@ ACTION realestate::auction(uint64_t id, name managername, uint64_t startdate, ui
 
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
-    eosio_assert(itr != pt.end(), "no available properties for this id!!!!");
+    eosio_assert(itr != pt.end(), "no available properties for this id !!!");
     require_auth(managername);
     pt.modify(itr, _self, [&](auto &b) {
         b.owner = managername;
