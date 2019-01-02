@@ -6,6 +6,9 @@
             <button class = "buypropertypagebtn">Buy a property</button>
             <button class = "bidpropertypagebtn">bid on a property</button>
         </div>
+        <form id = "search-realestate">
+            <input id = "search-box-realestate" placeholder="search property..." type = "text"/>
+        </form>
         {{#if getAllProperties.length}}
         <div class="property-list">
             {{#each getAllProperties}}

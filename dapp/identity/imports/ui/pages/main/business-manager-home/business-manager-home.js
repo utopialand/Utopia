@@ -111,17 +111,18 @@ Template.App_business_manager_home.events({
     "submit #search-form-business":async function(e){
         e.preventDefault();
 
-        var businessTable = await eosinstance.getTableRows({code: "utopbusiness",
-        scope: "utopbusiness",
-        table: "businesstb",
-        limit: "50",
-        json: true});
+        var businessTable = await eosinstance.getTableRows({
+            code: "utopbusiness",
+            scope: "utopbusiness",
+            table: "businesstb",
+            limit: "50",
+            json: true
+        });
 
-        console.log("businessTable", businessTable);
         var id;
         var serachResult = false;
-        var searchTerm = $("#search-box-business").val()
-        console.log("searchTerm", searchTerm);
+        var searchTerm = $("#search-box-business").val();
+    
         for(var i=0; i<businessTable.rows.length;i++){
             if(searchTerm == businessTable.rows[i].businessname){
                 id = businessTable.rows[i].company_id;
