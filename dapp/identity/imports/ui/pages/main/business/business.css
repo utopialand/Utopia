@@ -39,7 +39,7 @@ h1{
     flex: 2;
 }
 
-.company-name{
+.stat .company-name{
     font-size: 32px;
     text-transform: uppercase;
 }

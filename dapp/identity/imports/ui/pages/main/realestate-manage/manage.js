@@ -33,7 +33,7 @@ function getBuyPropertyRequest() {
                     eos.getTableRows({
                         code: "realstateutp",
                         scope: "realstateutp",
-                        table: "reqbuyertab5",
+                        table: "reqbuyertb11",
                         limit: "50",
                         json: true,
                     }).then((response) => {

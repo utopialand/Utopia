@@ -76,9 +76,6 @@ Template.App_real_estate_bid.events({
             let realstateutp = await eosinstance.contract('realstateutp');
             let utopbusiness = await eosinstance.contract("utopbusiness");
 
-            console.log("utopbusiness ", utopbusiness);
-            console.log("realstateutp ", realstateutp);
-
             if(realstateutp){
                 let bid_request = await realstateutp.bid(proptid, username, utpvalue, { authorization: username });
                 if(bid_request){
