@@ -42,6 +42,7 @@ ACTION lender::reqloancolat(name identity, uint64_t catgid,
                             asset income, uint64_t colatopt, string type)
 
 {
+    require_auth(identity);
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(identity.value);
     eosio_assert(itr != iden_table.end(), "identity not found !!!");
@@ -76,6 +77,7 @@ ACTION lender::reqloanincm(name identity, uint64_t catgid,
                            asset income, string type)
 
 {
+    require_auth(identity);
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(identity.value);
     eosio_assert(itr != iden_table.end(), "identity not found !!!");
@@ -125,6 +127,7 @@ ACTION lender::approveloan(name identity, uint64_t reqloanid)
     auto loanamt = itr->loanamt;
     auto catgid = itr->catgid;
     auto borrower = itr->borrower;
+    auto loantype = itr->loantype;
     int64_t total = 0;
 
     auto creditr = credit.find(borrower.value);
@@ -182,136 +185,57 @@ ACTION lender::approveloan(name identity, uint64_t reqloanid)
 
         print("transferring --", loanamt);
     }
-    int64_t finaldue;
-    auto catitr = catg.find(catgid);
-    auto rate = catitr->interestrate;
-    auto period = catitr->period;
-    finaldue = loanamt.amount + ((loanamt.amount * rate) / 100);
 
-    print("final due---", finaldue);
-    print("final due dt---", now() + (period * 86400));
-    print("final due asset---", asset(finaldue, symbol(symbol_code("UTP"), 4)));
-
-    approve.emplace(_self, [&](auto &a) {
-        a.reqloanid = reqloanid;
-        a.borrower = borrower;
-        a.approvedAt = now();
-        a.amtapproved = loanamt;
-        a.totaldue = asset(finaldue, symbol(symbol_code("UTP"), 4));
-        a.finalduedt = now() + (60 * 60); //(period * 86400);
-        a.fineamt = asset(0, symbol(symbol_code("UTP"), 4));
-    });
-
-    req.modify(itr, _self, [&](auto &a) {
-        a.status = "request approved";
-    });
-}
-
-ACTION lender::approveinst(name identity, uint64_t reqloanid)
-{
-    require_auth(identity);
-    manager_table manager("utpmanager11"_n, "utpmanager11"_n.value);
-    auto mitr = manager.find(identity.value);
-    eosio_assert(mitr != manager.end(), "manager not found !!!");
-    instalment_tab approve(_self, _self.value);
-    reqloan_tab req(_self, _self.value);
-    collat_tab colat(_self, _self.value);
-    properties_table prop("realstateutp"_n, "realstateutp"_n.value);
-    cscore_table credit("utpcreditsc1"_n, "utpcreditsc1"_n.value);
-    // businesstb business("utopbusiness"_n, "utopbusiness"_n.value);
-    loancatg_table catg(_self, _self.value);
-    auto itr = req.find(reqloanid);
-    eosio_assert(itr != req.end(), "request not found !!!");
-    vector<uint64_t> properties;
-    uint64_t colatopt;
-    auto type = itr->type;
-    colatopt = itr->colatopt;
-    auto income = itr->incomepm;
-    auto loanamt = itr->loanamt;
-    auto catgid = itr->catgid;
-    auto borrower = itr->borrower;
-    int64_t total = 0;
-
-    auto creditr = credit.find(borrower.value);
-    eosio_assert(creditr != credit.end(), "There is no credit score associated with the username!!");
-
-    eosio_assert(creditr->isdefaulter != true, "User is already a Dafaulter!! Loan request cannot be approved!!");
-
-    if (type == true)
+    if (loantype == "instalment")
     {
-        /*  properties = itr->prop_id;
-        auto citr = colat.find(colatopt);
-        auto type = citr->type;
-        if (type == "Real Estate")
-        {
-            for (auto j = 0; j < properties.size(); j++)
-            {
-                auto id = properties[j];
-                auto pitr = prop.find(id);
-                eosio_assert(pitr != prop.end(), "real-estate id provided by user not found !!!");
-                auto price = pitr->price;
-                total += price.amount;
-            }
-        }
+        int64_t finaldue;
+        auto catitr = catg.find(catgid);
+        auto rate = catitr->interestrate;
+        auto period = catitr->period;
+        finaldue = loanamt.amount + ((loanamt.amount * rate) / 100);
+        auto month = (int)period / 30;
+        auto monthlydue = finaldue / month;
+        uint64_t monthlyduedt = now() + 300;
 
-        else if (type == "business")
-        {
-            for (auto j = 0; j < properties.size(); j++)
-            {
-                auto id = properties[j];
-                auto bitr = business.find(id);
-                eosio_assert(bitr != business.end(), "company id provided by user not found !!!");
-                total += 10;
-            }
-        }
+        print("final due---", finaldue);
+        print("monthly due ---", monthlydue);
+        print("final due asset---", asset(finaldue, symbol(symbol_code("UTP"), 4)));
 
-        auto loanissue = (3 * total) / 4;
-        print("total --", total);
-        print("issue --", loanissue);
-
-        eosio_assert(loanissue >= loanamt.amount, "You are not eligible for the requested loan amount!!");
-
-        print("transferring --", loanamt); */
+        approve.emplace(_self, [&](auto &a) {
+            a.reqloanid = reqloanid;
+            a.borrower = borrower;
+            a.approvedAt = now();
+            a.amtapproved = loanamt;
+            a.totaldue = asset(finaldue, symbol(symbol_code("UTP"), 4));
+            a.monthlydue = asset(monthlydue, symbol(symbol_code("UTP"), 4));
+            a.finalduedt = now() + (60 * 60); //(period * 86400);
+            a.monthlyduedt = monthlyduedt;
+            a.noofinst = month;
+            a.fineamt = asset(0, symbol(symbol_code("UTP"), 4));
+        });
     }
     else
     {
-        print("in else--");
+        int64_t finaldue;
+        auto catitr = catg.find(catgid);
+        auto rate = catitr->interestrate;
+        auto period = catitr->period;
+        finaldue = loanamt.amount + ((loanamt.amount * rate) / 100);
 
-        auto cscore = creditr->creditscore;
+        print("final due---", finaldue);
+        print("final due dt---", now() + (period * 86400));
+        print("final due asset---", asset(finaldue, symbol(symbol_code("UTP"), 4)));
 
-        eosio_assert(cscore >= 3, "You are not eligible for lending money due to low credit score!!!");
-
-        auto loanissue = (cscore - 2) * income.amount;
-
-        eosio_assert(loanissue >= loanamt.amount, "You are not eligible for the requested loan amount!!");
-
-        print("transferring --", loanamt);
+        approve.emplace(_self, [&](auto &a) {
+            a.reqloanid = reqloanid;
+            a.borrower = borrower;
+            a.approvedAt = now();
+            a.amtapproved = loanamt;
+            a.totaldue = asset(finaldue, symbol(symbol_code("UTP"), 4));
+            a.finalduedt = now() + (60 * 60); //(period * 86400);
+            a.fineamt = asset(0, symbol(symbol_code("UTP"), 4));
+        });
     }
-    int64_t finaldue;
-    auto catitr = catg.find(catgid);
-    auto rate = catitr->interestrate;
-    auto period = catitr->period;
-    finaldue = loanamt.amount + ((loanamt.amount * rate) / 100);
-    auto month = (int)period / 30;
-    auto monthlydue = finaldue / month;
-    uint64_t monthlyduedt = now() + 300;
-
-    print("final due---", finaldue);
-    print("monthly due ---", monthlydue);
-    print("final due asset---", asset(finaldue, symbol(symbol_code("UTP"), 4)));
-
-    approve.emplace(_self, [&](auto &a) {
-        a.reqloanid = reqloanid;
-        a.borrower = borrower;
-        a.approvedAt = now();
-        a.amtapproved = loanamt;
-        a.totaldue = asset(finaldue, symbol(symbol_code("UTP"), 4));
-        a.monthlydue = asset(monthlydue, symbol(symbol_code("UTP"), 4));
-        a.finalduedt = now() + (60 * 60); //(period * 86400);
-        a.monthlyduedt = monthlyduedt;
-        a.noofinst = month;
-        a.fineamt = asset(0, symbol(symbol_code("UTP"), 4));
-    });
 
     req.modify(itr, _self, [&](auto &a) {
         a.status = "request approved";
@@ -324,25 +248,37 @@ ACTION lender::checkdefault(name identity, uint64_t reqloanid)
     manager_table manager("utpmanager11"_n, "utpmanager11"_n.value);
     auto mitr = manager.find(identity.value);
     eosio_assert(mitr != manager.end(), "manager not found !!!");
-
+    reqloan_tab req(_self, _self.value);
+    auto reqitr = req.find(reqloanid);
     approveloan_tab approve(_self, _self.value);
+    name borrower;
+    string status;
+    asset totaldue;
+    uint64_t finalduedt;
+
     auto itr = approve.find(reqloanid);
     eosio_assert(itr != approve.end(), "requested loan id not found!!!");
-    auto borrower = itr->borrower;
-    eosio_assert(itr->status != "defaulter", "Already declared as a defaulter!!!");
-    if (now() > itr->finalduedt + 120 && itr->status == "due")
+    borrower = itr->borrower;
+    status = itr->status;
+    totaldue = itr->totaldue;
+    finalduedt = itr->finalduedt;
+
+    eosio_assert(status != "defaulter", "Already declared as a defaulter!!!");
+    if (now() > finalduedt + 120 && status == "due")
     {
 
         print("call modify func of credit score contract---");
         float creditscore = -1;
         bool isdefault = true;
         int64_t fineamt;
-        auto totaldue = itr->totaldue;
         fineamt = ((totaldue.amount * 10) / 100);
+
         approve.modify(itr, _self, [&](auto &a) {
+            a.totaldue += asset(fineamt, symbol(symbol_code("UTP"), 4));
             a.status = "defaulter";
             a.fineamt = asset(fineamt, symbol(symbol_code("UTP"), 4));
         });
+
         action(
             permission_level{identity, "active"_n},
             "utpcreditsc1"_n, "modcreditsc"_n,
@@ -369,16 +305,23 @@ ACTION lender::checkbid(name identity, uint64_t reqloanid)
     properties_table prop("realstateutp"_n, "realstateutp"_n.value);
     bid_table bid("realstateutp"_n, "realstateutp"_n.value);
     reqloan_tab req(_self, _self.value);
-    auto reqitr = req.find(reqloanid);
-    auto itr = approve.find(reqloanid);
-    properties = reqitr->prop_id;
+
     auto propitr = prop.find(properties[0]);
     auto biditr = bid.begin();
+    auto reqitr = req.find(reqloanid);
+    eosio_assert(reqitr != req.end(), "requested loan id not found!!!");
+
+    name borrower;
+    string status;
+    asset totaldue;
+
+    auto itr = approve.find(reqloanid);
     eosio_assert(itr != approve.end(), "requested loan id not found!!!");
-    auto borrower = itr->borrower;
-    //auto amt = propitr->price - itr->totaldue;
-    print("total due--", itr->totaldue);
-    print("price due--", propitr->price);
+    borrower = itr->borrower;
+    status = itr->status;
+    totaldue = itr->totaldue;
+
+    properties = reqitr->prop_id;
     int flag = 0;
     string bidstat;
     while (biditr != bid.end())
@@ -390,26 +333,28 @@ ACTION lender::checkbid(name identity, uint64_t reqloanid)
         }
     }
 
-    if (itr->status == "auction called")
+    if (status == "auction called")
     {
         if (flag == 0)
         {
 
             if (propitr->owner != identity)
             {
-                auto amt = propitr->price - itr->totaldue;
+                auto amt = propitr->price - totaldue;
 
                 if (amt.amount >= 0)
                 {
+
                     approve.modify(itr, _self, [&](auto &a) {
                         a.totaldue = asset(0, symbol(symbol_code("UTP"), 4));
                         a.status = "complete by auction";
                     });
+
                     req.modify(reqitr, _self, [&](auto &a) {
                         a.status = "loan payment complete";
                     });
                     print("transfer excess to borrower--");
-                    auto amount = propitr->price.amount - itr->totaldue.amount;
+                    auto amount = propitr->price.amount - totaldue.amount;
                     asset excess = asset(amount, symbol(symbol_code("UTP"), 4));
                     print("excess amt--", excess);
                     action(
@@ -448,18 +393,25 @@ ACTION lender::checkauction(name identity, uint64_t reqloanid)
     manager_table manager("utpmanager11"_n, "utpmanager11"_n.value);
     auto mitr = manager.find(identity.value);
     eosio_assert(mitr != manager.end(), "manager not found !!!");
-
     approveloan_tab approve(_self, _self.value);
     reqloan_tab req(_self, _self.value);
     vector<uint64_t> properties;
-    auto itr = approve.find(reqloanid);
     auto reqitr = req.find(reqloanid);
-    eosio_assert(itr != approve.end(), "requested loan id not found!!!");
     eosio_assert(reqitr != req.end(), "requested loan id not found!!!");
-    auto borrower = itr->borrower;
+
+    name borrower;
+    string status;
+    uint64_t finalduedt;
+
+    auto itr = approve.find(reqloanid);
+    eosio_assert(itr != approve.end(), "requested loan id not found!!!");
+    borrower = itr->borrower;
+    status = itr->status;
+    finalduedt = itr->finalduedt;
+
     properties = reqitr->prop_id;
 
-    if (now() > (itr->finalduedt + 86400 * 10) && itr->status == "defaulter")
+    if (now() > (finalduedt + 86400 * 10) && status == "defaulter")
     {
 
         print("call auction func of real estate contract!!!");
@@ -468,6 +420,7 @@ ACTION lender::checkauction(name identity, uint64_t reqloanid)
         approve.modify(itr, _self, [&](auto &a) {
             a.status = "auction called";
         });
+
         uint64_t startdate = now();
         uint64_t enddate = now() + (60 * 20);
         action(
@@ -487,7 +440,7 @@ ACTION lender::loanpayment(name payer, uint64_t reqloanid, asset amt)
 {
     require_auth(payer);
     reqloan_tab req(_self, _self.value);
-    instalment_tab approve(_self, _self.value);
+    approveloan_tab approve(_self, _self.value);
     paymentdet_tab payment(_self, _self.value);
     auto itr = req.find(reqloanid);
     auto appritr = approve.find(reqloanid);
@@ -597,7 +550,7 @@ ACTION lender::paymentinst(name identity, uint64_t reqloanid)
     eosio_assert(mitr != manager.end(), "manager not found !!!");
 
     reqloan_tab req(_self, _self.value);
-    instalment_tab approve(_self, _self.value);
+    approveloan_tab approve(_self, _self.value);
     paymentdet_tab payment(_self, _self.value);
     cscore_table credit("utpcreditsc1"_n, "utpcreditsc1"_n.value);
     auto itr = payment.find(reqloanid);
@@ -661,7 +614,7 @@ ACTION lender::paymentinst(name identity, uint64_t reqloanid)
             a.status = "loan payment complete";
         });
     }
- print("month--", monthlydue);
+    print("month--", monthlydue);
     approve.modify(appritr, _self, [&](auto &a) {
         a.totaldue = left;
         a.monthlydue = monthlydue;
@@ -684,9 +637,9 @@ ACTION lender::paymentinst(name identity, uint64_t reqloanid)
 ACTION lender::delreqloan(uint64_t id)
 {
     //  reqloan_tab req(_self, _self.value);
-    instalment_tab req(_self, _self.value);
-    auto itr = req.find(id);
-    req.erase(itr);
+    reqloan_tab approve(_self, _self.value);
+    auto itr = approve.find(id);
+    approve.erase(itr);
 }
 
-EOSIO_DISPATCH(lender, (addloancatg)(addcollat)(reqloancolat)(reqloanincm)(approveloan)(approveinst)(checkdefault)(checkbid)(checkauction)(loanpayment)(paymentacpt)(paymentinst)(delreqloan))
+EOSIO_DISPATCH(lender, (addloancatg)(addcollat)(reqloancolat)(reqloanincm)(approveloan)(checkdefault)(checkbid)(checkauction)(loanpayment)(paymentacpt)(paymentinst)(delreqloan))

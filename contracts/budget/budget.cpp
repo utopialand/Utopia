@@ -700,15 +700,17 @@ int budget::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, ve
     int pref = 2;
     int n = 2;
     int idx = 0;
-    int flag = 0;
+    int flag =0;
     vector<int> vc_sec(votes_count.size(), -1);
     while (repeatidx.size() != 0)
     {
-        if (pref == votes_count.size() + 1)
+        if(pref == votes_count.size()+1)
         {
             flag = 1;
             break;
         }
+
+
         fill(vc_sec.begin(), vc_sec.end(), -1);
         for (auto rptidx = 0; rptidx < repeatidx.size(); rptidx++)
         {
@@ -744,7 +746,11 @@ int budget::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, ve
         pref++;
     }
 
+<<<<<<< HEAD
+    eosio_assert(flag!=1, "Tie while resolving equality in number of votes among candidates till last preference!!!");
+=======
     eosio_assert(flag != 1, "Tie while resolving equality in number of votes among candidates till last preference!!!");
+>>>>>>> 9a61a8663bca40cb006b3554877f53fef4585f79
     
     return idx;
 }

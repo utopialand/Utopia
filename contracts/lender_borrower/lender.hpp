@@ -27,7 +27,6 @@ CONTRACT lender : public contract
                      string desc);
 
     ACTION approveloan(name identity, uint64_t reqloanid);
-    ACTION approveinst(name identity, uint64_t reqloanid);
     ACTION checkdefault(name identity, uint64_t reqloanid);
     ACTION checkauction(name identity, uint64_t reqloanid);
     ACTION checkbid(name identity, uint64_t reqloanid);
@@ -93,20 +92,7 @@ CONTRACT lender : public contract
 
     TABLE approvedloan
     {
-        uint64_t reqloanid;
-        name borrower;
-        uint64_t approvedAt;
-        asset amtapproved;
-        asset totaldue;
-        uint64_t finalduedt;
-        string status = "due";
-        asset fineamt;
-        uint64_t primary_key() const { return reqloanid; }
-    };
-
-    TABLE instalment
-    {
-        uint64_t reqloanid;
+       uint64_t reqloanid;
         name borrower;
         uint64_t approvedAt;
         asset amtapproved;
@@ -119,6 +105,8 @@ CONTRACT lender : public contract
         asset fineamt;
         uint64_t primary_key() const { return reqloanid; }
     };
+
+   
 
     TABLE properties
     {
@@ -155,20 +143,7 @@ CONTRACT lender : public contract
         string rsproposal = "created";
         uint64_t primary_key() const { return id; }
     };
-    /*   
-    
-
-
-    TABLE creditscore
-    {
-
-        name borrower;
-        uint16_t credscore;
-        uint64_t primary_key() const { return borrower.value; }
-    };
-
-   
-   
+   /*
 
     TABLE businessst
     {
@@ -185,22 +160,15 @@ CONTRACT lender : public contract
 
      
  */
-
-    /* private:
-    
-   
-    typedef multi_index<"credscore111"_n, creditscore> credscore_tab;    
-    
-    typedef multi_index<"businesstb"_n, businessst> businesstb;
-     */
+    //typedef multi_index<"businesstb"_n, businessst> businesstb;
     typedef multi_index<"loancatg113"_n, loancatg> loancatg_table;
     typedef multi_index<"manager111"_n, managertab> manager_table;
     typedef multi_index<"collat111"_n, collateral> collat_tab;
     typedef multi_index<"identity3"_n, identityt> identity_table;
     typedef multi_index<"reqloan113"_n, requestloan> reqloan_tab;
     typedef multi_index<"idsupp111"_n, idsupply> idsupp_table;
-    typedef multi_index<"approved113"_n, approvedloan> approveloan_tab;
-    typedef multi_index<"instalment11"_n, instalment> instalment_tab;
+    typedef multi_index<"approved114"_n, approvedloan> approveloan_tab;
+   // typedef multi_index<"instalment11"_n, instalment> instalment_tab;
     typedef multi_index<"properties1"_n, properties> properties_table;
     typedef multi_index<"payment111"_n, paymentdet> paymentdet_tab;
     typedef multi_index<"cscore112"_n, credscore> cscore_table;

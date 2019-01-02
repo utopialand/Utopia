@@ -175,7 +175,7 @@ ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
     {
        /*  eosio_assert(itr1->buyername != buyer, "you are alredy highest amount requester of this property"); */
         eosio_assert(itr1->price < amount, "anyone already provide amount more than you for this property");
-        print("else part running !!!!!!!");
+        print("else part running !!!!!!!!!");
        /*  action(
             permission_level{buyer, "active"_n},
             "amartesttest"_n, "transfer"_n,

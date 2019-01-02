@@ -8,7 +8,7 @@ CONTRACT creditscore : public contract
     using contract::contract;
 
   public:
-    ACTION addcredscore(name identity, name username,asset liqasset);
+    ACTION addcredscore(name identity, name username,float cscore);
     ACTION modcreditsc(name identity, name username, float cscore, bool isdefaulter);
     ACTION byrealest(name identity, name username, asset liqasset);
 

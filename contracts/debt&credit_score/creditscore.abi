@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 27 15:59:12 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Jan  2 14:47:21 2019",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -15,8 +15,8 @@
                     "type": "name"
                 },
                 {
-                    "name": "liqasset",
-                    "type": "asset"
+                    "name": "cscore",
+                    "type": "float32"
                 }
             ]
         },

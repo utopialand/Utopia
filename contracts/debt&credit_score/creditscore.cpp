@@ -1,6 +1,6 @@
 #include "creditscore.hpp"
 
-ACTION creditscore::addcredscore(name identity, name username,asset liqasset)
+ACTION creditscore::addcredscore(name identity, name username,float cscore)
 
 {
     print("add credit score--");
@@ -13,28 +13,6 @@ ACTION creditscore::addcredscore(name identity, name username,asset liqasset)
     auto itr = iden_table.find(username.value);
     eosio_assert(itr != iden_table.end(), "identity not found !!!");
     eosio_assert(itr->citizen, "Not a citizen of Utopia !!!");
-
-    properties_table prop("realstateutp"_n, "realstateutp"_n.value);
-    auto propitr = prop.begin();
-    asset total = asset(0, symbol(symbol_code("UTP"), 4));
-    while (propitr != prop.end())
-    {
-        if (propitr->owner == username)
-        {
-            auto price = propitr->price;
-            total += price;
-        }
-        propitr++;
-    }
-
-    asset totalprop = total + liqasset;
-    float cscore;
-    if (totalprop.amount > 1000000)
-        cscore = 7.5;
-    else if (totalprop.amount > 500000)
-        cscore = 6.5;
-    else
-        cscore = 5.5;
 
     cscore_table credit(_self, _self.value);
     credit.emplace(_self, [&](auto &c) {
