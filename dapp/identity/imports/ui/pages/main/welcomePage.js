@@ -60,6 +60,7 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
           document.getElementsByClassName("optionFlex")[0].style.display = "none";
           document.getElementById("scatter-not-installed").innerHTML = "please unlock scatter and refresh";
           document.getElementById("scatter-not-installed").style.display = "block";
+          
         }
       }
     } else {
