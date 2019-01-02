@@ -324,35 +324,73 @@ ACTION lender::checkdefault(name identity, uint64_t reqloanid)
     manager_table manager("utpmanager11"_n, "utpmanager11"_n.value);
     auto mitr = manager.find(identity.value);
     eosio_assert(mitr != manager.end(), "manager not found !!!");
-
+    reqloan_tab req(_self, _self.value);
+    auto reqitr = req.find(reqloanid);
     approveloan_tab approve(_self, _self.value);
-    auto itr = approve.find(reqloanid);
-    eosio_assert(itr != approve.end(), "requested loan id not found!!!");
-    auto borrower = itr->borrower;
-    eosio_assert(itr->status != "defaulter", "Already declared as a defaulter!!!");
-    if (now() > itr->finalduedt + 120 && itr->status == "due")
+    instalment_tab inst(_self, _self.value);
+    if (reqitr->loantype == "instalment")
     {
+        auto itr = inst.find(reqloanid);
+        eosio_assert(itr != inst.end(), "requested loan id not found!!!");
+        auto borrower = itr->borrower;
+        eosio_assert(itr->status != "defaulter", "Already declared as a defaulter!!!");
+        if (now() > itr->finalduedt + 120 && itr->status == "due")
+        {
 
-        print("call modify func of credit score contract---");
-        float creditscore = -1;
-        bool isdefault = true;
-        int64_t fineamt;
-        auto totaldue = itr->totaldue;
-        fineamt = ((totaldue.amount * 10) / 100);
-        approve.modify(itr, _self, [&](auto &a) {
-            a.status = "defaulter";
-            a.fineamt = asset(fineamt, symbol(symbol_code("UTP"), 4));
-        });
-        action(
-            permission_level{identity, "active"_n},
-            "utpcreditsc1"_n, "modcreditsc"_n,
-            std::make_tuple(identity, borrower, creditscore, isdefault))
-            .send();
+            print("call modify func of credit score contract---");
+            float creditscore = -1;
+            bool isdefault = true;
+            int64_t fineamt;
+            auto totaldue = itr->totaldue;
+            fineamt = ((totaldue.amount * 10) / 100);
+            inst.modify(itr, _self, [&](auto &a) {
+                a.totaldue += asset(fineamt, symbol(symbol_code("UTP"), 4));
+                a.status = "defaulter";
+                a.fineamt = asset(fineamt, symbol(symbol_code("UTP"), 4));
+            });
+            action(
+                permission_level{identity, "active"_n},
+                "utpcreditsc1"_n, "modcreditsc"_n,
+                std::make_tuple(identity, borrower, creditscore, isdefault))
+                .send();
+        }
+
+        else
+        {
+            print("You have time for loan payment--");
+        }
     }
-
     else
     {
-        print("You have time for loan payment--");
+
+        auto itr = approve.find(reqloanid);
+        eosio_assert(itr != approve.end(), "requested loan id not found!!!");
+        auto borrower = itr->borrower;
+        eosio_assert(itr->status != "defaulter", "Already declared as a defaulter!!!");
+        if (now() > itr->finalduedt + 120 && itr->status == "due")
+        {
+
+            print("call modify func of credit score contract---");
+            float creditscore = -1;
+            bool isdefault = true;
+            int64_t fineamt;
+            auto totaldue = itr->totaldue;
+            fineamt = ((totaldue.amount * 10) / 100);
+            approve.modify(itr, _self, [&](auto &a) {
+                a.status = "defaulter";
+                a.fineamt = asset(fineamt, symbol(symbol_code("UTP"), 4));
+            });
+            action(
+                permission_level{identity, "active"_n},
+                "utpcreditsc1"_n, "modcreditsc"_n,
+                std::make_tuple(identity, borrower, creditscore, isdefault))
+                .send();
+        }
+
+        else
+        {
+            print("You have time for loan payment--");
+        }
     }
 }
 
@@ -661,7 +699,7 @@ ACTION lender::paymentinst(name identity, uint64_t reqloanid)
             a.status = "loan payment complete";
         });
     }
- print("month--", monthlydue);
+    print("month--", monthlydue);
     approve.modify(appritr, _self, [&](auto &a) {
         a.totaldue = left;
         a.monthlydue = monthlydue;
