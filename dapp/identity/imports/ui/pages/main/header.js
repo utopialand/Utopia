@@ -15,7 +15,7 @@ const eosOptions = {
 };
 var manager=["propbudget11","identityreg1","realstateutp"];
 Template.header.onCreated(function() {
-    console.log("onCreated");
+    
   ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
       if (ScatterJS.scatter.connect("utopia")) {
@@ -23,10 +23,10 @@ Template.header.onCreated(function() {
         const requiredFields = { accounts: [network] };
         const eos = scatter.eos(network, Eos, eosOptions);
           if (scatter.identity) {
-            console.log("iden")
+            
             eosinstance = eos;
             var username=localStorage.getItem("username");
-           console.log("wlcm---",username);
+           
           if(username ==manager[0] || username ==manager[1] || username== manager[2]){
             document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
             document.getElementById("managerText").style.display = "block";
