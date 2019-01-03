@@ -27,7 +27,8 @@
     width: 25%;
     text-align: center;
     background: transparent;
-    border: 1px solid white;
+    border: 0;
+    border-bottom: 1px solid white;
     color: white;
     font-weight: bold;
 }
@@ -58,7 +59,8 @@
     width: 25%;
     text-align: center;
     background: transparent;
-    border: 1px solid white;
+    border: 0;
+    border-bottom: 1px solid white;
     color: white;
     font-weight: bold;
 }

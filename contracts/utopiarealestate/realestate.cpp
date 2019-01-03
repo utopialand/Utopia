@@ -1,56 +1,88 @@
 #include "realestate.hpp"
 
-ACTION realestate::landproposal(string location, uint64_t area, name currentOwner, asset currentprice, uint64_t startdate, uint64_t enddate)
+ACTION realestate::addproperty(string proptname, string address, string description, string propttype, string area)
+{
+    print("property!!!!!!!");
+    require_auth(_self);
+
+    proptlist_table proptab(_self, _self.value);
+    proptab.emplace(_self, [&](auto &b) {
+        b.id = proptab.available_primary_key();
+        b.proptname = proptname;
+        b.address = address;
+        b.description = description;
+        b.propttype = propttype;
+        b.area = area;
+    });
+}
+ACTION realestate::delpropt(uint64_t id)
+{
+    require_auth(_self);
+    proptlist_table proptab(_self, _self.value);
+    auto itr = proptab.find(id);
+    eosio_assert(itr != proptab.end(), "no available properties for this id");
+    itr = proptab.erase(itr);
+}
+
+ACTION realestate::landproposal(uint64_t id, name currentOwner, asset currentprice, uint64_t startdate, uint64_t enddate)
 {
     print("land proposal!!!!!!!");
-    require_auth(currentOwner);
+    proptlist_table proptab(_self, _self.value);
+    auto itr = proptab.find(id);
+    uint64_t t = now();
+    eosio_assert((t>=startdate) && (t<enddate),"start and end date is not correct");
+    eosio_assert(startdate < enddate,"enddate should be more than start date !!");
+    eosio_assert(itr != proptab.end(), "no available properties for this id !!!");
+    require_auth(_self);
 
     bid_table bt(_self, _self.value);
     bt.emplace(_self, [&](auto &b) {
-        b.id = bt.available_primary_key();
-        b.location = location;
-        b.area = area;
+        b.id = id;
+        b.proptname = itr->proptname;
         b.currentOwner = currentOwner;
+        b.currentprice = currentprice;
         b.startdate = startdate;
         b.enddate = enddate;
-        b.currentprice = currentprice;
     });
 };
 
 ACTION realestate::bid(uint64_t id, name buyername, asset amount)
 {
+    asset sym = asset(0, symbol(symbol_code("UTP"), 4));
+    eosio_assert(sym.symbol == amount.symbol, "invalid symbol name");
+   
     bid_table bt(_self, _self.value);
     auto itr = bt.find(id);
-    eosio_assert(itr->currentOwner != buyername, "you have already top bidder");
+    eosio_assert(itr->currentOwner != buyername, "you are already the top bidder");
     require_auth(buyername);
     eosio_assert(itr->bidstatus == true, "no available bid for this properties");
-    eosio_assert(itr != bt.end(), "no available properties for this id");
+    eosio_assert(itr != bt.end(), "no available property for this id");
     uint64_t t = now();
-    eosio_assert(t >= itr->startdate, "bid is not start yet please wait !!");
-    eosio_assert(t < itr->enddate, "time limit over to buy this properties!!");
+    eosio_assert(t >= itr->startdate, "bid has not started yet !!");
+    eosio_assert(t < itr->enddate, "time limit over to buy this property!!");
     eosio_assert(amount.symbol == itr->currentprice.symbol, "invalid amount symbol");
     eosio_assert(amount > itr->currentprice, "insufficient amount to buy property !!");
     name rsdeposite = "rsdeposite11"_n;
     string memo = "fund transfer";
     if (itr->rsproposal == "created")
     {
-        action(
+       /*  action(
             permission_level{buyername, "active"_n},
             "amartesttest"_n, "transfer"_n,
             make_tuple(buyername, rsdeposite, amount, memo))
-            .send();
+            .send(); */
     }
     else
     {
-        action(
+        /* action(
             permission_level{buyername, "active"_n},
             "amartesttest"_n, "transfer"_n,
             make_tuple(buyername, rsdeposite, amount, memo))
-            .send();
+            .send();*/
 
         action(
             permission_level{rsdeposite, "active"_n},
-            "amartesttest"_n, "transfer"_n,
+            "utopbusiness"_n, "transfer"_n,
             make_tuple(rsdeposite, itr->currentOwner, itr->currentprice, memo))
             .send();
     }
@@ -83,14 +115,14 @@ ACTION realestate::approvedprop(uint64_t id)
     {
         if (itr1 != pt.end())
         {
-            name currentOwner = itr1->owner;
+            /*name currentOwner = itr1->owner;
             asset amount = itr1->price;
-           
-                action(
-                    permission_level{rsdeposite, "active"_n},
-                    "amartesttest"_n, "transfer"_n,
-                    make_tuple(rsdeposite, currentOwner, amount, memo))
-                    .send();
+
+             action(
+                permission_level{rsdeposite, "active"_n},
+                "amartesttest"_n, "transfer"_n,
+                make_tuple(rsdeposite, currentOwner, amount, memo))
+                .send(); */
 
             pt.modify(itr1, _self, [&](auto &pt) {
                 pt.owner = itr->currentOwner;
@@ -103,6 +135,7 @@ ACTION realestate::approvedprop(uint64_t id)
                 p.propt_id = id;
                 p.owner = itr->currentOwner;
                 p.price = itr->currentprice;
+                p.proptname = itr->proptname;
             });
         }
     }
@@ -110,43 +143,47 @@ ACTION realestate::approvedprop(uint64_t id)
 
 ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
 {
+    asset sym = asset(0, symbol(symbol_code("UTP"), 4));
+    eosio_assert(sym.symbol == amount.symbol, "invalid symbol name");
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
     require_auth(buyer);
-    eosio_assert(itr != pt.end(), "no available properties for this id");
+    eosio_assert(itr != pt.end(), "no available properties for this id !!");
     eosio_assert(itr->owner != buyer, "you are already owner !!");
 
     name rsdeposite = "rsdeposite11"_n;
     string memo = "fund transfer";
-    buyer_table bt(_self,itr->owner.value);
+    buyer_table bt(_self, _self.value);
     auto itr1 = bt.find(id);
 
     if (itr1 == bt.end())
     {
-        action(
+        /* action(
             permission_level{buyer, "active"_n},
             "amartesttest"_n, "transfer"_n,
             make_tuple(buyer, rsdeposite, amount, memo))
-            .send();
+            .send(); */
         bt.emplace(_self, [&](auto &b) {
             b.id = itr->propt_id;
             b.buyername = buyer;
+            b.reqowner = itr->owner;
             b.price = amount;
+            b.proptname = itr->proptname;
         });
     }
     else
     {
-        eosio_assert(itr1->buyername != buyer, "you are alredy highest amount requester of this property");
+       /*  eosio_assert(itr1->buyername != buyer, "you are alredy highest amount requester of this property"); */
         eosio_assert(itr1->price < amount, "anyone already provide amount more than you for this property");
-        print("else part running !!!!!!!");
-        action(
+        print("else part running !!!!!!!!!");
+       /*  action(
             permission_level{buyer, "active"_n},
             "amartesttest"_n, "transfer"_n,
             make_tuple(buyer, rsdeposite, amount, memo))
-            .send();
+            .send(); */
         action(
             permission_level{rsdeposite, "active"_n},
-            "amartesttest"_n, "transfer"_n,
+            "utopbusiness"_n, "transfer"_n,
             make_tuple(rsdeposite, itr1->buyername, itr1->price, memo))
             .send();
 
@@ -156,7 +193,29 @@ ACTION realestate::reqbuypropt(uint64_t id, name buyer, asset amount)
         });
     }
 }
+ACTION realestate::cancelbuyreq(uint64_t id)
+{
+    properties_table pt(_self, _self.value);
+    auto itr = pt.find(id);
+    eosio_assert(itr != pt.end(), "no available properties for this id");
 
+    buyer_table bt(_self, _self.value);
+    auto itr1 = bt.find(id);
+    eosio_assert(itr1 != bt.end(), "no available buyer for this id");
+    require_auth(itr1->buyername);
+    uint64_t canceldate = now();
+    /* eosio_assert(canceldate > (itr1->reqdate + 864000),"you can not cancel buy request before 10 days !!"); */
+    eosio_assert(canceldate > (itr1->reqdate + 120),"you can not cancel buy request before 10 days !!");
+    name rsdeposite = "rsdeposite11"_n;
+    string memo = "fund transfer";
+    name buyername = itr1->buyername;
+    action(
+        permission_level{rsdeposite, "active"_n},
+        "utopbusiness"_n, "transfer"_n,
+        make_tuple(rsdeposite, buyername, itr1->price, memo))
+        .send();
+    itr1 = bt.erase(itr1);
+}
 ACTION realestate::rejbuyerreq(uint64_t id)
 {
     properties_table pt(_self, _self.value);
@@ -173,7 +232,7 @@ ACTION realestate::rejbuyerreq(uint64_t id)
     name buyername = itr1->buyername;
     action(
         permission_level{rsdeposite, "active"_n},
-        "amartesttest"_n, "transfer"_n,
+        "utopbusiness"_n, "transfer"_n,
         make_tuple(rsdeposite, buyername, itr1->price, memo))
         .send();
     itr1 = bt.erase(itr1);
@@ -196,7 +255,7 @@ ACTION realestate::accbuyerreq(uint64_t id, name seller)
 
     action(
         permission_level{rsdeposite, "active"_n},
-        "amartesttest"_n, "transfer"_n,
+        "utopbusiness"_n, "transfer"_n,
         make_tuple(rsdeposite, seller, itr1->price, memo))
         .send();
 
@@ -207,8 +266,23 @@ ACTION realestate::accbuyerreq(uint64_t id, name seller)
     itr1 = bt.erase(itr1);
 }
 
-ACTION realestate::reqsellpropt(uint64_t id, name seller, asset amount)
+ ACTION realestate::modifyprice(uint64_t id, asset amount)
 {
+    asset sym = asset(0, symbol(symbol_code("UTP"), 4));
+    eosio_assert(sym.symbol == amount.symbol, "invalid symbol name");
+    properties_table pt(_self, _self.value);
+    auto itr = pt.find(id);
+    eosio_assert(itr != pt.end(), "no available properties for this id !!!!");
+    require_auth(itr->owner);
+    pt.modify(itr,_self, [&](auto &s) {
+        s.price = amount;
+    });
+}
+
+/* ACTION realestate::reqsellpropt(uint64_t id, name seller, asset amount)
+{
+    asset sym = asset(0, symbol(symbol_code("UTP"), 4));
+    eosio_assert(sym.symbol == amount.symbol, "invalid symbol name");
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
     require_auth(seller);
@@ -220,9 +294,11 @@ ACTION realestate::reqsellpropt(uint64_t id, name seller, asset amount)
         s.sellername = seller;
         s.sellingprice = amount;
     });
-}
-ACTION realestate::accsellreq(uint64_t id, name buyer, asset amount)
+} */
+/* ACTION realestate::accsellreq(uint64_t id, name buyer, asset amount)
 {
+    asset sym = asset(0, symbol(symbol_code("UTP"), 4));
+    eosio_assert(sym.symbol == amount.symbol, "invalid symbol name");
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
     require_auth(buyer);
@@ -252,7 +328,7 @@ ACTION realestate::accsellreq(uint64_t id, name buyer, asset amount)
         b.price = amount;
     });
     itr1 = st.erase(itr1);
-}
+} */
 
 ACTION realestate::auction(uint64_t id, name managername, uint64_t startdate, uint64_t enddate)
 {
@@ -262,7 +338,7 @@ ACTION realestate::auction(uint64_t id, name managername, uint64_t startdate, ui
 
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
-    eosio_assert(itr != pt.end(), "no available properties for this id!!!!");
+    eosio_assert(itr != pt.end(), "no available properties for this id !!!");
     require_auth(managername);
     pt.modify(itr, _self, [&](auto &b) {
         b.owner = managername;
@@ -280,5 +356,21 @@ ACTION realestate::auction(uint64_t id, name managername, uint64_t startdate, ui
         b.rsproposal = "created";
     });
 };
+ACTION realestate::deletealltab()
+{
+    require_auth(_self);
+    bid_table bt(_self, _self.value);
+    auto itr1 = bt.begin();
+    while(itr1!=bt.end())
+    {
+        itr1 = bt.erase(itr1);
+    }
+    properties_table pt(_self, _self.value);
+   auto itr2 = pt.begin();
+   while(itr2!=pt.end())
+   {
+       itr2 = pt.erase(itr2);
+   }
+}
 
-EOSIO_DISPATCH(realestate, (landproposal)(bid)(approvedprop)(reqbuypropt)(rejbuyerreq)(accbuyerreq)(reqsellpropt)(accsellreq)(auction))
+EOSIO_DISPATCH(realestate, (addproperty)(delpropt)(landproposal)(bid)(approvedprop)(reqbuypropt)(rejbuyerreq)(cancelbuyreq)(accbuyerreq)(modifyprice)(auction)(deletealltab))

@@ -18,58 +18,86 @@ const eosOptions = {
 };
 let eos = {};
 var userdetail;
-var manager=["propbudget11","identityreg1","realstateutp"];
+var scatter={};
+var manager = ["propbudget11", "identityreg1", "realstateutp"];
 Template.welcomePage.onCreated(function bodyOnCreated() {
   ScatterJS.scatter.connect("utopia").then(connected => {
     if (connected) {
       if (ScatterJS.scatter.connect("utopia")) {
         scatter = ScatterJS.scatter;
         const requiredFields = { accounts: [network] };
-         eos = scatter.eos(network, Eos, eosOptions);
+        eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
-          /* eos.getTableRows({
+          document.getElementById("scatter-not-installed").style.display = "none";
+          document.getElementById("loginButton").innerHTML = "logout";
+          document.getElementsByClassName("optionFlex")[0].style.display =
+            "flex"; 
+          eos.getTableRows({
             code: "identityreg1",
             scope: "identityreg1",
             table: "identity3",
             limit: 50,
             json: true
-          }).then((resp)=>{
-           userdetail=resp;
-           console.log("user---",userdetail);
+          }).then((resp) => {
+            userdetail = resp;
+            console.log("user---", userdetail);
+            var username = localStorage.getItem("username");
+            console.log("wlcm---", username);
+            if (username == manager[0] || username == manager[1] || username == manager[2]) {
+              console.log("1");
+              document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+              document.getElementById("managerText").style.display = "block";
+              document.getElementById("len").style.display = "block";
+              document.getElementById("coupon").style.display = "block";
+              var s = document.getElementById("len").setAttribute("value", "manager");
+            } else {
+              console.log("2");
+              var count2=0;
+              for(var i=0;i<userdetail.rows.length;i++){
+                if(userdetail.rows[i].username==username){
+                  count2++;
+                }
+              }
+              if(count2==1){
+                console.log("count1");
+                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+                document.getElementById("managerText").style.display = "none";
+                document.getElementById("len").style.display = "block";
+                document.getElementById("coupon").style.display = "block";
+                var s = document.getElementById("len").setAttribute("value", "userid");
+              }else{
+                console.log("count2");
+                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+                document.getElementById("managerText").style.display = "none";
+                var s = document.getElementById("len").setAttribute("value", "user");
+                document.getElementById("len").style.display = "none";
+                document.getElementById("coupon").style.display = "none";
+              }
+              
+            }
           });
-          var username=localStorage.getItem("username");
-          console.log("wlcm---",username);
-          if(username ==manager[0] || username ==manager[1] || username== manager[2]){
-            console.log("1");
-            document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-            document.getElementById("managerText").style.display = "block";
-            var s = document.getElementById("len").setAttribute("value","manager");
-          }else{
-            console.log("2");
-            document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-            document.getElementById("managerText").style.display = "none";
-            var s = document.getElementById("len").setAttribute("value","userid");
-            }  
-          document.getElementById("loginButton").innerHTML = "logout";
-          document.getElementsByClassName("optionFlex")[0].style.display =
-            "flex"; */
+         
+         
         } else {
-          /* document.getElementsByClassName("identitySectionman")[0].style.display = "none";
+           document.getElementsByClassName("identitySectionman")[0].style.display = "none";
           document.getElementById("loginButton").innerHTML = "login";
-          document.getElementsByClassName("optionFlex")[0].style.display ="none"; */
+          document.getElementsByClassName("optionFlex")[0].style.display = "none";
+          document.getElementById("scatter-not-installed").innerHTML = "please unlock scatter and refresh";
+          document.getElementById("scatter-not-installed").style.display = "block";
+          
         }
       }
     } else {
-      console.log("scatter not installed");
+      document.getElementById("scatter-not-installed").style.display = "block";
     }
   });
 });
 
 Template.welcomePage.events({
-  "click .optionText1": function() {
+  "click .optionText1": function () {
     FlowRouter.go("/identity-reg");
   },
-  "click .scatterloginlogout": function(event, instance) {
+  "click .scatterloginlogout": function (event, instance) {
     if (!JSON.parse(localStorage.getItem("loginstatus"))) {
       ScatterJS.scatter.connect("utopia").then(connected => {
         if (!connected) return false;
@@ -89,17 +117,37 @@ Template.welcomePage.events({
             document.getElementById("loginButton").innerHTML = "logout";
             document.getElementsByClassName("optionFlex")[0].style.display =
               "flex";
-              if(account ==manager[0] || account ==manager[1] || account == manager[2]){
-                console.log("1");
-                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-                document.getElementById("managerText").style.display = "block";
-                document.getElementById("len").setAttribute("value","manager");
-              }else{
-                console.log("2");
+            if (account == manager[0] || account == manager[1] || account == manager[2]) {
+              console.log("1");
+              document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+              document.getElementById("managerText").style.display = "block";
+              document.getElementById("len").style.display = "block";
+              document.getElementById("coupon").style.display = "block";
+              document.getElementById("len").setAttribute("value", "manager");
+            } else {
+              console.log("2");
+              var count=0;
+              for(var i=0;i<userdetail.rows.length;i++){
+                if(userdetail.rows[i].username==account){
+                  count++;
+                }
+              }
+              if(count==1){
+                console.log("user");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
-                document.getElementById("len").setAttribute("value","userid");
-                   }  
+                document.getElementById("len").style.display = "block";
+                document.getElementById("coupon").style.display = "block";
+                var s = document.getElementById("len").setAttribute("value", "userid");
+              }else{
+                console.log("none");
+                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+                document.getElementById("managerText").style.display = "none";
+                var s = document.getElementById("len").setAttribute("value", "user");
+                document.getElementById("coupon").style.display = "none";
+                document.getElementById("len").style.display = "none";
+              }
+            }
           })
           .catch(error => {
             console.error(error);
@@ -121,7 +169,7 @@ Template.welcomePage.events({
 });
 
 Template.welcomePage.events({
-  "click .optionText2": function() {
+  "click .optionText2": function () {
     var username = localStorage.getItem("username");
     eos.contract("identityreg1").then(identityregres => {
       identityregres

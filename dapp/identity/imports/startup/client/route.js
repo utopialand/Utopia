@@ -29,9 +29,11 @@ import "../../ui/pages/main/newbusiness/newbusiness.js";
 import "../../ui/pages/main/settings/settings.js";
 import "../../ui/pages/main/realestate/realestate.js";
 import "../../ui/pages/main/realstate-enquire/enquire.js";
-
-import "../../ui/pages/main/Allutopians.js"
-import "../../ui/pages/main/lender.js"
+import "../../ui/pages/main/realestate-manage/manage.js";
+import "../../ui/pages/main/realestate-bid/bid.js";
+import "../../ui/pages/main/Allutopians.js";;
+import "../../ui/pages/main/lender.js";
+import "../../ui/pages/main/realestate-buy/buy.js";
 import "../../ui/pages/main/Viewdetails.js"
 FlowRouter.route('/', {
   name: 'welcomePage',
@@ -87,7 +89,14 @@ FlowRouter.route('/newproposal', {
 FlowRouter.route('/manager', {
   name: "manager",
   action(){
-    BlazeLayout.render('App_body', { main: 'App_manager'});
+    var username = localStorage.getItem("username");
+    var manager=["propbudget11","identityreg1","realstateutp"];
+    if(username ==manager[0] || username ==manager[1] || username== manager[2]){
+      BlazeLayout.render('App_body', { main: 'App_manager'});
+    }else{
+      FlowRouter.go("/");
+    }
+    
   }
 });
 
@@ -240,6 +249,27 @@ FlowRouter.route('/lender', {
   action() {
     BlazeLayout.render('App_body', { main: 'lender' });
   }
+});
+
+FlowRouter.route('/realestatemanage', {
+  name: 'App_real_estate_manager',
+  action() {
+      BlazeLayout.render('App_body', { main: 'App_real_estate_manager' });
+  },
+});
+
+FlowRouter.route('/realestatebid', {
+  name: 'App_real_estate_bid',
+  action() {
+      BlazeLayout.render('App_body', { main: 'App_real_estate_bid' });
+  },
+});
+
+FlowRouter.route('/realestatebuy', {
+  name: 'App_real_estate_buy',
+  action() {
+      BlazeLayout.render('App_body', { main: 'App_real_estate_buy' });
+  },
 });
 
 FlowRouter.route('/viewdetail', {

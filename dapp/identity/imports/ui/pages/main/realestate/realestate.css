@@ -9,6 +9,8 @@
 .real-estate-container h1{
     color: white;
     text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .real-estate-container .property-header{
@@ -19,14 +21,22 @@
     margin-top: 5%;
 }
 
-.real-estate-container .property-list{
+.property-header button{
+    background: black;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 3px solid white;
+}
+
+.property-list{
     display: flex;
     flex-wrap: wrap;
     color: white;
     margin-top: 5%;
 }
 
-.real-estate-container .propertyItem{
+.propertyItem{
     width: 31.9%;
     color: white;
     display: flex;
@@ -44,7 +54,7 @@
 
 .propertyItem .owner{
     background: teal;
-    width: 50%;
+    width: 80%;
     text-align: center;
     margin: 3% 0%;
     padding: 3% 0%;
@@ -54,7 +64,7 @@
 
 .propertyItem .price{
     background:skyblue;
-    width: 50%;
+    width: 80%;
     text-align: center;
     margin: 3% 0%;
     padding: 3% 0%;
@@ -79,10 +89,25 @@
     border-radius: 6px;
 }
 
-.real-estate-container .propertyItem:nth-child(3n+2){
+.propertyItem:nth-child(3n+2){
     margin-left: 2%;
 }
 
-.real-estate-container .propertyItem:nth-child(3n+3){
+.propertyItem:nth-child(3n+3){
     margin-left: 2%;
+}
+
+#search-realestate{
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+#search-box-realestate{
+    width: 250px;
+    border: 0;
+    height: 50px;
+    color: white;
+    background: transparent;
+    border-bottom: 1px solid white;
 }

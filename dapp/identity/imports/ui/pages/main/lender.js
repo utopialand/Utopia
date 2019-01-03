@@ -276,4 +276,4 @@ Template.lender.events({
               });
           });
     }
-})
+});

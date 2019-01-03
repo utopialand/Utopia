@@ -12,10 +12,17 @@
 
 .settings-container label{
     width: 150px;
+    margin: 0px;
+    text-transform: capitalize;
 }
 
 .settings-tab input{
     display: block;
+    border: 0px;
+    border-bottom: 1px solid white;
+    background: black;
+    color: white;
+    margin: 0px;
 }
 
 .settings-tab{

@@ -8,11 +8,11 @@
                 <div id="apply-section">
                     <div class="userdata">
                             <label>amount</label>
-                            <input type="text" id="amt"/>
+                            <input type="text" id="amt" maxlength="50" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
                             <label>purpose</label>
-                            <input type="text" id="purpose"/>
+                            <input type="text" id="purpose" maxlength="250"/>
                             <label>income</label>
-                            <input type="text" id="income"/>
+                            <input type="text" id="income" maxlength="50" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
                             <label>category id</label>
                             <div class="catgid" id="catgid">
                             </div>

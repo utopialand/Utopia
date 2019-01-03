@@ -147,12 +147,16 @@ Template.viewdetail.events({
         var rate = $("#rate").val();
         var period =parseInt( $("#period").val());
         var desc = $("#desc").val();
-        eosinstance.contract("utplendercon").then(utplendercon => {
-            utplendercon.addloancatg(username,desc,rate,period, { authorization: username }).then(response => {
-                alert("success");
-                console.log("response==>", response);
+        if(period > 30){
+            alert("loan period exited (maximum 30 years)");
+        }else{
+            eosinstance.contract("utplendercon").then(utplendercon => {
+                utplendercon.addloancatg(username,desc,rate,period, { authorization: username }).then(response => {
+                    alert("success");
+                    console.log("response==>", response);
+                  });
               });
-          });
+        }
     },
     'click .buttonaction':function(){
         var username = localStorage.getItem("username");

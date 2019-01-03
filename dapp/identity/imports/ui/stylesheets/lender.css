@@ -70,6 +70,16 @@ display: flex;
 .colatoptn{
     display: flex;
 }
+input[type=radio] {
+    border: 0px;
+    width: 100%;
+    height: 2em;
+}
+input[type=checkbox] {
+    border: 0px;
+    width: 100%;
+    height: 2em;
+}
 .colat{
     display: flex;
     flex-direction: column;  
