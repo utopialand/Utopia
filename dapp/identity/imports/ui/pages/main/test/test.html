@@ -1,0 +1,22 @@
+<template name="App_test">
+    <div class="container">
+        <h1> this is a test </h1>
+
+    {{#if getAllAgain.length}}
+    <div class="property-list">
+        {{#each getAllAgain}}
+        <div class="propertyItem">
+            <div class="owner">Name: {{proptname}}</div>
+            <div class="house"></div>
+            <button id="enquirepropertyid-{{id}}" class="enquire-btn">enquire</button>
+        </div>
+        {{/each}}
+    </div>
+    {{else}}
+    <div class="no-business">
+        <p>No properties in Utopia</p>
+    </div>
+    {{/if}}
+    </div>
+    
+</template>

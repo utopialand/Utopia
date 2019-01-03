@@ -41,11 +41,11 @@ function getBuyPropertyRequest() {
                         var requestsToMe = [];
                         var requestsByMe = [];
 
-                        for(var i = 0;i<response.rows.length;i++){
-                            if(username == response.rows[i].buyername){
+                        for (var i = 0; i < response.rows.length; i++) {
+                            if (username == response.rows[i].buyername) {
                                 requestsByMe.push(response.rows[i]);
                             }
-                            if(username == response.rows[i].reqowner){
+                            if (username == response.rows[i].reqowner) {
                                 requestsToMe.push(response.rows[i]);
                             }
                         }
@@ -79,8 +79,8 @@ function getMyPropertyList() {
         console.log("response ", response);
         var data = [];
         var username = localStorage.getItem("username");
-        for(var i=0;i<response.rows.length;i++){
-            if(username == response.rows[i].owner){
+        for (var i = 0; i < response.rows.length; i++) {
+            if (username == response.rows[i].owner) {
                 data.push(response.rows[i]);
             }
         }
@@ -98,7 +98,7 @@ Template.App_real_estate_manager.helpers({
         getMyPropertyList();
         return Session.get("myPropertyList");
     },
-    propertyRequestByMe(){
+    propertyRequestByMe() {
         return Session.get("requestsByMe");
     }
 });
@@ -107,79 +107,84 @@ Template.App_real_estate_manager.events({
     "click .accept-btn": async function (e) {
         var id = e.target.id.split("-")[1];
         var username = localStorage.getItem("username");
-        try{
+        try {
             let realstateutp = await eosinstance.contract('realstateutp');
-            if(realstateutp){
+            if (realstateutp) {
                 let accept_req = await realstateutp.accbuyerreq(id, username, { authorization: username });
-                if(accept_req){
+                if (accept_req) {
                     alert("You accepted the request");
                 }
             }
-        }catch(err){
+        } catch (err) {
             var parseResponse = JSON.parse(err);
             var msg = parseResponse.error.details[0].message.split(":")[1];
             alert(msg);
         }
     },
     "click .reject-btn": async function (e) {
-        
+
         var id = e.target.id.split("-")[1];
         var username = localStorage.getItem("username");
 
-        try{
+        try {
             let realstateutp = await eosinstance.contract('realstateutp');
-            if(realstateutp){
+            if (realstateutp) {
                 let reject_req = await realstateutp.rejbuyerreq(id, { authorization: username });
-                if(reject_req){
+                if (reject_req) {
                     alert("request rejected");
                 }
             }
-        }catch(err){
+        } catch (err) {
             var parseResponse = JSON.parse(err);
             var msg = parseResponse.error.details[0].message.split(":")[1];
             alert(msg);
         }
     },
-    "click .modifypricebtn": async function(e){
+    "click .modifypricebtn": async function (e) {
         console.log("id ", e.target.id);
         var id = e.target.id.split("-")[1];
-        var fieldid = "#modifypricefield-"+ id;
+        var fieldid = "#modifypricefield-" + id;
         var utpvalue = $(fieldid).val();
-        console.log("utpvalue ", utpvalue);
-        var username = localStorage.getItem("username");
-        
-        try{
-            let realstateutp = await eosinstance.contract('realstateutp');
-            if(realstateutp){
-                let modify_price = await realstateutp.modifyprice(id,utpvalue, { authorization: username });
-                if(modify_price){
-                    alert("price modified");
+        if (!utpvalue) {
+            alert("Enter UTP in format 0.0000 UTP");
+        } else {
+            console.log("utpvalue ", utpvalue);
+            var username = localStorage.getItem("username");
+
+            try {
+                let realstateutp = await eosinstance.contract('realstateutp');
+                if (realstateutp) {
+                    let modify_price = await realstateutp.modifyprice(id, utpvalue, { authorization: username });
+                    if (modify_price) {
+                        alert("price modified");
+                    }
                 }
+            } catch (err) {
+                var parseResponse = JSON.parse(err);
+                var msg = parseResponse.error.details[0].message.split(":")[1];
+                alert(msg);
             }
-        }catch(err){
-            var parseResponse = JSON.parse(err);
-            var msg = parseResponse.error.details[0].message.split(":")[1];
-            alert(msg);
         }
+
     },
-    "click .property-details-btn": function(e){
+    "click .property-details-btn": function (e) {
         var id = e.target.id.split("-")[2];
-        FlowRouter.go("/realestate/"+id);
+        FlowRouter.go("/realestate/" + id);
     },
-    "click .cancel-req-btn": async function(e){
+    "click .cancel-req-btn": async function (e) {
         var username = localStorage.getItem("username");
         var id = e.target.id.split("-")[2];
 
-        try{
+        try {
             let realstateutp = await eosinstance.contract('realstateutp');
-            if(realstateutp){
+            if (realstateutp) {
                 var cancel_req = await realstateutp.cancelbuyreq(id, { authorization: username });
 
-                if(cancel_req){
+                if (cancel_req) {
                     alert("You cancelled the request");
                 }
             }
-        }catch(err){
+        } catch (err) {
             var parseResponse = JSON.parse(err);
             var msg = parseResponse.error.details[0].message.split(":")[1];
             alert(msg);
