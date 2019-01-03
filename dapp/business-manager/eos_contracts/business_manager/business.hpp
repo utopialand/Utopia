@@ -42,8 +42,6 @@ CONTRACT business : public contract
 
     ACTION listtoken(asset currency);
 
-    ACTION transferm(name from, name to,asset amount);
-
     static asset get_supply(name token_contract_account, symbol_code sym)
     {
         stats statstable(token_contract_account, sym.raw());
@@ -74,12 +72,11 @@ CONTRACT business : public contract
     TABLE identityt
     {
         name username;
-        string fname;
-        string mname;
-        string lname;
+        string identityname;
         string dob;
         string contact;
         string email;
+        string dochash;
         bool citizen = false;
         uint64_t primary_key() const { return username.value; }
     };
@@ -90,7 +87,7 @@ CONTRACT business : public contract
         uint64_t primary_key() const { return currency.symbol.code().raw(); }
     };
     typedef multi_index<"businesstb"_n, businessst> businesstb;
-    typedef multi_index<"identity2"_n, identityt> identity_table;
+    typedef multi_index<"identity3"_n, identityt> identity_table;
     typedef eosio::multi_index<"exchange"_n, exchange_t> exchanges;
 
     struct transfer_args

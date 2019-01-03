@@ -722,7 +722,7 @@ Template.App_manager.events({
     document.getElementsByClassName("approved-property")[0].style.display = "flex";
   },
   
-  "click #add-property-btn":function()
+  "click #add-property-btn":async function()
   {
     console.log("add-property");
     var username = localStorage.getItem("username");
@@ -731,19 +731,31 @@ Template.App_manager.events({
     var description = $("#description").val();
     var propttype = $("#propttype").val();
     var area = $("#area").val();
-    eosinstance.contract('realstateutp').then(realstateutp => {
-      realstateutp.addproperty(proptname, address, description, propttype, area, { authorization: username }).then((response) => {
-          if (response) {
-              console.log("response to adding a property", response);
-              alert("adding property successfully");
-          } else {
-              alert("Unable to add property");
-          }
-
-      });
-  });
+    if((!proptname)||(!address)||(!description)||(!propttype)||(!area))
+    {
+      alert("please fill all the fields");
+    }
+    else{
+      try{
+        let realstateutp = await eosinstance.contract('realstateutp');
+        if(realstateutp)
+        {
+          let result = await  realstateutp.addproperty(proptname, address, description, propttype, area, { authorization: username });
+             if(result){
+              alert("property added successfully !!");
+            }else{
+              alert("Something went wrong");
+           }
+        }
+      }
+      catch(err){
+        var parseResponse = await JSON.parse(err);
+        var msg = await parseResponse.error.details[0].message.split(":")[1]
+        alert(msg);
+      }
+    }
   },
-  "click #add-land-proposal-btn":function()
+  "click #add-land-proposal-btn":async function()
   {
     console.log("create auction");
     
@@ -761,35 +773,63 @@ Template.App_manager.events({
     console.log("current time ->",currenttime);
     console.log("startdate",startdate);
     console.log("enddate",enddate);
-   
-    eosinstance.contract('realstateutp').then(realstateutp => {
-      realstateutp.landproposal(propid, username, currentprice, startdate, enddate, { authorization: username }).then((response) => {
-          if (response) {
-              console.log("response to creating land proposal", response);
-              alert("land proposal for bid created successfully");
-          } else {
-              alert("Unable to create land proposal");
-          }
+   if((!propid)||(!currentprice)||(!startdate)||(!enddate))
+   {
+      alert("please fill all the entries !!")
+   }
+   else{
 
-      });
-  });
+      try{
+          let realstateutp = await eosinstance.contract('realstateutp');
+          if(realstateutp)
+          {
+            let result = await realstateutp.landproposal(propid, username, currentprice, startdate, enddate, { authorization: username });
+            if(result)
+            {
+              alert("auction created successfully for bidding")
+            }
+            else{
+              alert("Something went wrong");
+            }
+          }
+      }
+      catch(err)
+      {
+        var parseResponse = await JSON.parse(err);
+        var msg = await parseResponse.error.details[0].message.split(":")[1]
+        alert(msg);
+      }
+   }
   },
-  "click #approved-property-btn":function()
+  "click #approved-property-btn":async function()
   {
     console.log("approved click");
     
     var username = localStorage.getItem("username");
     var approvedid = $("#approvedid").val();
-    eosinstance.contract('realstateutp').then(realstateutp => {
-      realstateutp.approvedprop(approvedid , { authorization: username }).then((response) => {
-          if (response) {
-              console.log("response to creating land proposal", response);
-              alert("property approved successfully");
-          } else {
-              alert("Unable to approved");
+    if(!approvedid)
+    {
+      alert("please provide property ID");
+    }
+    else{
+      try{
+          let realstateutp = await eosinstance.contract('realstateutp');
+          if(realstateutp)
+          {
+           let result = await realstateutp.approvedprop(approvedid , { authorization: username })
+           if(result){
+              alert("property approved successfully to highest bidder");
+          }else{
+              alert("Something went wrong");
+           }
           }
-      });
-  });
+        } 
+        catch(err){
+        var parseResponse = await JSON.parse(err);
+        var msg = await parseResponse.error.details[0].message.split(":")[1]
+        alert(msg);
+      }
+    }
   }
 
 });

@@ -63,6 +63,12 @@ Template.identity_reg.events({
         var phonenumber = $('#phonenumber').val();
         var email = $('#email').val();  
         var username = localStorage.getItem("username");
+        var atpos = email.indexOf("@");
+        var dotpos = email.lastIndexOf(".");
+        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length) {
+        alert("Not a valid e-mail address");
+        return false;
+        }
         console.log("----", identityname);
         eosinstance.contract('identityreg1').then(identityreg1 => {
             console.log("----", eosinstance);

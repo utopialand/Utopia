@@ -42,21 +42,39 @@ Template.App_new_business.onRendered(function () {
 });
 
 Template.App_new_business.events({
-    "click .createBusiness": function () {
+    "click .createBusiness": async function () {
         var username = localStorage.getItem("username");
         var companyName = $("#businessname").val();
         var maxSupply = $("#tokenname").val();
 
-        eosinstance.contract('utopbusiness').then(utopbusiness => {
-            utopbusiness.create(maxSupply, username, companyName, { authorization: username }).then((response) => {
-                if (response) {
-                    console.log("response of creating a new business", response);
-                } else {
-                    alert("Unable to create business");
+        if (!companyName) {
+            alert("Please Enter company name");
+        }
+        else if (!maxSupply) {
+            alert("Please Enter maximum supply of token")
+        }
+        else {
+
+            try {
+                var utopbusiness = await eosinstance.contract("utopbusiness");
+
+                if (utopbusiness) {
+                    var new_business = await utopbusiness.createtandb(maxSupply, username, companyName, { authorization: username });
+                    if (new_business) {
+                        alert("Business and token created ");
+                    }
+                    else {
+                        alert("Something went wrong while creating business");
+                    }
                 }
+            }
+            catch (err) {
+                var parseResponse = JSON.parse(err);
+                var msg = parseResponse.error.details[0].message.split(":")[1]
+                alert(msg);
+            }
+        }
 
-            });
 
-        });
     }
 });

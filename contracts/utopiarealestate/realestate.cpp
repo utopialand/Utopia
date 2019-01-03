@@ -36,6 +36,9 @@ ACTION realestate::landproposal(uint64_t id, name currentOwner, asset currentpri
     require_auth(_self);
 
     bid_table bt(_self, _self.value);
+    auto itr1 = bt.find(id);
+    eosio_assert(itr1 == bt.end(), "this property is already up for auction !!!");
+
     bt.emplace(_self, [&](auto &b) {
         b.id = id;
         b.proptname = itr->proptname;
@@ -99,6 +102,7 @@ ACTION realestate::approvedprop(uint64_t id)
     bid_table bt(_self, _self.value);
     auto itr = bt.find(id);
     require_auth(_self);
+     eosio_assert(itr != bt.end(), "no available property for this id");
     eosio_assert(itr->bidstatus != false, "already aprroved");
     uint64_t t = now();
     eosio_assert(t >= itr->enddate, "available for bidding !!!");
@@ -197,7 +201,7 @@ ACTION realestate::cancelbuyreq(uint64_t id)
 {
     properties_table pt(_self, _self.value);
     auto itr = pt.find(id);
-    eosio_assert(itr != pt.end(), "no available properties for this id");
+    eosio_assert(itr != pt.end(), "no available properties for this id !!");
 
     buyer_table bt(_self, _self.value);
     auto itr1 = bt.find(id);

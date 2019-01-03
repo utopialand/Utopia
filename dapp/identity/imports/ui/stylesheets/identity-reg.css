@@ -81,7 +81,8 @@ input:focus{
 
 
 .registration-form input:hover{
-  border-bottom : 2px solid #fff;
+  border: 2px solid #C86DD7;
+  color: white;
   transition: 0.5s;
 }
 

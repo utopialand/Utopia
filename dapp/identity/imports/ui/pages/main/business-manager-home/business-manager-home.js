@@ -41,6 +41,12 @@ function getAllBusinessList(){
                         limit: "50",
                         json: true,
                     }).then((response)=>{
+                        
+                        for(var i=0;i<response.rows.length;i++){
+                            response.rows[i].token_maximum_supply = 
+                            response.rows[i].token_maximum_supply.split(" ")[1];
+                        }
+
                         var allBusinessList = response.rows;
                         Session.set("allBusinessList", allBusinessList);
                     });
@@ -87,7 +93,6 @@ Template.App_business_manager_home.events({
     "click .new-business": function(){
         FlowRouter.go("/business/newbusiness");
     },
-   
     "click .new-business": function(){
         FlowRouter.go("/business/newbusiness");
     },

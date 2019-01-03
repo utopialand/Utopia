@@ -8,16 +8,15 @@
                 <input type="text" placeholder="last name" maxlength="15" id = "lastname"/>
             </div>
             <div class="row2">
-                <input type="date" id = "dob"/>
-                <input type="text" placeholder="phone number" maxlength="20" id = "phonenumber"/>
+                <input placeholder="dob" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="dob">
+                <input type="text" id="phonenumber" placeholder="phone number" maxlength="20" oninput="this.value = this.value.replace(/[^0-9+-\s]/g, '');">
                 <input type="text" placeholder="email address" id = "email"/>
             </div>
             <div class="row3">
                     <label class="upload-picture">
-                            <input type="file" id="picture" class="picclass"/>
+                            <input type="file" id="picture" />
                             upload picture
                         </label>
-                <!-- <input type="file" id="picture" class = "upload-picture" /> -->
                 <button class = "register" id = "register-button">register</button>
                
             </div>

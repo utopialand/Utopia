@@ -66,7 +66,7 @@ Template.App_exchange.helpers({
 });
 
 Template.App_exchange.events({
-    "click .selltokenbtn": function(e){
+    "click .selltokenbtn": async function(e){
         var id = e.target.id;
         var symbol = id.split("-")[1];
         var selltokenfield = "selltokenfield-"+symbol;
@@ -80,8 +80,32 @@ Template.App_exchange.events({
         var networkContract = "utopbnetwork";
         var memo = version+","+contractname+" "+utp+","+fee+","+username;
         console.log("memo ",memo);
+        if(!token){
+            alert("Please enter token value in the given format");
+        }
+        else{
+            try {
+                var utopbusiness = await eosinstance.contract("utopbusiness");
+
+                if (utopbusiness) {
+                    var transfer_result = await utopbusiness.transfer(username, networkContract, token, memo, { authorization: username });
+                    if (transfer_result) {
+                        alert("Token transferred ");
+                    }
+                    else {
+                        alert("Something went wrong while creating business");
+                    }
+                }
+            }
+            catch (err) {
+                console.log("err", err);
+                var parseResponse = JSON.parse(err);
+                var msg = parseResponse.error.details[0].message.split(":")[1]
+                alert(msg);
+            }
+        }
         
-        eosinstance.contract('utopbusiness').then(utopbusiness => {
+        /* eosinstance.contract('utopbusiness').then(utopbusiness => {
             utopbusiness.transfer(username, networkContract, token, memo, { authorization: username }).then((response) => {
                 if (response) {
                     console.log("response of buying utp", response);
@@ -91,9 +115,9 @@ Template.App_exchange.events({
 
             });
 
-        });
+        }); */
     },
-    "click .buytokenbtn": function(e){
+    "click .buytokenbtn": async function(e){
         
         var id = e.target.id;
         var symbol = id.split("-")[1];
@@ -108,21 +132,32 @@ Template.App_exchange.events({
         var memo = version+","+contractname+" "+symbol+","+fee+","+username;
         console.log("memo ", memo); 
 
-        eosinstance.contract('utopbusiness').then(utopbusiness => {
-            utopbusiness.transfer(username, networkContract, utpvalue, memo, { authorization: username }).then((response) => {
-                if (response) {
-                    console.log("response of buying token", response);
-                } else {
-                    alert("Unable to buy token");
+        if(!utpvalue){
+            alert("Please enter UTP token value");
+        }else{
+            try {
+                var utopbusiness = await eosinstance.contract("utopbusiness");
+
+                if (utopbusiness) {
+                    var transfer_result = await utopbusiness.transfer(username, networkContract, utpvalue, memo, { authorization: username });
+                    if (transfer_result) {
+                        alert("Token transferred ");
+                    }
+                    else {
+                        alert("Something went wrong while creating business");
+                    }
                 }
+            }
+            catch (err) {
+                var parseResponse = JSON.parse(err);
+                var msg = parseResponse.error.details[0].message.split(":")[1]
+                alert(msg);
+            }
+        }
 
-            });
-
-        });
     }
 });
 
 // memo example
 // 1,bbb2utprelay BBB,0.2,sidjungleacc(send utp receive BBB)
 // 1,bbb2utprelay UTP,0.2,sidjungleacc(send BBB receive UTP)
-// added a comment

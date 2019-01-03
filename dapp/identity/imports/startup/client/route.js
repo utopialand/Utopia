@@ -35,6 +35,9 @@ import "../../ui/pages/main/Allutopians.js";;
 import "../../ui/pages/main/lender.js";
 import "../../ui/pages/main/realestate-buy/buy.js";
 import "../../ui/pages/main/Viewdetails.js"
+import "../../ui/pages/main/test/test.js"
+
+
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
@@ -276,5 +279,12 @@ FlowRouter.route('/viewdetail', {
   name: 'viewdetail',
   action() {
     BlazeLayout.render('App_body', { main: 'viewdetail' });
+  }
+});
+
+FlowRouter.route('/test', {
+  name: 'App_test',
+  action() {
+    BlazeLayout.render('App_body', { main: 'App_test' });
   }
 });
