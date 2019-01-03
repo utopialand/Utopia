@@ -94,7 +94,6 @@ input:focus{
 
 .row3 .upload-picture{
   width: 300px;
-  height: 70px;
   font-size: 18px;
   font-family: Colfax Medium;
   letter-spacing: 1.5px;
@@ -102,7 +101,10 @@ input:focus{
   line-height: 14px;
   color :#aaa;
   background: transparent;
-  border: 2px dashed #aaa;
+  border:2px solid #fff;
+}
+.registration-form .row3 label{
+  color:white;
 }
 
 .row3 .register{
@@ -116,7 +118,7 @@ input:focus{
   line-height: 14px;
   color :#aaa;
   background: transparent;
-  border: 2px dashed #aaa;
+  border: 2px solid #C86DD7;
   
 }
 
