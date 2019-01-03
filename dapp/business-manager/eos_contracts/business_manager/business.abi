@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 20 14:23:35 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Jan  3 15:59:31 2019",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -186,15 +186,7 @@
                     "type": "name"
                 },
                 {
-                    "name": "fname",
-                    "type": "string"
-                },
-                {
-                    "name": "mname",
-                    "type": "string"
-                },
-                {
-                    "name": "lname",
+                    "name": "identityname",
                     "type": "string"
                 },
                 {
@@ -207,6 +199,10 @@
                 },
                 {
                     "name": "email",
+                    "type": "string"
+                },
+                {
+                    "name": "dochash",
                     "type": "string"
                 },
                 {
@@ -418,7 +414,7 @@
             "key_types": []
         },
         {
-            "name": "identity2",
+            "name": "identity3",
             "type": "identityt",
             "index_type": "i64",
             "key_names": [],

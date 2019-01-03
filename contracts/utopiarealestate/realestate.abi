@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Dec 27 13:02:01 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Jan  3 17:05:23 2019",
     "version": "eosio::abi/1.1",
     "structs": [
         {
@@ -101,6 +101,10 @@
                     "type": "uint64"
                 },
                 {
+                    "name": "proptname",
+                    "type": "string"
+                },
+                {
                     "name": "currentOwner",
                     "type": "name"
                 },
@@ -135,6 +139,11 @@
                     "type": "uint64"
                 }
             ]
+        },
+        {
+            "name": "deletealltab",
+            "base": "",
+            "fields": []
         },
         {
             "name": "delpropt",
@@ -243,6 +252,10 @@
                     "type": "uint64"
                 },
                 {
+                    "name": "proptname",
+                    "type": "string"
+                },
+                {
                     "name": "owner",
                     "type": "name"
                 },
@@ -301,7 +314,15 @@
                     "type": "uint64"
                 },
                 {
+                    "name": "proptname",
+                    "type": "string"
+                },
+                {
                     "name": "buyername",
+                    "type": "name"
+                },
+                {
+                    "name": "reqowner",
                     "type": "name"
                 },
                 {
@@ -366,6 +387,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "deletealltab",
+            "type": "deletealltab",
+            "ricardian_contract": ""
+        },
+        {
             "name": "delpropt",
             "type": "delpropt",
             "ricardian_contract": ""
@@ -400,7 +426,7 @@
             "key_types": []
         },
         {
-            "name": "identity2",
+            "name": "identity3",
             "type": "identityt",
             "index_type": "i64",
             "key_names": [],
@@ -428,7 +454,7 @@
             "key_types": []
         },
         {
-            "name": "reqbuyertab3",
+            "name": "reqbuyertb11",
             "type": "reqbuyers",
             "index_type": "i64",
             "key_names": [],

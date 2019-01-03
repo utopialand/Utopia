@@ -64,23 +64,43 @@ Template.App_real_estate_bid.helpers({
 });
 
 Template.App_real_estate_bid.events({
-    "click .bid-btn": function(e){
+    "click .bid-btn": async function(e){
         var proptid = e.target.id.split("-")[1];
         var fieldid = "#bidpropertyfield-"+e.target.id.split("-")[1];
         var utpvalue = $(fieldid).val();
         console.log("value ", utpvalue);
         var username = localStorage.getItem("username");
-
-        eosinstance.contract('realstateutp').then(realstateutp => {
-            realstateutp.bid(proptid, username, utpvalue, { authorization: username }).then((response) => {
-                if (response) {
-                    console.log("response of bidding", response);
-                } else {
-                    alert("Unable to bid");
+        var to = "rsdeposite11";
+        if(!utpvalue){
+            alert("Enter UTP in format 0.0000 UTP");
+        }
+        else{
+            try{
+                let realstateutp = await eosinstance.contract('realstateutp');
+                let utopbusiness = await eosinstance.contract("utopbusiness");
+    
+                if(realstateutp){
+                    let bid_request = await realstateutp.bid(proptid, username, utpvalue, { authorization: username });
+                    if(bid_request){
+                        let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "bidding on this", { authorization: username });
+                        if(transfer_result){
+                            alert("Successful Bid");
+                        }else{
+                            alert("transfer failed");
+                        }
+                    }
                 }
+            }catch(err){
+                var parseResponse = JSON.parse(err);
+                var msg = parseResponse.error.details[0].message.split(":")[1]
+                alert(msg);
+            }
+        }
+        
 
-            });
-
-        });
+    },
+    "click .property-details-btn": function(e){
+        var id = e.target.id.split("-")[2];
+        FlowRouter.go("/realestate/"+id);
     }
 });

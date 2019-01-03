@@ -1,23 +1,10 @@
 <template name="App_business_manager_home">
     <div class="wrapper">
-        <!-- <div class="top-section">
-            <div class="heading">
-                <p>Business Manager</p>
-            </div>
-            <div class="search-box">
-                <input type="text" />
-            </div>
-            <div class="my-business">
-                <button id="mybusinessbtn">my business</button>
-            </div>
-            <div class="all-business">
-                <button id="allbusinessbtn">all business</button>
-            </div>
-
-        </div> -->
+        
         <div class="top-section">
             <p>Business Manager</p>
-            <input type="text" />
+            <form id = "search-form-business"><input id = "search-box-business" type="text" /></form>
+            
             <button id="mybusinessbtn">my business</button>
             <button id="allbusinessbtn">all business</button>
         </div>
@@ -29,7 +16,7 @@
             <div class="company">
                 <p class="company-name">{{businessname}}</p>
                 <div class="stockdetails">
-                    <div class="stockname">{{token_maximum_supply}}</div>
+                    <div class="stockname">Token: {{token_maximum_supply}}</div>
                     <div class="stockvalue"></div>
                 </div>
                 <p class="stock-fluctation">-8.46 <span>0.55%</span></p>

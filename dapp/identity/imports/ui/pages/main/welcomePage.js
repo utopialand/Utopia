@@ -18,58 +18,64 @@ const eosOptions = {
 };
 let eos = {};
 var userdetail;
-var manager=["propbudget11","identityreg1","realstateutp"];
+var manager = ["propbudget11", "identityreg1", "realstateutp"];
 Template.welcomePage.onCreated(function bodyOnCreated() {
-  ScatterJS.scatter.connect("utopia").then(connected => {
-    if (connected) {
+  const connectionOptions = {initTimeout:2000}
+  ScatterJS.scatter.connect("utopia",connectionOptions).then(connected => {
+    if (!connected) {
+      document.getElementById("scatter-not-installed").style.display = "block";
+      return false;
+    } else {
       if (ScatterJS.scatter.connect("utopia")) {
         scatter = ScatterJS.scatter;
         const requiredFields = { accounts: [network] };
-         eos = scatter.eos(network, Eos, eosOptions);
+        eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
+          
           eos.getTableRows({
             code: "identityreg1",
             scope: "identityreg1",
             table: "identity3",
             limit: 50,
             json: true
-          }).then((resp)=>{
-           userdetail=resp;
-           console.log("user---",userdetail);
+          }).then((resp) => {
+            userdetail = resp;
+            console.log("user---", userdetail);
           });
-          var username=localStorage.getItem("username");
-          console.log("wlcm---",username);
-          if(username ==manager[0] || username ==manager[1] || username== manager[2]){
+          var username = localStorage.getItem("username");
+          console.log("wlcm---", username);
+          if (username == manager[0] || username == manager[1] || username == manager[2]) {
             console.log("1");
             document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
             document.getElementById("managerText").style.display = "block";
-            var s = document.getElementById("len").setAttribute("value","manager");
-          }else{
+            var s = document.getElementById("len").setAttribute("value", "manager");
+          } else {
             console.log("2");
             document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
             document.getElementById("managerText").style.display = "none";
-            var s = document.getElementById("len").setAttribute("value","userid");
-               }  
+            var s = document.getElementById("len").setAttribute("value", "userid");
+          }
           document.getElementById("loginButton").innerHTML = "logout";
           document.getElementsByClassName("optionFlex")[0].style.display =
             "flex";
         } else {
           document.getElementsByClassName("identitySectionman")[0].style.display = "none";
           document.getElementById("loginButton").innerHTML = "login";
-          document.getElementsByClassName("optionFlex")[0].style.display ="none";
+          document.getElementsByClassName("optionFlex")[0].style.display = "none";
+          document.getElementById("scatter-not-installed").style.display = "block";
+          
         }
       }
-    } else {
-      console.log("scatter not installed");
+      
     }
   });
 });
 
 Template.welcomePage.events({
-  "click .optionText1": function() {
+  "click .optionText1": function () {
     FlowRouter.go("/identity-reg");
   },
-  "click .scatterloginlogout": function(event, instance) {
+  "click .scatterloginlogout": function (event, instance) {
     if (!JSON.parse(localStorage.getItem("loginstatus"))) {
       ScatterJS.scatter.connect("utopia").then(connected => {
         if (!connected) return false;
@@ -89,17 +95,17 @@ Template.welcomePage.events({
             document.getElementById("loginButton").innerHTML = "logout";
             document.getElementsByClassName("optionFlex")[0].style.display =
               "flex";
-              if(account ==manager[0] || account ==manager[1] || account == manager[2]){
-                console.log("1");
-                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-                document.getElementById("managerText").style.display = "block";
-                document.getElementById("len").setAttribute("value","manager");
-              }else{
-                console.log("2");
-                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-                document.getElementById("managerText").style.display = "none";
-                document.getElementById("len").setAttribute("value","userid");
-                   }  
+            if (account == manager[0] || account == manager[1] || account == manager[2]) {
+              console.log("1");
+              document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+              document.getElementById("managerText").style.display = "block";
+              document.getElementById("len").setAttribute("value", "manager");
+            } else {
+              console.log("2");
+              document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+              document.getElementById("managerText").style.display = "none";
+              document.getElementById("len").setAttribute("value", "userid");
+            }
           })
           .catch(error => {
             console.error(error);
@@ -121,7 +127,7 @@ Template.welcomePage.events({
 });
 
 Template.welcomePage.events({
-  "click .optionText2": function() {
+  "click .optionText2": function () {
     var username = localStorage.getItem("username");
     eos.contract("identityreg1").then(identityregres => {
       identityregres

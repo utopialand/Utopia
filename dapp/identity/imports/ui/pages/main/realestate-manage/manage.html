@@ -7,11 +7,12 @@
         <div class="property-list">
             {{#each myPropertyList}}
             <div class="propertyItem">
-                <div class="owner">Property ID: {{propt_id}}</div>
+                <div class="owner">Property Name: {{proptname}}</div>
                 <div class="price">Price: {{price}}</div>
                 <div class="house"></div>
                 <input type = "text" class = "modifypricefield" id = "modifypricefield-{{propt_id}}" placeholder="format(0.0000 UTP)">
                 <button class = "modifypricebtn" id = "modifypricebtn-{{propt_id}}">Modify Price</button>
+                <button class = "property-details-btn" id = "my-prop-{{propt_id}}">property details</button>
             </div>
             {{/each}}
         </div>
@@ -21,12 +22,12 @@
         </div>
         {{/if}}
 
-        {{#if propertyRequest.length}}
+        {{#if propertyRequestToYou.length}}
         <h1>Request to buy your properties</h1>
         <div class="property-list">
-            {{#each propertyRequest}}
+            {{#each propertyRequestToYou}}
             <div class="propertyItem">
-                <div class="owner">Property ID: {{id}}</div>
+                <div class="owner">Property Name: {{proptname}}</div>
                 <div class="owner">Buyer: {{buyername}}</div>
                 <div class="price">Req. Price: {{price}}</div>
                 <div class="house"></div>
@@ -34,12 +35,33 @@
                     <button class="accept-btn" id="acceptreqbtn-{{id}}">Accept</button>
                     <button class="reject-btn" id="rejectreqbtn-{{id}}">Reject</button>
                 </div>
+                <button class = "property-details-btn" id = "req-prop-{{id}}">property details</button>
             </div>
             {{/each}}
         </div>
         {{else}}
         <div class="no-business">
             <p>No requests on your property</p>
+        </div>
+        {{/if}}
+
+        {{#if propertyRequestByMe.length}}
+        <h1>Request By You</h1>
+        <div class="property-list">
+            {{#each propertyRequestByMe}}
+            <div class="propertyItem">
+                <div class="owner">Property Name: {{proptname}}</div>
+                <div class="owner">Owner: {{reqowner}}</div>
+                <div class="price">Price: {{price}}</div>
+                <div class="house"></div>
+                <button class = "cancel-req-btn" id = "cancel-req-{{id}}">Cancel</button>
+                <button class = "property-details-btn" id = "req-pr-{{id}}">property details</button>
+            </div>
+            {{/each}}
+        </div>
+        {{else}}
+        <div class="no-business">
+            <p>No requests by you</p>
         </div>
         {{/if}}
 

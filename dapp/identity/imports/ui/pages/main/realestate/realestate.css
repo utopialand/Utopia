@@ -96,3 +96,18 @@
 .propertyItem:nth-child(3n+3){
     margin-left: 2%;
 }
+
+#search-realestate{
+    margin-top: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+#search-box-realestate{
+    width: 250px;
+    border: 0;
+    height: 50px;
+    color: white;
+    background: transparent;
+    border-bottom: 1px solid white;
+}

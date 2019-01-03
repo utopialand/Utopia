@@ -95,6 +95,20 @@
   font-weight: bold;
 }
 
+#scatter-not-installed{
+  background: red;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  font-weight: bold;
+  display: none;
+  padding: 1% 0;
+  border-radius: 6px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media only screen and (max-width: 600px) {
   .optionFlex {
     flex-direction: column;

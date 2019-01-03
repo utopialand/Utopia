@@ -5,7 +5,7 @@ import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
 import { Session } from "meteor/session";
-ScatterJS.plugins( new ScatterEOS() );
+ScatterJS.plugins(new ScatterEOS());
 
 
 const network = {
@@ -37,7 +37,7 @@ function allProperties(){
                         table: "proptlist1",
                         limit: "50",
                         json: true,
-                    }).then((response)=>{
+                    }).then((response) => {
                         console.log("response of all properties ", response.rows);
                         Session.set("allPropertyList", response.rows);
                     });
@@ -65,7 +65,7 @@ function allProperties(){
                     //   document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                     //   document.getElementsByClassName("identitySectionman")[0].style.display = "flex";         
                 }
-                else{
+                else {
                     FlowRouter.go("/");
                 }
             }
@@ -74,25 +74,54 @@ function allProperties(){
 }
 
 Template.App_real_estate.helpers({
-    getAllProperties: function(){
+    getAllProperties: function () {
         allProperties();
         return Session.get("allPropertyList");
     }
 });
 
 Template.App_real_estate.events({
-    "click .enquire-btn": function(e){
+    "click .enquire-btn": function (e) {
         var id = e.target.id.split("-")[1]
-        console.log("id ",id);
-        FlowRouter.go("/realestate/"+id);
+        console.log("id ", id);
+        FlowRouter.go("/realestate/" + id);
     },
-    "click .manageproperty": function(){
+    "click .manageproperty": function () {
         FlowRouter.go("/realestatemanage");
     },
-    "click .bidpropertypagebtn": function(){
+    "click .bidpropertypagebtn": function () {
         FlowRouter.go("/realestatebid");
     },
-    "click .buypropertypagebtn": function(){
+    "click .buypropertypagebtn": function () {
         FlowRouter.go("/realestatebuy");
+    },
+    "submit #search-realestate": async function (e) {
+        e.preventDefault();
+
+        var propertyTb = await eosinstance.getTableRows({
+            code: "realstateutp",
+            scope: "realstateutp",
+            table: "proptlist1",
+            limit: "50",
+            json: true,
+        });
+
+        var searchTerm = $("#search-box-realestate").val();
+        var id;
+        var searchResult = false;
+
+        for(var i=0;i<propertyTb.rows.length;i++){
+            if(searchTerm == propertyTb.rows[i].proptname){
+                id = propertyTb.rows[i].id;
+                searchResult = true;
+                break;
+            }
+        }
+
+        if(searchResult){
+            FlowRouter.go("/realestate/"+id);
+        }else{
+            alert("No such property");
+        }
     }
 });

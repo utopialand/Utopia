@@ -10,6 +10,7 @@
     text-align: center;
     text-transform: uppercase;
     font-weight: bold;
+    margin-top: 3%;
 }
 
 .button-options{
@@ -50,5 +51,25 @@
     text-transform: uppercase;
     font-weight: bold;
     background: green;
+    border-radius: 6px;
+}
+
+.property-details-btn{
+    background: skyblue;
+    border: 0;
+    border-radius: 6px;
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 3%;
+}
+
+.cancel-req-btn{
+    background: red;
+    border: 0;
+    margin-top: 3%;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
     border-radius: 6px;
 }
