@@ -30,7 +30,7 @@ ACTION realestate::landproposal(uint64_t id, name currentOwner, asset currentpri
     proptlist_table proptab(_self, _self.value);
     auto itr = proptab.find(id);
     uint64_t t = now();
-    eosio_assert((t>=startdate) && (t<enddate),"start and end date is not correct");
+    eosio_assert((t<=startdate) && (t<enddate),"start and end date is not correct");
     eosio_assert(startdate < enddate,"enddate should be more than start date !!");
     eosio_assert(itr != proptab.end(), "no available properties for this id !!!");
     require_auth(_self);

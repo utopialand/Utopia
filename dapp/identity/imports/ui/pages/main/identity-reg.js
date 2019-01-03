@@ -63,7 +63,7 @@ Template.identity_reg.events({
         var phonenumber = $('#phonenumber').val();
         var email = $('#email').val();  
         var username = localStorage.getItem("username");
-        console.log("----", identityname);
+        console.log("----", email);
         eosinstance.contract('identityreg1').then(identityreg1 => {
             console.log("----", eosinstance);
             identityreg1.addidentity(username, identityname, dob, phonenumber, email,hash, { authorization: username }).then((response) => {
