@@ -59,8 +59,6 @@ Template.App_real_estate_buy.helpers({
 
 Template.App_real_estate_buy.events({
     "click .buy-btn": async function(e){
-
-
         var id = e.target.id.split("-")[1];
         var username = localStorage.getItem("username");
         var tokenfield = "#buypropertyfield-"+id;
@@ -88,8 +86,8 @@ Template.App_real_estate_buy.events({
                 }
             } catch(err)
             {
-                var parseResponse = JSON.parse(err);
-                var msg = parseResponse.error.details[0].message.split(":")[1]
+                var parseResponse = await JSON.parse(err);
+                var msg = await parseResponse.error.details[0].message.split(":")[1]
                 alert(msg);
             }
         }
