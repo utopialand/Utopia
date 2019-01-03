@@ -54,9 +54,9 @@ function allProperties(){
                         for(var i=0;i<userinfo.rows.length;i++){
                         if(userinfo.rows[i].username == username)
                         {
-                        document.getElementsByClassName("manageproperty")[0].style.display = "flex";
-                        document.getElementsByClassName("buypropertypagebtn")[0].style.display = "flex";
-                        document.getElementsByClassName("bidpropertypagebtn")[0].style.display = "flex";         
+                        document.getElementsByClassName("manageproperty")[0].style.display = "block";
+                        document.getElementsByClassName("buypropertypagebtn")[0].style.display = "block";
+                        document.getElementsByClassName("bidpropertypagebtn")[0].style.display = "block";         
                         break;
                         }else{
                         document.getElementsByClassName("manageproperty")[0].style.display = "none";
