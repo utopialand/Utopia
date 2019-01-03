@@ -81,7 +81,8 @@ input:focus{
 
 
 .registration-form input:hover{
-  border-bottom : 2px solid #fff;
+  border: 2px solid #C86DD7;
+  color: white;
   transition: 0.5s;
 }
 
@@ -94,6 +95,7 @@ input:focus{
 
 .row3 .upload-picture{
   width: 300px;
+  height: 70px;
   font-size: 18px;
   font-family: Colfax Medium;
   letter-spacing: 1.5px;
@@ -101,12 +103,20 @@ input:focus{
   line-height: 14px;
   color :#aaa;
   background: transparent;
-  border:2px solid #fff;
-}
-.registration-form .row3 label{
-  color:white;
+  border: 2px dashed #aaa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+input[type="file"] {
+  display: none;
+}
+.row3 .upload-picture:hover {
+  border: 2px solid #C86DD7;
+  color: white;
+  transition: 0.5s;
+}
 .row3 .register{
   width: 300px;
   height: 70px;
@@ -118,7 +128,7 @@ input:focus{
   line-height: 14px;
   color :#aaa;
   background: transparent;
-  border: 2px solid #C86DD7;
+  border: 2px dashed #aaa;
   
 }
 

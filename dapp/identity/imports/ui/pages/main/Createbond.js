@@ -39,12 +39,21 @@ Template.bond.events({
         var couponintervel=parseInt($("#couponintervel").val());
         var facevalue=`${parseFloat($("#facevalue").val()).toFixed(4)} ${sym}`
         var username=localStorage.getItem("username")
-        eosinstance.contract("bondborrower").then(bond => {
-            bond.addbond(username ,bondname,maturity,couponrate,couponintervel,facevalue, { authorization: username }).then(
-                (res) => {
-                      console.log("response--",res);
-                }
-            )
-        })
+        if(maturity > 30){
+            alert("maturity period exited (maximum 30 years)");
+        }else{
+            if(couponintervel==6 || couponintervel==12){
+                eosinstance.contract("bondborrower").then(bond => {
+                    bond.addbond(username ,bondname,maturity,couponrate,couponintervel,facevalue, { authorization: username }).then(
+                        (res) => {
+                              console.log("response--",res);
+                        }
+                    )
+                })
+            }else{
+                alert("coupon intervel can be 6 months or 12 months");
+            }
+        }
+      
     }
 })

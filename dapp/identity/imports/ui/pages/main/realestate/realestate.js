@@ -21,7 +21,7 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
-var userdetail;
+let userinfo;
 function allProperties(){
     ScatterJS.scatter.connect('utopia').then((connected) => {
         if (connected) {
@@ -31,7 +31,7 @@ function allProperties(){
                 const eos = scatter.eos(network, Eos, eosOptions);
                 eosinstance = eos;
                 if (scatter.identity) {
-                    eos.getTableRows({
+                    eosinstance.getTableRows({
                         code: "realstateutp",
                         scope: "realstateutp",
                         table: "proptlist1",
@@ -41,29 +41,31 @@ function allProperties(){
                         console.log("response of all properties ", response.rows);
                         Session.set("allPropertyList", response.rows);
                     });
-                    eos.getTableRows({
+                    eosinstance.getTableRows({
                         code: "identityreg1",
                         scope: "identityreg1",
                         table: "identity3",
                         limit: 50,
                         json: true
                       }).then((resp)=>{
-                       userdetail=resp;
-                       console.log("user---",userdetail);
+                        userinfo=resp;
+                        console.log("user--",userinfo);
+                        var username=localStorage.getItem("username");
+                        for(var i=0;i<userinfo.rows.length;i++){
+                        if(userinfo.rows[i].username == username)
+                        {
+                        document.getElementsByClassName("manageproperty")[0].style.display = "flex";
+                        document.getElementsByClassName("buypropertypagebtn")[0].style.display = "flex";
+                        document.getElementsByClassName("bidpropertypagebtn")[0].style.display = "flex";         
+                        break;
+                        }else{
+                        document.getElementsByClassName("manageproperty")[0].style.display = "none";
+                        document.getElementsByClassName("buypropertypagebtn")[0].style.display = "none";
+                        document.getElementsByClassName("bidpropertypagebtn")[0].style.display = "none";   
+                        }
+                    }
                       });
-                      var username=localStorage.getItem("username");
-                      console.log("wlcm---",username);
-                      for(var i=0;i<userdetail.length;i++){
-                              if(userdetail.rows[i].username == username)
-                              {
-                                document.getElementsByClassName("manageproperty")[0].style.display = "flex";
-                                document.getElementsByClassName("buypropertypagebtn")[0].style.display = "flex";
-                                document.getElementsByClassName("bidpropertypagebtn")[0].style.display = "flex";         
-                              }
-                      }
-                    //   document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-                    //   document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-                    //   document.getElementsByClassName("identitySectionman")[0].style.display = "flex";         
+                      
                 }
                 else {
                     FlowRouter.go("/");

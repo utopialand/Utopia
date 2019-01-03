@@ -31,8 +31,8 @@ import "../../ui/pages/main/realestate/realestate.js";
 import "../../ui/pages/main/realstate-enquire/enquire.js";
 import "../../ui/pages/main/realestate-manage/manage.js";
 import "../../ui/pages/main/realestate-bid/bid.js";
-import "../../ui/pages/main/Allutopians.js"
-import "../../ui/pages/main/lender.js"
+import "../../ui/pages/main/Allutopians.js";;
+import "../../ui/pages/main/lender.js";
 import "../../ui/pages/main/realestate-buy/buy.js";
 import "../../ui/pages/main/Viewdetails.js"
 import "../../ui/pages/main/test/test.js"
