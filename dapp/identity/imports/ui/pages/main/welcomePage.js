@@ -27,7 +27,7 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
         const requiredFields = { accounts: [network] };
          eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
-          eos.getTableRows({
+          /* eos.getTableRows({
             code: "identityreg1",
             scope: "identityreg1",
             table: "identity3",
@@ -52,11 +52,11 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
             }  
           document.getElementById("loginButton").innerHTML = "logout";
           document.getElementsByClassName("optionFlex")[0].style.display =
-            "flex";
+            "flex"; */
         } else {
-          document.getElementsByClassName("identitySectionman")[0].style.display = "none";
+          /* document.getElementsByClassName("identitySectionman")[0].style.display = "none";
           document.getElementById("loginButton").innerHTML = "login";
-          document.getElementsByClassName("optionFlex")[0].style.display ="none";
+          document.getElementsByClassName("optionFlex")[0].style.display ="none"; */
         }
       }
     } else {

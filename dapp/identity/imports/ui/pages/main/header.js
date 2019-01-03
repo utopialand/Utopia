@@ -14,7 +14,7 @@ const eosOptions = {
   chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
 var manager=["propbudget11","identityreg1","realstateutp"];
-Template.header.onCreated(function() {
+Template.header.onRendered(function() {
     console.log("onCreated");
     var username=localStorage.getItem("username");
     console.log("wlcm---",username);
@@ -25,7 +25,7 @@ Template.header.onCreated(function() {
         const requiredFields = { accounts: [network] };
         const eos = scatter.eos(network, Eos, eosOptions);
           if (scatter.identity) {
-            console.log("iden")
+            console.log("iden");
             eosinstance = eos;
           if(username ==manager[0] || username ==manager[1] || username== manager[2]){
             document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
@@ -45,9 +45,7 @@ Template.header.onCreated(function() {
     }
   });
 });
-Template.header.onRendered(function() {
 
-})
 
 Template.header.events({
     "click .proposal": function(){
