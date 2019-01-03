@@ -72,7 +72,7 @@ Template.App_real_estate_buy.events({
         }else{
             try{
                 let realstateutp = await eosinstance.contract('realstateutp');
-                let utopbusiness = await eosinstance.contract("utopbusiness")
+                let utopbusiness = await eosinstance.contract("utopbusiness");
     
                 if(realstateutp)
                 {
