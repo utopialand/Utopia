@@ -20,14 +20,18 @@ let eos = {};
 var userdetail;
 var manager = ["propbudget11", "identityreg1", "realstateutp"];
 Template.welcomePage.onCreated(function bodyOnCreated() {
-  ScatterJS.scatter.connect("utopia").then(connected => {
-    if (connected) {
+  const connectionOptions = {initTimeout:2000}
+  ScatterJS.scatter.connect("utopia",connectionOptions).then(connected => {
+    if (!connected) {
+      document.getElementById("scatter-not-installed").style.display = "block";
+      return false;
+    } else {
       if (ScatterJS.scatter.connect("utopia")) {
         scatter = ScatterJS.scatter;
         const requiredFields = { accounts: [network] };
         eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
-          document.getElementById("scatter-not-installed").style.display = "none";
+          
           eos.getTableRows({
             code: "identityreg1",
             scope: "identityreg1",
@@ -58,13 +62,11 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
           document.getElementsByClassName("identitySectionman")[0].style.display = "none";
           document.getElementById("loginButton").innerHTML = "login";
           document.getElementsByClassName("optionFlex")[0].style.display = "none";
-          document.getElementById("scatter-not-installed").innerHTML = "please unlock scatter and refresh";
           document.getElementById("scatter-not-installed").style.display = "block";
           
         }
       }
-    } else {
-      document.getElementById("scatter-not-installed").style.display = "block";
+      
     }
   });
 });

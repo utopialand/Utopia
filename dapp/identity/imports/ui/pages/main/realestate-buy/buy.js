@@ -67,29 +67,33 @@ Template.App_real_estate_buy.events({
         var utpvalue = $(tokenfield).val();
         console.log("utpvalue", utpvalue);
         var to = "rsdeposite11";
-
-        try{
-            let realstateutp = await eosinstance.contract('realstateutp');
-            let utopbusiness = await eosinstance.contract("utopbusiness")
-
-            if(realstateutp)
-            {
-                let result = await realstateutp.reqbuypropt(id, username, utpvalue, { authorization: username });
-                if(result){
-                    let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "i want to buy this", { authorization: username });
-                    if(transfer_result){
-                        alert("buy request sent to owner");
-                    }else{
-                        alert("Something went wrong");
+        if(!utpvalue){
+            alert("Enter UTP in format 0.0000 UTP");
+        }else{
+            try{
+                let realstateutp = await eosinstance.contract('realstateutp');
+                let utopbusiness = await eosinstance.contract("utopbusiness")
+    
+                if(realstateutp)
+                {
+                    let result = await realstateutp.reqbuypropt(id, username, utpvalue, { authorization: username });
+                    if(result){
+                        let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "i want to buy this", { authorization: username });
+                        if(transfer_result){
+                            alert("buy request sent to owner");
+                        }else{
+                            alert("Something went wrong");
+                        }
                     }
                 }
+            } catch(err)
+            {
+                var parseResponse = JSON.parse(err);
+                var msg = parseResponse.error.details[0].message.split(":")[1]
+                alert(msg);
             }
-        } catch(err)
-        {
-            var parseResponse = JSON.parse(err);
-            var msg = parseResponse.error.details[0].message.split(":")[1]
-            alert(msg);
         }
+        
         
     },
     "click .property-details-btn": function(e){
