@@ -23,7 +23,7 @@ var scatter = {};
 var eosinstance = {};
 let userinfo;
 function allProperties(){
-    ScatterJS.scatter.connect('utopia').then((connected) => {
+    ScatterJS.scatter.connect('utopia').then(async connected => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
                 scatter = ScatterJS.scatter;
@@ -31,7 +31,7 @@ function allProperties(){
                 const eos = scatter.eos(network, Eos, eosOptions);
                 eosinstance = eos;
                 if (scatter.identity) {
-                    eosinstance.getTableRows({
+                    await eosinstance.getTableRows({
                         code: "realstateutp",
                         scope: "realstateutp",
                         table: "proptlist1",
@@ -41,7 +41,7 @@ function allProperties(){
                         console.log("response of all properties ", response.rows);
                         Session.set("allPropertyList", response.rows);
                     });
-                    eosinstance.getTableRows({
+                    await eosinstance.getTableRows({
                         code: "identityreg1",
                         scope: "identityreg1",
                         table: "identity3",

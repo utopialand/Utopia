@@ -23,7 +23,7 @@ var scatter = {};
 var eosinstance = {};
 
 function getAllPropertyToBuy(){
-    ScatterJS.scatter.connect('utopia').then((connected) => {
+    ScatterJS.scatter.connect('utopia').then(async connected => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
                 scatter = ScatterJS.scatter;
@@ -31,7 +31,7 @@ function getAllPropertyToBuy(){
                 const eos = scatter.eos(network, Eos, eosOptions);
                 eosinstance = eos;
                 if (scatter.identity) {
-                    eos.getTableRows({
+                    await eos.getTableRows({
                         code: "realstateutp",
                         scope: "realstateutp",
                         table: "properties1",

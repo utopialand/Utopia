@@ -25,7 +25,7 @@ var scatter = {};
 var eosinstance = {};
 let userinfo;
 function getAllBusinessList(){
-    ScatterJS.scatter.connect('utopia').then((connected) => {
+    ScatterJS.scatter.connect('utopia').then(async connected => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
                 scatter = ScatterJS.scatter;
@@ -34,7 +34,7 @@ function getAllBusinessList(){
                 eosinstance = eos;
                 if (scatter.identity) {
                     eosinstance=eos;
-                    eosinstance.getTableRows({
+                    await eosinstance.getTableRows({
                         code: "utopbusiness",
                         scope: "utopbusiness",
                         table: "businesstb",
@@ -50,7 +50,7 @@ function getAllBusinessList(){
                         var allBusinessList = response.rows;
                         Session.set("allBusinessList", allBusinessList);
                     });
-                    eosinstance.getTableRows({
+                    await eosinstance.getTableRows({
                         code: "identityreg1",
                         scope: "identityreg1",
                         table: "identity3",

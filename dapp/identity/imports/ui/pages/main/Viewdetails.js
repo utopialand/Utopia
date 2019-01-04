@@ -204,16 +204,6 @@ Template.viewdetail.events({
           }
         }  
     },
-    'click #accept':function(){
-        var username = localStorage.getItem("username");
-        var id = $("#acceptid").val();
-        eosinstance.contract("utplendercon").then(utplendercon => {
-            utplendercon.paymentacpt(username,id, { authorization: username }).then(response => {
-                alert("success");
-                console.log("response==>", response);
-              });
-          });
-    },
     'click #default':async function(){
         var username = localStorage.getItem("username");
         var id = $("#acceptid").val();

@@ -13,9 +13,9 @@ const network = {
 const eosOptions = {
   chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
-var manager=["propbudget11","identityreg1","realstateutp","bondborrower"];
 var userdetail;
 var scatter={};
+let manager;
 Template.header.onCreated(function() {
     console.log("onCreated");
     var username=localStorage.getItem("username");
@@ -29,7 +29,17 @@ Template.header.onCreated(function() {
         const eos = scatter.eos(network, Eos, eosOptions);
           if (scatter.identity) {
             console.log("iden");
-            eos.getTableRows({
+            await eos.getTableRows({
+              code: "utpmanager11",
+              scope: "utpmanager11",
+              table: "manager111",
+              limit: 50,
+              json: true
+            }).then((resp)=>{
+               manager=resp.rows;
+               console.log("man---",manager);
+            })
+            await eos.getTableRows({
               code: "identityreg1",
               scope: "identityreg1",
               table: "identity3",
@@ -38,37 +48,41 @@ Template.header.onCreated(function() {
             }).then((resp) => {
               userdetail = resp;
               console.log("user---", userdetail);
-              if(username ==manager[0] || username ==manager[1] || username== manager[2] || username == manager[3]){
+              var countman=0;
+            for(var i=0;i<manager.length;i++){
+              if(manager[i].user==username){
+                countman++;
+              }
+            }
+            if(countman == 1){
+              document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+              document.getElementById("managerText").style.display = "block";
+              document.getElementById("len").style.display = "block";
+              document.getElementById("coupon").style.display = "block";
+              var s = document.getElementById("len").setAttribute("value", "manager");
+            }else{
+              var countuserid=0;
+              for(var i=0;i<userdetail.rows.length;i++){
+                if(userdetail.rows[i].username==username){
+                  countuserid++;
+                }
+              }
+              if(countuserid == 1){
+                console.log("count1");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-                  document.getElementById("managerText").style.display = "block";
-                  document.getElementById("len").style.display = "block";
-                  document.getElementById("coupon").style.display = "block";
-                  document.getElementById("len").setAttribute("value", "manager");
+                document.getElementById("managerText").style.display = "none";
+                document.getElementById("len").style.display = "block";
+                document.getElementById("coupon").style.display = "block";
+                var s = document.getElementById("len").setAttribute("value", "userid");
               }else{
-                console.log("else");
-                var count=0;
-                for(var i=0;i<userdetail.rows.length;i++){
-                  if(userdetail.rows[i].username==username){
-                    count++;
-                    break;
-                  }
-                }
-                if(count==1){
-                  console.log("else1");
-                  document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-                  document.getElementById("managerText").style.display = "none";
-                  document.getElementById("len").style.display = "block";
-                  document.getElementById("coupon").style.display = "block";
-                  var s = document.getElementById("len").setAttribute("value", "userid");
-                }else{
-                  console.log("else2");
-                  document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-                  document.getElementById("managerText").style.display = "none";
-                  var s = document.getElementById("len").setAttribute("value", "user");
-                  document.getElementById("len").style.display = "none";
-                  document.getElementById("coupon").style.display = "none";
-                }
-                  }  
+                console.log("count2");
+                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+                document.getElementById("managerText").style.display = "none";
+                var s = document.getElementById("len").setAttribute("value", "user");
+                document.getElementById("len").style.display = "none";
+                document.getElementById("coupon").style.display = "none";
+              }
+            }
             });
           
           } else {

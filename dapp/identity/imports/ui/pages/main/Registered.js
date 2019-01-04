@@ -39,18 +39,7 @@ Template.Reg_success.onCreated(function () {
 
 
 Template.Reg_success.events({
-      "click .button":function(){
-        var username= localStorage.getItem("username");
-        eosinstance.contract('identityreg1').then(identityreg1 => {
-          identityreg1.reqcitizen(username,{authorization:username}).then((response)=>{
-              if(response){
-                  console.log("hello--",response);
-              }else{
-                  alert("identity is not registered !!!!");;
-              }
-          });
-        
-        })
+      "click .button":async function(){        
         FlowRouter.go("/citizenship");
       }
     })

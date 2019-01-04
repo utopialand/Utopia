@@ -19,7 +19,7 @@ var eosinstance = {};
 Template.citizenship.onCreated(function () {
 
   Meteor.subscribe('identity');
-  ScatterJS.scatter.connect('utopia').then((connected) => {
+  ScatterJS.scatter.connect('utopia').then(async(connected) => {
       if (connected) {
           if (ScatterJS.scatter.connect('utopia')) {
               scatter = ScatterJS.scatter;
@@ -27,7 +27,7 @@ Template.citizenship.onCreated(function () {
               const eos = scatter.eos(network, Eos, eosOptions);
               if (scatter.identity) {
                   eosinstance = eos;
-                  let tabledata = eosinstance.getTableRows({
+                  let tabledata =await eosinstance.getTableRows({
                     code: "identityreg1",
                     scope: "identityreg1",
                     table: "citizen3",
@@ -65,6 +65,3 @@ Template.citizenship.onCreated(function () {
 });
 
 
-Template.citizenship.onRendered(async function() {
-  
-});

@@ -23,14 +23,14 @@ var scatter = {};
 var eosinstance = {};
 
 function getAllBusinessListAgain(){
-    ScatterJS.scatter.connect('utopia').then((connected) => {
+    ScatterJS.scatter.connect('utopia').then(async connected => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
                 scatter = ScatterJS.scatter;
                 const requiredFields = { accounts: [network] };
                 const eos = scatter.eos(network, Eos, eosOptions);
                 if (scatter.identity) {
-                    eos.getTableRows({
+                    await eos.getTableRows({
                         code: "utopbusiness",
                         scope: "utopbusiness",
                         table: "businesstb",

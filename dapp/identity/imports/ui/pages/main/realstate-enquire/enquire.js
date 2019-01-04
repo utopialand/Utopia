@@ -21,7 +21,7 @@ var scatter = {};
 var eosinstance = {};
 
 function aProperty(){
-    ScatterJS.scatter.connect('utopia').then((connected) => {
+    ScatterJS.scatter.connect('utopia').then(async connected => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
                 scatter = ScatterJS.scatter;
@@ -29,7 +29,7 @@ function aProperty(){
                 var id = FlowRouter.current().params.id;
                 const eos = scatter.eos(network, Eos, eosOptions);
                 if (scatter.identity) {
-                    eos.getTableRows({
+                    await eos.getTableRows({
                         code: "realstateutp",
                         scope: "realstateutp",
                         table: "proptlist1",

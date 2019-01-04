@@ -25,7 +25,7 @@ var scatter = {};
 var eosinstance = {};
 
 Template.App_exchange.onRendered(function () {
-    ScatterJS.scatter.connect('utopia').then((connected) => {
+    ScatterJS.scatter.connect('utopia').then(async connected => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
                 scatter = ScatterJS.scatter;
@@ -33,7 +33,7 @@ Template.App_exchange.onRendered(function () {
                 const eos = scatter.eos(network, Eos, eosOptions);
                 if (scatter.identity) {
                     eosinstance = eos;
-                    eos.getTableRows({
+                    await eos.getTableRows({
                         code: "utopbusiness",
                         scope: "utopbusiness",
                         table: "exchange",

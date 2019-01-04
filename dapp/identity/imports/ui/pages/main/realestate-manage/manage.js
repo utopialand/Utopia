@@ -21,7 +21,7 @@ var scatter = {};
 var eosinstance = {};
 
 function getBuyPropertyRequest() {
-    ScatterJS.scatter.connect('utopia').then((connected) => {
+    ScatterJS.scatter.connect('utopia').then(async connected => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
                 scatter = ScatterJS.scatter;
@@ -30,7 +30,7 @@ function getBuyPropertyRequest() {
                 eosinstance = eos;
                 var username = localStorage.getItem("username");
                 if (scatter.identity) {
-                    eos.getTableRows({
+                    await eos.getTableRows({
                         code: "realstateutp",
                         scope: "realstateutp",
                         table: "reqbuyertb11",
@@ -64,12 +64,12 @@ function getBuyPropertyRequest() {
     });
 }
 
-function getMyPropertyList() {
+async function getMyPropertyList() {
 
     scatter = ScatterJS.scatter;
     const requiredFields = { accounts: [network] };
     const eos = scatter.eos(network, Eos, eosOptions);
-    eos.getTableRows({
+    await eos.getTableRows({
         code: "realstateutp",
         scope: "realstateutp",
         table: "properties1",
