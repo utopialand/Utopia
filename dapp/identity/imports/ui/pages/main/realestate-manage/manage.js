@@ -19,74 +19,71 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
+Session.set("isLoadingMyProperty", true);
+Session.set("isLoadingRequests", true);
 
-function getBuyPropertyRequest() {
-    ScatterJS.scatter.connect('utopia').then((connected) => {
-        if (connected) {
-            if (ScatterJS.scatter.connect('utopia')) {
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                eosinstance = eos;
-                var username = localStorage.getItem("username");
-                if (scatter.identity) {
-                    eos.getTableRows({
-                        code: "realstateutp",
-                        scope: "realstateutp",
-                        table: "reqbuyertb11",
-                        limit: "50",
-                        json: true,
-                    }).then((response) => {
-                        console.log("response of requests", response);
-                        var requestsToMe = [];
-                        var requestsByMe = [];
+async function getBuyPropertyRequest() {
 
-                        for (var i = 0; i < response.rows.length; i++) {
-                            if (username == response.rows[i].buyername) {
-                                requestsByMe.push(response.rows[i]);
-                            }
-                            if (username == response.rows[i].reqowner) {
-                                requestsToMe.push(response.rows[i]);
-                            }
-                        }
+    var connected = await ScatterJS.scatter.connect("utopia");
+    if (connected) {
+        scatter = ScatterJS.scatter;
+        const requiredFields = { accounts: [network] };
+        const eos = scatter.eos(network, Eos, eosOptions);
+        eosinstance = eos;
+        var username = localStorage.getItem("username");
 
-                        console.log("requests to me", requestsToMe);
-                        console.log("requests by me", requestsByMe);
-                        Session.set("requestsToMe", requestsToMe);
-                        Session.set("requestsByMe", requestsByMe);
-                    });
-                }
-                else {
-                    FlowRouter.go("/");
-                }
+        var requestTb = await eos.getTableRows({
+            code: "realstateutp",
+            scope: "realstateutp",
+            table: "reqbuyertb11",
+            limit: "50",
+            json: true,
+        });
+
+        var requestsToMe = [];
+        var requestsByMe = [];
+        
+        for (var i = 0; i < requestTb.rows.length; i++) {
+            if (username == requestTb.rows[i].buyername) {
+                requestsByMe.push(requestTb.rows[i]);
+            }
+            if (username == requestTb.rows[i].reqowner) {
+                requestsToMe.push(requestTb.rows[i]);
             }
         }
-    });
+
+        Session.set("requestsToMe", requestsToMe);
+        Session.set("requestsByMe", requestsByMe);
+        Session.set("isLoadingRequests", false);
+    }
+    else {
+        console.log("scatter not installed");
+    }                    
 }
 
-function getMyPropertyList() {
+async function getMyPropertyList() {
 
     scatter = ScatterJS.scatter;
     const requiredFields = { accounts: [network] };
     const eos = scatter.eos(network, Eos, eosOptions);
-    eos.getTableRows({
+
+    var propertyTb = await eos.getTableRows({
         code: "realstateutp",
         scope: "realstateutp",
         table: "properties1",
         limit: "50",
         json: true,
-    }).then((response) => {
-        console.log("response ", response);
-        var data = [];
-        var username = localStorage.getItem("username");
-        for (var i = 0; i < response.rows.length; i++) {
-            if (username == response.rows[i].owner) {
-                data.push(response.rows[i]);
-            }
-        }
-        console.log("response of my property", data);
-        Session.set("myPropertyList", data);
     });
+
+    var data = [];
+    var username = localStorage.getItem("username");
+    for (var i = 0; i < propertyTb.rows.length; i++) {
+        if (username == propertyTb.rows[i].owner) {
+            data.push(propertyTb.rows[i]);
+        }
+    }
+    Session.set("myPropertyList", data);
+    Session.set("isLoadingMyProperty", false);
 }
 
 Template.App_real_estate_manager.helpers({
@@ -100,6 +97,14 @@ Template.App_real_estate_manager.helpers({
     },
     propertyRequestByMe() {
         return Session.get("requestsByMe");
+    },
+    isLoadingMyProperty(){
+        console.log("isLoadingMyProperty",Session.get("isLoadingMyProperty"));
+        return Session.get("isLoadingMyProperty");
+    },
+    isLoadingRequests(){
+        console.log("isLoadingRequests",Session.get("isLoadingRequests"));
+        return Session.get("isLoadingRequests");
     }
 });
 

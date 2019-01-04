@@ -6,7 +6,7 @@ import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
 
-ScatterJS.plugins( new ScatterEOS() );
+ScatterJS.plugins(new ScatterEOS());
 
 const network = {
     protocol: "https", // Defaults to https
@@ -21,86 +21,88 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
+Session.set("isLoadingPropertyForAuction", true);
 
-function getAllPropertyForAuction(){
-    ScatterJS.scatter.connect('utopia').then((connected) => {
-        if (connected) {
-            if (ScatterJS.scatter.connect('utopia')) {
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                eosinstance = eos;
-                if (scatter.identity) {
-                    eos.getTableRows({
-                        code: "realstateutp",
-                        scope: "realstateutp",
-                        table: "bidtable1",
-                        limit: "50",
-                        json: true,
-                    }).then((response)=>{
-                        var data = [];
-                        for(var i=0;i<response.rows.length;i++){
-                            if(response.rows[i].rsproposal != "finished"){
-                                data.push(response.rows[i]);
-                            }
-                        }
-                        Session.set("allPropertyForAuction", data);
-                    });                  
-                }
-                else{
-                    FlowRouter.go("/");
-                }
+async function getAllPropertyForAuction() {
+
+    var connected = await ScatterJS.scatter.connect("utopia");
+    if (connected) {
+        scatter = ScatterJS.scatter;
+        const requiredFields = { accounts: [network] };
+        const eos = scatter.eos(network, Eos, eosOptions);
+        eosinstance = eos;
+
+        var auctionTb = await eos.getTableRows({
+            code: "realstateutp",
+            scope: "realstateutp",
+            table: "bidtable1",
+            limit: "50",
+            json: true,
+        });
+
+        var data = [];
+        for (var i = 0; i < auctionTb.rows.length; i++) {
+            if (auctionTb.rows[i].rsproposal != "finished") {
+                data.push(auctionTb.rows[i]);
             }
         }
-    });
+        Session.set("allPropertyForAuction", data);
+        Session.set("isLoadingPropertyForAuction", false);
+    }
+    else {
+        console.log("Scatter not installed");
+    }
 }
 
 Template.App_real_estate_bid.helpers({
-    allPropertyForAuction(){
+    allPropertyForAuction() {
         getAllPropertyForAuction();
-        console.log("All propt for auction", Session.get("allPropertyForAuction"));
         return Session.get("allPropertyForAuction");
+    },
+    isLoadingPropertyForAuction() {
+        console.log("isLoadingPropertyForAuction", Session.get("isLoadingPropertyForAuction"));
+        return Session.get("isLoadingPropertyForAuction");
     }
 });
 
 Template.App_real_estate_bid.events({
-    "click .bid-btn": async function(e){
+    "click .bid-btn": async function (e) {
         var proptid = e.target.id.split("-")[1];
-        var fieldid = "#bidpropertyfield-"+e.target.id.split("-")[1];
+        var fieldid = "#bidpropertyfield-" + e.target.id.split("-")[1];
         var utpvalue = $(fieldid).val();
         console.log("value ", utpvalue);
         var username = localStorage.getItem("username");
         var to = "rsdeposite11";
-        if(!utpvalue){
+        if (!utpvalue) {
             alert("Enter UTP in format 0.0000 UTP");
         }
-        else{
-            try{
+        else {
+            try {
                 let realstateutp = await eosinstance.contract('realstateutp');
                 let utopbusiness = await eosinstance.contract("utopbusiness");
-    
-                if(realstateutp){
+
+                if (realstateutp) {
                     let bid_request = await realstateutp.bid(proptid, username, utpvalue, { authorization: username });
-                    if(bid_request){
+                    if (bid_request) {
                         let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "bidding on this", { authorization: username });
-                        if(transfer_result){
+                        if (transfer_result) {
                             alert("Successful Bid");
-                        }else{
+                        } else {
                             alert("transfer failed");
                         }
                     }
                 }
-            }catch(err){
+            } catch (err) {
                 var parseResponse = JSON.parse(err);
                 var msg = parseResponse.error.details[0].message.split(":")[1]
                 alert(msg);
             }
         }
-        
+
 
     },
-    "click .property-details-btn": function(e){
+    "click .property-details-btn": function (e) {
         var id = e.target.id.split("-")[2];
-        FlowRouter.go("/realestate/"+id);
+        FlowRouter.go("/realestate/" + id);
     }
 });
