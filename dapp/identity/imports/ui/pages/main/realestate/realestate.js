@@ -101,7 +101,6 @@ Template.App_real_estate.helpers({
 Template.App_real_estate.events({
     "click .enquire-btn": function (e) {
         var id = e.target.id.split("-")[1]
-        console.log("id ", id);
         FlowRouter.go("/realestate/" + id);
     },
     "click .manageproperty": function () {

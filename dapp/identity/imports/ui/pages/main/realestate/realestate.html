@@ -12,8 +12,8 @@
         {{#if isLoadingRealEstate}}
         <div class="spinner">
             {{>spinner}}
-            {{getAllProperties}}
         </div>
+        {{getAllProperties}}
         {{else}}
         {{#if getAllProperties.length}}
         <div class="property-list">
