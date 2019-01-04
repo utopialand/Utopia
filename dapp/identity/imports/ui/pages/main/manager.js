@@ -194,16 +194,22 @@ Template.App_manager.events({
     console.log("helllllllloManager");
     var id = event.target.id;
     var userName = event.target.parentElement.id;
-    console.log("id----", id);
-    console.log("username------", userName);
-    let contract = await eosinstance.contract("identityreg1");
-    console.log("===", contract);
     try {
-      let result = await contract.addcitizen(userName,"identityreg1", {authorization: "identityreg1" });
-      alert("citizenship approved !!!!");
+      let identityreg1 = await eosinstance.contract("identityreg1");
+      if(identityreg1)
+      {
+        let result = await identityreg1.addcitizen(userName,"identityreg1", {authorization: "identityreg1" });
+        if(result)
+        {
+          alert("citizenship approved !!!!");
+        }
+        else{
+          alert("citizenship not approved !!!!");
+        }
+      }
     } catch (err) {
         var parseResponse = await JSON.parse(err);
-        var msg = await parseResponse.error.details[0].message.split(":")[1]
+        var msg = await parseResponse.error.details[0].message.split(":")[1];
         alert(msg);
     }
   },
@@ -216,16 +222,22 @@ Template.App_manager.events({
     console.log("deleteButtonClick");
     console.log("id----", event.target.id);
     var proposalId = event.target.id;
-    let contract = await eosinstance.contract("voteproposal");
-    console.log("===", contract);
     try {
-      let res = await contract.delprop(proposalId, "identityreg1", {
-        authorization: "identityreg1"
-      });
-      alert("proposal is successfully removed!!!");
+      let voteproposal = await eosinstance.contract("voteproposal");
+      if(voteproposal)
+      {
+        let result = await voteproposal.delprop(proposalId, "identityreg1", {authorization: "identityreg1"});
+        if(result)
+        {
+          alert("proposal is successfully removed!!!");
+        }
+        else{
+          alert("proposal is not removed!!!");
+        }
+      }
     } catch (err) {
       var parseResponse = await JSON.parse(err);
-      var msg = await parseResponse.error.details[0].message.split(":")[1]
+      var msg = await parseResponse.error.details[0].message.split(":")[1];
       alert(msg);
     }
   },
