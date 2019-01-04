@@ -13,7 +13,7 @@ const network = {
 const eosOptions = {
   chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
-var manager=["propbudget11","identityreg1","realstateutp"];
+var manager=["propbudget11","identityreg1","realstateutp","bondborrower"];
 var userdetail;
 var scatter={};
 Template.header.onCreated(function() {
@@ -38,10 +38,11 @@ Template.header.onCreated(function() {
             }).then((resp) => {
               userdetail = resp;
               console.log("user---", userdetail);
-              if(username ==manager[0] || username ==manager[1] || username== manager[2]){
+              if(username ==manager[0] || username ==manager[1] || username== manager[2] || username == manager[3]){
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                   document.getElementById("managerText").style.display = "block";
                   document.getElementById("len").style.display = "block";
+                  document.getElementById("coupon").style.display = "block";
                   document.getElementById("len").setAttribute("value", "manager");
               }else{
                 console.log("else");
@@ -57,6 +58,7 @@ Template.header.onCreated(function() {
                   document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                   document.getElementById("managerText").style.display = "none";
                   document.getElementById("len").style.display = "block";
+                  document.getElementById("coupon").style.display = "block";
                   var s = document.getElementById("len").setAttribute("value", "userid");
                 }else{
                   console.log("else2");
@@ -64,6 +66,7 @@ Template.header.onCreated(function() {
                   document.getElementById("managerText").style.display = "none";
                   var s = document.getElementById("len").setAttribute("value", "user");
                   document.getElementById("len").style.display = "none";
+                  document.getElementById("coupon").style.display = "none";
                 }
                   }  
             });

@@ -156,7 +156,7 @@ Template.budget_app.onCreated(function() {
   });
 });
 
-Template.budget_app.onRendered(async function() {});
+
 Template.budget_app.events({
   ////click on like button to see response
   "click .like-button": function() {
@@ -172,7 +172,7 @@ Template.budget_app.events({
       document.getElementsByClassName("like-button")[0].style.display = "block";
       var propid = event.target.id;
       var username = localStorage.getItem("username");
-      eosinstance.contract("propbudget11").then(propbudget11 => {
+       eosinstance.contract("propbudget11").then(propbudget11 => {
         propbudget11
           .catgvote(propid, username, { authorization: username })
           .then(response => {
@@ -185,13 +185,13 @@ Template.budget_app.events({
       });
     }
   },
-  "click .budgetpropbutton": function() {
+  "click .budgetpropbutton":async function() {
     FlowRouter.go("/createbudget");
   },
-  "click .stvvotingpage": function() {
+  "click .stvvotingpage":async function() {
     FlowRouter.go("/stvvote");
   },
-  "click .stvresultpage": function() {
+  "click .stvresultpage":async function() {
     FlowRouter.go("/stvresult");
   }
 });

@@ -3,19 +3,19 @@
         <h1>create a proposal</h1>
         <div class="proposal-form">
             <label>proposal name</label>
-            <input type="text" id="propname"/>
+            <input type="text" id="propname" maxlength="50"/>
             <label>proposal description</label>
-            <input type="text" id="propdesc"/>
+            <input type="text" id="propdesc" maxlength="250"/>
             <label>proposal options</label>
             <input type="text" id="textbox0"/>
             <div id="propnum">
             </div>
-            <button class="buttonprop" id="addprop">add more proposal</button>
+            <button class="buttonprop" id="addprop">add more options</button>
             <label>number of winner</label>
-            <input type="text" id="numwin"/>
+            <input type="text" id="numwin" maxlength="10" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
         </div>
         <div class="createbutton">
-            <button class="buttonprop" id ="finalsubmit">Submission</button>
+            <button class="buttonprop" id ="finalsubmit">add proposal</button>
         </div>
     </div>
     {{> footer}}

@@ -32,19 +32,35 @@ Template.Budget_newproposal.onCreated(async function () {
     });
 })
 Template.Budget_newproposal.events({
-    "click #finalsubmit":function(){
+    "click #finalsubmit":async function(){
         var sym="EOS";
         var prop=$("#propname").val();
         var propdesc=$("#propdesc").val();
         var amount=`${parseFloat($("#propbudget").val()).toFixed(4)} ${sym}`
         var username=localStorage.getItem("username")
-        eosinstance.contract("propbudget11").then(voting => {
-            voting.createprop(username ,prop,propdesc,30,amount, { authorization: username }).then(
-                (res) => {
-                      console.log("response--",res);
-                      FlowRouter.go("/budget");
-                }
-            )
-        })
+        if((!prop)||(!propdesc)||(!amount))
+        {
+          alert("please fill all the fields");
+        }
+        else{
+          try{           
+                    let propbudget = await eosinstance.contract('propbudget11');
+                    if(propbudget)
+                    {
+                      let result = await  propbudget.createprop(username ,prop,propdesc,30,amount, { authorization: username });
+                         if(result){
+                          alert("proposal creation successfully !!");
+                          FlowRouter.go("/budget");
+                        }else{
+                          alert("Something went wrong");
+                       }
+                    }   
+          }
+          catch(err){
+            var parseResponse = await JSON.parse(err);
+            var msg = await parseResponse.error.details[0].message.split(":")[1]
+            alert(msg);
+          }
+        }  
     }
 })

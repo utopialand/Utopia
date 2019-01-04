@@ -19,7 +19,7 @@ const eosOptions = {
 let eos = {};
 var userdetail;
 var scatter={};
-var manager = ["propbudget11", "identityreg1", "realstateutp"];
+var manager = ["propbudget11", "identityreg1", "realstateutp","bondborrower"];
 Template.welcomePage.onCreated(function bodyOnCreated() {
   const connectionOptions = {initTimeout:2000}
   ScatterJS.scatter.connect("utopia",connectionOptions).then(connected => {
@@ -47,7 +47,7 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
             console.log("user---", userdetail);
             var username = localStorage.getItem("username");
             console.log("wlcm---", username);
-            if (username == manager[0] || username == manager[1] || username == manager[2]) {
+            if (username == manager[0] || username == manager[1] || username == manager[2] || username == manager[3]) {
               console.log("1");
               document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
               document.getElementById("managerText").style.display = "block";
@@ -114,12 +114,12 @@ Template.welcomePage.events({
             );
             const account = acc.name;
             localStorage.setItem("username", account);
-            console.log("inlogin");
+            console.log(manager[3],"inlogin",account);
             localStorage.setItem("loginstatus", JSON.stringify(true));
             document.getElementById("loginButton").innerHTML = "logout";
             document.getElementsByClassName("optionFlex")[0].style.display =
               "flex";
-            if (account == manager[0] || account == manager[1] || account == manager[2]) {
+            if (account == manager[0] || account == manager[1] || account == manager[2] || account == manager[3]) {
               console.log("1");
               document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
               document.getElementById("managerText").style.display = "block";

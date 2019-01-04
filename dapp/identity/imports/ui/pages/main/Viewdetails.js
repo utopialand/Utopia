@@ -142,36 +142,67 @@ Template.viewdetail.events({
                     "<div class='headloan'>"+finaldate+"</div></div>";
         }
      },
-     'click #create':function(event){
+     'click #create':async function(event){
         var username = localStorage.getItem("username");
         var rate = $("#rate").val();
         var period =parseInt( $("#period").val());
         var desc = $("#desc").val();
-        if(period > 30){
-            alert("loan period exited (maximum 30 years)");
-        }else{
-            eosinstance.contract("utplendercon").then(utplendercon => {
-                utplendercon.addloancatg(username,desc,rate,period, { authorization: username }).then(response => {
-                    alert("success");
-                    console.log("response==>", response);
-                  });
-              });
+        if((!rate)||(!period)||(!desc))
+        {
+          alert("please fill all the fields");
         }
+        else{
+          try{
+            if(period > 30){
+                alert("loan period exited (maximum 30 years)");
+            }else{
+                    let utplendercon = await eosinstance.contract('utplendercon');
+                    if(utplendercon)
+                    {
+                      let result = await  utplendercon.addloancatg(username,desc,rate,period, { authorization: username });
+                         if(result){
+                          alert("loan added successfully !!");
+                        }else{
+                          alert("Something went wrong");
+                       }
+                    }               
+            }    
+          }
+          catch(err){
+            var parseResponse = await JSON.parse(err);
+            var msg = await parseResponse.error.details[0].message.split(":")[1]
+            alert(msg);
+          }
+        }  
     },
-    'click .buttonaction':function(){
+    'click .buttonaction':async function(){
         var username = localStorage.getItem("username");
         event.preventDefault();
         var id = event.target.id;
         var val=event.target.value;
-        console.log("id---",event.target.value);
-        
-            eosinstance.contract("utplendercon").then(utplendercon => {
-                utplendercon.approveloan(username,id, { authorization: username }).then(response => {
-                    alert("success");
-                    console.log("response==>", response);
-                  });
-              });
-       
+        if((!id))
+        {
+          alert("please fill loanid");
+        }
+        else{
+          try{
+                    let utplendercon = await eosinstance.contract('utplendercon');
+                    if(utplendercon)
+                    {
+                      let result = await  utplendercon.approveloan(username,id, { authorization: username });
+                         if(result){
+                          alert("loan approvel successfull !!");
+                        }else{
+                          alert("Something went wrong");
+                       }
+                    }                
+          }
+          catch(err){
+            var parseResponse = await JSON.parse(err);
+            var msg = await parseResponse.error.details[0].message.split(":")[1]
+            alert(msg);
+          }
+        }  
     },
     'click #accept':function(){
         var username = localStorage.getItem("username");
@@ -183,62 +214,99 @@ Template.viewdetail.events({
               });
           });
     },
-    'click #default':function(){
+    'click #default':async function(){
         var username = localStorage.getItem("username");
         var id = $("#acceptid").val();
-        eosinstance.contract("utplendercon").then(utplendercon => {
-            utplendercon.checkdefault(username,id, { authorization: username }).then(response => {
-                eosinstance.getTableRows({
-                    code: "utplendercon",
-                    scope: "utplendercon",
-                    table: 'approved112',
-                    limit: 50,
-                    json: true,
-                }).then((resp)=>{
-                    console.log("loandata====>",resp);  
-                    for(var i=0;i<resp.rows.length;i++){
-                        if(resp.rows[i].reqloanid == id){
-                            if(resp.rows[i].status == "due"){
-                                alert("there is a time in payment");
-                            }else if(resp.rows[i].status == "complete"){
-                                alert("payment complete");
-                            }else if(resp.rows[i].status == "complete in auction"){
-                                alert("payment complete by auction");
-                            }else if(resp.rows[i].status == "complete, defaulter "){
-                                alert("payment complete as defaulter");
-                            }else{
-                                alert("defaulter");
-                            }
+        if((!id))
+        {
+          alert("please fill loanid");
+        }
+        else{
+          try{
+                    let utplendercon = await eosinstance.contract('utplendercon');
+                    if(utplendercon)
+                    {
+                      let result = await  utplendercon.checkdefault(username,id, { authorization: username });
+                         if(result){
+                        let tabrow = await eosinstance.getTableRows({
+                                code: "utplendercon",
+                                scope: "utplendercon",
+                                table: 'approved112',
+                                limit: 50,
+                                json: true,
+                            })
+                        if(tabrow){
+                            for(var i=0;i<tabrow.rows.length;i++){
+                                if(tabrow.rows[i].reqloanid == id){
+                                    if(tabrow.rows[i].status == "due"){
+                                        alert("there is a time in payment");
+                                    }else if(tabrow.rows[i].status == "complete"){
+                                        alert("payment complete");
+                                    }else if(tabrow.rows[i].status == "complete in auction"){
+                                        alert("payment complete by auction");
+                                    }else if(tabrow.rows[i].status == "complete, defaulter "){
+                                        alert("payment complete as defaulter");
+                                    }else{
+                                        alert("defaulter");
+                                    }
+                                }
+                            }                        
                         }
-                    }
-                });
-              });
-          });
+                        }else{
+                          alert("Something went wrong");
+                       }
+                    }                
+          }
+          catch(err){
+            var parseResponse = await JSON.parse(err);
+            var msg = await parseResponse.error.details[0].message.split(":")[1]
+            alert(msg);
+          }
+        }
     },
-    'click #auction':function(){
+    'click #auction':async function(){
         var username = localStorage.getItem("username");
         var id = $("#acceptid").val();
-        eosinstance.contract("utplendercon").then(utplendercon => {
-            utplendercon.checkauction(username,id, { authorization: username }).then(response => {
-                eosinstance.getTableRows({
-                    code: "utplendercon",
-                    scope: "utplendercon",
-                    table: 'approved112',
-                    limit: 50,
-                    json: true,
-                }).then((resp)=>{
-                    console.log("loandata====>",resp);  
-                    for(var i=0;i<resp.rows.length;i++){
-                        if(resp.rows[i].reqloanid == id){
-                            if(resp.rows[i].status == "auction called"){
-                                alert("your property is handover to manager for bidding");
-                            }else{
-                                alert("time remain in auction action");
-                            }
+        if((!id))
+        {
+          alert("please fill loanid");
+        }
+        else{
+          try{
+                    let utplendercon = await eosinstance.contract('utplendercon');
+                    if(utplendercon)
+                    {
+                      let result = await  utplendercon.checkauction(username,id, { authorization: username });
+                         if(result){
+                        let tabrow = await eosinstance.getTableRows({
+                                code: "utplendercon",
+                                scope: "utplendercon",
+                                table: 'approved112',
+                                limit: 50,
+                                json: true,
+                            })
+                        if(tabrow){
+                            for(var i=0;i<tabrow.rows.length;i++){
+                                if(tabrow.rows[i].reqloanid == id){
+                                    if(tabrow.rows[i].status == "auction called"){
+                                        alert("your property is handover to manager for bidding");
+                                    }else{
+                                        alert("time remain in auction action");
+                                    }
+                                }
+                            }                   
                         }
-                    }
-                });
-              });
-          });
+                        }else{
+                          alert("Something went wrong");
+                       }
+                    }                
+          }
+          catch(err){
+            var parseResponse = await JSON.parse(err);
+            var msg = await parseResponse.error.details[0].message.split(":")[1]
+            alert(msg);
+          }
+        }
+       
     } 
 })
