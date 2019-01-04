@@ -59,6 +59,7 @@ Template.budget_app.onCreated(function() {
               limit: 50,
               json: true
             });
+            document.getElementsByClassName("waitingData")[0].style.display = "none";
             document.getElementById("budgetpropbutton").style.display = "flex";
             if(propentry) {
               console.log("propentry-----==", propentry);
