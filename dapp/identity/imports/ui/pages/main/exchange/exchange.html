@@ -2,7 +2,13 @@
     
     <div class="exchange-container">
         <h1>buy or sell tokens </h1>
-
+        {{#if isLoadingExchange}}
+        <div class="spinner">
+            {{>spinner}}
+        </div>
+        {{getTokenList}}
+        {{else}}
+        {{#if getTokenList.length}}
         {{#each getTokenList}}
         <div class = "buyselltoken">
             <h3>buy or sell {{this}}</h3>
@@ -17,6 +23,13 @@
         </div>
 
         {{/each}}
+        {{else}}
+        <div class="no-business">
+            <p>No tokens to exchange</p>
+        </div>
+        {{/if}}
+        {{/if}}
+        
     </div>
     {{>App_footer}}
 </template>

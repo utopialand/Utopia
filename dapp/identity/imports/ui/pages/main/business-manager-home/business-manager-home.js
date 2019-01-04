@@ -23,64 +23,62 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
-let userinfo;
-function getAllBusinessList() {
-    ScatterJS.scatter.connect('utopia').then((connected) => {
-        if (connected) {
-            if (ScatterJS.scatter.connect('utopia')) {
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                eosinstance = eos;
-                if (scatter.identity) {
-                    eosinstance = eos;
-                    eosinstance.getTableRows({
-                        code: "utopbusiness",
-                        scope: "utopbusiness",
-                        table: "businesstb",
-                        limit: "50",
-                        json: true,
-                    }).then((response) => {
+Session.set("isLoadingBusinessList", true);
 
-                        for (var i = 0; i < response.rows.length; i++) {
-                            response.rows[i].token_maximum_supply =
-                                response.rows[i].token_maximum_supply.split(" ")[1];
-                        }
+async function getAllBusinessList() {
 
-                        var allBusinessList = response.rows;
-                        Session.set("allBusinessList", allBusinessList);
-                    });
-                    eosinstance.getTableRows({
-                        code: "identityreg1",
-                        scope: "identityreg1",
-                        table: "identity3",
-                        limit: 50,
-                        json: true
-                    }).then((resp) => {
-                        userinfo = resp;
-                        console.log("user--", userinfo);
-                        var username = localStorage.getItem("username");
-                        for (var i = 0; i < userinfo.rows.length; i++) {
-                            if (userinfo.rows[i].username == username) {
-                                document.getElementsByClassName("exchange")[0].style.display = "flex";
-                                break;
-                            }
-                        }
-                    });
-                }
-                else {
-                    FlowRouter.go("/");
-                }
+    var connected = await ScatterJS.scatter.connect("utopia")
+
+    if (connected) {
+        scatter = ScatterJS.scatter;
+        const requiredFields = { accounts: [network] };
+        const eos = scatter.eos(network, Eos, eosOptions);
+        eosinstance = eos;
+
+        var businessList = await eos.getTableRows({
+            code: "utopbusiness",
+            scope: "utopbusiness",
+            table: "businesstb",
+            limit: "50",
+            json: true,
+        });
+
+        for (var i = 0; i < businessList.rows.length; i++) {
+            businessList.rows[i].token_maximum_supply =
+                businessList.rows[i].token_maximum_supply.split(" ")[1];
+        }
+
+        Session.set("allBusinessList", businessList.rows);
+        Session.set("isLoadingBusinessList", false);
+
+        var users = await eos.getTableRows({
+            code: "identityreg1",
+            scope: "identityreg1",
+            table: "identity3",
+            limit: 50,
+            json: true,
+        });
+
+        var username = localStorage.getItem("username");
+        for (var i = 0; i < users.rows.length; i++) {
+            if (users.rows[i].username == username) {
+                document.getElementsByClassName("exchange")[0].style.display = "flex";
+                break;
             }
         }
-    });
+    }
+    else {
+        console.log("scatter not installed");
+    }
 }
 
 Template.App_business_manager_home.helpers({
     businessList() {
         getAllBusinessList();
-        console.log("all business list function ", Session.get("allBusinessList"));
         return Session.get("allBusinessList");
+    },
+    isLoadingBusinessList() {
+        return Session.get("isLoadingBusinessList");
     }
 });
 

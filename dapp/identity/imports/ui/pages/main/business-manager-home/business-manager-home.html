@@ -11,6 +11,13 @@
         <div class="exchange">
             <button id="exchangebtn">exchange</button>
         </div>
+
+        {{#if isLoadingBusinessList}}
+        <div class="spinner">
+            {{>spinner}}
+        </div>
+        {{businessList}}
+        {{else}}
         <div class="business-section">
             {{#each businessList}}
             <div class="company">
@@ -23,6 +30,8 @@
             </div>
             {{/each}}
         </div>
+        {{/if}}
+        
         <div class="new-business">
             <div class="new-businessbtn">
                 <p>

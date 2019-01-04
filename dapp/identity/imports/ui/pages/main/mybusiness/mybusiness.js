@@ -6,7 +6,7 @@ import { Session } from "meteor/session";
 import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs'
-ScatterJS.plugins( new ScatterEOS() );
+ScatterJS.plugins(new ScatterEOS());
 
 const network = {
     protocol: "https", // Defaults to https
@@ -21,51 +21,54 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
+Session.set("isLoadingMyBusinessList", true);
 
-function getMyBusinessList(){
-    ScatterJS.scatter.connect('utopia').then((connected) => {
-        if (connected) {
-            if (ScatterJS.scatter.connect('utopia')) {
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                if (scatter.identity) {
-                    eos.getTableRows({
-                        code: "utopbusiness",
-                        scope: "utopbusiness",
-                        table: "businesstb",
-                        limit: "50",
-                        json: true,
-                    }).then((response)=>{
-                        var myBusinessList = [];
-                        var username = localStorage.getItem("username");
-                        for(var i=0;i<response.rows.length;i++){
-                            if(username == response.rows[i].owner){
-                                myBusinessList.push(response.rows[i]);
-                            }
-                        }
-                        console.log("my business list", myBusinessList);
-                        Session.set("myBusinessList", myBusinessList);
-                    });                  
-                }
-                else{
-                    FlowRouter.go("/");
-                }
+async function getMyBusinessList() {
+
+    var connected = await ScatterJS.scatter.connect("utopia");
+    if (connected) {
+        scatter = ScatterJS.scatter;
+        const requiredFields = { accounts: [network] };
+        const eos = scatter.eos(network, Eos, eosOptions);
+
+        var businessTb = await eos.getTableRows({
+            code: "utopbusiness",
+            scope: "utopbusiness",
+            table: "businesstb",
+            limit: "50",
+            json: true,
+        });
+
+        var myBusinessList = [];
+        var username = localStorage.getItem("username");
+        for(var i=0;i<businessTb.rows.length;i++){
+            if(username == businessTb.rows[i].owner){
+                myBusinessList.push(businessTb.rows[i]);
             }
         }
-    });
+
+        Session.set("myBusinessList", myBusinessList);
+        Session.set("isLoadingMyBusinessList", false);
+
+    }
+    else {
+        console.log("Scatter not installed");
+    }
 }
 
 Template.App_my_business.helpers({
-    myBusinessList(){
+    myBusinessList() {
         getMyBusinessList();
         return Session.get("myBusinessList");
+    },
+    isLoadingMyBusinessList() {
+        return Session.get("isLoadingMyBusinessList");
     }
 });
 
 Template.App_my_business.events({
-    "click .settingsbtn": function(e){
+    "click .settingsbtn": function (e) {
         var id = e.target.id;
-        FlowRouter.go("/business/mybusiness/settings/"+id);
+        FlowRouter.go("/business/mybusiness/settings/" + id);
     }
 });
