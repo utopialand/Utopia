@@ -17,18 +17,18 @@ var manager=["propbudget11","identityreg1","realstateutp"];
 var userdetail;
 var scatter={};
 Template.header.onCreated(function() {
-    console.log("onCreated");
+    
     var username=localStorage.getItem("username");
-    console.log("wlcm---",username);
+    
   ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
-      console.log("connect")
+      
       if (ScatterJS.scatter.connect("utopia")) {
         scatter = ScatterJS.scatter;
         const requiredFields = { accounts: [network] };
         const eos = scatter.eos(network, Eos, eosOptions);
           if (scatter.identity) {
-            console.log("iden");
+            
             eos.getTableRows({
               code: "identityreg1",
               scope: "identityreg1",
@@ -37,14 +37,14 @@ Template.header.onCreated(function() {
               json: true
             }).then((resp) => {
               userdetail = resp;
-              console.log("user---", userdetail);
+              
               if(username ==manager[0] || username ==manager[1] || username== manager[2]){
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                   document.getElementById("managerText").style.display = "block";
                   document.getElementById("len").style.display = "block";
                   document.getElementById("len").setAttribute("value", "manager");
               }else{
-                console.log("else");
+                
                 var count=0;
                 for(var i=0;i<userdetail.rows.length;i++){
                   if(userdetail.rows[i].username==username){
@@ -53,13 +53,13 @@ Template.header.onCreated(function() {
                   }
                 }
                 if(count==1){
-                  console.log("else1");
+                  
                   document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                   document.getElementById("managerText").style.display = "none";
                   document.getElementById("len").style.display = "block";
                   var s = document.getElementById("len").setAttribute("value", "userid");
                 }else{
-                  console.log("else2");
+                  
                   document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                   document.getElementById("managerText").style.display = "none";
                   var s = document.getElementById("len").setAttribute("value", "user");
@@ -69,7 +69,7 @@ Template.header.onCreated(function() {
             });
           
           } else {
-            console.log("idennot")
+            
             FlowRouter.go("/");
             document.getElementsByClassName("identitySectionman")[0].style.display = "none";
           }
@@ -83,19 +83,15 @@ Template.header.onCreated(function() {
 
 Template.header.events({
     "click .proposal": function(){
-        console.log("proposal link was clicked");
         FlowRouter.go("/proposal");
     },
     "click .logo": function(){
-        console.log("logo was clikced");
         FlowRouter.go("/");
     },
     "click .identityText": function(){
-        console.log("identity text was clicked");
         FlowRouter.go("/identity");
     },
     "click .managerText": function(){
-        console.log("manager");
         FlowRouter.go("/manager");
     },
     "click .business-link": function(){

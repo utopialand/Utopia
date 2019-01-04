@@ -85,7 +85,7 @@
     cursor: pointer;
 }
 .exchange{
-    display: flex;
+    display: none;
     justify-content: center;
     margin-top: 3%;
 }

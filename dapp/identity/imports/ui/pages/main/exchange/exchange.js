@@ -104,18 +104,6 @@ Template.App_exchange.events({
                 alert(msg);
             }
         }
-        
-        /* eosinstance.contract('utopbusiness').then(utopbusiness => {
-            utopbusiness.transfer(username, networkContract, token, memo, { authorization: username }).then((response) => {
-                if (response) {
-                    console.log("response of buying utp", response);
-                } else {
-                    alert("Unable to buy utp");
-                }
-
-            });
-
-        }); */
     },
     "click .buytokenbtn": async function(e){
         

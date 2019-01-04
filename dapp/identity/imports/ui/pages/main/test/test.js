@@ -19,77 +19,19 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
+Session.set("isLoading", true);
 
-Template.App_test.onCreated(async function bodyOnCreated() {
-    /* ScatterJS.scatter.connect('utopia').then((connected) => {
-        if (connected) {
-            if (ScatterJS.scatter.connect('utopia')) {
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                eosinstance = eos;
-                if (scatter.identity) {
-                    eos.getTableRows({
-                        code: "realstateutp",
-                        scope: "realstateutp",
-                        table: "proptlist1",
-                        limit: "50",
-                        json: true,
-                    }).then((response) => {
-                        console.log("response of all properties ", response.rows);
-                        Session.set("allPropertyList", response.rows);
-                    });
-                }
-                else {
-                    FlowRouter.go("/");
-                }
-            }
-        }
-    }); */
-    console.log("on Created");
-});
+async function allProperties() {
 
-Template.App_test.onRendered(async function bodyOnRendered() {
-    console.log("on rendered");
-});
+    var connected = await ScatterJS.scatter.connect("utopia");
 
-function allProperties() {
-    ScatterJS.scatter.connect('utopia').then((connected) => {
-        if (connected) {
-            if (ScatterJS.scatter.connect('utopia')) {
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                eosinstance = eos;
-                if (scatter.identity) {
-                    eos.getTableRows({
-                        code: "realstateutp",
-                        scope: "realstateutp",
-                        table: "proptlist1",
-                        limit: "50",
-                        json: true,
-                    }).then((response) => {
-                        console.log("response of all properties ", response.rows);
-                        Session.set("all", response.rows);
-                        return response.rows;
-                    });
-                }
-                else {
-                    FlowRouter.go("/");
-                }
-            }
-        }
-    });
-}
-
-Template.App_test.helpers({
-    getAll: async function () {
-        var connected = await ScatterJS.scatter.connect("utopia");
+    if (connected) {
         scatter = ScatterJS.scatter;
         const requiredFields = { accounts: [network] };
         const eos = scatter.eos(network, Eos, eosOptions);
+        eosinstance = eos;
 
-        var allPropertiesTb = await eos.getTableRows({
+        var propertyTb = await eos.getTableRows({
             code: "realstateutp",
             scope: "realstateutp",
             table: "proptlist1",
@@ -97,11 +39,21 @@ Template.App_test.helpers({
             json: true,
         });
 
-        console.log("All properties ", allPropertiesTb.rows);
-        return allPropertiesTb.rows;
-    },
-    getAllAgain: function(){
+        console.log("propertyTb", propertyTb);
+        Session.set("isLoading", false);
+        Session.set("all",propertyTb.rows);
+    }else{
+        console.log("Cannot connect");
+    }
+}
+
+Template.App_test.helpers({
+    getAllAgain: function () {
         allProperties();
         return Session.get("all");
+    },
+    isLoading: function(){
+        console.log(Session.get("isLoading"));
+        return Session.get("isLoading");
     }
 });

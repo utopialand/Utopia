@@ -111,3 +111,21 @@
     background: transparent;
     border-bottom: 1px solid white;
 }
+
+.manageproperty{
+    display: none;
+}
+
+.buypropertypagebtn{
+    display: none;
+}
+
+.bidpropertypagebtn{
+    display: none;
+}
+
+.spinner{
+    margin: 2% auto 0 auto;
+    width: 100px;
+    height: 100px;
+}
