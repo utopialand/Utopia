@@ -438,49 +438,59 @@ ACTION lender::checkauction(name identity, uint64_t reqloanid)
 
 ACTION lender::loanpayment(name payer, uint64_t reqloanid, asset amt)
 {
+    print("in loan payment-");
     require_auth(payer);
     reqloan_tab req(_self, _self.value);
     approveloan_tab approve(_self, _self.value);
-    paymentdet_tab payment(_self, _self.value);
+    paymentdet_tab payment(_self, payer.value);
     auto itr = req.find(reqloanid);
     auto appritr = approve.find(reqloanid);
     eosio_assert(itr != req.end(), "requested loan id not found!!!");
     eosio_assert(appritr != approve.end(), "requested loan id was not approved!!!");
-
-    payment.emplace(payer, [&](auto &p) {
+     auto pid = payment.available_primary_key();
+     payment.emplace(payer, [&](auto &p) {
+        p.id = pid;
         p.reqloanid = reqloanid;
-        p.payer = payer;
         p.amount = amt;
         p.paymentAt = now();
     });
+
+    if (itr->loantype == "instalment")
+    {
+        print("in if-");
+        paymentinst(payer, reqloanid, 0);
+    }
+    else
+    {
+        print("in else-");
+        paymentacpt(payer, reqloanid, 0);
+    }
 }
 
-ACTION lender::paymentacpt(name identity, uint64_t reqloanid)
+void lender::paymentacpt(name identity, uint64_t reqloanid,
+                         uint64_t id)
 {
-    require_auth(identity);
-    manager_table manager("utpmanager11"_n, "utpmanager11"_n.value);
-    auto mitr = manager.find(identity.value);
-    eosio_assert(mitr != manager.end(), "manager not found !!!");
 
     reqloan_tab req(_self, _self.value);
     approveloan_tab approve(_self, _self.value);
-    paymentdet_tab payment(_self, _self.value);
+    paymentdet_tab payment(_self, identity.value);
 
-    auto itr = payment.find(reqloanid);
+    auto itr = payment.find(id);
     auto appritr = approve.find(reqloanid);
     auto reqitr = req.find(reqloanid);
     eosio_assert(itr != payment.end(), "Payment from loan id not found!!!");
     auto fine = appritr->fineamt;
     auto dueamt = appritr->totaldue + fine;
-
     auto paymentAt = itr->paymentAt;
     auto amt = itr->amount;
-    auto borrower = itr->payer;
+    auto borrower = identity;
     float creditscore = 0;
     bool isdefault;
     string statusApprove;
-    string status;
+    string status = "due";
     asset left;
+    print("in pAYMENT-",amt);
+    print("due-",dueamt);
 
     if (amt < dueamt)
     {
@@ -489,6 +499,7 @@ ACTION lender::paymentacpt(name identity, uint64_t reqloanid)
     }
     else if (amt == dueamt)
     {
+        print("in ==");
         left = dueamt - amt;
         status = "complete";
 
@@ -516,11 +527,11 @@ ACTION lender::paymentacpt(name identity, uint64_t reqloanid)
 
         ///////////////////////////////////////////
         print("call modify function in credit score contract--");
-
-        action(
-            permission_level{identity, "active"_n},
+        name manager = "identityreg1"_n;
+         action(
+            permission_level{manager, "active"_n},
             "utpcreditsc1"_n, "modcreditsc"_n,
-            std::make_tuple(identity, borrower, creditscore, isdefault))
+            std::make_tuple(manager, borrower, creditscore, isdefault))
             .send();
         //////////////////////////////////////////
 
@@ -538,22 +549,17 @@ ACTION lender::paymentacpt(name identity, uint64_t reqloanid)
         a.status = status;
         a.fineamt = asset(0, symbol(symbol_code("UTP"), 4));
     });
-
-    payment.erase(itr);
 }
 
-ACTION lender::paymentinst(name identity, uint64_t reqloanid)
+void lender::paymentinst(name identity, uint64_t reqloanid,
+                         uint64_t id)
 {
-    require_auth(identity);
-    manager_table manager("utpmanager11"_n, "utpmanager11"_n.value);
-    auto mitr = manager.find(identity.value);
-    eosio_assert(mitr != manager.end(), "manager not found !!!");
 
     reqloan_tab req(_self, _self.value);
     approveloan_tab approve(_self, _self.value);
-    paymentdet_tab payment(_self, _self.value);
+    paymentdet_tab payment(_self, identity.value);
     cscore_table credit("utpcreditsc1"_n, "utpcreditsc1"_n.value);
-    auto itr = payment.find(reqloanid);
+    auto itr = payment.find(id);
     auto appritr = approve.find(reqloanid);
     auto reqitr = req.find(reqloanid);
     eosio_assert(itr != payment.end(), "Payment for loan id not found!!!");
@@ -565,7 +571,7 @@ ACTION lender::paymentinst(name identity, uint64_t reqloanid)
     string loanstat = appritr->status;
     auto paymentAt = itr->paymentAt;
     auto amt = itr->amount;
-    auto borrower = itr->payer;
+    auto borrower = identity;
     float creditscore = 0;
     bool isdefault;
     string statusApprove;
@@ -631,15 +637,14 @@ ACTION lender::paymentinst(name identity, uint64_t reqloanid)
         "utpcreditsc1"_n, "modcreditsc"_n,
         std::make_tuple(identity, borrower, creditscore, isdefault))
         .send();
-    payment.erase(itr);
 }
 
 ACTION lender::delreqloan(uint64_t id)
 {
     //  reqloan_tab req(_self, _self.value);
-    reqloan_tab approve(_self, _self.value);
+    approveloan_tab approve(_self, _self.value);
     auto itr = approve.find(id);
     approve.erase(itr);
 }
 
-EOSIO_DISPATCH(lender, (addloancatg)(addcollat)(reqloancolat)(reqloanincm)(approveloan)(checkdefault)(checkbid)(checkauction)(loanpayment)(paymentacpt)(paymentinst)(delreqloan))
+EOSIO_DISPATCH(lender, (addloancatg)(addcollat)(reqloancolat)(reqloanincm)(approveloan)(checkdefault)(checkbid)(checkauction)(loanpayment)(delreqloan))

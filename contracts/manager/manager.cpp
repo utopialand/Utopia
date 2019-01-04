@@ -7,7 +7,7 @@ ACTION manager::addmanager(name user)
     identity_table iden_table("identityreg1"_n, "identityreg1"_n.value);
     auto itr = iden_table.find(user.value);
     eosio_assert(itr != iden_table.end(), "identity not found !!!");
-    eosio_assert(itr->citizen, "Not a citizen of Utopia !!!");
+    eosio_assert(itr->citizen==true, "Not a citizen of Utopia !!!");
 
     manager_table mt(_self, _self.value);
     mt.emplace(_self, [&](auto &v) {

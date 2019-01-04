@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Jan  2 16:16:48 2019",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Jan  4 13:00:18 2019",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -315,30 +315,16 @@
             ]
         },
         {
-            "name": "paymentacpt",
-            "base": "",
-            "fields": [
-                {
-                    "name": "identity",
-                    "type": "name"
-                },
-                {
-                    "name": "reqloanid",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
             "name": "paymentdet",
             "base": "",
             "fields": [
                 {
-                    "name": "reqloanid",
+                    "name": "id",
                     "type": "uint64"
                 },
                 {
-                    "name": "payer",
-                    "type": "name"
+                    "name": "reqloanid",
+                    "type": "uint64"
                 },
                 {
                     "name": "amount",
@@ -346,20 +332,6 @@
                 },
                 {
                     "name": "paymentAt",
-                    "type": "uint64"
-                }
-            ]
-        },
-        {
-            "name": "paymentinst",
-            "base": "",
-            "fields": [
-                {
-                    "name": "identity",
-                    "type": "name"
-                },
-                {
-                    "name": "reqloanid",
                     "type": "uint64"
                 }
             ]
@@ -544,16 +516,6 @@
             "ricardian_contract": ""
         },
         {
-            "name": "paymentacpt",
-            "type": "paymentacpt",
-            "ricardian_contract": ""
-        },
-        {
-            "name": "paymentinst",
-            "type": "paymentinst",
-            "ricardian_contract": ""
-        },
-        {
             "name": "reqloancolat",
             "type": "reqloancolat",
             "ricardian_contract": ""
@@ -622,7 +584,7 @@
             "key_types": []
         },
         {
-            "name": "payment111",
+            "name": "payment114",
             "type": "paymentdet",
             "index_type": "i64",
             "key_names": [],

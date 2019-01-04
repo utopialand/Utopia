@@ -31,8 +31,10 @@ CONTRACT lender : public contract
     ACTION checkauction(name identity, uint64_t reqloanid);
     ACTION checkbid(name identity, uint64_t reqloanid);
     ACTION loanpayment(name payer, uint64_t reqloanid, asset amt);
-    ACTION paymentacpt(name identity, uint64_t reqloanid);
-    ACTION paymentinst(name identity, uint64_t reqloanid);
+    void paymentacpt(name identity,uint64_t reqloanid,
+                            uint64_t id);
+    void paymentinst(name identity,uint64_t reqloanid,
+                            uint64_t id);
     ACTION delreqloan(uint64_t id);
 
     TABLE loancatg
@@ -118,11 +120,11 @@ CONTRACT lender : public contract
 
     TABLE paymentdet
     {
+        uint64_t id;
         uint64_t reqloanid;
-        name payer;
         asset amount;
         uint64_t paymentAt;
-        uint64_t primary_key() const { return reqloanid; }
+        uint64_t primary_key() const { return id; }
     };
     TABLE credscore
     {
@@ -170,7 +172,7 @@ CONTRACT lender : public contract
     typedef multi_index<"approved114"_n, approvedloan> approveloan_tab;
    // typedef multi_index<"instalment11"_n, instalment> instalment_tab;
     typedef multi_index<"properties1"_n, properties> properties_table;
-    typedef multi_index<"payment111"_n, paymentdet> paymentdet_tab;
+    typedef multi_index<"payment114"_n, paymentdet> paymentdet_tab;
     typedef multi_index<"cscore112"_n, credscore> cscore_table;
     typedef multi_index<"bidtable1"_n, bidtable> bid_table;
 };
