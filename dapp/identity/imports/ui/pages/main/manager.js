@@ -39,29 +39,22 @@ Template.App_manager.onCreated(function() {
         const eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
           eosinstance = eos;     
-          await eosinstance.getTableRows({
+          winnerresults = await eosinstance.getTableRows({
             code: "voteproposal",
             scope: "voteproposal",
             table: "result13",
             limit: 50,
             json: true
-          })
-          .then(resp => {
-            winnerresults =  resp; 
-            console.log("winner response!!==>", winnerresults);
           });
-          await eosinstance
-            .getTableRows({
+          tabledata = await eosinstance.getTableRows({
               code: "voteproposal",
               scope: "voteproposal",
               table: "proposal11",
               limit: 50,
               json: true
-            })
-            .then(resp => {
-              tabledata = resp;
-              document.getElementById("result-container").style.display =
-                "none";
+            });
+            if(tabledata){
+              document.getElementById("result-container").style.display ="none";
               console.log("tabledata--", tabledata);
               document.getElementById("manager-proposal-group").innerHTML = "";
               console.log("table data after rendering", tabledata);
@@ -100,17 +93,15 @@ Template.App_manager.onCreated(function() {
                   "</div>";
                 }
               }
-            });
-          await eosinstance
-            .getTableRows({
+            };
+            userdata = await eosinstance.getTableRows({
               code: "identityreg1",
               scope: "identityreg1",
               table: "citizen3",
               limit: 50,
               json: true
-            })
-            .then(resp => {
-              userdata = resp;
+            });
+            if(userdata){
               console.log("users==><",userdata);
               if (document.getElementById("userList")) {
                 for (var i = 0; i < userdata.rows.length; i++) {
@@ -132,66 +123,43 @@ Template.App_manager.onCreated(function() {
                 }
               }
               document.getElementById("userList").style.display = "none";
-            });
+            };
 
-          await eosinstance
-            .getTableRows({
+            budgetprop = await eosinstance.getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
               table: "proposal13",
               limit: 50,
               json: true
-            })
-            .then(resp => {
-              budgetprop = resp;
             });
-          await eosinstance
-            .getTableRows({
+            budgetpropstart = await eosinstance.getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
               table: "votestat",
               limit: 50,
               json: true
-            })
-            .then(resp => {
-              budgetpropstart = resp;
-              console.log("votestat==>",budgetpropstart)
             });
-
-          await eosinstance
+            propentry = await eosinstance
             .getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
               table: "feature112",
               limit: 50,
               json: true
-            })
-            .then(resp => {
-              propentry = resp;
-              console.log("propentry-----", resp);
-              console.log(propentry);
             });
-
-           await eosinstance.getTableRows({
+            bonddata = await eosinstance.getTableRows({
               code: "bondborrower",
               scope: "bondborrower",
               table: 'bonddetail33',
               limit: 50,
               json: true,
-          }).then((resp)=>{
-              bonddata=resp;
           });
-          await eosinstance
-            .getTableRows({
+          resultdata = await eosinstance.getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
               table: "votes111",
               limit: "50",
               json: true
-            })
-            .then(response => {
-              resultdata = response;
-              console.log("votes11>><< = ",resultdata);
             });
         } else {
           FlowRouter.go("/");
@@ -231,12 +199,12 @@ Template.App_manager.events({
     let contract = await eosinstance.contract("identityreg1");
     console.log("===", contract);
     try {
-      let res = await contract.addcitizen(userName,"identityreg1", {
-        authorization: "identityreg1"
-      });
+      let result = await contract.addcitizen(userName,"identityreg1", {authorization: "identityreg1" });
       alert("citizenship approved !!!!");
     } catch (err) {
-      console.log("----", err);
+        var parseResponse = await JSON.parse(err);
+        var msg = await parseResponse.error.details[0].message.split(":")[1]
+        alert(msg);
     }
   },
   "click .disapproved-button": async function() {
@@ -256,7 +224,9 @@ Template.App_manager.events({
       });
       alert("proposal is successfully removed!!!");
     } catch (err) {
-      console.log("----", err);
+      var parseResponse = await JSON.parse(err);
+      var msg = await parseResponse.error.details[0].message.split(":")[1]
+      alert(msg);
     }
   },
   "click .declare-result-button":async function(){
@@ -284,6 +254,7 @@ Template.App_manager.events({
 
   },
   "click #budgetButton": async function() {
+    console.log("propentry.rows.length==>",propentry);
     console.log("propentry.rows.length==>",propentry.rows.length);
     if (propentry.rows.length != 0) {
       console.log("propentry.value===>", propentry);
