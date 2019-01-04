@@ -9,6 +9,7 @@
 .exchange-container h1,h3{
     text-align: center;
     text-transform: capitalize;
+    color: white;
 }
 
 .buyselltoken{

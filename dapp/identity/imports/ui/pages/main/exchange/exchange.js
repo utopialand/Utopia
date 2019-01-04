@@ -23,67 +23,70 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
+Session.set("isLoadingExchange", true);
 
-Template.App_exchange.onRendered(function () {
-    ScatterJS.scatter.connect('utopia').then((connected) => {
-        if (connected) {
-            if (ScatterJS.scatter.connect('utopia')) {
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                if (scatter.identity) {
-                    eosinstance = eos;
-                    eos.getTableRows({
-                        code: "utopbusiness",
-                        scope: "utopbusiness",
-                        table: "exchange",
-                        limit: "50",
-                        json: true,
-                    }).then((response)=>{
-                        var tokenlist = [];
-                        for(var i=0;i<response.rows.length;i++){
-                            var currency = response.rows[i].currency;
-                            currency = currency.split(" ")[1];
-                            tokenlist.push(currency);
-                        }
-                        Session.set("tokenlist", tokenlist);
-                    });
-                } else {
-                    FlowRouter.go("/");
-                }
-            }
-        } else {
-            console.log("scatter not installed")
+async function getAllTokens() {
+    var connected = await ScatterJS.scatter.connect('utopia');
+
+    if (connected) {
+        scatter = ScatterJS.scatter;
+        const requiredFields = { accounts: [network] };
+        const eos = scatter.eos(network, Eos, eosOptions);
+        eosinstance = eos;
+
+        var tokens = await eos.getTableRows({
+            code: "utopbusiness",
+            scope: "utopbusiness",
+            table: "exchange",
+            limit: "50",
+            json: true,
+        });
+
+        var tokenlist = [];
+        for (var i = 0; i < tokens.rows.length; i++) {
+            var currency = tokens.rows[i].currency;
+            currency = currency.split(" ")[1];
+            tokenlist.push(currency);
         }
-    });
-});
+        Session.set("tokenlist", tokenlist);
+        Session.set("isLoadingExchange", false);
+    }
+    else {
+        console.log("scatter not installed");
+    }
+}
+
+
 
 Template.App_exchange.helpers({
-    getTokenList: function(){
-        console.log("tokenlist", Session.get("tokenlist"));
+    getTokenList: function () {
+        getAllTokens();
         return Session.get("tokenlist");
+    },
+    isLoadingExchange: function(){
+        return Session.get("isLoadingExchange");
     }
 });
 
 Template.App_exchange.events({
-    "click .selltokenbtn": async function(e){
+    "click .selltokenbtn": async function (e) {
         var id = e.target.id;
         var symbol = id.split("-")[1];
-        var selltokenfield = "selltokenfield-"+symbol;
-        var token = $("#"+selltokenfield).val();
+        var selltokenfield = "selltokenfield-" + symbol;
+        var token = $("#" + selltokenfield).val();
         console.log("token ", token);
         var username = localStorage.getItem("username");
         var version = 1;
-        var contractname = symbol.toLowerCase()+"2utprelay";
+        var contractname = symbol.toLowerCase() + "2utprelay";
         var fee = "0.2";
         var utp = "UTP";
         var networkContract = "utopbnetwork";
-        var memo = version+","+contractname+" "+utp+","+fee+","+username;
-        console.log("memo ",memo);
-        if(!token){
+        var memo = version + "," + contractname + " " + utp + "," + fee + "," + username;
+        console.log("memo ", memo);
+        if (!token) {
             alert("Please enter token value in the given format");
         }
-        else{
+        else {
             try {
                 var utopbusiness = await eosinstance.contract("utopbusiness");
 
@@ -105,24 +108,24 @@ Template.App_exchange.events({
             }
         }
     },
-    "click .buytokenbtn": async function(e){
-        
+    "click .buytokenbtn": async function (e) {
+
         var id = e.target.id;
         var symbol = id.split("-")[1];
-        var buytokenfield = "buytokenfield-"+symbol;
-        var utpvalue = $("#"+buytokenfield).val();
-        console.log("utpvalue",utpvalue);
+        var buytokenfield = "buytokenfield-" + symbol;
+        var utpvalue = $("#" + buytokenfield).val();
+        console.log("utpvalue", utpvalue);
         var username = localStorage.getItem("username");
         var version = 1;
-        var contractname = symbol.toLowerCase()+"2utprelay";
+        var contractname = symbol.toLowerCase() + "2utprelay";
         var fee = "0.2";
         var networkContract = "utopbnetwork";
-        var memo = version+","+contractname+" "+symbol+","+fee+","+username;
-        console.log("memo ", memo); 
+        var memo = version + "," + contractname + " " + symbol + "," + fee + "," + username;
+        console.log("memo ", memo);
 
-        if(!utpvalue){
+        if (!utpvalue) {
             alert("Please enter UTP token value");
-        }else{
+        } else {
             try {
                 var utopbusiness = await eosinstance.contract("utopbusiness");
 
