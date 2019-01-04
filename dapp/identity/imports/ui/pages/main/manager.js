@@ -203,8 +203,6 @@ Template.App_manager.onCreated(function() {
   });
 });
 
-Template.App_manager.onRendered(async function() {});
-
 Template.App_manager.events({
   "click #userDetails": function() {
     document.getElementById("userList").style.display = "block";
@@ -601,7 +599,7 @@ Template.App_manager.events({
     "<div class='bond-form'><label>bond id</label><input type='text' id='bondid'/>"
     + "</div>"+" <div class='createbutton'><button class='buttonbond' id ='submitid'>Submission</button></div>";
   },
-  "click #submitid": function() {    
+  "click #submitid":async function() {    
               document.getElementById("userList").style.display = "none";
               document.getElementById("proposalList").style.display = "none";
               bondid=$("#bondid").val();
@@ -613,7 +611,7 @@ Template.App_manager.events({
                   for(var j=0; j<bonddata.rows[iip].bondholders.length; j++){
                     var bondholder = bonddata.rows[iip].bondholders[j]; 
                     var username = localStorage.getItem("username");
-                    eosinstance.getTableRows({
+                    await eosinstance.getTableRows({
                           code: "bondborrower",
                           scope: bondholder,
                           table: "buyerdata33",
@@ -639,58 +637,56 @@ Template.App_manager.events({
     
    
   },
-  "click #getcoupon": function() {
+  "click #getcoupon":async function() {
     var num;
     var username = localStorage.getItem("username");
-    eosinstance.contract("bondborrower").then(bondborrow => {
-      bondborrow.getcoupon(couponid,{
-          authorization: username
-        })
-        .then(response => {
-          if (response) {
-            for (var i = 0; i < bonddata.rows.length; i++) {
-              if(bonddata.rows[i].id == bondid){
-                couponid=bonddata.rows[i].id;
-                num=i;
-                for(var j=0; j<bonddata.rows[i].bondholders.length; j++){
-                  var bondholder = bonddata.rows[i].bondholders[j]; 
-                  eosinstance.getTableRows({
-                        code: "bondborrower",
-                        scope: bondholder,
-                        table: "buyerdata33",
-                        limit: 50,
-                        json: true
-                      })
-                .then(resp => {
-                  buyerdata = resp;
-
-                  for(var k=0;k<buyerdata.rows.length;k++){
-                    if(buyerdata.rows[k].id==couponid){
-                      var datearr = buyerdata.rows[k].returningdate[buyerdata.rows[k].returningdate.length-1];
-                      console.log(buyerdata.rows[k].returningdate.length,"dataarr--",k)
-                      if (buyerdata.rows[k].returningdate.length-1 == bonddata.rows[k].maturitycount){
-                      
-                       count++;
-                       if(count==bonddata.rows[k].bondholders.length){
-                         alert("-payement----successfull---");       
-                       }              
-                      }else if (buyerdata.rows[k].returningdate.length-1 < bonddata.rows[k].maturitycount){
-                      
-                          alert("--time remain--");  
-                                        
-                      }  
-                    }
-                  }
-                                                      
-                });
+    let bondborrower = await eosinstance.contract('bondborrower');
+                if(bondborrower)
+                {
+                  let result = await  bondborrower.getcoupon(couponid,{authorization: username});
+                     if(result){
+                      for (var i = 0; i < bonddata.rows.length; i++) {
+                        if(bonddata.rows[i].id == bondid){
+                          couponid=bonddata.rows[i].id;
+                          num=i;
+                          for(var j=0; j<bonddata.rows[i].bondholders.length; j++){
+                            var bondholder = bonddata.rows[i].bondholders[j]; 
+                            await eosinstance.getTableRows({
+                                  code: "bondborrower",
+                                  scope: bondholder,
+                                  table: "buyerdata33",
+                                  limit: 50,
+                                  json: true
+                                })
+                          .then(resp => {
+                            buyerdata = resp;
+          
+                            for(var k=0;k<buyerdata.rows.length;k++){
+                              if(buyerdata.rows[k].id==couponid){
+                                var datearr = buyerdata.rows[k].returningdate[buyerdata.rows[k].returningdate.length-1];
+                                console.log(buyerdata.rows[k].returningdate.length,"dataarr--",k)
+                                if (buyerdata.rows[k].returningdate.length-1 == bonddata.rows[k].maturitycount){
+                                
+                                 count++;
+                                 if(count==bonddata.rows[k].bondholders.length){
+                                   alert("-payement----successfull---");       
+                                 }              
+                                }else if (buyerdata.rows[k].returningdate.length-1 < bonddata.rows[k].maturitycount){
+                                
+                                    alert("--time remain--");  
+                                                  
+                                }  
+                              }
+                            }
+                                                                
+                          });
+                          }
+                        }      
+                    } 
+                    }else{
+                      alert("Something went wrong");
+                   }
                 }
-              }      
-          } 
-          } else {
-            alert("some problems!!!!");
-          }
-        });
-    });
   },
   "click #realestatemanager":function()
   {

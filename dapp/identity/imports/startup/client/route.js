@@ -92,14 +92,7 @@ FlowRouter.route('/newproposal', {
 FlowRouter.route('/manager', {
   name: "manager",
   action(){
-    var username = localStorage.getItem("username");
-    var manager=["propbudget11","identityreg1","realstateutp"];
-    if(username ==manager[0] || username ==manager[1] || username== manager[2]){
-      BlazeLayout.render('App_body', { main: 'App_manager'});
-    }else{
-      FlowRouter.go("/");
-    }
-    
+    BlazeLayout.render('App_body', { main: 'App_manager'});    
   }
 });
 

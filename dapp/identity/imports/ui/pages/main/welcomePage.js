@@ -18,11 +18,11 @@ const eosOptions = {
 };
 let eos = {};
 var userdetail;
-var scatter = {};
-var manager = ["propbudget11", "identityreg1", "realstateutp"];
+var scatter={};
+let manager;
 Template.welcomePage.onCreated(function bodyOnCreated() {
-  const connectionOptions = { initTimeout: 2000 }
-  ScatterJS.scatter.connect("utopia", connectionOptions).then(connected => {
+  const connectionOptions = {initTimeout:2000}
+  ScatterJS.scatter.connect("utopia",connectionOptions).then(async connected => {
     if (!connected) {
       document.getElementById("scatter-not-installed").style.display = "block";
       return false;
@@ -35,8 +35,18 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
           document.getElementById("scatter-not-installed").style.display = "none";
           document.getElementById("loginButton").innerHTML = "logout";
           document.getElementsByClassName("optionFlex")[0].style.display =
-            "flex";
-          eos.getTableRows({
+            "flex"; 
+            await eos.getTableRows({
+              code: "utpmanager11",
+              scope: "utpmanager11",
+              table: "manager111",
+              limit: 50,
+              json: true
+            }).then((resp)=>{
+               manager=resp.rows;
+               console.log("man---",manager);
+            })
+          await eos.getTableRows({
             code: "identityreg1",
             scope: "identityreg1",
             table: "identity3",
@@ -47,23 +57,26 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
 
             console.log("user---", userdetail);
             var username = localStorage.getItem("username");
-            console.log("wlcm---", username);
-            if (username == manager[0] || username == manager[1] || username == manager[2]) {
-              console.log("1");
+            var countman=0;
+            for(var i=0;i<manager.length;i++){
+              if(manager[i].user==username){
+                countman++;
+              }
+            }
+            if(countman == 1){
               document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
               document.getElementById("managerText").style.display = "block";
               document.getElementById("len").style.display = "block";
               document.getElementById("coupon").style.display = "block";
               var s = document.getElementById("len").setAttribute("value", "manager");
-            } else {
-              console.log("2");
-              var count2 = 0;
-              for (var i = 0; i < userdetail.rows.length; i++) {
-                if (userdetail.rows[i].username == username) {
-                  count2++;
+            }else{
+              var countuserid=0;
+              for(var i=0;i<userdetail.rows.length;i++){
+                if(userdetail.rows[i].username==username){
+                  countuserid++;
                 }
               }
-              if (count2 == 1) {
+              if(countuserid == 1){
                 console.log("count1");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
@@ -78,7 +91,6 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
                 document.getElementById("len").style.display = "none";
                 document.getElementById("coupon").style.display = "none";
               }
-
             }
           });
 
@@ -102,12 +114,12 @@ Template.welcomePage.events({
   },
   "click .scatterloginlogout": function (event, instance) {
     if (!JSON.parse(localStorage.getItem("loginstatus"))) {
-      ScatterJS.scatter.connect("utopia").then(connected => {
+      ScatterJS.scatter.connect("utopia").then(async connected => {
         if (!connected) return false;
         scatter = ScatterJS.scatter;
         const requiredFields = { accounts: [network] };
         const eos = scatter.eos(network, Eos, eosOptions);
-        scatter
+         scatter
           .getIdentity(requiredFields)
           .then(() => {
             const acc = scatter.identity.accounts.find(
@@ -115,40 +127,44 @@ Template.welcomePage.events({
             );
             const account = acc.name;
             localStorage.setItem("username", account);
-            console.log("inlogin");
             localStorage.setItem("loginstatus", JSON.stringify(true));
             document.getElementById("loginButton").innerHTML = "logout";
             document.getElementsByClassName("optionFlex")[0].style.display =
               "flex";
-            if (account == manager[0] || account == manager[1] || account == manager[2]) {
-              console.log("1");
+            var countman=0;
+            for(var i=0;i<manager.length;i++){
+              console.log("man-is--",manager[i].user);
+              if(manager[i].user==account){
+                countman++;
+              }
+            }
+            if(countman == 1){
               document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
               document.getElementById("managerText").style.display = "block";
               document.getElementById("len").style.display = "block";
               document.getElementById("coupon").style.display = "block";
-              document.getElementById("len").setAttribute("value", "manager");
-            } else {
-              console.log("2");
-              var count = 0;
-              for (var i = 0; i < userdetail.rows.length; i++) {
-                if (userdetail.rows[i].username == account) {
-                  count++;
+              var s = document.getElementById("len").setAttribute("value", "manager");
+            }else{
+              var countuserid=0;
+              for(var i=0;i<userdetail.rows.length;i++){
+                if(userdetail.rows[i].username==account){
+                  countuserid++;
                 }
               }
-              if (count == 1) {
-                console.log("user");
+              if(countuserid == 1){
+                console.log("count1");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
                 document.getElementById("len").style.display = "block";
                 document.getElementById("coupon").style.display = "block";
                 var s = document.getElementById("len").setAttribute("value", "userid");
-              } else {
-                console.log("none");
+              }else{
+                console.log("count2");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
                 var s = document.getElementById("len").setAttribute("value", "user");
-                document.getElementById("coupon").style.display = "none";
                 document.getElementById("len").style.display = "none";
+                document.getElementById("coupon").style.display = "none";
               }
             }
           })
@@ -172,19 +188,24 @@ Template.welcomePage.events({
 });
 
 Template.welcomePage.events({
-  "click .optionText2": function () {
-    var username = localStorage.getItem("username");
-    eos.contract("identityreg1").then(identityregres => {
-      identityregres
-        .reqcitizen(username, { authorization: username })
-        .then(response => {
-          if (response) {
-            console.log("hello--", response);
-            FlowRouter.go("/citizenship");
-          } else {
-            alert("identity is not registered !!!!");
-          }
-        });
-    });
+  "click .optionText2":async function () {
+    var username= localStorage.getItem("username");
+        try{
+            let identityreg1 = await eos.contract('identityreg1');
+            if(identityreg1)
+            {
+             let result = await identityreg1.reqcitizen(username,{authorization:username})
+             if(result){
+                alert("request for citizenship is sent successfully");
+            }else{
+                alert("Something went wrong");
+             }
+            }
+          } 
+          catch(err){
+          var parseResponse = await JSON.parse(err);
+          var msg = await parseResponse.error.details[0].message.split(":")[1]
+          alert(msg);
+        }
   }
 });
