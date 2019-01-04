@@ -1,6 +1,13 @@
 <template name="App_all_business">
     <div class="allbusiness-container">
         <h1>all business</h1>
+
+        {{#if isLoadingAllBusinessList}}
+        <div class="spinner">
+            {{>spinner}}
+        </div>
+        {{allBusinessList}}
+        {{else}}
         {{#if allBusinessList.length}}
         {{#each allBusinessList}}
         <div class="mycompany">
@@ -13,6 +20,8 @@
         {{else}}
         <div class = "no-business"><p>No company in Utopia right now</p></div>
         {{/if}}
+        {{/if}}
+        
     </div>
     {{>App_footer}}
 </template>

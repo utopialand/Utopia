@@ -31,7 +31,7 @@ Template.bond.onCreated(async function () {
     });
 })
 Template.bond.events({
-    "click #submitbond":function(){
+    "click #submitbond":async function(){
         var sym="UTP";
         var bondname=$("#bondname").val();
         var maturity=parseInt($("#maturity").val());
@@ -39,12 +39,38 @@ Template.bond.events({
         var couponintervel=parseInt($("#couponintervel").val());
         var facevalue=`${parseFloat($("#facevalue").val()).toFixed(4)} ${sym}`
         var username=localStorage.getItem("username")
-        eosinstance.contract("bondborrower").then(bond => {
-            bond.addbond(username ,bondname,maturity,couponrate,couponintervel,facevalue, { authorization: username }).then(
-                (res) => {
-                      console.log("response--",res);
+        
+        if((!bondname)||(!maturity)||(!couponrate)||(!couponintervel)||(!facevalue))
+    {
+      alert("please fill all the fields");
+    }
+    else{
+      try{
+        if(maturity > 30){
+            alert("maturity period exited (maximum 30 years)");
+        }else{
+            if(couponintervel==6 || couponintervel==12){
+                let bondborrower = await eosinstance.contract('bondborrower');
+                if(bondborrower)
+                {
+                  let result = await  bondborrower.addbond(username ,bondname,maturity,couponrate,couponintervel,facevalue, { authorization: username });
+                     if(result){
+                      alert("bond added successfully !!");
+                    }else{
+                      alert("Something went wrong");
+                   }
                 }
-            )
-        })
+            }else{
+                alert("coupon intervel can be 6 months or 12 months");
+            }
+        }    
+      }
+      catch(err){
+        var parseResponse = await JSON.parse(err);
+        var msg = await parseResponse.error.details[0].message.split(":")[1]
+        alert(msg);
+      }
+    }      
+      
     }
 })

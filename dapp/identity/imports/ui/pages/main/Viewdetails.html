@@ -10,11 +10,11 @@
             <div id="create-section">
                 <div class="createdata">
                     <label>interest rate</label>
-                    <input type="text" id="rate"/>
+                    <input type="text" id="rate" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
                     <label>period</label>
-                    <input type="text" id="period"/>                      
+                    <input type="text" id="period" maxlength="2" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>                      
                     <label>description</label>
-                    <input type="text" id="desc"/>
+                    <input type="text" id="desc" maxlength="250"/>
                     <div class="createpropt">
                         <button class="buttonpropt" id="create">create loan</button>
                     </div>
@@ -23,9 +23,8 @@
           <div id="accept-section">
                 <div class="acceptdata">
                     <label>loan id</label>
-                    <input type="text" id="acceptid"/>
+                    <input type="text" id="acceptid" maxlength="5" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
                     <div class="createpropt">
-                        <button class="buttonpropt" id="accept">accept payment</button>
                         <button class="buttonpropt" id="default">check default</button>
                         <button class="buttonpropt" id="auction">check auction</button>
                     </div>
@@ -38,12 +37,12 @@
                     <div class="mainhead">income per month</div>
                     <div class="mainhead">loan amount</div>
                     <div class="mainhead">status</div>
-                    <div class="mainhead">action</div>
             </div>
             <div class="listofuser" id="listofuser">
 
             </div>
             <div class="data" id="data">
+                    <div class="mainhead">borrower name</div>
                     <div class="mainhead">approved amount</div>
                     <div class="mainhead">due amount</div>
                     <div class="mainhead">final due date</div>

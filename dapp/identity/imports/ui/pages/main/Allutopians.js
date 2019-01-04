@@ -67,7 +67,7 @@ Template.allutopians.onCreated(function () {
     });
 });
 Template.allutopians.events({
-    "submit .search": function (event) {
+    "submit .search":async function (event) {
     event.preventDefault();
     document.getElementById("profile-container").innerHTML ="";
     var text = event.target.identity.value;

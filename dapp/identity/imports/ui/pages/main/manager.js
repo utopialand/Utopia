@@ -39,29 +39,22 @@ Template.App_manager.onCreated(function() {
         const eos = scatter.eos(network, Eos, eosOptions);
         if (scatter.identity) {
           eosinstance = eos;     
-          await eosinstance.getTableRows({
+          winnerresults = await eosinstance.getTableRows({
             code: "voteproposal",
             scope: "voteproposal",
             table: "result13",
             limit: 50,
             json: true
-          })
-          .then(resp => {
-            winnerresults =  resp; 
-            console.log("winner response!!==>", winnerresults);
           });
-          await eosinstance
-            .getTableRows({
+          tabledata = await eosinstance.getTableRows({
               code: "voteproposal",
               scope: "voteproposal",
               table: "proposal11",
               limit: 50,
               json: true
-            })
-            .then(resp => {
-              tabledata = resp;
-              document.getElementById("result-container").style.display =
-                "none";
+            });
+            if(tabledata){
+              document.getElementById("result-container").style.display ="none";
               console.log("tabledata--", tabledata);
               document.getElementById("manager-proposal-group").innerHTML = "";
               console.log("table data after rendering", tabledata);
@@ -100,17 +93,15 @@ Template.App_manager.onCreated(function() {
                   "</div>";
                 }
               }
-            });
-          await eosinstance
-            .getTableRows({
+            };
+            userdata = await eosinstance.getTableRows({
               code: "identityreg1",
               scope: "identityreg1",
               table: "citizen3",
               limit: 50,
               json: true
-            })
-            .then(resp => {
-              userdata = resp;
+            });
+            if(userdata){
               console.log("users==><",userdata);
               if (document.getElementById("userList")) {
                 for (var i = 0; i < userdata.rows.length; i++) {
@@ -132,66 +123,43 @@ Template.App_manager.onCreated(function() {
                 }
               }
               document.getElementById("userList").style.display = "none";
-            });
+            };
 
-          await eosinstance
-            .getTableRows({
+            budgetprop = await eosinstance.getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
               table: "proposal13",
               limit: 50,
               json: true
-            })
-            .then(resp => {
-              budgetprop = resp;
             });
-          await eosinstance
-            .getTableRows({
+            budgetpropstart = await eosinstance.getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
               table: "votestat",
               limit: 50,
               json: true
-            })
-            .then(resp => {
-              budgetpropstart = resp;
-              console.log("votestat==>",budgetpropstart)
             });
-
-          await eosinstance
+            propentry = await eosinstance
             .getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
               table: "feature112",
               limit: 50,
               json: true
-            })
-            .then(resp => {
-              propentry = resp;
-              console.log("propentry-----", resp);
-              console.log(propentry);
             });
-
-           await eosinstance.getTableRows({
+            bonddata = await eosinstance.getTableRows({
               code: "bondborrower",
               scope: "bondborrower",
               table: 'bonddetail33',
               limit: 50,
               json: true,
-          }).then((resp)=>{
-              bonddata=resp;
           });
-          await eosinstance
-            .getTableRows({
+          resultdata = await eosinstance.getTableRows({
               code: "propbudget11",
               scope: "propbudget11",
               table: "votes111",
               limit: "50",
               json: true
-            })
-            .then(response => {
-              resultdata = response;
-              console.log("votes11>><< = ",resultdata);
             });
         } else {
           FlowRouter.go("/");
@@ -202,8 +170,6 @@ Template.App_manager.onCreated(function() {
     }
   });
 });
-
-Template.App_manager.onRendered(async function() {});
 
 Template.App_manager.events({
   "click #userDetails": function() {
@@ -233,12 +199,12 @@ Template.App_manager.events({
     let contract = await eosinstance.contract("identityreg1");
     console.log("===", contract);
     try {
-      let res = await contract.addcitizen(userName,"identityreg1", {
-        authorization: "identityreg1"
-      });
+      let result = await contract.addcitizen(userName,"identityreg1", {authorization: "identityreg1" });
       alert("citizenship approved !!!!");
     } catch (err) {
-      console.log("----", err);
+        var parseResponse = await JSON.parse(err);
+        var msg = await parseResponse.error.details[0].message.split(":")[1]
+        alert(msg);
     }
   },
   "click .disapproved-button": async function() {
@@ -258,7 +224,9 @@ Template.App_manager.events({
       });
       alert("proposal is successfully removed!!!");
     } catch (err) {
-      console.log("----", err);
+      var parseResponse = await JSON.parse(err);
+      var msg = await parseResponse.error.details[0].message.split(":")[1]
+      alert(msg);
     }
   },
   "click .declare-result-button":async function(){
@@ -286,6 +254,7 @@ Template.App_manager.events({
 
   },
   "click #budgetButton": async function() {
+    console.log("propentry.rows.length==>",propentry);
     console.log("propentry.rows.length==>",propentry.rows.length);
     if (propentry.rows.length != 0) {
       console.log("propentry.value===>", propentry);
@@ -601,7 +570,7 @@ Template.App_manager.events({
     "<div class='bond-form'><label>bond id</label><input type='text' id='bondid'/>"
     + "</div>"+" <div class='createbutton'><button class='buttonbond' id ='submitid'>Submission</button></div>";
   },
-  "click #submitid": function() {    
+  "click #submitid":async function() {    
               document.getElementById("userList").style.display = "none";
               document.getElementById("proposalList").style.display = "none";
               bondid=$("#bondid").val();
@@ -613,7 +582,7 @@ Template.App_manager.events({
                   for(var j=0; j<bonddata.rows[iip].bondholders.length; j++){
                     var bondholder = bonddata.rows[iip].bondholders[j]; 
                     var username = localStorage.getItem("username");
-                    eosinstance.getTableRows({
+                    await eosinstance.getTableRows({
                           code: "bondborrower",
                           scope: bondholder,
                           table: "buyerdata33",
@@ -639,58 +608,56 @@ Template.App_manager.events({
     
    
   },
-  "click #getcoupon": function() {
+  "click #getcoupon":async function() {
     var num;
     var username = localStorage.getItem("username");
-    eosinstance.contract("bondborrower").then(bondborrow => {
-      bondborrow.getcoupon(couponid,{
-          authorization: username
-        })
-        .then(response => {
-          if (response) {
-            for (var i = 0; i < bonddata.rows.length; i++) {
-              if(bonddata.rows[i].id == bondid){
-                couponid=bonddata.rows[i].id;
-                num=i;
-                for(var j=0; j<bonddata.rows[i].bondholders.length; j++){
-                  var bondholder = bonddata.rows[i].bondholders[j]; 
-                  eosinstance.getTableRows({
-                        code: "bondborrower",
-                        scope: bondholder,
-                        table: "buyerdata33",
-                        limit: 50,
-                        json: true
-                      })
-                .then(resp => {
-                  buyerdata = resp;
-
-                  for(var k=0;k<buyerdata.rows.length;k++){
-                    if(buyerdata.rows[k].id==couponid){
-                      var datearr = buyerdata.rows[k].returningdate[buyerdata.rows[k].returningdate.length-1];
-                      console.log(buyerdata.rows[k].returningdate.length,"dataarr--",k)
-                      if (buyerdata.rows[k].returningdate.length-1 == bonddata.rows[k].maturitycount){
-                      
-                       count++;
-                       if(count==bonddata.rows[k].bondholders.length){
-                         alert("-payement----successfull---");       
-                       }              
-                      }else if (buyerdata.rows[k].returningdate.length-1 < bonddata.rows[k].maturitycount){
-                      
-                          alert("--time remain--");  
-                                        
-                      }  
-                    }
-                  }
-                                                      
-                });
+    let bondborrower = await eosinstance.contract('bondborrower');
+                if(bondborrower)
+                {
+                  let result = await  bondborrower.getcoupon(couponid,{authorization: username});
+                     if(result){
+                      for (var i = 0; i < bonddata.rows.length; i++) {
+                        if(bonddata.rows[i].id == bondid){
+                          couponid=bonddata.rows[i].id;
+                          num=i;
+                          for(var j=0; j<bonddata.rows[i].bondholders.length; j++){
+                            var bondholder = bonddata.rows[i].bondholders[j]; 
+                            await eosinstance.getTableRows({
+                                  code: "bondborrower",
+                                  scope: bondholder,
+                                  table: "buyerdata33",
+                                  limit: 50,
+                                  json: true
+                                })
+                          .then(resp => {
+                            buyerdata = resp;
+          
+                            for(var k=0;k<buyerdata.rows.length;k++){
+                              if(buyerdata.rows[k].id==couponid){
+                                var datearr = buyerdata.rows[k].returningdate[buyerdata.rows[k].returningdate.length-1];
+                                console.log(buyerdata.rows[k].returningdate.length,"dataarr--",k)
+                                if (buyerdata.rows[k].returningdate.length-1 == bonddata.rows[k].maturitycount){
+                                
+                                 count++;
+                                 if(count==bonddata.rows[k].bondholders.length){
+                                   alert("-payement----successfull---");       
+                                 }              
+                                }else if (buyerdata.rows[k].returningdate.length-1 < bonddata.rows[k].maturitycount){
+                                
+                                    alert("--time remain--");  
+                                                  
+                                }  
+                              }
+                            }
+                                                                
+                          });
+                          }
+                        }      
+                    } 
+                    }else{
+                      alert("Something went wrong");
+                   }
                 }
-              }      
-          } 
-          } else {
-            alert("some problems!!!!");
-          }
-        });
-    });
   },
   "click #realestatemanager":function()
   {
@@ -722,7 +689,7 @@ Template.App_manager.events({
     document.getElementsByClassName("approved-property")[0].style.display = "flex";
   },
   
-  "click #add-property-btn":function()
+  "click #add-property-btn":async function()
   {
     console.log("add-property");
     var username = localStorage.getItem("username");
@@ -731,19 +698,31 @@ Template.App_manager.events({
     var description = $("#description").val();
     var propttype = $("#propttype").val();
     var area = $("#area").val();
-    eosinstance.contract('realstateutp').then(realstateutp => {
-      realstateutp.addproperty(proptname, address, description, propttype, area, { authorization: username }).then((response) => {
-          if (response) {
-              console.log("response to adding a property", response);
-              alert("adding property successfully");
-          } else {
-              alert("Unable to add property");
-          }
-
-      });
-  });
+    if((!proptname)||(!address)||(!description)||(!propttype)||(!area))
+    {
+      alert("please fill all the fields");
+    }
+    else{
+      try{
+        let realstateutp = await eosinstance.contract('realstateutp');
+        if(realstateutp)
+        {
+          let result = await  realstateutp.addproperty(proptname, address, description, propttype, area, { authorization: username });
+             if(result){
+              alert("property added successfully !!");
+            }else{
+              alert("Something went wrong");
+           }
+        }
+      }
+      catch(err){
+        var parseResponse = await JSON.parse(err);
+        var msg = await parseResponse.error.details[0].message.split(":")[1]
+        alert(msg);
+      }
+    }
   },
-  "click #add-land-proposal-btn":function()
+  "click #add-land-proposal-btn":async function()
   {
     console.log("create auction");
     
@@ -761,35 +740,63 @@ Template.App_manager.events({
     console.log("current time ->",currenttime);
     console.log("startdate",startdate);
     console.log("enddate",enddate);
-   
-    eosinstance.contract('realstateutp').then(realstateutp => {
-      realstateutp.landproposal(propid, username, currentprice, startdate, enddate, { authorization: username }).then((response) => {
-          if (response) {
-              console.log("response to creating land proposal", response);
-              alert("land proposal for bid created successfully");
-          } else {
-              alert("Unable to create land proposal");
-          }
+   if((!propid)||(!currentprice)||(!startdate)||(!enddate))
+   {
+      alert("please fill all the entries !!")
+   }
+   else{
 
-      });
-  });
+      try{
+          let realstateutp = await eosinstance.contract('realstateutp');
+          if(realstateutp)
+          {
+            let result = await realstateutp.landproposal(propid, username, currentprice, startdate, enddate, { authorization: username });
+            if(result)
+            {
+              alert("auction created successfully for bidding")
+            }
+            else{
+              alert("Something went wrong");
+            }
+          }
+      }
+      catch(err)
+      {
+        var parseResponse = await JSON.parse(err);
+        var msg = await parseResponse.error.details[0].message.split(":")[1]
+        alert(msg);
+      }
+   }
   },
-  "click #approved-property-btn":function()
+  "click #approved-property-btn":async function()
   {
     console.log("approved click");
     
     var username = localStorage.getItem("username");
     var approvedid = $("#approvedid").val();
-    eosinstance.contract('realstateutp').then(realstateutp => {
-      realstateutp.approvedprop(approvedid , { authorization: username }).then((response) => {
-          if (response) {
-              console.log("response to creating land proposal", response);
-              alert("property approved successfully");
-          } else {
-              alert("Unable to approved");
+    if(!approvedid)
+    {
+      alert("please provide property ID");
+    }
+    else{
+      try{
+          let realstateutp = await eosinstance.contract('realstateutp');
+          if(realstateutp)
+          {
+           let result = await realstateutp.approvedprop(approvedid , { authorization: username })
+           if(result){
+              alert("property approved successfully to highest bidder");
+          }else{
+              alert("Something went wrong");
+           }
           }
-      });
-  });
+        } 
+        catch(err){
+        var parseResponse = await JSON.parse(err);
+        var msg = await parseResponse.error.details[0].message.split(":")[1]
+        alert(msg);
+      }
+    }
   }
 
 });

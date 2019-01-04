@@ -13,29 +13,80 @@ const network = {
 const eosOptions = {
   chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
-var manager=["propbudget11","identityreg1","realstateutp"];
+var userdetail;
+var scatter={};
+let manager;
 Template.header.onCreated(function() {
-    console.log("onCreated");
+    
+    var username=localStorage.getItem("username");
+    
   ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
+      
       if (ScatterJS.scatter.connect("utopia")) {
         scatter = ScatterJS.scatter;
         const requiredFields = { accounts: [network] };
         const eos = scatter.eos(network, Eos, eosOptions);
           if (scatter.identity) {
-            console.log("iden")
-            eosinstance = eos;
-            var username=localStorage.getItem("username");
-           console.log("wlcm---",username);
-          if(username ==manager[0] || username ==manager[1] || username== manager[2]){
-            document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-            document.getElementById("managerText").style.display = "block";
-          }else{
-            document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-            document.getElementById("managerText").style.display = "none";
-               }  
+            console.log("iden");
+            await eos.getTableRows({
+              code: "utpmanager11",
+              scope: "utpmanager11",
+              table: "manager111",
+              limit: 50,
+              json: true
+            }).then((resp)=>{
+               manager=resp.rows;
+               console.log("man---",manager);
+            })
+            await eos.getTableRows({
+              code: "identityreg1",
+              scope: "identityreg1",
+              table: "identity3",
+              limit: 50,
+              json: true
+            }).then((resp) => {
+              userdetail = resp;
+              console.log("user---", userdetail);
+              var countman=0;
+            for(var i=0;i<manager.length;i++){
+              if(manager[i].user==username){
+                countman++;
+              }
+            }
+            if(countman == 1){
+              document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+              document.getElementById("managerText").style.display = "block";
+              document.getElementById("len").style.display = "block";
+              document.getElementById("coupon").style.display = "block";
+              var s = document.getElementById("len").setAttribute("value", "manager");
+            }else{
+              var countuserid=0;
+              for(var i=0;i<userdetail.rows.length;i++){
+                if(userdetail.rows[i].username==username){
+                  countuserid++;
+                }
+              }
+              if(countuserid == 1){
+                console.log("count1");
+                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+                document.getElementById("managerText").style.display = "none";
+                document.getElementById("len").style.display = "block";
+                document.getElementById("coupon").style.display = "block";
+                var s = document.getElementById("len").setAttribute("value", "userid");
+              }else{
+                console.log("count2");
+                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+                document.getElementById("managerText").style.display = "none";
+                var s = document.getElementById("len").setAttribute("value", "user");
+                document.getElementById("len").style.display = "none";
+                document.getElementById("coupon").style.display = "none";
+              }
+            }
+            });
+          
           } else {
-            console.log("idennot")
+            
             FlowRouter.go("/");
             document.getElementsByClassName("identitySectionman")[0].style.display = "none";
           }
@@ -46,21 +97,18 @@ Template.header.onCreated(function() {
   });
 });
 
+
 Template.header.events({
     "click .proposal": function(){
-        console.log("proposal link was clicked");
         FlowRouter.go("/proposal");
     },
     "click .logo": function(){
-        console.log("logo was clikced");
         FlowRouter.go("/");
     },
     "click .identityText": function(){
-        console.log("identity text was clicked");
         FlowRouter.go("/identity");
     },
     "click .managerText": function(){
-        console.log("manager");
         FlowRouter.go("/manager");
     },
     "click .business-link": function(){
@@ -80,10 +128,21 @@ Template.header.events({
             }else if(val =="manager"){
               console.log("enter man");
               FlowRouter.go("/viewdetail");
-            } else{
-              console.log("enter else");
-              FlowRouter.go("/");
-            }        
+            }       
 
-    }
+    },
+    "click .coupon": function(){
+      var val=document.getElementById("len").getAttribute("value");
+    console.log( document.getElementById("len").getAttribute("value"),"loan",localStorage.getItem("username"));
+        if(val=="userid")
+        {
+          console.log("enter");
+          FlowRouter.go("/buybond");
+        }else if(val =="manager"){
+          console.log("enter man");
+          FlowRouter.go("/createbond");
+        }      
+
+
+    },
 });

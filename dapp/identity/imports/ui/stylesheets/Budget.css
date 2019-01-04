@@ -19,23 +19,32 @@
 }
 .large {
   width: 100%;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   color: white;
 }
+.large h1{
+  color:white;
+}
 .medium {
   width: 100%;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   /* color: white; */
 }
+.medium h1{
+  color:white;
+}
 .small {
   width: 100%;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
+  color: white;
+}
+.small h1{
   color: white;
 }
 .largelist {
@@ -76,6 +85,7 @@
 }
 
 .budgetpropbutton {
+  display:none;
   flex:1;
   margin-left:5%;
   width: 300px;
@@ -84,11 +94,13 @@
   background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
   color: white;
   text-transform: uppercase;
+  justify-content: center;
   text-align: center;
   font-weight: bold;
   cursor: pointer;
 }
 .stvvotingpage {
+  display:none;
   flex:1;
   margin-left:5%;
   width: 300px;
@@ -98,10 +110,12 @@
   color: white;
   text-transform: uppercase;
   text-align: center;
+  justify-content: center;
   font-weight: bold;
   cursor: pointer;
 }
 .stvresultpage {
+  display:none;
   flex:1;
   width: 300px;
   height: 50px;
@@ -109,6 +123,7 @@
   background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
   color: white;
   text-transform: uppercase;
+  justify-content: center;
   text-align: center;
   font-weight: bold;
   cursor: pointer;

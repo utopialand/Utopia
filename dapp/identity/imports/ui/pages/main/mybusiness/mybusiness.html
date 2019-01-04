@@ -2,6 +2,13 @@
     
     <div class="mybusiness-container">
         <h1>my business</h1>
+
+        {{#if isLoadingMyBusinessList}}
+        <div class="spinner">
+            {{>spinner}}
+        </div>
+        {{myBusinessList}}
+        {{else}}
         {{#if myBusinessList.length}}
         {{#each myBusinessList}}
         
@@ -17,6 +24,8 @@
         <div class = "no-business"><p>you currently don't own a business</p></div>
         
         {{/if}}
+        {{/if}}
+        
     </div>
     {{>App_footer}}
 </template>

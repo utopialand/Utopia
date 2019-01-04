@@ -1,6 +1,9 @@
 <template name="budget_app">
   <div class="identity-container">
     <div class="holder">
+      <div class = "waitingData">
+        {{> spinner}}
+      </div>
       <div class="holder-buttons">
         <button class="stvresultpage" id="stvresultpage">
           show all stv result
@@ -8,7 +11,7 @@
         <button class="stvvotingpage" id="stvvotingpage">
           go for stv voting
         </button>
-        <button class="budgetpropbutton">Create new budget proposal</button>
+        <button class="budgetpropbutton" id = "budgetpropbutton">Create new budget proposal</button>
       </div>
       <div class="large">
         <h1>Upper budget</h1>

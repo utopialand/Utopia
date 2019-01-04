@@ -90,7 +90,7 @@ CONTRACT realestate : public contract
     };
 
   private:
-    typedef eosio::multi_index<"identity2"_n, identityt> identity_table;
+    typedef eosio::multi_index<"identity3"_n, identityt> identity_table;
     typedef multi_index<"proptlist1"_n, proptlist> proptlist_table;
     typedef multi_index<"bidtable1"_n, bidtable> bid_table;
     typedef multi_index<"properties1"_n, properties> properties_table;

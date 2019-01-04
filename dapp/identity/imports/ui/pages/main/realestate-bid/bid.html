@@ -1,7 +1,12 @@
 <template name = "App_real_estate_bid">
     <div class="real-estate-bid-container">
         <h1>Properties for auction</h1>
-
+        {{#if isLoadingPropertyForAuction}}
+        <div class="spinner">
+            {{>spinner}}
+        </div>
+        {{allPropertyForAuction}}
+        {{else}}
         {{#if allPropertyForAuction.length}}
         <div class="property-list">
             {{#each allPropertyForAuction}}
@@ -10,7 +15,7 @@
                 <div class="owner">Highest Bidder : {{currentOwner}}</div>
                 <div class="price">Current Bid : {{currentprice}}</div>
                 <div class="house"></div>
-                <input type = "text" id = "bidpropertyfield-{{id}}" class = "bidpropertyfield" placeholder="format(0.0000 UTP)"/>
+                <input type = "text" id = "bidpropertyfield-{{id}}" class = "bidpropertyfield" placeholder="Enter UTP Value" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"/>
                 <button id = "bidpropertyid-{{id}}" class = "bid-btn">bid</button>
                 <button class = "property-details-btn" id = "bid-prop-{{id}}">property details</button>
             </div>
@@ -21,6 +26,8 @@
             <p>No properties to bid</p>
         </div>
         {{/if}}
+        {{/if}}
+        
     </div>
     {{>App_footer}}
 </template>

@@ -19,74 +19,71 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
+Session.set("isLoadingMyProperty", true);
+Session.set("isLoadingRequests", true);
 
-function getBuyPropertyRequest() {
-    ScatterJS.scatter.connect('utopia').then((connected) => {
-        if (connected) {
-            if (ScatterJS.scatter.connect('utopia')) {
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                eosinstance = eos;
-                var username = localStorage.getItem("username");
-                if (scatter.identity) {
-                    eos.getTableRows({
-                        code: "realstateutp",
-                        scope: "realstateutp",
-                        table: "reqbuyertb11",
-                        limit: "50",
-                        json: true,
-                    }).then((response) => {
-                        console.log("response of requests", response);
-                        var requestsToMe = [];
-                        var requestsByMe = [];
+async function getBuyPropertyRequest() {
 
-                        for(var i = 0;i<response.rows.length;i++){
-                            if(username == response.rows[i].buyername){
-                                requestsByMe.push(response.rows[i]);
-                            }
-                            if(username == response.rows[i].reqowner){
-                                requestsToMe.push(response.rows[i]);
-                            }
-                        }
+    var connected = await ScatterJS.scatter.connect("utopia");
+    if (connected) {
+        scatter = ScatterJS.scatter;
+        const requiredFields = { accounts: [network] };
+        const eos = scatter.eos(network, Eos, eosOptions);
+        eosinstance = eos;
+        var username = localStorage.getItem("username");
 
-                        console.log("requests to me", requestsToMe);
-                        console.log("requests by me", requestsByMe);
-                        Session.set("requestsToMe", requestsToMe);
-                        Session.set("requestsByMe", requestsByMe);
-                    });
-                }
-                else {
-                    FlowRouter.go("/");
-                }
+        var requestTb = await eos.getTableRows({
+            code: "realstateutp",
+            scope: "realstateutp",
+            table: "reqbuyertb11",
+            limit: "50",
+            json: true,
+        });
+
+        var requestsToMe = [];
+        var requestsByMe = [];
+        
+        for (var i = 0; i < requestTb.rows.length; i++) {
+            if (username == requestTb.rows[i].buyername) {
+                requestsByMe.push(requestTb.rows[i]);
+            }
+            if (username == requestTb.rows[i].reqowner) {
+                requestsToMe.push(requestTb.rows[i]);
             }
         }
-    });
+
+        Session.set("requestsToMe", requestsToMe);
+        Session.set("requestsByMe", requestsByMe);
+        Session.set("isLoadingRequests", false);
+    }
+    else {
+        console.log("scatter not installed");
+    }                    
 }
 
-function getMyPropertyList() {
+async function getMyPropertyList() {
 
     scatter = ScatterJS.scatter;
     const requiredFields = { accounts: [network] };
     const eos = scatter.eos(network, Eos, eosOptions);
-    eos.getTableRows({
+
+    var propertyTb = await eos.getTableRows({
         code: "realstateutp",
         scope: "realstateutp",
         table: "properties1",
         limit: "50",
         json: true,
-    }).then((response) => {
-        console.log("response ", response);
-        var data = [];
-        var username = localStorage.getItem("username");
-        for(var i=0;i<response.rows.length;i++){
-            if(username == response.rows[i].owner){
-                data.push(response.rows[i]);
-            }
-        }
-        console.log("response of my property", data);
-        Session.set("myPropertyList", data);
     });
+
+    var data = [];
+    var username = localStorage.getItem("username");
+    for (var i = 0; i < propertyTb.rows.length; i++) {
+        if (username == propertyTb.rows[i].owner) {
+            data.push(propertyTb.rows[i]);
+        }
+    }
+    Session.set("myPropertyList", data);
+    Session.set("isLoadingMyProperty", false);
 }
 
 Template.App_real_estate_manager.helpers({
@@ -98,8 +95,16 @@ Template.App_real_estate_manager.helpers({
         getMyPropertyList();
         return Session.get("myPropertyList");
     },
-    propertyRequestByMe(){
+    propertyRequestByMe() {
         return Session.get("requestsByMe");
+    },
+    isLoadingMyProperty(){
+        console.log("isLoadingMyProperty",Session.get("isLoadingMyProperty"));
+        return Session.get("isLoadingMyProperty");
+    },
+    isLoadingRequests(){
+        console.log("isLoadingRequests",Session.get("isLoadingRequests"));
+        return Session.get("isLoadingRequests");
     }
 });
 
@@ -107,79 +112,84 @@ Template.App_real_estate_manager.events({
     "click .accept-btn": async function (e) {
         var id = e.target.id.split("-")[1];
         var username = localStorage.getItem("username");
-        try{
+        try {
             let realstateutp = await eosinstance.contract('realstateutp');
-            if(realstateutp){
+            if (realstateutp) {
                 let accept_req = await realstateutp.accbuyerreq(id, username, { authorization: username });
-                if(accept_req){
+                if (accept_req) {
                     alert("You accepted the request");
                 }
             }
-        }catch(err){
+        } catch (err) {
             var parseResponse = JSON.parse(err);
             var msg = parseResponse.error.details[0].message.split(":")[1];
             alert(msg);
         }
     },
     "click .reject-btn": async function (e) {
-        
+
         var id = e.target.id.split("-")[1];
         var username = localStorage.getItem("username");
 
-        try{
+        try {
             let realstateutp = await eosinstance.contract('realstateutp');
-            if(realstateutp){
+            if (realstateutp) {
                 let reject_req = await realstateutp.rejbuyerreq(id, { authorization: username });
-                if(reject_req){
+                if (reject_req) {
                     alert("request rejected");
                 }
             }
-        }catch(err){
+        } catch (err) {
             var parseResponse = JSON.parse(err);
             var msg = parseResponse.error.details[0].message.split(":")[1];
             alert(msg);
         }
     },
-    "click .modifypricebtn": async function(e){
+    "click .modifypricebtn": async function (e) {
         console.log("id ", e.target.id);
         var id = e.target.id.split("-")[1];
-        var fieldid = "#modifypricefield-"+ id;
+        var fieldid = "#modifypricefield-" + id;
         var utpvalue = $(fieldid).val();
-        console.log("utpvalue ", utpvalue);
-        var username = localStorage.getItem("username");
-        
-        try{
-            let realstateutp = await eosinstance.contract('realstateutp');
-            if(realstateutp){
-                let modify_price = await realstateutp.modifyprice(id,utpvalue, { authorization: username });
-                if(modify_price){
-                    alert("price modified");
+        if (!utpvalue) {
+            alert("Enter UTP in format 0.0000 UTP");
+        } else {
+            console.log("utpvalue ", utpvalue);
+            var username = localStorage.getItem("username");
+
+            try {
+                let realstateutp = await eosinstance.contract('realstateutp');
+                if (realstateutp) {
+                    let modify_price = await realstateutp.modifyprice(id, utpvalue, { authorization: username });
+                    if (modify_price) {
+                        alert("price modified");
+                    }
                 }
+            } catch (err) {
+                var parseResponse = JSON.parse(err);
+                var msg = parseResponse.error.details[0].message.split(":")[1];
+                alert(msg);
             }
-        }catch(err){
-            var parseResponse = JSON.parse(err);
-            var msg = parseResponse.error.details[0].message.split(":")[1];
-            alert(msg);
         }
+
     },
-    "click .property-details-btn": function(e){
+    "click .property-details-btn": function (e) {
         var id = e.target.id.split("-")[2];
-        FlowRouter.go("/realestate/"+id);
+        FlowRouter.go("/realestate/" + id);
     },
-    "click .cancel-req-btn": async function(e){
+    "click .cancel-req-btn": async function (e) {
         var username = localStorage.getItem("username");
         var id = e.target.id.split("-")[2];
 
-        try{
+        try {
             let realstateutp = await eosinstance.contract('realstateutp');
-            if(realstateutp){
+            if (realstateutp) {
                 var cancel_req = await realstateutp.cancelbuyreq(id, { authorization: username });
 
-                if(cancel_req){
+                if (cancel_req) {
                     alert("You cancelled the request");
                 }
             }
-        }catch(err){
+        } catch (err) {
             var parseResponse = JSON.parse(err);
             var msg = parseResponse.error.details[0].message.split(":")[1];
             alert(msg);

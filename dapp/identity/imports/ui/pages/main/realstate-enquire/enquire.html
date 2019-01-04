@@ -1,16 +1,32 @@
 <template name = "App_realestate_enquire">
     <div class="real-estate-enquire">
         <h1>details</h1>
+        {{#if isLoadingDetails}}
+        <div class="spinner">
+            {{>spinner}}
+        </div>
+        {{getAProperty}}
+        {{else}}
+        {{#if getAProperty.length}}
+        {{#each getAProperty}}
         <div class="real-estate-details">
-            {{#each getAProperty}}
+            
                 <div>Property ID: {{id}}</div>
                 <div>Property Name : {{proptname}}</div>
                 <div>Address : {{address}}</div>
                 <div>Description: {{description}}</div>
                 <div>Area : {{area}}</div>
                 <div>Type : {{propttype}}</div>
-            {{/each}}
+            
         </div>
+        {{/each}}
+        {{else}}
+        <div class="no-business">
+            <p>No such property in utopia</p>
+        </div>
+        {{/if}}
+        {{/if}}
+        
         
     </div>
 </template>

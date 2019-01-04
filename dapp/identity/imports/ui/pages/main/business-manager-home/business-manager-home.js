@@ -8,7 +8,7 @@ import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs'
 
-ScatterJS.plugins( new ScatterEOS() );
+ScatterJS.plugins(new ScatterEOS());
 
 const network = {
     protocol: "https", // Defaults to https
@@ -23,92 +23,84 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
+Session.set("isLoadingBusinessList", true);
 
-function getAllBusinessList(){
-    ScatterJS.scatter.connect('utopia').then((connected) => {
-        if (connected) {
-            if (ScatterJS.scatter.connect('utopia')) {
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                eosinstance = eos;
-                if (scatter.identity) {
-                    eos.getTableRows({
-                        code: "utopbusiness",
-                        scope: "utopbusiness",
-                        table: "businesstb",
-                        limit: "50",
-                        json: true,
-                    }).then((response)=>{
-                        var allBusinessList = response.rows;
-                        Session.set("allBusinessList", allBusinessList);
-                    });
-                }
-                else{
-                    FlowRouter.go("/");
-                }
+async function getAllBusinessList() {
+
+    var connected = await ScatterJS.scatter.connect("utopia")
+
+    if (connected) {
+        scatter = ScatterJS.scatter;
+        const requiredFields = { accounts: [network] };
+        const eos = scatter.eos(network, Eos, eosOptions);
+        eosinstance = eos;
+
+        var businessList = await eos.getTableRows({
+            code: "utopbusiness",
+            scope: "utopbusiness",
+            table: "businesstb",
+            limit: "50",
+            json: true,
+        });
+
+        for (var i = 0; i < businessList.rows.length; i++) {
+            businessList.rows[i].token_maximum_supply =
+                businessList.rows[i].token_maximum_supply.split(" ")[1];
+        }
+
+        Session.set("allBusinessList", businessList.rows);
+        Session.set("isLoadingBusinessList", false);
+
+        var users = await eos.getTableRows({
+            code: "identityreg1",
+            scope: "identityreg1",
+            table: "identity3",
+            limit: 50,
+            json: true,
+        });
+
+        var username = localStorage.getItem("username");
+        for (var i = 0; i < users.rows.length; i++) {
+            if (users.rows[i].username == username) {
+                document.getElementsByClassName("exchange")[0].style.display = "flex";
+                break;
             }
         }
-    });
+    }
+    else {
+        console.log("scatter not installed");
+    }
 }
 
 Template.App_business_manager_home.helpers({
-    businessList(){
+    businessList() {
         getAllBusinessList();
-        console.log("all business list function ",Session.get("allBusinessList"));
         return Session.get("allBusinessList");
+    },
+    isLoadingBusinessList() {
+        return Session.get("isLoadingBusinessList");
     }
 });
 
 
 
 Template.App_business_manager_home.events({
-    "click .new-business": function(){
+    "click .new-business": function () {
         FlowRouter.go("/business/newbusiness");
     },
-    /* "click .loginbtn": function(){
-        if (!JSON.parse(localStorage.getItem("loginstatus"))) {
-            ScatterJS.scatter.connect('utopia').then(connected => {
-                if (!connected) return false;
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                scatter.getIdentity(requiredFields).then(() => {
-                    const acc = scatter.identity.accounts.find(x => x.blockchain === 'eos');
-                    const account = acc.name
-                    localStorage.setItem("username",account);
-                    console.log("inlogin ", account);
-                    localStorage.setItem("loginstatus",JSON.stringify(true));
-                    localStorage.setItem("username",account);
-                    document.getElementById("loginButton").innerHTML = "logout";
-                }).catch(error => {
-                    console.error(error);
-                });
-            });
-        } else {
-            console.log("2-----------------")
-            ScatterJS.scatter.forgetIdentity().then(() => {
-                localStorage.setItem("loginstatus",JSON.stringify(false));
-                console.log("----",localStorage.getItem("loginstatus"));
-                document.getElementById("loginButton").innerHTML = "login";
-                localStorage.setItem("username","");
-                console.log("logout");
-            });
-        }
-    }, */
-    "click .new-business": function(){
+    "click .new-business": function () {
         FlowRouter.go("/business/newbusiness");
     },
-    "click #allbusinessbtn": function(){
+    "click #allbusinessbtn": function () {
         FlowRouter.go("/business/allbusiness");
     },
-    "click #mybusinessbtn": function(){
+    "click #mybusinessbtn": function () {
         FlowRouter.go("/business/mybusiness");
     },
-    "click #exchangebtn": function(){
+    "click #exchangebtn": function () {
         FlowRouter.go("/business/exchange");
     },
-    "submit #search-form-business":async function(e){
+    "submit #search-form-business": async function (e) {
         e.preventDefault();
 
         var businessTable = await eosinstance.getTableRows({
@@ -122,19 +114,19 @@ Template.App_business_manager_home.events({
         var id;
         var serachResult = false;
         var searchTerm = $("#search-box-business").val();
-    
-        for(var i=0; i<businessTable.rows.length;i++){
-            if(searchTerm == businessTable.rows[i].businessname){
+
+        for (var i = 0; i < businessTable.rows.length; i++) {
+            if (searchTerm == businessTable.rows[i].businessname) {
                 id = businessTable.rows[i].company_id;
                 serachResult = true;
                 break;
             }
         }
 
-        if(serachResult){
-            FlowRouter.go("/business/allbusiness/"+id);
+        if (serachResult) {
+            FlowRouter.go("/business/allbusiness/" + id);
         }
-        else{
+        else {
             alert("No such business");
         }
     }

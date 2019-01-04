@@ -6,7 +6,7 @@ import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
 
-ScatterJS.plugins( new ScatterEOS() );
+ScatterJS.plugins(new ScatterEOS());
 
 const network = {
     protocol: "https", // Defaults to https
@@ -21,78 +21,82 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
+Session.set("isLoadingAllPropertyToBuy", true);
 
-function getAllPropertyToBuy(){
-    ScatterJS.scatter.connect('utopia').then((connected) => {
-        if (connected) {
-            if (ScatterJS.scatter.connect('utopia')) {
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                eosinstance = eos;
-                if (scatter.identity) {
-                    eos.getTableRows({
-                        code: "realstateutp",
-                        scope: "realstateutp",
-                        table: "properties1",
-                        limit: "50",
-                        json: true,
-                    }).then((response)=>{
-                        Session.set("allPropertyToBuy", response.rows);
-                    });                  
-                }
-                else{
-                    FlowRouter.go("/");
-                }
-            }
-        }
-    });
+async function getAllPropertyToBuy() {
+
+    var connected = await ScatterJS.scatter.connect("utopia");
+
+    if (connected) {
+        scatter = ScatterJS.scatter;
+        const requiredFields = { accounts: [network] };
+        const eos = scatter.eos(network, Eos, eosOptions);
+        eosinstance = eos;
+
+        var propertyTb = await eos.getTableRows({
+            code: "realstateutp",
+            scope: "realstateutp",
+            table: "properties1",
+            limit: "50",
+            json: true,
+        });
+        Session.set("allPropertyToBuy", propertyTb.rows);
+        Session.set("isLoadingAllPropertyToBuy", false);
+    }
+    else {
+        console.log("Scatter not installed");
+    }
+    
 }
 
 Template.App_real_estate_buy.helpers({
-    allPropertyToBuy(){
+    allPropertyToBuy() {
         getAllPropertyToBuy();
-        console.log("All propt to buy", Session.get("allPropertyToBuy"));
         return Session.get("allPropertyToBuy");
+    },
+    isLoadingAllPropertyToBuy() {
+        console.log("isLoadingAllPropertyToBuy", Session.get("isLoadingAllPropertyToBuy"));
+        return Session.get("isLoadingAllPropertyToBuy");
     }
 });
 
 Template.App_real_estate_buy.events({
-    "click .buy-btn": async function(e){
-
-
+    "click .buy-btn": async function (e) {
         var id = e.target.id.split("-")[1];
         var username = localStorage.getItem("username");
-        var tokenfield = "#buypropertyfield-"+id;
+        var tokenfield = "#buypropertyfield-" + id;
         var utpvalue = $(tokenfield).val();
+        console.log("utpvalue", utpvalue);
         var to = "rsdeposite11";
+        if (!utpvalue) {
+            alert("Enter UTP in format 0.0000 UTP");
+        } else {
+            try {
+                let realstateutp = await eosinstance.contract('realstateutp');
+                let utopbusiness = await eosinstance.contract("utopbusiness");
 
-        try{
-            let realstateutp = await eosinstance.contract('realstateutp');
-            let utopbusiness = await eosinstance.contract("utopbusiness")
-
-            if(realstateutp)
-            {
-                let result = await realstateutp.reqbuypropt(id, username, utpvalue, { authorization: username });
-                if(result){
-                    let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "i want to buy this", { authorization: username });
-                    if(transfer_result){
-                        alert("buy request sent to owner");
-                    }else{
-                        alert("Something went wrong");
+                if (realstateutp) {
+                    let result = await realstateutp.reqbuypropt(id, username, utpvalue, { authorization: username });
+                    if (result) {
+                        let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "i want to buy this", { authorization: username });
+                        if (transfer_result) {
+                            alert("buy request sent to owner");
+                        } else {
+                            alert("Something went wrong");
+                        }
                     }
                 }
+            } catch (err) {
+                var parseResponse = await JSON.parse(err);
+                var msg = await parseResponse.error.details[0].message.split(":")[1]
+                alert(msg);
             }
-        } catch(err)
-        {
-            var parseResponse = JSON.parse(err);
-            var msg = parseResponse.error.details[0].message.split(":")[1]
-            alert(msg);
         }
-        
+
+
     },
-    "click .property-details-btn": function(e){
+    "click .property-details-btn": function (e) {
         var id = e.target.id.split("-")[2];
-        FlowRouter.go("/realestate/"+id);
+        FlowRouter.go("/realestate/" + id);
     }
 });

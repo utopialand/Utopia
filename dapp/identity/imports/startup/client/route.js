@@ -31,11 +31,13 @@ import "../../ui/pages/main/realestate/realestate.js";
 import "../../ui/pages/main/realstate-enquire/enquire.js";
 import "../../ui/pages/main/realestate-manage/manage.js";
 import "../../ui/pages/main/realestate-bid/bid.js";
-import "../../ui/pages/main/Allutopians.js"
-import "../../ui/pages/main/lender.js"
+import "../../ui/pages/main/Allutopians.js";;
+import "../../ui/pages/main/lender.js";
 import "../../ui/pages/main/realestate-buy/buy.js";
-
 import "../../ui/pages/main/Viewdetails.js"
+import "../../ui/pages/main/test/test.js"
+
+
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
@@ -90,14 +92,7 @@ FlowRouter.route('/newproposal', {
 FlowRouter.route('/manager', {
   name: "manager",
   action(){
-    var username = localStorage.getItem("username");
-    var manager=["propbudget11","identityreg1","realstateutp"];
-    if(username ==manager[0] || username ==manager[1] || username== manager[2]){
-      BlazeLayout.render('App_body', { main: 'App_manager'});
-    }else{
-      FlowRouter.go("/");
-    }
-    
+    BlazeLayout.render('App_body', { main: 'App_manager'});    
   }
 });
 
@@ -245,6 +240,7 @@ FlowRouter.route('/realestate/:id', {
       BlazeLayout.render('App_body', { main: 'App_realestate_enquire', id: id });
   }
 });
+
 FlowRouter.route('/lender', {
   name: 'lender',
   action() {
@@ -277,5 +273,12 @@ FlowRouter.route('/viewdetail', {
   name: 'viewdetail',
   action() {
     BlazeLayout.render('App_body', { main: 'viewdetail' });
+  }
+});
+
+FlowRouter.route('/test', {
+  name: 'App_test',
+  action() {
+    BlazeLayout.render('App_body', { main: 'App_test' });
   }
 });

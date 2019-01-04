@@ -53,7 +53,7 @@ Template.identity_reg.onCreated(function () {
 // Setup event handling.
 
 Template.identity_reg.events({
-    'click .register': function (event) {
+    'click .register':async function (event) {
         event.preventDefault();
         var firstname = $('#firstname').val();
         var midname = $('#midname').val();
@@ -63,18 +63,36 @@ Template.identity_reg.events({
         var phonenumber = $('#phonenumber').val();
         var email = $('#email').val();  
         var username = localStorage.getItem("username");
-        console.log("----", identityname);
-        eosinstance.contract('identityreg1').then(identityreg1 => {
-            console.log("----", eosinstance);
-            identityreg1.addidentity(username, identityname, dob, phonenumber, email,hash, { authorization: username }).then((response) => {
-                if (response) {
-                    FlowRouter.go("/reg-success");
-                } else {
-                    alert("identity is not registered !!!!");;
-                }
-            });
-
-        })
+        var atpos = email.indexOf("@");
+        var dotpos = email.lastIndexOf(".");
+        if((!firstname)||(!lastname)||(!dob)||(!phonenumber)||(!email))
+    {
+      alert("please fill all the fields");
+    }
+    else{
+      try{    
+        if (atpos<1 || dotpos<atpos+2 || dotpos+2>=email.length) {
+            alert("Not a valid e-mail address");
+            }  else{
+                let identityreg1 = await eosinstance.contract('identityreg1');
+                if(identityreg1)
+                {
+                  let result = await  identityreg1.addidentity(username, identityname, dob, phonenumber, email,hash, { authorization: username });
+                     if(result){
+                        FlowRouter.go("/reg-success");
+                    }else{
+                      alert("Something went wrong");
+                   }
+                }    
+            }
+                        
+      }
+      catch(err){
+        var parseResponse = await JSON.parse(err);
+        var msg = await parseResponse.error.details[0].message.split(":")[1]
+        alert(msg);
+      }
+    }    
     },
     'change #picture':function(e){
          picname = e.target.files[0];

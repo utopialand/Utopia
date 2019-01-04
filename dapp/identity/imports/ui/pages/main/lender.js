@@ -19,9 +19,11 @@ let viewdata;
 let propdata;
 var propid=[];
 let appdata;
+var dataid;
+var amount;
 var eosinstance;
 Template.lender.onCreated( function (){
-    ScatterJS.scatter.connect('utopia').then((connected) => {
+    ScatterJS.scatter.connect('utopia').then(async(connected) => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
                 scatter = ScatterJS.scatter;
@@ -29,7 +31,7 @@ Template.lender.onCreated( function (){
                 const eos = scatter.eos(network, Eos, eosOptions);
                 if (scatter.identity) {
                     eosinstance = eos;                  
-                     eosinstance.getTableRows({
+                    await eosinstance.getTableRows({
                       code: "utplendercon",
                       scope: "utplendercon",
                       table: 'loancatg113',
@@ -39,7 +41,7 @@ Template.lender.onCreated( function (){
                       loandata=resp;
                       console.log("loandata====>",loandata);  
                   });   
-                  eosinstance.getTableRows({
+                  await eosinstance.getTableRows({
                     code: "utplendercon",
                     scope: "utplendercon",
                     table: 'reqloan113',
@@ -49,7 +51,7 @@ Template.lender.onCreated( function (){
                     viewdata=resp;
                     console.log("details====>",viewdata);  
                 });     
-                  eosinstance.getTableRows({
+                  await eosinstance.getTableRows({
                     code: "utplendercon",
                     scope: "utplendercon",
                     table: 'collat111',
@@ -59,7 +61,7 @@ Template.lender.onCreated( function (){
                     colatdata=resp;
                     console.log("loandata====>",colatdata);  
                 });   
-                eosinstance.getTableRows({
+                 await eosinstance.getTableRows({
                     code: "realstateutp",
                     scope: "realstateutp",
                     table: 'properties1',
@@ -69,16 +71,16 @@ Template.lender.onCreated( function (){
                     propdata=resp;
                     console.log("realstate====>",propdata);  
                 }); 
-                eosinstance.getTableRows({
+                await eosinstance.getTableRows({
                     code: "utplendercon",
                     scope: "utplendercon",
-                    table: 'approved113',
+                    table: 'approved114',
                     limit: 50,
                     json: true,
                 }).then((resp)=>{
                     appdata=resp;
                     console.log("details====>",appdata);  
-                });  
+                });   
                 } else {
                     FlowRouter.go("/");
                 }
@@ -92,7 +94,7 @@ Template.lender.onRendered( function (){
     document.getElementById("apply-section").style.display="none";
     document.getElementById("list").style.display="none";
     document.getElementById("data").style.display="none";
-    document.getElementById("loanpay-section").style.display="none";
+    document.getElementById("data2").style.display="none";
 })
 Template.lender.events({
     'click #user':function(){
@@ -100,7 +102,7 @@ Template.lender.events({
         document.getElementById("apply-section").style.display="block";
         document.getElementById("list").style.display="none";
         document.getElementById("data").style.display="none";
-        document.getElementById("loanpay-section").style.display="none";
+        document.getElementById("data2").style.display="none";
         document.getElementById("catgid").innerHTML ="";
         document.getElementById("colatoptn").innerHTML ="";
         document.getElementById("colat").style.display="none";
@@ -135,98 +137,168 @@ Template.lender.events({
     'click #noncol':function(){
         document.getElementById("colat").style.display="none";
     },
-    'click #paying':function(){
-        document.getElementById("apply-section").style.display="none";
-        document.getElementById("list").style.display="none";
-        document.getElementById("data").style.display="none";
-        document.getElementById("loanpay-section").style.display="block";
-    },
     'click #detail':function(){
+        var count=0;
         document.getElementById("apply-section").style.display="none";
-        document.getElementById("loanpay-section").style.display="none";
         var username = localStorage.getItem("username");
-        console.log("enter user",viewdata);
+        console.log(viewdata,"enter user",appdata,"---");
         for(var i=0;i<viewdata.rows.length;i++){
-         if(viewdata.rows[i].borrower == username){
-             console.log("enter user");
+            console.log("user");
+          if(viewdata.rows[i].borrower == username){
              if(viewdata.rows[i].status == "requested"){
-                 var borr = viewdata.rows[i].borrower;
-                 var purpose=viewdata.rows[i].purpose;
-                 var status=viewdata.rows[i].status;
-                 var income=viewdata.rows[i].incomepm;
-                 var loanamt=viewdata.rows[i].loanamt;
-                 document.getElementById("data").style.display="none"  ;
-                 document.getElementById("list").style.display="flex"  ;
-                 document.getElementById("listofuser").innerHTML += "<div class='datalist'>"+
-                 "<div class='headloan'>"+borr+"</div>"+
-                 "<div class='headloan'>"+purpose+"</div>"+
-                 "<div class='headloan'>"+income+"</div>"+
-                 "<div class='headloan'>"+loanamt+"</div>"+
-                 "<div class='headloan'>"+status+"<div></div>";
-             }else{
-                 for(var i=0;i<appdata.rows.length;i++){
-                     console.log("enter user app",appdata.rows[i].borrower );
-                     if(appdata.rows[i].borrower == username){
-                         console.log("enter user");
-                             
-                             var amnt=appdata.rows[i].amtapproved;
-                             var finaldue=appdata.rows[i].finalduedt*1000;
-                             var date = new Date(parseInt(finaldue));
-                             var finaldate = date.toUTCString('MM/dd/yy  HH:mm:ss');
-                             var totaldue=appdata.rows[i].totaldue;
-                             document.getElementById("list").style.display="none"  ;
-                             document.getElementById("data").style.display="flex"  ;
-                             document.getElementById("listofstatus").innerHTML += "<div class='datalist2'><div class='headloan'>"+amnt+"</div>"+
-                     "<div class='headloan'>"+totaldue+"</div>"+
-                     "<div class='headloan'>"+finaldate+"</div></div>"
-                     }
-                 }
+                 dataid=i;
+                 count++;
+                 console.log("count--",count);
              }
-            
-         }
-     }
-        
+            }
+            }
+            console.log(dataid,"user",count);
+            if(count==1){
+                for(var i=0;i<viewdata.rows.length;i++){
+                    if(i==dataid){
+                        var borr = viewdata.rows[i].borrower;
+                        var purpose=viewdata.rows[i].purpose;
+                        var status=viewdata.rows[i].status;
+                        var income=viewdata.rows[i].incomepm;
+                        var loanamt=viewdata.rows[i].loanamt;
+                        document.getElementById("data").style.display="none"  ;
+                        document.getElementById("data2").style.display="none"  ;
+                        document.getElementById("list").style.display="flex"  ;
+                        document.getElementById("listofuser").innerHTML += "<div class='datalist'>"+
+                        "<div class='headloan'>"+borr+"</div>"+
+                        "<div class='headloan'>"+purpose+"</div>"+
+                        "<div class='headloan'>"+income+"</div>"+
+                        "<div class='headloan'>"+loanamt+"</div>"+
+                        "<div class='headloan'>"+status+"<div>"+
+                        "</div>";
+                    }               
+                }
+                
+            }else{
+                document.getElementById("listofstatus").innerHTML ="";
+                for(var i=0;i<appdata.rows.length;i++){
+                    console.log("enter user app",appdata.rows[i].borrower );
+                    if(appdata.rows[i].borrower == username){
+                        if(appdata.rows[i].monthlyduedt==0){
+                            console.log("enter user");
+                            var name=appdata.rows[i].borrower;
+                            var amnt=appdata.rows[i].amtapproved;
+                            var finaldue=appdata.rows[i].finalduedt*1000;
+                            var date = new Date(parseInt(finaldue));
+                            var finaldate = date.toUTCString('MM/dd/yy  HH:mm:ss');
+                            var totaldue=appdata.rows[i].totaldue;
+                            var id=appdata.rows[i].reqloanid;
+                            amount=appdata.rows[i].totaldue;
+                            document.getElementById("list").style.display="none"  ;
+                            document.getElementById("data2").style.display="none"  ;
+                            document.getElementById("data").style.display="flex"  ;
+                            document.getElementById("listofstatus").innerHTML += "<div class='datalist2'>"+
+                            "<div class='headloan'>"+name+"</div>"+
+                            "<div class='headloan'>"+amnt+"</div>"+
+                            "<div class='headloan'>"+totaldue+"</div>"+
+                            "<div class='headloan'>"+finaldate+"</div>"+
+                            "<button class='headloan buttonpropt' id='pay' value='"+id+"'>make payement</button>"+
+                            "</div>"
+                        }else{
+                            console.log("enter user");
+                            var mnthdue=appdata.rows[i].monthlydue;
+                            var name=appdata.rows[i].borrower;
+                            var amnt=appdata.rows[i].amtapproved;
+                            var finaldue=appdata.rows[i].finalduedt*1000;
+                            var date = new Date(parseInt(finaldue));
+                            var finaldate = date.toUTCString('MM/dd/yy  HH:mm:ss');
+                            var mnthdate=appdata.rows[i].monthlyduedt*1000;
+                            var mnthduedt = new Date(parseInt(mnthdate));
+                            var mnthlyduedt = mnthduedt.toUTCString('MM/dd/yy  HH:mm:ss'); 
+                            var totaldue=appdata.rows[i].totaldue;
+                            var id=appdata.rows[i].reqloanid;
+                            amount=mnthdue;
+                            console.log("---",amount);
+                            document.getElementById("list").style.display="none"  ;
+                            document.getElementById("data2").style.display="flex"  ;
+                            document.getElementById("data").style.display="none"  ;
+                            document.getElementById("listofstatus").innerHTML += "<div class='datalist2'>"+
+                            "<div class='headloan'>"+name+"</div>"+
+                            "<div class='headloan'>"+amnt+"</div>"+
+                            "<div class='headloan'>"+mnthdue+"</div>"+
+                            "<div class='headloan'>"+mnthlyduedt+"</div>"+
+                            "<div class='headloan'>"+totaldue+"</div>"+
+                            "<div class='headloan'>"+finaldate+"</div>"+
+                            "<button class='headloan buttonpropt' id='pay' value='"+id+"'>make payement</button>"+
+                            "</div>"
+                        }
+                        
+                    }
+                }  
+            }
+                      
     },
-    'click #apply':function(event){
+    'click #apply':async function(event){
         var sym="UTP";
         var username = localStorage.getItem("username");
         var colopn = $( ".coloptn:checked" ).val();
-        console.log("colat----",colopn);
+        var typepay = $( ".paytype:checked" ).val();
         var id = parseInt($( ".catgidoptn:checked" ).val());
         var amt =`${parseFloat($("#amt").val()).toFixed(4)} ${sym}`;
         var purpose = $("#purpose").val();       
-        var income = `${parseFloat($("#income").val()).toFixed(4)} ${sym}`;       
-        if(colopn == "col"){
-            propid.push(parseInt($(".propidoptn:checked").val()));
-            var colatoptn = parseInt($(".colatidoptn:checked").val());
-            eosinstance.contract("utplendercon").then(utplendercon => {
-                console.log("amt----",amt,"catid---",id,"pur---",purpose,"propid---",propid,"income--",income,"colat--",colatoptn);
-                utplendercon.reqloancolat(username,id,amt,purpose,propid,income,colatoptn, { authorization: username }).then(response => {
-                  alert("success");
-                  console.log("response==>", response);
-                });
-            });
-        }else{
-            eosinstance.contract("utplendercon").then(utplendercon => {
-                console.log("amt----",amt,"catid---",id,"pur---",purpose,"income--",income);
-                utplendercon.reqloanincm(username,id,amt,purpose,income, { authorization: username }).then(response => {
-                  alert("success");
-                  console.log("response==>", response);
-                });
-            });
+        var income = `${parseFloat($("#income").val()).toFixed(4)} ${sym}`;
+        if((!colopn)||(!typepay)||(!id)||(!amt)||(!purpose)||(!income))
+        {
+          alert("please fill all the fields");
         }
-        
+        else{
+          try{
+            if(colopn == "col"){
+                propid.push(parseInt($(".propidoptn:checked").val()));
+                var colatoptn = parseInt($(".colatidoptn:checked").val());
+                if((!colatoptn)||(!propid)){
+                    alert("please check property or colateral fields");
+                }else{
+                    let utplendercon = await eosinstance.contract('utplendercon');
+                    if(utplendercon)
+                    {
+                      let result = await  utplendercon.reqloancolat(username,id,amt,purpose,propid,income,colatoptn,typepay, { authorization: username });
+                         if(result){
+                          alert("loan request sent successfully !!");
+                        }else{
+                          alert("Something went wrong");
+                       }
+                    }
+                }
+            }else{
+                let utplendercon = await eosinstance.contract('utplendercon');
+                if(utplendercon)
+                {
+                  let result = await  utplendercon.reqloanincm(username,id,amt,purpose,income,typepay, { authorization: username });
+                     if(result){
+                        alert("loan request sent successfully !!");
+                    }else{
+                      alert("Something went wrong");
+                   }
+                }
+            }           
+          }
+          catch(err){
+            var parseResponse = await JSON.parse(err);
+            var msg = await parseResponse.error.details[0].message.split(":")[1]
+            alert(msg);
+          }
+        }   
     },
-    'click #pay':function(){
+    'click #pay':async function(event){
         var sym="UTP";
         var username = localStorage.getItem("username");
-        var id = $("#idloan").val();
-        var amt =`${parseFloat($("#loanamt").val()).toFixed(4)} ${sym}`;
-        eosinstance.contract("utplendercon").then(utplendercon => {
-            utplendercon.loanpayment(username,id,amt, { authorization: username }).then(response => {
-                alert("success");
-                console.log("response==>", response);
-              });
-          });
+        var id = event.target.value;
+        var amt =`${parseFloat(amount).toFixed(4)} ${sym}`;
+        let utplendercon = await eosinstance.contract('utplendercon');
+        if(utplendercon)
+        {
+          let result = await  utplendercon.loanpayment(username,id,amt, { authorization: username });
+             if(result){
+              alert(" loan payment successfull !!");
+            }else{
+              alert("Something went wrong");
+           }
+        }
     }
 });

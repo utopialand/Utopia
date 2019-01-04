@@ -6,7 +6,7 @@
   color: black;
 }
 .profile-container {
-  display: flex;
+  display: none;
   margin-bottom: 10%;
   align-items: center;
   flex-direction: row;
@@ -21,6 +21,7 @@
   align-items: center;
 }
 .non-profile{
+  display:none;
   font-family: Colfax Medium;
   margin-top: 13%;
   font-size: 32px;

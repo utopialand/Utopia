@@ -58,14 +58,10 @@
                      
              </div>
              <div class = "approved-property">
-                 <input type = "text" placeholder = "id" id = "approvedid" />
+                 <input type = "text" placeholder = "id" id = "approvedid" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
                  <button id = "approved-property-btn">Approved</button>
-
              </div>
-
-
         </div>
-
         <div id="proposalList">
           <div class = typeBudget>
             <button id = "condidateButton">candidate</button>

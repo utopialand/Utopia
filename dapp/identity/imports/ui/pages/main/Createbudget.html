@@ -3,14 +3,14 @@
             <h1>create a proposal</h1>
             <div class="proposal-form">
                 <label>proposal name</label>
-                <input type="text" id="propname"/>
+                <input type="text" id="propname" maxlength="50">
                 <label>proposal description</label>
-                <input type="text" id="propdesc"/>
+                <input type="text" id="propdesc" maxlength="250"/>
                 <label>proposal budget</label>
-                <input type="text" id="propbudget"/>
+                <input type="text" id="propbudget" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"/>
             </div>
             <div class="createbutton">
-                <button class="buttonprop" id ="finalsubmit">Submission</button>
+                <button class="buttonprop" id ="finalsubmit">create proposal</button>
             </div>
         </div>
         {{> footer}}

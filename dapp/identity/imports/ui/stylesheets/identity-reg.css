@@ -62,7 +62,7 @@ h1{
   color: white;
   font-weight: bold;
   font-size: 18px;
-  line-height: 14px;
+  line-height: 18px;
   font-family: Colfax Medium;
   letter-spacing: 1.6px;
   text-transform: uppercase;
@@ -81,7 +81,8 @@ input:focus{
 
 
 .registration-form input:hover{
-  border-bottom : 2px solid #fff;
+  border: 2px solid #C86DD7;
+  color: white;
   transition: 0.5s;
 }
 
@@ -103,8 +104,19 @@ input:focus{
   color :#aaa;
   background: transparent;
   border: 2px dashed #aaa;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+input[type="file"] {
+  display: none;
+}
+.row3 .upload-picture:hover {
+  border: 2px solid #C86DD7;
+  color: white;
+  transition: 0.5s;
+}
 .row3 .register{
   width: 300px;
   height: 70px;

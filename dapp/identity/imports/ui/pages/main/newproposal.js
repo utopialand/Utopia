@@ -32,12 +32,16 @@ Template.App_newproposal.onCreated(async function () {
 })
 Template.App_newproposal.events({
     "click #addprop": function () {
-        var boxName = "textbox" + count;
         var options = "";
-        document.getElementById("propnum").innerHTML += "<input type = 'text' placeholder = '"+ options +"' id = '"+boxName+"'/>"
-        count += 1;        
+        var parent = document.getElementById("propnum")
+        var field = document.createElement("input")
+        field.type = "text"
+        field.placeholder=options;
+        field.id = "textbox" + count;
+        parent.appendChild(field);
+        count += 1;     
     },
-    "click #finalsubmit":function(){
+    "click #finalsubmit":async function(){
         var data=[];
         for(var i=0;i<count;i++){
         var item=$("#textbox"+i).val();
@@ -46,14 +50,29 @@ Template.App_newproposal.events({
         var prop=$("#propname").val();
         var propdesc=$("#propdesc").val();
         var numwin=parseInt($("#numwin").val());
-        console.log("----",eosinstance,"--",prop,"---",propdesc,"---",numwin,"===",data);
-        var username=localStorage.getItem("username")
-        eosinstance.contract("voteproposal").then(voting => {
-            voting.createprop(prop ,propdesc,30,data,username,numwin, { authorization: username }).then(
-                (res) => {
-                      console.log("response--",res);
-                }
-            )
-        })
+        var username=localStorage.getItem("username");
+        if((!prop)||(!propdesc)||(!numwin)||(!data))
+        {
+          alert("please fill all the fields");
+        }
+        else{
+          try{        
+                    let voteproposal = await eosinstance.contract('voteproposal');
+                    if(voteproposal)
+                    {
+                      let result = await  voteproposal.createprop(prop ,propdesc,30,data,username,numwin, { authorization: username });
+                         if(result){
+                          alert("proposal creation successfully !!");
+                        }else{
+                          alert("Something went wrong");
+                       }
+                    } 
+          }
+          catch(err){
+            var parseResponse = await JSON.parse(err);
+            var msg = await parseResponse.error.details[0].message.split(":")[1]
+            alert(msg);
+          }
+        }      
     }
 })
