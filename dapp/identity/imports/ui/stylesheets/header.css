@@ -11,7 +11,7 @@
   display: flex;
 }
 .logoSection {
-  flex: 6;
+  flex: 4;
 }
 .logoSection .logo {
   width: 140px;
@@ -21,7 +21,7 @@
   cursor: pointer;
 }
 .identitySectionman {
-  flex: 4;
+  flex: 6;
   display: none;
   align-items: center;
   justify-content: flex-end;
