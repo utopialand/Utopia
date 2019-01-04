@@ -5,8 +5,26 @@ import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
 import { Session } from "meteor/session";
+
 ScatterJS.plugins(new ScatterEOS());
 
+Meteor.Spinner.options = {
+    lines: 13, // The number of lines to draw
+    length: 10, // The length of each line
+    width: 5, // The line thickness
+    radius: 15, // The radius of the inner circle
+    corners: 0.7, // Corner roundness (0..1)
+    rotate: 0, // The rotation offset
+    direction: 1, // 1: clockwise, -1: counterclockwise
+    color: '#fff', // #rgb or #rrggbb
+    speed: 1, // Rounds per second
+    trail: 60, // Afterglow percentage
+    shadow: true, // Whether to render a shadow
+    hwaccel: false, // Whether to use hardware acceleration
+    className: 'spinner', // The CSS class to assign to the spinner
+    zIndex: 2e9, // The z-index (defaults to 2000000000)
+    top: 'auto', // Top position relative to parent in px
+};
 
 const network = {
     protocol: "https", // Defaults to https
@@ -22,63 +40,61 @@ const eosOptions = {
 var scatter = {};
 var eosinstance = {};
 let userinfo;
-function allProperties(){
-    ScatterJS.scatter.connect('utopia').then((connected) => {
-        if (connected) {
-            if (ScatterJS.scatter.connect('utopia')) {
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                eosinstance = eos;
-                if (scatter.identity) {
-                    eosinstance.getTableRows({
-                        code: "realstateutp",
-                        scope: "realstateutp",
-                        table: "proptlist1",
-                        limit: "50",
-                        json: true,
-                    }).then((response) => {
-                        console.log("response of all properties ", response.rows);
-                        Session.set("allPropertyList", response.rows);
-                    });
-                    eosinstance.getTableRows({
-                        code: "identityreg1",
-                        scope: "identityreg1",
-                        table: "identity3",
-                        limit: 50,
-                        json: true
-                      }).then((resp)=>{
-                        userinfo=resp;
-                        console.log("user--",userinfo);
-                        var username=localStorage.getItem("username");
-                        for(var i=0;i<userinfo.rows.length;i++){
-                        if(userinfo.rows[i].username == username)
-                        {
-                        document.getElementsByClassName("manageproperty")[0].style.display = "block";
-                        document.getElementsByClassName("buypropertypagebtn")[0].style.display = "block";
-                        document.getElementsByClassName("bidpropertypagebtn")[0].style.display = "block";         
-                        break;
-                        }else{
-                        document.getElementsByClassName("manageproperty")[0].style.display = "none";
-                        document.getElementsByClassName("buypropertypagebtn")[0].style.display = "none";
-                        document.getElementsByClassName("bidpropertypagebtn")[0].style.display = "none";   
-                        }
-                    }
-                      });
-                      
-                }
-                else {
-                    FlowRouter.go("/");
-                }
+Session.set("isLoadingRealEstate", true);
+
+async function allProperties() {
+
+    var connected = await ScatterJS.scatter.connect("utopia");
+
+    if (connected) {
+        scatter = ScatterJS.scatter;
+        const requiredFields = { accounts: [network] };
+        const eos = scatter.eos(network, Eos, eosOptions);
+        eosinstance = eos;
+
+        var propertyTb = await eos.getTableRows({
+            code: "realstateutp",
+            scope: "realstateutp",
+            table: "proptlist1",
+            limit: "50",
+            json: true,
+        });
+
+        Session.set("allPropertyList", propertyTb.rows);
+        Session.set("isLoadingRealEstate", false);
+
+        var allUsers = await eos.getTableRows({
+            code: "identityreg1",
+            scope: "identityreg1",
+            table: "identity3",
+            limit: 50,
+            json: true,
+        });
+
+        var username = localStorage.getItem("username");
+
+        for (var i = 0; i < allUsers.rows.length; i++) {
+            if (allUsers.rows[i].username == username) {
+                document.getElementsByClassName("manageproperty")[0].style.display = "block";
+                document.getElementsByClassName("buypropertypagebtn")[0].style.display = "block";
+                document.getElementsByClassName("bidpropertypagebtn")[0].style.display = "block";
+                break;
             }
         }
-    });
+    }
+    else {
+        console.log("Scatter not installed");
+    }
 }
 
 Template.App_real_estate.helpers({
     getAllProperties: function () {
         allProperties();
         return Session.get("allPropertyList");
+    },
+    isLoadingRealEstate: function(){
+        console.log(Session.get("isLoadingRealEstate"));
+        return Session.get("isLoadingRealEstate");
     }
 });
 
@@ -112,17 +128,17 @@ Template.App_real_estate.events({
         var id;
         var searchResult = false;
 
-        for(var i=0;i<propertyTb.rows.length;i++){
-            if(searchTerm == propertyTb.rows[i].proptname){
+        for (var i = 0; i < propertyTb.rows.length; i++) {
+            if (searchTerm == propertyTb.rows[i].proptname) {
                 id = propertyTb.rows[i].id;
                 searchResult = true;
                 break;
             }
         }
 
-        if(searchResult){
-            FlowRouter.go("/realestate/"+id);
-        }else{
+        if (searchResult) {
+            FlowRouter.go("/realestate/" + id);
+        } else {
             alert("No such property");
         }
     }

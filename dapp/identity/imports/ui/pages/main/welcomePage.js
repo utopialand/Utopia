@@ -18,11 +18,11 @@ const eosOptions = {
 };
 let eos = {};
 var userdetail;
-var scatter={};
+var scatter = {};
 var manager = ["propbudget11", "identityreg1", "realstateutp"];
 Template.welcomePage.onCreated(function bodyOnCreated() {
-  const connectionOptions = {initTimeout:2000}
-  ScatterJS.scatter.connect("utopia",connectionOptions).then(connected => {
+  const connectionOptions = { initTimeout: 2000 }
+  ScatterJS.scatter.connect("utopia", connectionOptions).then(connected => {
     if (!connected) {
       document.getElementById("scatter-not-installed").style.display = "block";
       return false;
@@ -35,7 +35,7 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
           document.getElementById("scatter-not-installed").style.display = "none";
           document.getElementById("loginButton").innerHTML = "logout";
           document.getElementsByClassName("optionFlex")[0].style.display =
-            "flex"; 
+            "flex";
           eos.getTableRows({
             code: "identityreg1",
             scope: "identityreg1",
@@ -44,6 +44,7 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
             json: true
           }).then((resp) => {
             userdetail = resp;
+
             console.log("user---", userdetail);
             var username = localStorage.getItem("username");
             console.log("wlcm---", username);
@@ -56,20 +57,20 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
               var s = document.getElementById("len").setAttribute("value", "manager");
             } else {
               console.log("2");
-              var count2=0;
-              for(var i=0;i<userdetail.rows.length;i++){
-                if(userdetail.rows[i].username==username){
+              var count2 = 0;
+              for (var i = 0; i < userdetail.rows.length; i++) {
+                if (userdetail.rows[i].username == username) {
                   count2++;
                 }
               }
-              if(count2==1){
+              if (count2 == 1) {
                 console.log("count1");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
                 document.getElementById("len").style.display = "block";
                 document.getElementById("coupon").style.display = "block";
                 var s = document.getElementById("len").setAttribute("value", "userid");
-              }else{
+              } else {
                 console.log("count2");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
@@ -77,20 +78,20 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
                 document.getElementById("len").style.display = "none";
                 document.getElementById("coupon").style.display = "none";
               }
-              
+
             }
           });
-         
-         
+
+
         } else {
-           document.getElementsByClassName("identitySectionman")[0].style.display = "none";
+          document.getElementsByClassName("identitySectionman")[0].style.display = "none";
           document.getElementById("loginButton").innerHTML = "login";
           document.getElementsByClassName("optionFlex")[0].style.display = "none";
           document.getElementById("scatter-not-installed").style.display = "block";
-          
+
         }
       }
-      
+
     }
   });
 });
@@ -128,20 +129,20 @@ Template.welcomePage.events({
               document.getElementById("len").setAttribute("value", "manager");
             } else {
               console.log("2");
-              var count=0;
-              for(var i=0;i<userdetail.rows.length;i++){
-                if(userdetail.rows[i].username==account){
+              var count = 0;
+              for (var i = 0; i < userdetail.rows.length; i++) {
+                if (userdetail.rows[i].username == account) {
                   count++;
                 }
               }
-              if(count==1){
+              if (count == 1) {
                 console.log("user");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
                 document.getElementById("len").style.display = "block";
                 document.getElementById("coupon").style.display = "block";
                 var s = document.getElementById("len").setAttribute("value", "userid");
-              }else{
+              } else {
                 console.log("none");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
