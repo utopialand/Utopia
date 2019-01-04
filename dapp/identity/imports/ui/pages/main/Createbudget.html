@@ -7,7 +7,7 @@
                 <label>proposal description</label>
                 <input type="text" id="propdesc"/>
                 <label>proposal budget</label>
-                <input type="text" id="propbudget"/>
+                <input type="text" id="propbudget" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"/>
             </div>
             <div class="createbutton">
                 <button class="buttonprop" id ="finalsubmit">Submission</button>
