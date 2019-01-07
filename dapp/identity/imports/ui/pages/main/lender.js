@@ -23,7 +23,7 @@ var dataid;
 var amount;
 var eosinstance;
 Template.lender.onCreated( function (){
-    ScatterJS.scatter.connect('utopia').then((connected) => {
+    ScatterJS.scatter.connect('utopia').then(async(connected) => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
                 scatter = ScatterJS.scatter;
@@ -31,7 +31,7 @@ Template.lender.onCreated( function (){
                 const eos = scatter.eos(network, Eos, eosOptions);
                 if (scatter.identity) {
                     eosinstance = eos;                  
-                     eosinstance.getTableRows({
+                    await eosinstance.getTableRows({
                       code: "utplendercon",
                       scope: "utplendercon",
                       table: 'loancatg113',
@@ -41,7 +41,7 @@ Template.lender.onCreated( function (){
                       loandata=resp;
                       console.log("loandata====>",loandata);  
                   });   
-                  eosinstance.getTableRows({
+                  await eosinstance.getTableRows({
                     code: "utplendercon",
                     scope: "utplendercon",
                     table: 'reqloan113',
@@ -51,7 +51,7 @@ Template.lender.onCreated( function (){
                     viewdata=resp;
                     console.log("details====>",viewdata);  
                 });     
-                  eosinstance.getTableRows({
+                  await eosinstance.getTableRows({
                     code: "utplendercon",
                     scope: "utplendercon",
                     table: 'collat111',
@@ -61,7 +61,7 @@ Template.lender.onCreated( function (){
                     colatdata=resp;
                     console.log("loandata====>",colatdata);  
                 });   
-                eosinstance.getTableRows({
+                 await eosinstance.getTableRows({
                     code: "realstateutp",
                     scope: "realstateutp",
                     table: 'properties1',
@@ -71,7 +71,7 @@ Template.lender.onCreated( function (){
                     propdata=resp;
                     console.log("realstate====>",propdata);  
                 }); 
-                eosinstance.getTableRows({
+                await eosinstance.getTableRows({
                     code: "utplendercon",
                     scope: "utplendercon",
                     table: 'approved114',
@@ -233,47 +233,72 @@ Template.lender.events({
             }
                       
     },
-    'click #apply':function(event){
+    'click #apply':async function(event){
         var sym="UTP";
         var username = localStorage.getItem("username");
         var colopn = $( ".coloptn:checked" ).val();
         var typepay = $( ".paytype:checked" ).val();
-        console.log("colat----",typepay);
         var id = parseInt($( ".catgidoptn:checked" ).val());
         var amt =`${parseFloat($("#amt").val()).toFixed(4)} ${sym}`;
         var purpose = $("#purpose").val();       
-        var income = `${parseFloat($("#income").val()).toFixed(4)} ${sym}`;       
-        if(colopn == "col"){
-            propid.push(parseInt($(".propidoptn:checked").val()));
-            var colatoptn = parseInt($(".colatidoptn:checked").val());
-            eosinstance.contract("utplendercon").then(utplendercon => {
-                console.log("amt----",amt,"catid---",username,"pur---",purpose,"propid---",propid,"income--",income,"colat--",colatoptn);
-                utplendercon.reqloancolat(username,id,amt,purpose,propid,income,colatoptn,typepay, { authorization: username }).then(response => {
-                  alert("success");
-                  console.log("response==>", response);
-                });
-            });
-        }else{
-            eosinstance.contract("utplendercon").then(utplendercon => {
-                console.log("amt----",username,"catid---",id,"pur---",purpose,"income--",income);
-                utplendercon.reqloanincm(username,id,amt,purpose,income,typepay, { authorization: username }).then(response => {
-                  alert("success");
-                  console.log("response==>", response);
-                });
-            });
+        var income = `${parseFloat($("#income").val()).toFixed(4)} ${sym}`;
+        if((!colopn)||(!typepay)||(!id)||(!amt)||(!purpose)||(!income))
+        {
+          alert("please fill all the fields");
         }
-        
+        else{
+          try{
+            if(colopn == "col"){
+                propid.push(parseInt($(".propidoptn:checked").val()));
+                var colatoptn = parseInt($(".colatidoptn:checked").val());
+                if((!colatoptn)||(!propid)){
+                    alert("please check property or colateral fields");
+                }else{
+                    let utplendercon = await eosinstance.contract('utplendercon');
+                    if(utplendercon)
+                    {
+                      let result = await  utplendercon.reqloancolat(username,id,amt,purpose,propid,income,colatoptn,typepay, { authorization: username });
+                         if(result){
+                          alert("loan request sent successfully !!");
+                        }else{
+                          alert("Something went wrong");
+                       }
+                    }
+                }
+            }else{
+                let utplendercon = await eosinstance.contract('utplendercon');
+                if(utplendercon)
+                {
+                  let result = await  utplendercon.reqloanincm(username,id,amt,purpose,income,typepay, { authorization: username });
+                     if(result){
+                        alert("loan request sent successfully !!");
+                    }else{
+                      alert("Something went wrong");
+                   }
+                }
+            }           
+          }
+          catch(err){
+            var parseResponse = await JSON.parse(err);
+            var msg = await parseResponse.error.details[0].message.split(":")[1]
+            alert(msg);
+          }
+        }   
     },
-    'click #pay':function(event){
+    'click #pay':async function(event){
         var sym="UTP";
         var username = localStorage.getItem("username");
         var id = event.target.value;
         var amt =`${parseFloat(amount).toFixed(4)} ${sym}`;
-        eosinstance.contract("utplendercon").then(utplendercon => {
-            utplendercon.loanpayment(username,id,amt, { authorization: username }).then(response => {
-                alert("success");
-                console.log("response==>", response);
-              });
-          });
+        let utplendercon = await eosinstance.contract('utplendercon');
+        if(utplendercon)
+        {
+          let result = await  utplendercon.loanpayment(username,id,amt, { authorization: username });
+             if(result){
+              alert(" loan payment successfull !!");
+            }else{
+              alert("Something went wrong");
+           }
+        }
     }
 });

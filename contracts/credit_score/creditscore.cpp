@@ -85,5 +85,10 @@ ACTION creditscore::byrealest(name identity, name username, asset liqasset)
     else
         cscore = 5.5;
 }
+ACTION creditscore::hi()
 
-EOSIO_DISPATCH(creditscore, (addcredscore)(modcreditsc))
+{
+    print("hi");
+}
+
+EOSIO_DISPATCH(creditscore, (addcredscore)(modcreditsc)(hi))

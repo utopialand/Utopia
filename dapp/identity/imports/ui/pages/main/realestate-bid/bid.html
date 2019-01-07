@@ -15,7 +15,7 @@
                 <div class="owner">Highest Bidder : {{currentOwner}}</div>
                 <div class="price">Current Bid : {{currentprice}}</div>
                 <div class="house"></div>
-                <input type = "text" id = "bidpropertyfield-{{id}}" class = "bidpropertyfield" placeholder="format(0.0000 UTP)"/>
+                <input type = "text" id = "bidpropertyfield-{{id}}" class = "bidpropertyfield" placeholder="Enter UTP Value" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"/>
                 <button id = "bidpropertyid-{{id}}" class = "bid-btn">bid</button>
                 <button class = "property-details-btn" id = "bid-prop-{{id}}">property details</button>
             </div>

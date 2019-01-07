@@ -67,14 +67,22 @@ Template.App_real_estate_bid.helpers({
 
 Template.App_real_estate_bid.events({
     "click .bid-btn": async function (e) {
+        var sym = "UTP";
         var proptid = e.target.id.split("-")[1];
         var fieldid = "#bidpropertyfield-" + e.target.id.split("-")[1];
-        var utpvalue = $(fieldid).val();
+        var utpvalue = `${parseFloat($(fieldid).val()).toFixed(4)} ${sym}`;
+        var utpvalue1 = $(fieldid).val();
+        var count =utpvalue1.split(".").length - 1;
+        console.log("amount == ",utpvalue1);
         console.log("value ", utpvalue);
         var username = localStorage.getItem("username");
         var to = "rsdeposite11";
-        if (!utpvalue) {
-            alert("Enter UTP in format 0.0000 UTP");
+        console.log("utpvalue",utpvalue);
+        if (!utpvalue1) {
+            alert("Please Enter UTP Value");
+        }
+        else if((count>1) || (utpvalue1.length==count)){
+            alert("please fill correct amount !!");
         }
         else {
             try {

@@ -59,6 +59,7 @@ Template.budget_app.onCreated(function() {
               limit: 50,
               json: true
             });
+            document.getElementsByClassName("waitingData")[0].style.display = "none";
             document.getElementById("budgetpropbutton").style.display = "flex";
             if(propentry) {
               console.log("propentry-----==", propentry);
@@ -161,7 +162,7 @@ Template.budget_app.onCreated(function() {
   });
 });
 
-Template.budget_app.onRendered(async function() {});
+
 Template.budget_app.events({
   ////click on like button to see response
   "click .like-button": async function() {
@@ -199,13 +200,13 @@ Template.budget_app.events({
       }
     }
   },
-  "click .budgetpropbutton": function() {
+  "click .budgetpropbutton":async function() {
     FlowRouter.go("/createbudget");
   },
-  "click .stvvotingpage": function() {
+  "click .stvvotingpage":async function() {
     FlowRouter.go("/stvvote");
   },
-  "click .stvresultpage": function() {
+  "click .stvresultpage":async function() {
     FlowRouter.go("/stvresult");
   }
 });

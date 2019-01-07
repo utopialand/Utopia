@@ -44,7 +44,7 @@ Template.Budget_newproposal.events({
         console.log("amount1===",amount1)
         console.log("amount==>",amount);
 
-        if((!prop)||(!propdesc)||(!amount))
+        if((!prop)||(!propdesc)||(!amount1))
         {
             alert("please fill all the entries !!");
         }
@@ -70,7 +70,6 @@ Template.Budget_newproposal.events({
                 var parseResponse = await JSON.parse(err);
                 var msg = await parseResponse.error.details[0].message.split(":")[1]
                 alert(msg);
-    
             }
         }
     }
