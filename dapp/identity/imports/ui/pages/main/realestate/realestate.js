@@ -62,25 +62,6 @@ async function allProperties() {
 
         Session.set("allPropertyList", propertyTb.rows);
         Session.set("isLoadingRealEstate", false);
-
-        var allUsers = await eos.getTableRows({
-            code: "identityreg1",
-            scope: "identityreg1",
-            table: "identity3",
-            limit: 50,
-            json: true,
-        });
-
-        var username = localStorage.getItem("username");
-
-        for (var i = 0; i < allUsers.rows.length; i++) {
-            if (allUsers.rows[i].username == username) {
-                document.getElementsByClassName("manageproperty")[0].style.display = "block";
-                document.getElementsByClassName("buypropertypagebtn")[0].style.display = "block";
-                document.getElementsByClassName("bidpropertypagebtn")[0].style.display = "block";
-                break;
-            }
-        }
     }
     else {
         console.log("Scatter not installed");

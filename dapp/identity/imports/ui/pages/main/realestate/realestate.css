@@ -113,15 +113,15 @@
 }
 
 .manageproperty{
-    display: none;
+    display: block;
 }
 
 .buypropertypagebtn{
-    display: none;
+    display: block;
 }
 
 .bidpropertypagebtn{
-    display: none;
+    display: block;
 }
 
 .spinner{

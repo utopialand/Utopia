@@ -133,6 +133,7 @@ Template.welcomePage.events({
               for (var i = 0; i < userdetail.rows.length; i++) {
                 if (userdetail.rows[i].username == account) {
                   count++;
+                
                 }
               }
               if (count == 1) {
