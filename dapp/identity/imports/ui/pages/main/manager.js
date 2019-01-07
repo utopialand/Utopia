@@ -634,40 +634,48 @@ Template.App_manager.events({
     "<div class='bond-form'><label>bond id</label><input type='text' id='bondid'/>"
     + "</div>"+" <div class='createbutton'><button class='buttonbond' id ='submitid'>Submission</button></div>";
   },
-  "click #submitid": async function() {    
-    document.getElementById("userList").style.display = "none";
-    document.getElementById("proposalList").style.display = "none";
-    bondid=$("#bondid").val();
-    document.getElementsByClassName("bondprop")[0].innerHTML = "";
-    for (var i = 0; i < bonddata.rows.length; i++)
-    {
-      if(bonddata.rows[i].id == bondid)
-      {
-        couponid=bonddata.rows[i].id;
-        var iip=i;
-        for(var j=0; j<bonddata.rows[iip].bondholders.length; j++){
-          var bondholder = bonddata.rows[iip].bondholders[j]; 
-          var username = localStorage.getItem("username");
-          buyerdata = await eosinstance.getTableRows({
-                code: "bondborrower",
-                scope: bondholder,
-                table: "buyerdata33",
-                limit: 50,
-                json: true
-              });
-          if(buyerdata){
-          console.log(i,"bondbuyer--",buyerdata);
-          for(var k=0;k<buyerdata.rows.length;k++){
-            if(buyerdata.rows[k].id==couponid){
-              var datearr = buyerdata.rows[k].returningdate.length-1;
-              document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+buyerdata.rows[k].bondbuyer+"</div><div class='holders'>status -> "+datearr+" coupon are submitted</div></div>";   
-             }
-            }      
-          };
-      }
-        document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='coupondiv'><button class='couponbond' id='getcoupon'>coupondistirbution</button></div>";
-      } 
-    }
+  "click #submitid":async function() {    
+              document.getElementById("userList").style.display = "none";
+              document.getElementById("proposalList").style.display = "none";
+              bondid=$("#bondid").val();
+              if((!bondid)){
+                alert("please enter bondid");
+              }else{
+                document.getElementsByClassName("bondprop")[0].innerHTML = "";
+                for (var i = 0; i < bonddata.rows.length; i++) {
+                  if(bonddata.rows[i].id == bondid){
+                    couponid=bondid;
+                    var iip=i;
+                    for(var j=0; j<bonddata.rows[iip].bondholders.length; j++){
+                      var bondholder = bonddata.rows[iip].bondholders[j]; 
+                      var username = localStorage.getItem("username");
+                      await eosinstance.getTableRows({
+                            code: "bondborrower",
+                            scope: bondholder,
+                            table: "buyerdata33",
+                            limit: 50,
+                            json: true
+                          })
+                    .then(resp => {
+                      buyerdata = resp;
+                      console.log(i,"bondbuyer--",resp);
+                      for(var k=0;k<buyerdata.rows.length;k++){
+                        if(buyerdata.rows[k].id==couponid){
+                          var datearr = buyerdata.rows[k].returningdate.length-1;
+                          document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+buyerdata.rows[k].bondbuyer+"</div><div class='holders'>status -> "+datearr+" coupon are submitted</div></div>";   
+                        }
+                      }
+                      
+                          
+                    });
+                    }
+                    document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='coupondiv'><button class='couponbond' id='getcoupon'>coupondistirbution</button></div>";
+                  }      
+              }
+      
+              }
+             
+   
   },
   "click #getcoupon": async function() {
     var num;
