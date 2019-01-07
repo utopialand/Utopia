@@ -112,13 +112,13 @@ Template.App_manager.onCreated(function() {
                   document.getElementById("manager-user-group").innerHTML +=
                     "<div class = 'manager-user-redo' id = '" +
                     users +
-                    "'><p>" +
+                    "'><p>"+
                     users +
                     "</p><button class = 'approved-button' id = '" +
                     ids +
-                    "'>approved</button><button class = 'disapproved-button'id = '" +
+                    "'>approve</button><button class = 'disapproved-button'id = '" +
                     ids +
-                    "'>disapproved</button>" +
+                    "'>disapprove</button>" +
                     "</div>";
                 }
               }
@@ -194,16 +194,22 @@ Template.App_manager.events({
     console.log("helllllllloManager");
     var id = event.target.id;
     var userName = event.target.parentElement.id;
-    console.log("id----", id);
-    console.log("username------", userName);
-    let contract = await eosinstance.contract("identityreg1");
-    console.log("===", contract);
     try {
-      let result = await contract.addcitizen(userName,"identityreg1", {authorization: "identityreg1" });
-      alert("citizenship approved !!!!");
+      let identityreg1 = await eosinstance.contract("identityreg1");
+      if(identityreg1)
+      {
+        let result = await identityreg1.addcitizen(userName,"identityreg1", {authorization: "identityreg1" });
+        if(result)
+        {
+          alert("citizenship approved !!!!");
+        }
+        else{
+          alert("citizenship not approved !!!!");
+        }
+      }
     } catch (err) {
         var parseResponse = await JSON.parse(err);
-        var msg = await parseResponse.error.details[0].message.split(":")[1]
+        var msg = await parseResponse.error.details[0].message.split(":")[1];
         alert(msg);
     }
   },
@@ -211,21 +217,49 @@ Template.App_manager.events({
     console.log("helllllllloManager - disapproved");
     console.log("id----", event.target.id);
     console.log("username------", event.target.parentElement.id);
+    var requestername = event.target.parentElement.id;
+    var id =event.target.id;
+    try {
+      let identityreg1 = await eosinstance.contract("identityreg1");
+      if(identityreg1)
+      {
+        let result = await identityreg1.remcitreq(requestername ,"identityreg1",{authorization: "identityreg1" });
+        if(result)
+        {
+          alert("disapproved successfuffly");
+        }
+        else{
+          alert("not disapproved");
+        }
+      }
+    }
+    catch(err)
+    {
+      var parseResponse = await JSON.parse(err);
+      var msg = await parseResponse.error.details[0].message.split(":")[1];
+      alert(msg);
+    }
   },
   "click .delete-button": async function() {
     console.log("deleteButtonClick");
     console.log("id----", event.target.id);
     var proposalId = event.target.id;
-    let contract = await eosinstance.contract("voteproposal");
-    console.log("===", contract);
     try {
-      let res = await contract.delprop(proposalId, "identityreg1", {
-        authorization: "identityreg1"
-      });
-      alert("proposal is successfully removed!!!");
+      let voteproposal = await eosinstance.contract("voteproposal");
+      if(voteproposal)
+      {
+        let result = await voteproposal.delprop(proposalId, "identityreg1", {authorization: "identityreg1"});
+        if(result)
+        {
+          alert("proposal is successfully removed!!!");
+        }
+        else{
+          alert("proposal is not removed!!!");
+        }
+      }
     } catch (err) {
       var parseResponse = await JSON.parse(err);
-      var msg = await parseResponse.error.details[0].message.split(":")[1]
+      var msg = await parseResponse.error.details[0].message.split(":")[1];
       alert(msg);
     }
   },
@@ -241,15 +275,24 @@ Template.App_manager.events({
     console.log("declareButtonClick");
     console.log("id----", event.target.id);
     var proposalId = event.target.id;
-    let contract = await eosinstance.contract("voteproposal");
     console.log("===", contract);
     try {
-      let res = await contract.decidewinner(proposalId, "identityreg1", {
-        authorization: "identityreg1"
-      });
-      alert("winner is declared successfully!!!");
+      let voteproposal = await eosinstance.contract("voteproposal");
+      if(voteproposal)
+      {
+        let result = await voteproposal.decidewinner(proposalId, "identityreg1", {authorization: "identityreg1"});
+        if(result)
+        {
+          alert("winner is declared successfully!!!");
+        }
+        else {
+          alert("winner is not declared!!!");
+        }
+      } 
     } catch (err) {
-      console.log("----", err);
+      var parseResponse = await JSON.parse(err);
+      var msg = await parseResponse.error.details[0].message.split(":")[1];
+      alert(msg);
     }
 
   },
@@ -395,8 +438,7 @@ Template.App_manager.events({
   },
   "click #condidateButton": async function() {
     console.log("candidateList");
-    document.getElementsByClassName("manager-below-section")[0].style.display =
-      "flex";
+    document.getElementsByClassName("manager-below-section")[0].style.display = "flex";
     document.getElementById("result-container").style.display = "none";
     document.getElementById("budgetProposalsList").style.display = "none";
   },
@@ -405,14 +447,26 @@ Template.App_manager.events({
     console.log("stv-stop");
     let idstop = propentry.rows[0].id;
     var username = localStorage.getItem("username");
-    eosinstance.contract("propbudget11").then(propbudget11 => {
-      propbudget11
-        .stvoff(idstop, username, { authorization: username })
-        .then(response => {
+    try
+    {
+      let propbudget11 = await eosinstance.contract("propbudget11");
+      if(propbudget11)
+      {
+        let result = await propbudget11.stvoff(idstop, username, { authorization: username });
+        if(result)
+        {
           alert("stv successfully stoped");
-          console.log("response==>", response);
-        });
-    });
+        }
+        else{
+          alert("stv not stoped");
+        }
+      }
+    }
+    catch(err){
+      var parseResponse = await JSON.parse(err);
+      var msg = await parseResponse.error.details[0].message.split(":")[1];
+      alert(msg);
+    }
     document.getElementById("stv-stop").style.display = "none";
     document.getElementById("result-container").innerHTML +=
       "<div class = 'decideWinner' id = 'decideWinner'>" +
@@ -423,55 +477,79 @@ Template.App_manager.events({
     console.log("decideWinner");
     let idwinner = propentry.rows[0].id;
     var username = localStorage.getItem("username");
-    eosinstance.contract("propbudget11").then(propbudget11 => {
-      propbudget11
-        .decidewinner(idwinner, username, { authorization: username })
-        .then(response => {
-          alert("winners are decided!!");
-          console.log("resWinner", response);
-          FlowRouter.go("/stvresult");
-        });
-    });
+    try{
+        let propbudget11 = await eosinstance.contract("propbudget11");
+        if(propbudget11)
+        {
+            result = await propbudget11.decidewinner(idwinner, username, { authorization: username });
+            if(result)
+            {
+              alert("winners are decided!!");
+            }
+            else{
+              alert("winners are not decided!!");
+            }
+        } 
+    }
+    catch(err){
+      var parseResponse = await JSON.parse(err);
+      var msg = await parseResponse.error.details[0].message.split(":")[1];
+      alert(msg);
+    }
   },
 
   "click #starton": async function() {
     console.log("starton");
     var username = localStorage.getItem("username");
-    eosinstance.contract("propbudget11").then(propbudget11 => {
-      propbudget11
-        .votingon(username, { authorization: username })
-        .then(response => {
-          if (response) {
-            console.log("hello--", response);
-            document.getElementById("starton").style.display="none";
-            document.getElementById("SelectedProposal").style.display="none";
-            document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
-            "<div class  = 'start-stop' id = 'stopon'><button>STOP</button></div>";
-          } else {
-            alert("identity is not registered !!!!");
-          }
-        });
-    });
+    try{
+      let propbudget11 = await eosinstance.contract("propbudget11");
+      if(propbudget11)
+      {
+        let result = await propbudget11.votingon(username, { authorization: username });
+        if(result)
+        {
+          console.log("hello--", result);
+          document.getElementById("starton").style.display="none";
+          document.getElementById("SelectedProposal").style.display="none";
+          document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
+          "<div class  = 'start-stop' id = 'stopon'><button>STOP</button></div>";
+        }
+        else{
+          alert("identity is not registered !!!!");
+        }
+      }
+    }
+    catch(err){
+      var parseResponse = await JSON.parse(err);
+      var msg = await parseResponse.error.details[0].message.split(":")[1];
+      alert(msg);
+    }
   },
-
   "click #stopon": async function() {
     console.log("stopon");
     var username = localStorage.getItem("username");
-    eosinstance.contract("propbudget11").then(propbudget11 => {
-      propbudget11
-        .votingoff(username, { authorization: username })
-        .then(response => {
-          if (response) {
-            console.log("hello--", response);
+    try{
+      let propbudget11 = await eosinstance.contract("propbudget11");
+      if(propbudget11)
+      {
+        let result =  await propbudget11.votingoff(username, { authorization: username });
+        if(result)
+        {
+          console.log("hello--", result);
             document.getElementById("stopon").style.display = "none";
             document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
             "<div class  = 'start-stop' id = 'SelectedProposal'><button>SelectedProposal</button></div>";
- 
-          } else {
-            alert("identity is not registered !!!!");
-          }
-        });
-    });
+        }
+        else{
+          alert("identity is not registered !!!!");
+        }
+      }
+    }
+    catch(err){
+      var parseResponse = await JSON.parse(err);
+      var msg = await parseResponse.error.details[0].message.split(":")[1];
+      alert(msg);
+    }
   },
   "click #SelectedProposal": async function() {
     console.log("SelectedProposal");
@@ -546,19 +624,27 @@ Template.App_manager.events({
     var noOfwinner = $("#noOfwinner").val();
     var id = resfeature .rows[0].id;
    
-    eosinstance.contract("propbudget11").then(propbudget11 => {
-      propbudget11.startstv(id, username, details, duration, noOfwinner, {
-          authorization: username
-        })
-        .then(response => {
-          if (response) {
-            console.log("hello--", response);
-            FlowRouter.go("/budget");
-          } else {
-            alert("identity is not registered !!!!");
-          }
-        });
-    });
+    try{
+      let propbudget11 =  eosinstance.contract("propbudget11");
+      if(propbudget11)
+      {
+        let result = propbudget11.startstv(id, username, details, duration, noOfwinner, {authorization: username});
+        if(result)
+        {
+          console.log("hello--", result);
+          FlowRouter.go("/budget")
+        }
+        else{
+          alert("identity is not registered !!!!");
+        }
+      }
+    }
+    catch(err)
+    {
+      var parseResponse = await JSON.parse(err);
+      var msg = await parseResponse.error.details[0].message.split(":")[1];
+      alert(msg);
+    }
     FlowRouter.go("/budget");
   },
   "click #coupondetails": function() {
@@ -574,90 +660,103 @@ Template.App_manager.events({
               document.getElementById("userList").style.display = "none";
               document.getElementById("proposalList").style.display = "none";
               bondid=$("#bondid").val();
-              document.getElementsByClassName("bondprop")[0].innerHTML = "";
-              for (var i = 0; i < bonddata.rows.length; i++) {
-                if(bonddata.rows[i].id == bondid){
-                  couponid=bonddata.rows[i].id;
-                  var iip=i;
-                  for(var j=0; j<bonddata.rows[iip].bondholders.length; j++){
-                    var bondholder = bonddata.rows[iip].bondholders[j]; 
-                    var username = localStorage.getItem("username");
-                    await eosinstance.getTableRows({
-                          code: "bondborrower",
-                          scope: bondholder,
-                          table: "buyerdata33",
-                          limit: 50,
-                          json: true
-                        })
-                  .then(resp => {
-                    buyerdata = resp;
-                    console.log(i,"bondbuyer--",resp);
-                    for(var k=0;k<buyerdata.rows.length;k++){
-                      if(buyerdata.rows[k].id==couponid){
-                        var datearr = buyerdata.rows[k].returningdate.length-1;
-                        document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+buyerdata.rows[k].bondbuyer+"</div><div class='holders'>status -> "+datearr+" coupon are submitted</div></div>";   
-                      }
+              if((!bondid)){
+                alert("please enter bondid");
+              }else{
+                document.getElementsByClassName("bondprop")[0].innerHTML = "";
+                for (var i = 0; i < bonddata.rows.length; i++) {
+                  if(bonddata.rows[i].id == bondid){
+                    couponid=bondid;
+                    var iip=i;
+                    for(var j=0; j<bonddata.rows[iip].bondholders.length; j++){
+                      var bondholder = bonddata.rows[iip].bondholders[j]; 
+                      var username = localStorage.getItem("username");
+
+                     buyerdata =  await eosinstance.getTableRows({
+                            code: "bondborrower",
+                            scope: bondholder,
+                            table: "buyerdata33",
+                            limit: 50,
+                            json: true
+                          });
+                    if(buyerdata){
+                      for(var k=0;k<buyerdata.rows.length;k++){
+                        if(buyerdata.rows[k].id==couponid){
+                          var datearr = buyerdata.rows[k].returningdate.length-1;
+                          document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+buyerdata.rows[k].bondbuyer+"</div><div class='holders'>status -> "+datearr+" coupon are submitted</div></div>";   
+                        }
+                      }    
+                    };
                     }
-                    
-                        
-                  });
-                  }
-                  document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='coupondiv'><button class='couponbond' id='getcoupon'>coupondistirbution</button></div>";
-                }      
-            }
-    
+                    document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='coupondiv'><button class='couponbond' id='getcoupon'>coupondistirbution</button></div>";
+                  }      
+              }
+      
+              }
+             
    
   },
-  "click #getcoupon":async function() {
+  "click #getcoupon": async function() {
     var num;
     var username = localStorage.getItem("username");
-    let bondborrower = await eosinstance.contract('bondborrower');
-                if(bondborrower)
-                {
-                  let result = await  bondborrower.getcoupon(couponid,{authorization: username});
-                     if(result){
-                      for (var i = 0; i < bonddata.rows.length; i++) {
-                        if(bonddata.rows[i].id == bondid){
-                          couponid=bonddata.rows[i].id;
-                          num=i;
-                          for(var j=0; j<bonddata.rows[i].bondholders.length; j++){
-                            var bondholder = bonddata.rows[i].bondholders[j]; 
-                            await eosinstance.getTableRows({
-                                  code: "bondborrower",
-                                  scope: bondholder,
-                                  table: "buyerdata33",
-                                  limit: 50,
-                                  json: true
-                                })
-                          .then(resp => {
-                            buyerdata = resp;
-          
-                            for(var k=0;k<buyerdata.rows.length;k++){
-                              if(buyerdata.rows[k].id==couponid){
-                                var datearr = buyerdata.rows[k].returningdate[buyerdata.rows[k].returningdate.length-1];
-                                console.log(buyerdata.rows[k].returningdate.length,"dataarr--",k)
-                                if (buyerdata.rows[k].returningdate.length-1 == bonddata.rows[k].maturitycount){
-                                
-                                 count++;
-                                 if(count==bonddata.rows[k].bondholders.length){
-                                   alert("-payement----successfull---");       
-                                 }              
-                                }else if (buyerdata.rows[k].returningdate.length-1 < bonddata.rows[k].maturitycount){
-                                
-                                    alert("--time remain--");  
-                                                  
-                                }  
-                              }
-                            }
-                                                                
-                          });
-                          }
-                        }      
-                    } 
-                    }else{
-                      alert("Something went wrong");
-                   }
+    try
+    {
+      let bondborrower = await eosinstance.contract("bondborrower");
+      if(bondborrower)
+      {
+        let result = await bondborrow.getcoupon(couponid,{authorization: username});
+        if(result)
+        {
+            for (var i = 0; i < bonddata.rows.length; i++) {
+              if(bonddata.rows[i].id == bondid){
+                couponid=bonddata.rows[i].id;
+                num=i;
+                for(var j=0; j<bonddata.rows[i].bondholders.length; j++){
+                  var bondholder = bonddata.rows[i].bondholders[j]; 
+                  buyerdata = await eosinstance.getTableRows({
+                        code: "bondborrower",
+                        scope: bondholder,
+                        table: "buyerdata33",
+                        limit: 50,
+                        json: true
+                      });
+                if(buyerdata) {
+                  for(var k=0;k<buyerdata.rows.length;k++){
+                    if(buyerdata.rows[k].id==couponid){
+                      var datearr = buyerdata.rows[k].returningdate[buyerdata.rows[k].returningdate.length-1];
+                      console.log(buyerdata.rows[k].returningdate.length,"dataarr--",k)
+                      if (buyerdata.rows[k].returningdate.length-1 == bonddata.rows[k].maturitycount){
+                      
+                       count++;
+                       if(count==bonddata.rows[k].bondholders.length){
+                         alert("-payement----successfull---");       
+                       }              
+                      }else if (buyerdata.rows[k].returningdate.length-1 < bonddata.rows[k].maturitycount){
+                      
+                          alert("--time remain--");                    
+                      }  
+                    }
+                  }                                    
+                };
                 }
+              }      
+          } 
+          } else {
+            alert("some problems!!!!");
+          }
+        }
+        else{
+          alert("getting coupon process is not completed");
+        }
+      }
+    catch(err)
+    {
+      console.log("err---=>  ",err);
+      var parseResponse = await JSON.parse(err);
+      console.log("parseResponse => ",parseResponse);
+      var msg = await parseResponse.error.details[0].message.split(":")[1];
+      alert(msg);
+    }
   },
   "click #realestatemanager":function()
   {
@@ -725,10 +824,9 @@ Template.App_manager.events({
   "click #add-land-proposal-btn":async function()
   {
     console.log("create auction");
-    
+    var sym = "UTP";
     var username = localStorage.getItem("username");
     var propid = $("#propid").val();
-    var currentprice = $("#currentprice").val();
     var x = document.getElementById("startdate").value;
     var startdate = Math.round((new Date(x)).getTime() / 1000);
     var y = document.getElementById("enddate").value;
@@ -736,16 +834,23 @@ Template.App_manager.events({
     var currenttime = Math.round((new Date()).getTime() / 1000);
     /* var ts = Math.round((new Date()).getTime() / 1000); */
     /* console.log("ts",ts); */
+
+    var currentprice=`${parseFloat($("#currentprice").val()).toFixed(4)} ${sym}`
+    var currentprice1 = $("#currentprice").val();
+    var count =currentprice1.split(".").length - 1;
     console.log("x-->",x);
     console.log("current time ->",currenttime);
     console.log("startdate",startdate);
     console.log("enddate",enddate);
-   if((!propid)||(!currentprice)||(!startdate)||(!enddate))
+   if((!propid)||(!currentprice1)||(!startdate)||(!enddate))
    {
       alert("please fill all the entries !!")
    }
+   else if((count>1) || (currentprice1.length==count))
+   {
+    alert("please fill correct amount !!");
+   }
    else{
-
       try{
           let realstateutp = await eosinstance.contract('realstateutp');
           if(realstateutp)

@@ -23,6 +23,7 @@ var email;
 let profilepic ;
 let imagegeResponse;
 Template.App_identity.onCreated(function () {
+    console.log("username ", localStorage.getItem("username"));
     ScatterJS.scatter.connect('utopia').then(async(connected) => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {

@@ -71,6 +71,7 @@
     background: white;
     display: flex;
     align-items: center;
+    padding-left: 5%;
 }
 .bpCount{
     flex:1;
