@@ -63,14 +63,21 @@ Template.App_real_estate_buy.helpers({
 Template.App_real_estate_buy.events({
     "click .buy-btn": async function (e) {
         var id = e.target.id.split("-")[1];
+        var sym = "UTP";
         var username = localStorage.getItem("username");
         var tokenfield = "#buypropertyfield-" + id;
-        var utpvalue = $(tokenfield).val();
+        var utpvalue1 = $(tokenfield).val();
+        var utpvalue = `${parseFloat($(tokenfield).val()).toFixed(4)} ${sym}`;
         console.log("utpvalue", utpvalue);
         var to = "rsdeposite11";
+        var count = utpvalue1.split(".").length - 1;
         if (!utpvalue) {
             alert("Enter UTP in format 0.0000 UTP");
-        } else {
+        } 
+        else if((count>1) || (utpvalue1.length==count)){
+            alert("please fill correct amount !!");
+        }
+        else {
             try {
                 let realstateutp = await eosinstance.contract('realstateutp');
                 let utopbusiness = await eosinstance.contract("utopbusiness");

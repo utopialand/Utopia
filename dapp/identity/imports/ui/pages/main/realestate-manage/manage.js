@@ -146,13 +146,19 @@ Template.App_real_estate_manager.events({
         }
     },
     "click .modifypricebtn": async function (e) {
-        console.log("id ", e.target.id);
+        var sym = "UTP";
         var id = e.target.id.split("-")[1];
         var fieldid = "#modifypricefield-" + id;
-        var utpvalue = $(fieldid).val();
-        if (!utpvalue) {
-            alert("Enter UTP in format 0.0000 UTP");
-        } else {
+        var utpvalue = `${parseFloat($(fieldid).val()).toFixed(4)} ${sym}`;
+        var utpvalue1 = $(fieldid).val();
+        var count = utpvalue1.split(".").length - 1;
+        if (!utpvalue1) {
+            alert("Enter UTP");
+        } 
+        else if((count>1) || (utpvalue1.length==count)){
+            alert("please fill correct amount !!");
+        }
+        else {
             console.log("utpvalue ", utpvalue);
             var username = localStorage.getItem("username");
 

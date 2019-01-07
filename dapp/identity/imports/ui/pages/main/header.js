@@ -28,7 +28,7 @@ Template.header.onCreated(function() {
         const requiredFields = { accounts: [network] };
         const eos = scatter.eos(network, Eos, eosOptions);
           if (scatter.identity) {
-            console.log("iden");
+
             await eos.getTableRows({
               code: "utpmanager11",
               scope: "utpmanager11",
@@ -37,7 +37,7 @@ Template.header.onCreated(function() {
               json: true
             }).then((resp)=>{
                manager=resp.rows;
-               console.log("man---",manager);
+               
             })
             await eos.getTableRows({
               code: "identityreg1",
@@ -47,7 +47,7 @@ Template.header.onCreated(function() {
               json: true
             }).then((resp) => {
               userdetail = resp;
-              console.log("user---", userdetail);
+              
               var countman=0;
             for(var i=0;i<manager.length;i++){
               if(manager[i].user==username){
@@ -68,14 +68,14 @@ Template.header.onCreated(function() {
                 }
               }
               if(countuserid == 1){
-                console.log("count1");
+                
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
                 document.getElementById("len").style.display = "block";
                 document.getElementById("coupon").style.display = "block";
                 var s = document.getElementById("len").setAttribute("value", "userid");
               }else{
-                console.log("count2");
+              
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
                 var s = document.getElementById("len").setAttribute("value", "user");
