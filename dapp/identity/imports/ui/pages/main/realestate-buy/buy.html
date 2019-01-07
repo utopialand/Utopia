@@ -15,7 +15,7 @@
                 <div class="owner">Owner: {{owner}}</div>
                 <div class="price">Price: {{price}}</div>
                 <div class="house"></div>
-                <input type = "text" class = "buyfield" id = "buypropertyfield-{{propt_id}}" placeholder="format(0.0000 UTP)"/>
+                <input type = "text" class = "buyfield" id = "buypropertyfield-{{propt_id}}" placeholder="Enter UTP" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"/>
                 <button class = "buy-btn" id = "buypropertybtn-{{propt_id}}">Buy</button>
                 <button class = "property-details-btn" id = "buy-prop-{{propt_id}}">property details</button>
             </div>
