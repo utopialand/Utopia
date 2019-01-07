@@ -68,6 +68,19 @@ async function allProperties() {
     }
 }
 
+Template.App_real_estate.onRendered(function(){
+    console.log("on rendered");
+    console.log("hasIdentity", localStorage.getItem("hasIdentity"));
+    var val = localStorage.getItem("hasIdentity");
+    console.log("val ", val);
+    if(val  == "true"){
+        console.log("????????????");
+        document.getElementsByClassName("manageproperty")[0].style.display = "block";
+        document.getElementsByClassName("buypropertypagebtn")[0].style.display = "block";
+        document.getElementsByClassName("bidpropertypagebtn")[0].style.display = "block";
+    }
+})
+
 Template.App_real_estate.helpers({
     getAllProperties: function () {
         allProperties();
