@@ -26,8 +26,9 @@
 }
 
 .optionFlex {
-  display: none;
-  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-top: 5%;
 }
 .optionFlex p {
@@ -36,24 +37,22 @@
 }
 .optionBox1 {
   flex: 1;
-  display: flex;
-  justify-content: flex-end;
+  display: none;
+  justify-content: center;
 }
 .optionBox1 div {
   width: 318px;
   height: 63px;
-  margin-right: 36px;
   background-image: url("/img/optionBox.png");
 }
 .optionBox2 {
   flex: 1;
-  display: flex;
-  justify-content: flex-start;
+  display: none;
+  justify-content: center;
 }
 .optionBox2 div {
   width: 370px;
   height: 63px;
-  margin-left: 36px;
   background-image: url("/img/optionBox2.png");
 }
 .optionText1 {
