@@ -823,7 +823,6 @@ Template.App_manager.events({
     alert("please fill correct amount !!");
    }
    else{
-    alert("success !!");
       try{
           let realstateutp = await eosinstance.contract('realstateutp');
           if(realstateutp)
