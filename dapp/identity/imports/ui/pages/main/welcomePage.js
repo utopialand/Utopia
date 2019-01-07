@@ -20,6 +20,7 @@ let eos = {};
 var userdetail;
 var scatter={};
 let manager;
+let show;
 Template.welcomePage.onCreated(function bodyOnCreated() {
   const connectionOptions = {initTimeout:2000}
   ScatterJS.scatter.connect("utopia",connectionOptions).then(async connected => {
@@ -34,8 +35,6 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
         if (scatter.identity) {
           document.getElementById("scatter-not-installed").style.display = "none";
           document.getElementById("loginButton").innerHTML = "logout";
-          document.getElementsByClassName("optionFlex")[0].style.display =
-            "flex"; 
             await eos.getTableRows({
               code: "utpmanager11",
               scope: "utpmanager11",
@@ -68,26 +67,40 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
               document.getElementById("len").style.display = "block";
               document.getElementById("coupon").style.display = "block";
               var s = document.getElementById("len").setAttribute("value", "manager");
+              document.getElementsByClassName("optionFlex")[0].style.display ="none";  
             }else{
               var countuserid=0;
               for(var i=0;i<userdetail.rows.length;i++){
                 if(userdetail.rows[i].username==username){
                   countuserid++;
+                  show=userdetail.rows[i].citizen;
                 }
               }
               if(countuserid == 1){
-                console.log("count1");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
                 document.getElementById("len").style.display = "block";
                 document.getElementById("coupon").style.display = "block";
                 var s = document.getElementById("len").setAttribute("value", "userid");
+                if(show==1){
+                  console.log("count1");                 
+                  document.getElementsByClassName("optionFlex")[0].style.display ="none";                  
+                }else{
+                  console.log("count11");        
+                  document.getElementsByClassName("optionFlex")[0].style.display ="flex";           
+                  document.getElementsByClassName("optionBox1")[0].style.display ="none"; 
+                  document.getElementsByClassName("optionBox2")[0].style.display ="flex";  
+                }
+                
               }else{
                 console.log("count2");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
                 var s = document.getElementById("len").setAttribute("value", "user");
                 document.getElementById("len").style.display = "none";
+                document.getElementsByClassName("optionFlex")[0].style.display ="flex";  
+                document.getElementsByClassName("optionBox1")[0].style.display ="flex"; 
+                document.getElementsByClassName("optionBox2")[0].style.display ="none";  
                 document.getElementById("coupon").style.display = "none";
               }
             }
@@ -108,7 +121,7 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
 });
 
 Template.welcomePage.events({
-  "click .optionText1": function () {
+  "click .optionBox1": function () {
     FlowRouter.go("/identity-reg");
   },
   "click .scatterloginlogout": function (event, instance) {
@@ -128,8 +141,6 @@ Template.welcomePage.events({
             localStorage.setItem("username", account);
             localStorage.setItem("loginstatus", JSON.stringify(true));
             document.getElementById("loginButton").innerHTML = "logout";
-            document.getElementsByClassName("optionFlex")[0].style.display =
-              "flex";
             var countman=0;
             for(var i=0;i<manager.length;i++){
               console.log("man-is--",manager[i].user);
@@ -142,12 +153,15 @@ Template.welcomePage.events({
               document.getElementById("managerText").style.display = "block";
               document.getElementById("len").style.display = "block";
               document.getElementById("coupon").style.display = "block";
+              document.getElementsByClassName("optionFlex")[0].style.display =
+              "none";
               var s = document.getElementById("len").setAttribute("value", "manager");
             }else{
               var countuserid=0;
               for(var i=0;i<userdetail.rows.length;i++){
                 if(userdetail.rows[i].username==account){
                   countuserid++;
+                  show=userdetail.rows[i].citizen;
                 }
               }
               if(countuserid == 1){
@@ -157,12 +171,24 @@ Template.welcomePage.events({
                 document.getElementById("len").style.display = "block";
                 document.getElementById("coupon").style.display = "block";
                 var s = document.getElementById("len").setAttribute("value", "userid");
+                if(show==1){
+                  console.log("count1");                 
+                  document.getElementsByClassName("optionFlex")[0].style.display ="none";                  
+                }else{
+                  console.log("count11");        
+                  document.getElementsByClassName("optionFlex")[0].style.display ="flex";           
+                  document.getElementsByClassName("optionBox1")[0].style.display ="none"; 
+                  document.getElementsByClassName("optionBox2")[0].style.display ="flex";  
+                }
               }else{
                 console.log("count2");
                 document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
                 document.getElementById("managerText").style.display = "none";
                 var s = document.getElementById("len").setAttribute("value", "user");
                 document.getElementById("len").style.display = "none";
+                document.getElementsByClassName("optionFlex")[0].style.display ="flex";  
+                document.getElementsByClassName("optionBox1")[0].style.display ="flex"; 
+                document.getElementsByClassName("optionBox2")[0].style.display ="none";  
                 document.getElementById("coupon").style.display = "none";
               }
             }
@@ -187,7 +213,7 @@ Template.welcomePage.events({
 });
 
 Template.welcomePage.events({
-  "click .optionText2":async function () {
+  "click .optionBox2":async function () {
     var username= localStorage.getItem("username");
         try{
             let identityreg1 = await eos.contract('identityreg1');
