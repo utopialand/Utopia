@@ -40,11 +40,11 @@
             <div class = "adding-land-proposal">
                     <div class = adding-land-proposal-tab>
                          <label>property id : </label>
-                         <input type="text" id = "propid"/>
+                         <input type="text" id = "propid" placeholder = "property ID" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
                     </div>
                     <div class = adding-land-proposal-tab>
                          <label>current price : </label>
-                         <input type="text" placeholder = "0.0000 UTP" id = "currentprice"/>
+                         <input type="text" id = "currentprice" placeholder="Enter UTP Value" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"/>
                     </div>
                     <div class = adding-land-proposal-tab>
                          <label>start date : </label>
