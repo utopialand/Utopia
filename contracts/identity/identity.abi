@@ -1,6 +1,6 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Dec  7 10:45:26 2018",
-    "version": "eosio::abi/1.1",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Jan  7 17:04:45 2019",
+    "version": "eosio::abi/1.0",
     "structs": [
         {
             "name": "addcitizen",
@@ -163,8 +163,8 @@
             "base": "",
             "fields": [
                 {
-                    "name": "id",
-                    "type": "uint64"
+                    "name": "user",
+                    "type": "name"
                 },
                 {
                     "name": "manager",
@@ -279,6 +279,5 @@
         }
     ],
     "ricardian_clauses": [],
-    "variants": [],
     "abi_extensions": []
 }

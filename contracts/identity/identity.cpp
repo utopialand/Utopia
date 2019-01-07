@@ -136,12 +136,12 @@ ACTION identity::reqcitizen(name identity)
     });
 }
 
-ACTION identity::remcitreq(uint64_t id, name manager)
+ACTION identity::remcitreq(name user, name manager)
 {
     print("remove citizen");
     eosio_assert(is_manager(manager), "Not Authorized");
     citizen_table citizen(_self, _self.value);
-    auto itr = citizen.find(id);
+    auto itr = citizen.find(user.value);
     eosio_assert(itr != citizen.end(), "citizen not found");
     //if(itr->approved!=true)
     citizen.erase(itr);
