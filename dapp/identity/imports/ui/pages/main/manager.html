@@ -11,7 +11,7 @@
             <div class = "rsmanager-button-group">
                     <button class = "rsmanager-button" id="addprop">add property</button>
                     <button class = "rsmanager-button" id="createplandroposal">Create Auction</button>
-                    <button class = "rsmanager-button" id="approvedproperty">Approved property</button>
+                    <button class = "rsmanager-button" id="approvedproperty">Approve property</button>
             </div>
             <div class = "adding-property">
                    <div class = adding-property-tab>
@@ -44,7 +44,7 @@
                     </div>
                     <div class = adding-land-proposal-tab>
                          <label>current price : </label>
-                         <input type="text" id = "currentprice" placeholder="Enter UTP Value" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"/>
+                         <input type="text" id = "currentprice"/>
                     </div>
                     <div class = adding-land-proposal-tab>
                          <label>start date : </label>
@@ -59,7 +59,7 @@
              </div>
              <div class = "approved-property">
                  <input type = "text" placeholder = "id" id = "approvedid" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
-                 <button id = "approved-property-btn">Approved</button>
+                 <button id = "approved-property-btn">Approve</button>
              </div>
         </div>
         <div id="proposalList">

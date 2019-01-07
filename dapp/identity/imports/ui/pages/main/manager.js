@@ -112,13 +112,13 @@ Template.App_manager.onCreated(function() {
                   document.getElementById("manager-user-group").innerHTML +=
                     "<div class = 'manager-user-redo' id = '" +
                     users +
-                    "'><p>" +
+                    "'><p>"+
                     users +
                     "</p><button class = 'approved-button' id = '" +
                     ids +
-                    "'>approved</button><button class = 'disapproved-button'id = '" +
+                    "'>approve</button><button class = 'disapproved-button'id = '" +
                     ids +
-                    "'>disapproved</button>" +
+                    "'>disapprove</button>" +
                     "</div>";
                 }
               }
@@ -217,6 +217,28 @@ Template.App_manager.events({
     console.log("helllllllloManager - disapproved");
     console.log("id----", event.target.id);
     console.log("username------", event.target.parentElement.id);
+    var requestername = event.target.parentElement.id;
+    var id =event.target.id;
+    try {
+      let identityreg1 = await eosinstance.contract("identityreg1");
+      if(identityreg1)
+      {
+        let result = await identityreg1.remcitreq(requestername ,"identityreg1",{authorization: "identityreg1" });
+        if(result)
+        {
+          alert("disapproved successfuffly");
+        }
+        else{
+          alert("not disapproved");
+        }
+      }
+    }
+    catch(err)
+    {
+      var parseResponse = await JSON.parse(err);
+      var msg = await parseResponse.error.details[0].message.split(":")[1];
+      alert(msg);
+    }
   },
   "click .delete-button": async function() {
     console.log("deleteButtonClick");
@@ -649,25 +671,22 @@ Template.App_manager.events({
                     for(var j=0; j<bonddata.rows[iip].bondholders.length; j++){
                       var bondholder = bonddata.rows[iip].bondholders[j]; 
                       var username = localStorage.getItem("username");
-                      await eosinstance.getTableRows({
+
+                     buyerdata =  await eosinstance.getTableRows({
                             code: "bondborrower",
                             scope: bondholder,
                             table: "buyerdata33",
                             limit: 50,
                             json: true
-                          })
-                    .then(resp => {
-                      buyerdata = resp;
-                      console.log(i,"bondbuyer--",resp);
+                          });
+                    if(buyerdata){
                       for(var k=0;k<buyerdata.rows.length;k++){
                         if(buyerdata.rows[k].id==couponid){
                           var datearr = buyerdata.rows[k].returningdate.length-1;
                           document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+buyerdata.rows[k].bondbuyer+"</div><div class='holders'>status -> "+datearr+" coupon are submitted</div></div>";   
                         }
-                      }
-                      
-                          
-                    });
+                      }    
+                    };
                     }
                     document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='coupondiv'><button class='couponbond' id='getcoupon'>coupondistirbution</button></div>";
                   }      
@@ -732,6 +751,7 @@ Template.App_manager.events({
       }
     catch(err)
     {
+      console.log("err---=>  ",err);
       var parseResponse = await JSON.parse(err);
       console.log("parseResponse => ",parseResponse);
       var msg = await parseResponse.error.details[0].message.split(":")[1];
@@ -831,7 +851,6 @@ Template.App_manager.events({
     alert("please fill correct amount !!");
    }
    else{
-    alert("success !!");
       try{
           let realstateutp = await eosinstance.contract('realstateutp');
           if(realstateutp)
