@@ -2,6 +2,7 @@ import "./manager.html";
 import "../../pages/main/footer.js";
 import "../../stylesheets/manager.css";
 import ScatterJS from "scatterjs-core";
+import { Session } from "meteor/session";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";
 const network = {
@@ -55,6 +56,8 @@ Template.App_manager.onCreated(function() {
               json: true
             });
             document.getElementsByClassName("waitingData")[0].style.display = "none";
+            document.getElementById("govdebtdatalist").style.display = "none";
+
             if(tabledata){
               document.getElementById("result-container").style.display ="none";
               console.log("tabledata--", tabledata);
@@ -170,6 +173,10 @@ Template.App_manager.onCreated(function() {
               limit: "50",
               json: true
             });
+            if(govdebtdata)
+            {
+              Session.set("allgovdeblist", govdebtdata.rows);
+            }
         } else {
           FlowRouter.go("/");
         }
@@ -179,13 +186,19 @@ Template.App_manager.onCreated(function() {
     }
   });
 });
-
+Template.App_manager.helpers({
+  allgovdebtuserlist(){
+  console.log("allgovdeblist======>",Session.get("allgovdeblist"));
+  return Session.get("allgovdeblist");
+  }
+});
 Template.App_manager.events({
   "click #userDetails": function() {
     document.getElementById("userList").style.display = "block";
     document.getElementById("proposalList").style.display = "none";
     document.getElementById("result-container").style.display = "none";
     document.getElementById("rsmanagerpage").style.display = "none";  
+    document.getElementById("govdebtdatalist").style.display = "none";
     document.getElementsByClassName("bondprop")[0].innerHTML ="";
     
   },
@@ -196,22 +209,6 @@ Template.App_manager.events({
     document.getElementById("rsmanagerpage").style.display = "none"; 
     document.getElementById("govdebtdatalist").style.display = "flex";
     console.log("govdebtdata===>",govdebtdata);
-    document.getElementById("govusername").innerHTML = ""; 
-    document.getElementById("govuseramount").innerHTML = "";
-    document.getElementById("govuserequsd").innerHTML = "";
-
-    for (var j = 0; j < govdebtdata.rows.length; j++) {
-
-      var name = govdebtdata.rows[j].username;
-      var amount = govdebtdata.rows[j].amount;
-      var equivalentusd = parseFloat(govdebtdata.rows[j].eqUSD);
-      var amt = equivalentusd.toFixed(4);
-      console.log("to fixed----",amt);
-      document.getElementById("govusername").innerHTML += "<div id = "+j+">"+name+"</div>";
-      document.getElementById("govuseramount").innerHTML += "<div id = "+j+">"+amount+"</div>";
-      document.getElementById("govuserequsd").innerHTML  += "<div id = "+j+">"+amt+"</div>";
-    }
-
   },
   
   "click #proposalDetails": function() {
@@ -220,6 +217,7 @@ Template.App_manager.events({
     document.getElementById("proposalList").style.display = "block";
     document.getElementsByClassName("budgetProposalsList")[0].style.display ="none"; 
     document.getElementById("rsmanagerpage").style.display = "none"; 
+    document.getElementById("govdebtdatalist").style.display = "none";
     document.getElementsByClassName("manager-below-section")[0].style.display ="block";
     document.getElementsByClassName("bondprop")[0].innerHTML ="";
   },
@@ -473,6 +471,7 @@ Template.App_manager.events({
     console.log("candidateList");
     document.getElementsByClassName("manager-below-section")[0].style.display = "flex";
     document.getElementById("result-container").style.display = "none";
+    document.getElementById("govdebtdatalist").style.display = "none";
     document.getElementById("budgetProposalsList").style.display = "none";
   },
 
@@ -684,6 +683,7 @@ Template.App_manager.events({
     document.getElementById("userList").style.display = "none";
     document.getElementById("proposalList").style.display = "none";
     document.getElementById("rsmanagerpage").style.display = "none";
+    document.getElementById("govdebtdatalist").style.display = "none";
     document.getElementsByClassName("bondprop")[0].innerHTML ="";
     document.getElementsByClassName("bondprop")[0].innerHTML +=
     "<div class='bond-form'><label>bond id</label><input type='text' id='bondid'/>"
@@ -796,6 +796,7 @@ Template.App_manager.events({
     console.log("realestate");
     
     document.getElementById("proposalList").style.display = "none"; 
+    document.getElementById("govdebtdatalist").style.display = "none";
     document.getElementsByClassName("bondprop")[0].innerHTML ="none";
     document.getElementById("rsmanagerpage").style.display = "block"; 
   },

@@ -9,6 +9,7 @@
   font-family: Colfax Medium;
   letter-spacing: 1px;
   margin-bottom: 5%;
+  color:white;
 }
 .flexOption {
   display: flex;
@@ -619,7 +620,11 @@
 /* ================Gov Debt =================================*/
 .govdebtdatalist {
   display: none;
-  margin-top: 5%;
+  flex-direction: column;
+}
+.debt {
+  display: flex;
+  margin-top: 1%;
   height: 50px;
   width: 100%;
   align-items: center;
@@ -649,3 +654,38 @@
   letter-spacing: 1px;
   color: black;
 }
+.debthead{
+    display: flex;
+    margin-top: 5%;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    background: white;
+    text-transform: uppercase;
+    background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+  }
+
+  .govheadusername {
+    flex: 1;
+    font-family: Colfax Medium;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 1px;
+    color: black;
+  }
+  .govheaduseramount {
+    flex: 1;
+    font-family: Colfax Medium;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 1px;
+    color: black;
+  }
+  .govheaduserequsd {
+    flex: 1;
+    font-family: Colfax Medium;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 1px;
+    color: black;
+  }

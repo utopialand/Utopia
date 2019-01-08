@@ -12,9 +12,20 @@
                 <button id="govdebt">Gov-debt</button>
               </div>
               <div class = "govdebtdatalist" id = "govdebtdatalist" >
-                   <div class  = "govusername" id = "govusername"></div>
-                   <div class  = "govuseramount" id = "govuseramount"></div>
-                   <div class  = "govuserequsd" id = "govuserequsd" ></div>
+                    <div class = "debthead">
+                         <div class  = "govheadusername" id = "govusername">Username</div>
+                         <div class  = "govheaduseramount" id = "govuseramount">EOS Deposit</div>
+                         <div class  = "govheaduserequsd" id = "govuserequsd" >Equivalent-USD</div> 
+                    </div>
+                    {{#if allgovdebtuserlist.length}}
+                    {{#each allgovdebtuserlist}}
+                    <div class = "debt">
+                         <div class  = "govusername" id = "govusername">{{username}}</div>
+                         <div class  = "govuseramount" id = "govuseramount">{{amount}}</div>
+                         <div class  = "govuserequsd" id = "govuserequsd" >{{eqUSD}}</div> 
+                    </div>
+                    {{/each}}
+                   {{/if}}
               </div>
               <div class = "rsmanagerpage" id = "rsmanagerpage">
                   <div class = "rsmanager-button-group">
