@@ -1,106 +1,106 @@
 <template name="App_manager">
-    <div class="manager-container">
-        <h1>manager</h1>
-        <div class = "flexOption">
-          <button id = "proposalDetails">proposal</button>
-          <button id="userDetails">user</button>
-          <button id="coupondetails">coupondetails</button>
-          <button id="realestatemanager">realestate</button>
-        </div>
-        <div class = "rsmanagerpage" id = "rsmanagerpage">
-            <div class = "rsmanager-button-group">
-                    <button class = "rsmanager-button" id="addprop">add property</button>
-                    <button class = "rsmanager-button" id="createplandroposal">Create Auction</button>
-                    <button class = "rsmanager-button" id="approvedproperty">Approve property</button>
-            </div>
-            <div class = "adding-property">
-                   <div class = adding-property-tab>
-                        <label>property name : </label>
-                        <input type="text" id = "proptname"/>
-                   </div>
-                   <div class = adding-property-tab>
-                        <label>address : </label>
-                        <input type="text" id = "address"/>
-                   </div>
-                   <div class = adding-property-tab>
-                        <label>description : </label>
-                        <input type="text" id = "description"/>
-                   </div>
-                   <div class = adding-property-tab>
-                        <label>property type : </label>
-                        <input type="text" id = "propttype"/>
-                   </div>
-                   <div class = adding-property-tab>
-                        <label>Area : </label>
-                        <input type="text" id = "area"/>
-                   </div>
-                   <button id = "add-property-btn">SUBMIT</button>
-                    
-            </div>
-            <div class = "adding-land-proposal">
-                    <div class = adding-land-proposal-tab>
-                         <label>property id : </label>
-                         <input type="text" id = "propid" placeholder = "property ID" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
-                    </div>
-                    <div class = adding-land-proposal-tab>
-                         <label>current price : </label>
-                         <input type="text" id = "currentprice"/>
-                    </div>
-                    <div class = adding-land-proposal-tab>
-                         <label>start date : </label>
-                         <input type="datetime-local" id = "startdate"/>
-                    </div>
-                    <div class = adding-land-proposal-tab>
-                         <label>end date : </label>
-                         <input type="datetime-local" id = "enddate"/>
-                    </div>
-                    <button id = "add-land-proposal-btn">SUBMIT</button>
-                     
-             </div>
-             <div class = "approved-property">
-                 <input type = "text" placeholder = "id" id = "approvedid" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
-                 <button id = "approved-property-btn">Approve</button>
-             </div>
-        </div>
-        <div id="proposalList">
-          <div class = typeBudget>
-            <button id = "condidateButton">candidate</button>
-            <button id = "budgetButton">budget</button>
+     <div class="manager-container">
+          <h1>manager</h1>
+          <div class="flexOption">
+               <button id="proposalDetails">proposal</button>
+               <button id="userDetails">user</button>
+               <button id="coupondetails">coupondetails</button>
+               <button id="realestatemanager">realestate</button>
           </div>
-          <div class = "budgetProposalsList" id = "budgetProposalsList">
-            </div>
-          <div class="manager-below-section"> 
-            <div class="manager-all-proposals" id="manager-all-proposals">
-                <div class="manager-proposal-group" id="manager-proposal-group">
-                </div>
-            </div>
-        </div>
-        </div>
-        <div id="userList">
-          <div class="manager-below-section"> 
-            <div class="manager-all-proposals" id="manager-all-proposals">
-                <div class="manager-user-group" id="manager-user-group">
-                </div>
-            </div>
-        </div>
-        </div>
-        <div class="bondprop" id="bondprop"></div>
-    </div>
-    <div class="result-container" id = "result-container">
-        <h1>STV - STATUS</h1>
-        <div class="results" id = "proposal-result">
-            <div id="proposal-result-name"></div>
-            <div id="proposal-result-votes"></div>
-        </div>
-        <div class="resultbox">
-            <div class="title">
-                
-            </div>
-            <div class="selected">
-                
-            </div>
-        </div>
-        <div class = "stv-stop-button" id = "stv-stop-button"></div>
-    </div>
-    {{> footer}}
-  </template>
+          <div class="rsmanagerpage" id="rsmanagerpage">
+               <div class="rsmanager-button-group">
+                    <button class="rsmanager-button" id="addprop">add property</button>
+                    <button class="rsmanager-button" id="createplandroposal">Create Auction</button>
+                    <button class="rsmanager-button" id="approvedproperty">Approve property</button>
+               </div>
+               <div class="adding-property">
+                    <div class=adding-property-tab>
+                         <label>property name : </label>
+                         <input type="text" id="proptname" />
+                    </div>
+                    <div class=adding-property-tab>
+                         <label>address : </label>
+                         <input type="text" id="address" />
+                    </div>
+                    <div class=adding-property-tab>
+                         <label>description : </label>
+                         <input type="text" id="description" />
+                    </div>
+                    <div class=adding-property-tab>
+                         <label>property type : </label>
+                         <input type="text" id="propttype" />
+                    </div>
+                    <div class=adding-property-tab>
+                         <label>Area : </label>
+                         <input type="text" id="area" />
+                    </div>
+                    <button id="add-property-btn">SUBMIT</button>
+
+               </div>
+               <div class="adding-land-proposal">
+                    <div class=adding-land-proposal-tab>
+                         <label>property id : </label>
+                         <input type="text" id="propid" placeholder="property ID" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                    </div>
+                    <div class=adding-land-proposal-tab>
+                         <label>current price : </label>
+                         <input type="text" id="currentprice" />
+                    </div>
+                    <div class=adding-land-proposal-tab>
+                         <label>start date : </label>
+                         <input type="datetime-local" id="startdate" />
+                    </div>
+                    <div class=adding-land-proposal-tab>
+                         <label>end date : </label>
+                         <input type="datetime-local" id="enddate" />
+                    </div>
+                    <button id="add-land-proposal-btn">SUBMIT</button>
+
+               </div>
+               <div class="approved-property">
+                    <input type="text" placeholder="id" id="approvedid" oninput="this.value = this.value.replace(/[^0-9]/g, '');" />
+                    <button id="approved-property-btn">Approve</button>
+               </div>
+          </div>
+          <div id="proposalList">
+               <div class=typeBudget>
+                    <button id="condidateButton">candidate</button>
+                    <button id="budgetButton">budget</button>
+               </div>
+               <div class="budgetProposalsList" id="budgetProposalsList">
+               </div>
+               <div class="manager-below-section">
+                    <div class="manager-all-proposals" id="manager-all-proposals">
+                         <div class="manager-proposal-group" id="manager-proposal-group">
+                         </div>
+                    </div>
+               </div>
+          </div>
+          <div id="userList">
+               <div class="manager-below-section">
+                    <div class="manager-all-proposals" id="manager-all-proposals">
+                         <div class="manager-user-group" id="manager-user-group">
+                         </div>
+                    </div>
+               </div>
+          </div>
+          <div class="bondprop" id="bondprop"></div>
+     </div>
+     <div class="result-container" id="result-container">
+          <h1>STV - STATUS</h1>
+          <div class="results" id="proposal-result">
+               <div id="proposal-result-name"></div>
+               <div id="proposal-result-votes"></div>
+          </div>
+          <div class="resultbox">
+               <div class="title">
+
+               </div>
+               <div class="selected">
+
+               </div>
+          </div>
+          <div class="stv-stop-button" id="stv-stop-button"></div>
+     </div>
+     {{> footer}}
+</template>
