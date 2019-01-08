@@ -1,636 +1,651 @@
-.manager-container{
-    max-width:1440px;
-    width:90%;
-    margin: 5% auto 0 auto;
-    margin-bottom:5%;
-    color:black;
-
+.manager-container {
+  max-width: 1440px;
+  width: 90%;
+  margin: 5% auto 0 auto;
+  margin-bottom: 5%;
+  color: black;
 }
-.manager-container h1{
-    font-family: Colfax Medium;
-    letter-spacing: 1px;
-    margin-bottom:5%;
+.manager-container h1 {
+  font-family: Colfax Medium;
+  letter-spacing: 1px;
+  margin-bottom: 5%;
 }
-.flexOption{
-    display:flex;
+.flexOption {
+  display: flex;
 }
-.flexOption button{
-    flex:1;
-    display:flex;
-    justify-content: center;
-    align-content: center;
-    border:0.5px solid black;
-    height: 48px;
-    font-weight: bold;
-    cursor:pointer;
-    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
-    color: white;
-    text-transform: uppercase;
-    
+.flexOption button {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  border: 0.5px solid black;
+  height: 48px;
+  font-weight: bold;
+  cursor: pointer;
+  background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+  color: white;
+  text-transform: uppercase;
 }
-.flexOption button:hover{
-    background:gray;
-    transition: 0.5s;
+.flexOption button:hover {
+  background: gray;
+  transition: 0.5s;
 }
 
-.typeBudget{
-    display:flex;
+.typeBudget {
+  display: flex;
 }
-.typeBudget button{
-    flex:1;
-    margin:1%;
-    height: 48px;
-    border:0px;
-    text-transform: uppercase;
-    font-weight: bold;
-    cursor:pointer;
-    
+.typeBudget button {
+  flex: 1;
+  margin: 1%;
+  height: 48px;
+  border: 0px;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
 }
-.typeBudget button:hover{
-    background:lightcoral;
-    transition: 0.5s;
-}
-
-.budgetProposalsList{
-    display: flex;
-    flex-direction: column;
-    width:100%;
-}
-.bpContent{
-    width:100%;
-    height:100%;
-}
-.bpFlex{
-    display:flex;
-    margin-top:1%;
-    height:50px;
+.typeBudget button:hover {
+  background: lightcoral;
+  transition: 0.5s;
 }
 
-.bpClass{
-    flex:1;
-    background: white;
-    display: flex;
-    align-items: center;
-    padding-left: 5%;
+.budgetProposalsList {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
-.bpCount{
-    flex:1;
-    background: white;
-    display: flex;
-    align-items: center;
+.bpContent {
+  width: 100%;
+  height: 100%;
 }
-.start-stop{
-    display:flex;
-    justify-content: center; 
-   
-}
-.start-stop button{
-    margin-top:5%;
-    margin-left:auto;
-    margin-right:auto;
-    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
-    color: white;
-    text-transform: uppercase;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    height:40px;
-    width:15%;
-    border:0px;
-}
-.submitButton{
-    display:flex;
-    justify-content: center;
-    height:50px;
-    margin-top:5%;
-    margin-left:auto;
-    margin-right:auto;
-    cursor: pointer;
-}
-.holders{
-    flex: 1;
-    margin-top: 40px;
-    text-align: center;
-    color: white;
-  }
-  .status{
-      display: flex;
-      justify-content: center;
-      align-items: center;      
-  }
-.managerSelection{
-    display:flex;
-    justify-content: space-between;
-    align-content: center;
-    margin-top:5%;
-    font-size: 24px;
-    font-weight: bold;
+.bpFlex {
+  display: flex;
+  margin-top: 1%;
+  height: 50px;
 }
 
+.bpClass {
+  flex: 1;
+  background: white;
+  display: flex;
+  align-items: center;
+  padding-left: 5%;
+}
+.bpCount {
+  flex: 1;
+  background: white;
+  display: flex;
+  align-items: center;
+}
+.start-stop {
+  display: flex;
+  justify-content: center;
+}
+.start-stop button {
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  height: 40px;
+  width: 15%;
+  border: 0px;
+}
+.submitButton {
+  display: flex;
+  justify-content: center;
+  height: 50px;
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  cursor: pointer;
+}
+.holders {
+  flex: 1;
+  margin-top: 40px;
+  text-align: center;
+  color: white;
+}
+.status {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.managerSelection {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  margin-top: 5%;
+  font-size: 24px;
+  font-weight: bold;
+}
 
-.manager-below-section{
-    width: 100%;
-    margin-top: 3%;  
+.manager-below-section {
+  width: 100%;
+  margin-top: 3%;
 }
-.manager-all-proposals{
-    width: 100%;
+.manager-all-proposals {
+  width: 100%;
 }
- 
 
 /* -------------------------Proposal------------------------------- */
-.manager-proposal-group{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.manager-proposal-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.delete-button{
-    height: 50%;
-    width: 100px;
-    margin-right: 3%;
-    border:0px;
-    font-weight: bold;
-    cursor: pointer;
-    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
-    color: white;
-    
+.delete-button {
+  height: 50%;
+  width: 100px;
+  margin-right: 3%;
+  border: 0px;
+  font-weight: bold;
+  cursor: pointer;
+  background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+  color: white;
 }
-.delete-button:hover{
-    background:red;
-    color:white;
-    transition: 0.25s;
-    opacity:0.75;
+.delete-button:hover {
+  background: red;
+  color: white;
+  transition: 0.25s;
+  opacity: 0.75;
 }
-.declare-button{
-    height: 50%;
-    width: 200px;
-    margin-right: 3%;
-    border:0px;
-    font-weight: bold;
-    cursor: pointer;
-    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
-    color: white;
+.declare-button {
+  height: 50%;
+  width: 200px;
+  margin-right: 3%;
+  border: 0px;
+  font-weight: bold;
+  cursor: pointer;
+  background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+  color: white;
 }
-.declare-button:hover{
-    background:green;
-    color:white;
-    transition: 0.25s;
-    opacity:0.75;
-}
-
-.declare-result-button{
-    height: 50%;
-    width: 200px;
-    margin-right: 3%;
-    border:0px;
-    font-weight: bold;
-    cursor: pointer;
-    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
-    color: white;
-}
-.declare-result-button:hover{
-    background:green;
-    color:white;
-    transition: 0.25s;
-    opacity:0.75;
+.declare-button:hover {
+  background: green;
+  color: white;
+  transition: 0.25s;
+  opacity: 0.75;
 }
 
-.manager-redo{
-    margin-top: 10px;
-    width: 100%;
-    height: 70px;
-    background: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.declare-result-button {
+  height: 50%;
+  width: 200px;
+  margin-right: 3%;
+  border: 0px;
+  font-weight: bold;
+  cursor: pointer;
+  background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+  color: white;
 }
-.manager-redo p{
-    flex: 8;
-}
-
-.manager-redo button{
-    flex: 1;
-    margin-right: 2%;
-}
-
-.manager-delete-button{
-    height: 50%;
-    width: 100px;
+.declare-result-button:hover {
+  background: green;
+  color: white;
+  transition: 0.25s;
+  opacity: 0.75;
 }
 
-.manager-declare-button{
-    height: 50%;
-    width: 100px;
+.manager-redo {
+  margin-top: 10px;
+  width: 100%;
+  height: 70px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.manager-redo p {
+  flex: 8;
 }
 
-.manager-redo p{
-    margin-left: 3%;
+.manager-redo button {
+  flex: 1;
+  margin-right: 2%;
 }
 
+.manager-delete-button {
+  height: 50%;
+  width: 100px;
+}
+
+.manager-declare-button {
+  height: 50%;
+  width: 100px;
+}
+
+.manager-redo p {
+  margin-left: 3%;
+}
 
 /* -------------------------------USER-------------------------------------- */
 
-
-.manager-user-group{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.manager-user-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.approved-button{
-    height: 50%;
-    width: 100px;
-    margin-right: 3%;
-    border:0px;
-    font-weight: bold;
-    cursor: pointer;
+.approved-button {
+  height: 50%;
+  width: 100px;
+  margin-right: 3%;
+  border: 0px;
+  font-weight: bold;
+  cursor: pointer;
 }
-.approved-button:hover{
-    background:green;
-    color:white;
-    transition: 0.25s;
-    opacity:0.75;
+.approved-button:hover {
+  background: green;
+  color: white;
+  transition: 0.25s;
+  opacity: 0.75;
 }
-.disapproved-button{
-    height: 50%;
-    width: 200px;
-    margin-right: 3%;
-    border:0px;
-    font-weight: bold;
-    cursor: pointer;
+.disapproved-button {
+  height: 50%;
+  width: 200px;
+  margin-right: 3%;
+  border: 0px;
+  font-weight: bold;
+  cursor: pointer;
 }
-.disapproved-button:hover{
-    background:red;
-    color:white;
-    transition: 0.25s;
-    opacity:0.75;
-}
-
-.manager-user-redo{
-    margin-top: 10px;
-    width: 100%;
-    height: 70px;
-    background: white;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.manager-user-redo p{
-    flex: 8;
+.disapproved-button:hover {
+  background: red;
+  color: white;
+  transition: 0.25s;
+  opacity: 0.75;
 }
 
-.manager-user-redo button{
-    flex: 1;
-    margin-right: 2%;
+.manager-user-redo {
+  margin-top: 10px;
+  width: 100%;
+  height: 70px;
+  background: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.manager-user-redo p {
+  flex: 8;
 }
 
-.manager-aproved-button{
-    height: 50%;
-    width: 100px;
+.manager-user-redo button {
+  flex: 1;
+  margin-right: 2%;
 }
 
-.manager-disapproved-button{
-    height: 50%;
-    width: 100px;
+.manager-aproved-button {
+  height: 50%;
+  width: 100px;
 }
 
-.manager-user-redo p{
-    margin-left: 3%;
+.manager-disapproved-button {
+  height: 50%;
+  width: 100px;
 }
 
+.manager-user-redo p {
+  margin-left: 3%;
+}
 
 /* ======================result======================= */
 
-.result-container{
-   
-    max-width: 1140px;
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    color: white;
+.result-container {
+  display: none;
+  max-width: 1140px;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
 }
 
-.candidate{
-    margin-top: 10px;
-    margin-bottom: 20px;
-    width: 0px;
-    height: 10px;
-    color: white;
-    font-family: Colfax Medium;
+.candidate {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  width: 0px;
+  height: 10px;
+  color: white;
+  font-family: Colfax Medium;
 }
 
-#proposal-result{
-    display: flex;
-    justify-content: center;
-    border: 1px solid white;
-    padding: 3% 0;
+#proposal-result {
+  display: flex;
+  justify-content: center;
+  border: 1px solid white;
+  padding: 3% 0;
 }
 
-#proposal-result-name{
-    flex: 1;
-    display: flex;
-    align-items: flex-end;
-    flex-direction: column;
-    margin-right: 5%;
+#proposal-result-name {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  margin-right: 5%;
 }
 
-#proposal-result-votes{
-    flex: 1;
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-    margin-left: 5%;
+#proposal-result-votes {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-left: 5%;
 }
 
-.epmanager{
-    text-align: center;
-    border: 1px solid white;
-    line-height: 25px;
-    height: 25px;
-    width:60%;
-    font-weight: bold;
-    text-transform: capitalize;
+.epmanager {
+  text-align: center;
+  border: 1px solid white;
+  line-height: 25px;
+  height: 25px;
+  width: 60%;
+  font-weight: bold;
+  text-transform: capitalize;
 }
 
-.epmanager:hover{
-    background: white;
-    color: black;
-    transition: 0.35s;
+.epmanager:hover {
+  background: white;
+  color: black;
+  transition: 0.35s;
 }
 
-.ep2manager{
-    text-align: center;
-    border: 1px solid white;
-    line-height: 25px;
-    height: 25px;
-    width:30%;
-    display: flex;
-    justify-content: space-between;
+.ep2manager {
+  text-align: center;
+  border: 1px solid white;
+  line-height: 25px;
+  height: 25px;
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
 }
 
-.vote-stat{
-    width: 18%;
-    text-align: center;
-    border: 1px solid white;
+.vote-stat {
+  width: 18%;
+  text-align: center;
+  border: 1px solid white;
 }
 
-
-.winnerbutton{
-    margin-top:40px;
-    height: 60px;
-    width: 250px;
-    color: white; font-family: Colfax Medium;
-    color: white;
-    font-size: 18px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    line-height: 14px;
-    background:#04030F;
-  }
-  
-  .winnerbutton:hover{
-    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
-  }
-  .winner{
-      display: flex;
-      justify-content: center;
-  }
-  .namewinner{
-      color: green;
-  }
-
- 
-
-.result-container .resultbox{
-    width: 60%;
-    margin: 4% auto 0 auto;
-    color: white;
-    border: 2px solid white;
-    padding-top: 5%;
-    padding-bottom: 5%;
-    color: white;
-    display: none;
+.winnerbutton {
+  margin-top: 40px;
+  height: 60px;
+  width: 250px;
+  color: white;
+  font-family: Colfax Medium;
+  color: white;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  line-height: 14px;
+  background: #04030f;
 }
 
-.result-container .resultbox:hover{
-    border: 2px solid #C86DD7;
-    transition: 0.5s;
+.winnerbutton:hover {
+  background: linear-gradient(169.59deg, #3023ae -36.97%, #c86dd7 148.62%);
+}
+.winner {
+  display: flex;
+  justify-content: center;
+}
+.namewinner {
+  color: green;
 }
 
-.resultbox .title{
-    text-align: center;
-    font-size: 24px;
-    font-weight: bold;
-    text-transform: uppercase;
+.result-container .resultbox {
+  width: 60%;
+  margin: 4% auto 0 auto;
+  color: white;
+  border: 2px solid white;
+  padding-top: 5%;
+  padding-bottom: 5%;
+  color: white;
+  display: none;
 }
 
-.resultbox .selected{
-    margin-top: 5%;
-    display: flex;
-    justify-content: space-around;
+.result-container .resultbox:hover {
+  border: 2px solid #c86dd7;
+  transition: 0.5s;
 }
 
-.resultbox .selected .options{
-    background: transparent;
-    color: white;
-    width: 100px;
-    height: 50px;
-    font-weight: bold;
-    border: 2px solid white;
+.resultbox .title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
 }
 
-.resultbox .selected .options:hover{
-    border: 2px solid #C86DD7;
-    transition: 0.5s;
+.resultbox .selected {
+  margin-top: 5%;
+  display: flex;
+  justify-content: space-around;
 }
 
-.selected .options p{
-    text-align: center;
-    text-transform: uppercase;
-}
-.stv-stop{
-    display:flex;
-    justify-content: center; 
-}
-.stv-stop button{
-    margin-top:5%;
-    margin-left:auto;
-    margin-right:auto;
-    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
-    color: white;
-    text-transform: uppercase;
-    cursor: pointer;
-    height:40px;
-    width:10%;
-    border:0px;
-}
-.decideWinner{
-    display:flex;
-    justify-content: center; 
-}
-.decideWinner button{
-    margin-top:5%;
-    margin-left:auto;
-    margin-right:auto;
-    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
-    color: white;
-    text-transform: uppercase;
-    cursor: pointer;
-    height:40px;
-    width:15%;
-    border:0px;
-}
-.couponbond{
-    margin-top:40px;
-    height: 60px;
-    width: 250px;
-    color: white; font-family: Colfax Medium;
-    color: white;
-    font-size: 18px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    line-height: 14px;
-    background:#04030F;
-}
-.couponbond:hover{
-    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
-}
-.coupondiv{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.resultbox .selected .options {
+  background: transparent;
+  color: white;
+  width: 100px;
+  height: 50px;
+  font-weight: bold;
+  border: 2px solid white;
 }
 
+.resultbox .selected .options:hover {
+  border: 2px solid #c86dd7;
+  transition: 0.5s;
+}
+
+.selected .options p {
+  text-align: center;
+  text-transform: uppercase;
+}
+.stv-stop {
+  display: flex;
+  justify-content: center;
+}
+.stv-stop button {
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+  height: 40px;
+  width: 10%;
+  border: 0px;
+}
+.decideWinner {
+  display: flex;
+  justify-content: center;
+}
+.decideWinner button {
+  margin-top: 5%;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+  height: 40px;
+  width: 15%;
+  border: 0px;
+}
+.couponbond {
+  margin-top: 40px;
+  height: 60px;
+  width: 250px;
+  color: white;
+  font-family: Colfax Medium;
+  color: white;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  line-height: 14px;
+  background: #04030f;
+}
+.couponbond:hover {
+  background: linear-gradient(169.59deg, #3023ae -36.97%, #c86dd7 148.62%);
+}
+.coupondiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
 /* ======================================= Real Estate ================================================== */
 
-#rsmanagerpage{
-    display:none;
+#rsmanagerpage {
+  display: none;
 }
-.rsmanager-button-group{
-    display: flex;
-    justify-content: space-around;
+.rsmanager-button-group {
+  display: flex;
+  justify-content: space-around;
 }
-.rsmanager-button{
-    width: 255px;
-    height: 50px;
-    border: 0;
-    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
-    color: white;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-top: 50px;
+.rsmanager-button {
+  width: 255px;
+  height: 50px;
+  border: 0;
+  background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: 50px;
 }
-.rsmanager-button:hover{
-    background:green;;
-    transition: 0.5s;
-}
-
-
-.adding-property{
-    width: 100%;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 5%;
+.rsmanager-button:hover {
+  background: green;
+  transition: 0.5s;
 }
 
-.adding-property-tab{
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top:3%;
+.adding-property {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
 }
 
-.adding-property-tab label{
-    color:white;
-    height: 14px;
-    width:150px;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 14px;
-    margin:0% 3% 0% 0%;
-    
-}
-.adding-property-tab input{
-    background-color: black;
-    width : 150px;
-    color:white;
-    border:0;
-    border-bottom: 1px solid white;
-}
-.adding-property button{
-    margin-top:5%;
-    width:20%;
-    border:0;
-    background: green;
-    color: white;
-    font-weight: bold;
-    border-radius: 6px;
+.adding-property-tab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3%;
 }
 
-
-.adding-land-proposal{
-    width: 100%;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 5%;
+.adding-property-tab label {
+  color: white;
+  height: 14px;
+  width: 150px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin: 0% 3% 0% 0%;
+}
+.adding-property-tab input {
+  background-color: black;
+  width: 150px;
+  color: white;
+  border: 0;
+  border-bottom: 1px solid white;
+}
+.adding-property button {
+  margin-top: 5%;
+  width: 20%;
+  border: 0;
+  background: green;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
 }
 
-.adding-land-proposal-tab{
-    display:flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top:3%;
+.adding-land-proposal {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
 }
 
-.adding-land-proposal-tab label{
-    color:white;
-    width:150px;
-    text-align: center;
-    text-transform: uppercase;
-    font-size: 14px;
-    margin:0% 3% 0% 0%;
-    
-}
-.adding-land-proposal-tab input{
-    background-color: black;
-    width : 60%;
-    color:white;
-    border-bottom: 1px solid white;
-}
-.adding-land-proposal button{
-    margin-top:5%;
-    width:20%;
-    border:0;
-    background: green;
-    color: white;
-    font-weight: bold;
-    border-radius: 6px;
+.adding-land-proposal-tab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 3%;
 }
 
-.approved-property{
-    width: 100%;
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 5%;
+.adding-land-proposal-tab label {
+  color: white;
+  width: 150px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 14px;
+  margin: 0% 3% 0% 0%;
 }
-.approved-property input{
-    background-color: black;
-    width : 10%;
-    color:white;
-    border:0;
-    border-bottom: 1px solid white;
+.adding-land-proposal-tab input {
+  background-color: black;
+  width: 60%;
+  color: white;
+  border-bottom: 1px solid white;
 }
-.approved-property button{
-    margin-top:5%;
-    width:20%;
-    border:0;
-    background: green;
-    color: white;
-    font-weight: bold;
-    border-radius: 6px;
+.adding-land-proposal button {
+  margin-top: 5%;
+  width: 20%;
+  border: 0;
+  background: green;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
 }
 
+.approved-property {
+  width: 100%;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+}
+.approved-property input {
+  background-color: black;
+  width: 10%;
+  color: white;
+  border: 0;
+  border-bottom: 1px solid white;
+}
+.approved-property button {
+  margin-top: 5%;
+  width: 20%;
+  border: 0;
+  background: green;
+  color: white;
+  font-weight: bold;
+  border-radius: 6px;
+}
 
-  
+/* ================Gov Debt =================================*/
+.govdebtdatalist {
+  display: none;
+  margin-top: 5%;
+  height: 50px;
+  width: 100%;
+  align-items: center;
+  background: white;
+}
+.govusername {
+  flex: 1;
+  font-family: Colfax Medium;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+  color: black;
+}
+.govuseramount {
+  flex: 1;
+  font-family: Colfax Medium;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+  color: black;
+}
+.govuserequsd {
+  flex: 1;
+  font-family: Colfax Medium;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+  color: black;
+}
