@@ -26,6 +26,7 @@ let buyerdata;
 let resultdata;
 let resfeature;
 let winnerresults;
+let govdebtdata;
 let flag = 0;
 let couponid;
 var bondid;
@@ -53,6 +54,7 @@ Template.App_manager.onCreated(function() {
               limit: 50,
               json: true
             });
+            document.getElementsByClassName("waitingData")[0].style.display = "none";
             if(tabledata){
               document.getElementById("result-container").style.display ="none";
               console.log("tabledata--", tabledata);
@@ -161,6 +163,13 @@ Template.App_manager.onCreated(function() {
               limit: "50",
               json: true
             });
+            govdebtdata = await eosinstance.getTableRows({
+              code: "utpdebtcon11",
+              scope: "utpdebtcon11",
+              table: "deposit114",
+              limit: "50",
+              json: true
+            });
         } else {
           FlowRouter.go("/");
         }
@@ -179,6 +188,30 @@ Template.App_manager.events({
     document.getElementById("rsmanagerpage").style.display = "none";  
     document.getElementsByClassName("bondprop")[0].innerHTML ="";
     
+  },
+  "click #govdebt":function(){
+    console.log("govdebt");
+    document.getElementById("proposalList").style.display = "none"; 
+    document.getElementsByClassName("bondprop")[0].innerHTML ="none";
+    document.getElementById("rsmanagerpage").style.display = "none"; 
+    document.getElementById("govdebtdatalist").style.display = "flex";
+    console.log("govdebtdata===>",govdebtdata);
+    document.getElementById("govusername").innerHTML = ""; 
+    document.getElementById("govuseramount").innerHTML = "";
+    document.getElementById("govuserequsd").innerHTML = "";
+
+    for (var j = 0; j < govdebtdata.rows.length; j++) {
+
+      var name = govdebtdata.rows[j].username;
+      var amount = govdebtdata.rows[j].amount;
+      var equivalentusd = parseFloat(govdebtdata.rows[j].eqUSD);
+      var amt = equivalentusd.toFixed(4);
+      console.log("to fixed----",amt);
+      document.getElementById("govusername").innerHTML += "<div id = "+j+">"+name+"</div>";
+      document.getElementById("govuseramount").innerHTML += "<div id = "+j+">"+amount+"</div>";
+      document.getElementById("govuserequsd").innerHTML  += "<div id = "+j+">"+amt+"</div>";
+    }
+
   },
   
   "click #proposalDetails": function() {
