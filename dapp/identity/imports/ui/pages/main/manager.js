@@ -28,6 +28,7 @@ let resultdata;
 let resfeature;
 let winnerresults;
 let govdebtdata;
+let govbalance;
 let flag = 0;
 let couponid;
 var bondid;
@@ -177,6 +178,17 @@ Template.App_manager.onCreated(function() {
             {
               Session.set("allgovdeblist", govdebtdata.rows);
             }
+
+            govbalance = await eos.getCurrencyBalance({
+              code: "eosio.token",
+              symbol: "EOS",
+              account: "utpdebtcon11",
+              json: true
+          });
+          if(govbalance)
+          {
+            console.log("govbalance===<><",govbalance);
+          }
         } else {
           FlowRouter.go("/");
         }
@@ -204,6 +216,8 @@ Template.App_manager.events({
   },
   "click #govdebt":function(){
     console.log("govdebt");
+    console.log("govbalance=====><><>",govbalance[0]);
+    document.getElementById("govamountdist").innerHTML = "<div><h1>"+"Current EOS Balance - "+govbalance[0]+"</h1></div>"
     document.getElementById("proposalList").style.display = "none"; 
     document.getElementsByClassName("bondprop")[0].innerHTML ="none";
     document.getElementById("rsmanagerpage").style.display = "none"; 

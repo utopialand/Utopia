@@ -630,12 +630,14 @@
   align-items: center;
   background: white;
 }
+
 .govusername {
   flex: 1;
-  font-family: Colfax Medium;
+  font-family: Colfax Regular;
   font-size: 18px;
   text-align: center;
   letter-spacing: 1px;
+  font-weight: bold;
   color: black;
 }
 .govuseramount {
@@ -688,4 +690,16 @@
     text-align: center;
     letter-spacing: 1px;
     color: black;
+  }
+  .govamountdist{
+      display:flex;
+      justify-content: center;
+      align-items: center;
+      margin-top:5%;
+      height:50px;
+      width:100%;
+      background:white;
+  }
+  .govamountdist h1{
+      color:black;
   }
