@@ -57,14 +57,14 @@ ACTION debt::distamt(name identity)
         auto amt = itr->amount;
         auto lender = itr->username;
         auto equsd = itr->eqUSD;
-        auto curreosval = equsd/usdval;
-        print("current eos value--",curreosval);
-        amt = asset(curreosval*10000, symbol(symbol_code("EOS"), 4));
+        auto curreosval = equsd / usdval;
+        print("current eos value--", curreosval);
+        amt = asset(curreosval * 10000, symbol(symbol_code("EOS"), 4));
         if (distamt.amount > amt.amount)
         {
             print("transferring amt --", amt);
             print(" to -", lender);
-            /*   action(
+              action(
             permission_level{_self, "active"_n},
             "eosio.token"_n, "transfer"_n,
             std::make_tuple(_self, lender, amt, "test"))
@@ -72,7 +72,8 @@ ACTION debt::distamt(name identity)
             distamt -= amt;
             deposit.modify(itr, _self, [&](auto &a) {
                 a.status = true;
-            }); */
+                a.retamt = amt;
+            });
         }
         else
         {
@@ -81,10 +82,8 @@ ACTION debt::distamt(name identity)
         }
         itr++;
     }
-    if (flag == 1)
-    {
-        print("no dist amt left");
-    }
+
+    eosio_assert(flag != 1, "No distributable amount left!!Wait for next turn!!");
 }
 
 ACTION debt::init(name owner)
