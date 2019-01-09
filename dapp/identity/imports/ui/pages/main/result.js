@@ -136,8 +136,6 @@ Template.App_result.onCreated(function () {
                             }
                         }
                     };
-                    
-
                 } else {
                     FlowRouter.go("/");
                 }
