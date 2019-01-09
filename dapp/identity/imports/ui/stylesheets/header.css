@@ -7,6 +7,10 @@
   background: black;
 }
 
+body
+{    
+  overflow-x: hidden; /* needed because hiding the menu on the right side is not perfect,  */
+}
 .header {
   display: flex;
 }
@@ -115,9 +119,10 @@
  #menuToggle
  {
    display: block;
-   position: relative;
+   position: absolute;
    margin-top: 5px;
    margin-right: 5%;
+   z-index: 1;
    -webkit-user-select: none;
    user-select: none;
  }
@@ -189,6 +194,7 @@
   */
  #menuToggle input:checked ~ span:nth-last-child(2)
  {
+  opacity: 1;
    transform: rotate(-45deg) translate(0, -1px);
  }
  
@@ -198,15 +204,13 @@
   */
  #menu
  {
-   display: none;
+   
    position: absolute;
    margin: 50px 0 0 -184px;  
    background: black;
    width: 300px;
    list-style-type: none;
-   -webkit-font-smoothing: antialiased;
-   /* to stop flickering of text in safari */
-   
+   -webkit-font-smoothing: antialiased;  
    transform-origin:0% 0%;
    transform: translate(100%, 0%);
    
@@ -225,8 +229,10 @@
   */
  #menuToggle input:checked ~ ul
  {
-   transform: none;
-   display: block;
+  transform: scale(1.0, 1.0);
+  opacity: 1;
+  
+   
  }
 /* end */
 .identitySectionman {
