@@ -19,41 +19,62 @@ let winnerresult;
 var scatter = {};
 var eosinstance = {};
 var flag = 0;
-Template.App_proposal.onCreated(function () {
-    Meteor.subscribe('identity');
-    ScatterJS.scatter.connect('utopia').then((connected) => {
+Template.App_proposal.onCreated(async function () {
+    var connected=await ScatterJS.scatter.connect('utopia');
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
                 scatter = ScatterJS.scatter;
                 const requiredFields = { accounts: [network] };
                 const eos = scatter.eos(network, Eos, eosOptions);
                 if (scatter.identity) {
-                    eosinstance = eos;
-                    eosinstance.getTableRows({
+                   var tabledata= await eos.getTableRows({
                         code: "voteproposal",
                         scope: "voteproposal",
                         table: 'proposal11',
                         limit: 50,
                         json: true,
-                    }).then((resp) => {
-                        tabledata = resp;
-                        console.log("tabledata====>", tabledata);
-
                     });
-
-                    eosinstance.getTableRows({
-                        code: "voteproposal",
-                        scope: "voteproposal",
-                        table: "result13",
-                        limit: 50,
-                        json: true
-                    })
-                        .then(resp => {
-                            winnerresult = resp;
-                            console.log("winner response!!==>", resp);
-                        });
-
-
+                    document.getElementsByClassName("waitingData")[0].style.display="none";
+                    if(tabledata){
+                        console.log("tabdata--",tabledata)
+                        var winnerresult=await eos.getTableRows({
+                            code: "voteproposal",
+                            scope: "voteproposal",
+                            table: "result13",
+                            limit: 50,
+                            json: true
+                        })
+                    }
+                    if(winnerresult){
+                        console.log("winnerdata--",winnerresult);
+                        document.getElementById("proposal-group").innerHTML = "";          
+            
+                        for (var i = 0; i < tabledata.rows.length; i++) {
+                            var desc = tabledata.rows[i].proposal_description;
+                            flag = 0;
+                            var votebutton = "votebutton";
+                            var resultbutton = "resultbutton";
+                            votebutton = votebutton + tabledata.rows[i].id;
+                            resultbutton = resultbutton + tabledata.rows[i].id;
+                            for (let j = 0; j < winnerresult.rows.length; j++) {
+                                if (tabledata.rows[i].id == winnerresult.rows[j].proposal_id) {
+                                    document.getElementById("proposal-group").innerHTML +=
+                                        "<div class = 'redo'><p>" + desc + "</p>"
+                                        + "<button class = 'result-button' id = '" + resultbutton + "'>result</button>" + "</div>";
+                                    flag = 1;
+                                    break;
+                                }
+                            }
+                            if (flag == 0) {
+                                document.getElementById("proposal-group").innerHTML +=
+                                    "<div class = 'redo'><p>" + desc + "</p><button class = 'vote-button' id = '" + votebutton + "'>vote</button>"
+                                    + "<button class = 'result-button' id = '" + resultbutton + "'>vote_status</button>" + "</div>";
+                            }
+            
+            
+                        }
+                    }
+                     
                 } else {
                     FlowRouter.go("/");
                 }
@@ -61,107 +82,15 @@ Template.App_proposal.onCreated(function () {
         } else {
             console.log("scatter not installed")
         }
-    });
+    
 });
 
-
-
 Template.App_proposal.events({
-    "click #0": function (e) {
-        if ($(e.target).text() == "User proposal") {
-            $(e.target).text("Create new user proposal");
-            document.getElementById("proposal-group").innerHTML = "";
-            document.getElementById("listhead").innerHTML = "";
-            document.getElementById("listhead").innerHTML += "<h1>Here is the list of proposals</h1>";
-
-
-
-            for (var i = 0; i < tabledata.rows.length; i++) {
-                var desc = tabledata.rows[i].proposal_description;
-                flag = 0;
-                var votebutton = "votebutton";
-                var resultbutton = "resultbutton";
-                votebutton = votebutton + tabledata.rows[i].id;
-                resultbutton = resultbutton + tabledata.rows[i].id;
-                for (let j = 0; j < winnerresult.rows.length; j++) {
-                    if (tabledata.rows[i].id == winnerresult.rows[j].proposal_id) {
-                        document.getElementById("proposal-group").innerHTML +=
-                            "<div class = 'redo'><p>" + desc + "</p>"
-                            + "<button class = 'result-button' id = '" + resultbutton + "'>result</button>" + "</div>";
-                        flag = 1;
-                        break;
-                    }
-                }
-                if (flag == 0) {
-                    document.getElementById("proposal-group").innerHTML +=
-                        "<div class = 'redo'><p>" + desc + "</p><button class = 'vote-button' id = '" + votebutton + "'>vote</button>"
-                        + "<button class = 'result-button' id = '" + resultbutton + "'>vote_status</button>" + "</div>";
-                }
-
-
-            }
-        } else {
-            FlowRouter.go('/newproposal');
-        }
-
-
+    "click #0": function (e) {        
+            FlowRouter.go('/newproposal');       
     },
     "click #1": function () {
-        /* document.getElementById("form-section").style.display = "block";
-        document.getElementById("all-proposals").style.display = "none"; */
         FlowRouter.go("/budget");
-    },
-    "click .all-proposal-button": async function () {
-        /* document.getElementById("form-section").style.display = "none";
-        document.getElementById("all-proposals").style.display = "block"; */
-        /* let tabledata = await eos.getTableRows({
-            code: "voteproposal",
-            scope: "voteproposal",
-            table: 'proposal13',
-            limit: 50,
-            json: true,
-        });
-        document.getElementById("proposal-group").innerHTML = "";
-        console.log("table data ", tabledata);
-        var id = 0;
-        for(var i = 0; i< tabledata.rows.length;i++){
-            var desc = tabledata.rows[i].proposal_description;
-            document.getElementById("proposal-group").innerHTML += 
-            "<div class = 'redo'><p>"+desc+"</p><button class = 'vote-button' id = '"+id+"'>vote</button>"+"</div>";
-            id = id+1;
-        } */
-
-    },
-    "click #options": function () {
-        /* var boxName = "textbox" + count;
-        var options = "Option";
-        document.getElementById("form-group").innerHTML += "<input type = 'text' placeholder = '"+ options +"' id = '"+boxName+"'/>"
-        count += 1;
-         */
-        /* '<input type="text" id="' + boxName + '" "  />'; */
-    },
-    "click #create-proposal": function () {
-
-        /* var proposal = $("#proposal").val();
-        var duration = parseInt($("#duration").val());
-        var noofwinners = parseInt($("#noofwinners").val());
-        var options = [];
-        for (var i = 0; i < count; i++) {
-            var textbox = "#textbox" + i;
-            var option = $(textbox).val();
-            options.push(option);
-        }
-        var username = localStorage.getItem("username")
-        eos.contract("voting").then(voting => {
-            voting.createprop(proposal, duration, options, username, noofwinners, { authorization: username }, (err, res) => {
-                if (err) {
-                    console.log("error ", err);
-                }
-                else {
-                    console.log("Result ", res);
-                }
-            })
-        }) */
     },
     "click .vote-button": function (event) {
         event.preventDefault();
