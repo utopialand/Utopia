@@ -16,87 +16,80 @@ const eosOptions = {
 var userdetail;
 var scatter={};
 let manager;
-Template.header.onCreated(function() {
-    
-    var username=localStorage.getItem("username");
-    
-  ScatterJS.scatter.connect("utopia").then(async connected => {
-    if (connected) {
+Template.header.onCreated(async function() {
       
-      if (ScatterJS.scatter.connect("utopia")) {
-        scatter = ScatterJS.scatter;
-        const requiredFields = { accounts: [network] };
-        const eos = scatter.eos(network, Eos, eosOptions);
-          if (scatter.identity) {
-
-            await eos.getTableRows({
-              code: "utpmanager11",
-              scope: "utpmanager11",
-              table: "manager111",
-              limit: 50,
-              json: true
-            }).then((resp)=>{
-               manager=resp.rows;
-               
-            })
-            await eos.getTableRows({
-              code: "identityreg1",
-              scope: "identityreg1",
-              table: "identity3",
-              limit: 50,
-              json: true
-            }).then((resp) => {
-              userdetail = resp;
-              
-              var countman=0;
-            for(var i=0;i<manager.length;i++){
-              if(manager[i].user==username){
-                countman++;
-              }
-            }
-            if(countman == 1){
-              document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-              document.getElementById("managerText").style.display = "block";
-              document.getElementById("len").style.display = "block";
-              document.getElementById("coupon").style.display = "block";
-              var s = document.getElementById("len").setAttribute("value", "manager");
-            }else{
-              var countuserid=0;
-              for(var i=0;i<userdetail.rows.length;i++){
-                if(userdetail.rows[i].username==username){
-                  countuserid++;
-                }
-              }
-              if(countuserid == 1){
-                
-                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-                document.getElementById("managerText").style.display = "none";
-                document.getElementById("len").style.display = "block";
-                document.getElementById("coupon").style.display = "block";
-                var s = document.getElementById("len").setAttribute("value", "userid");
-              }else{
-              
-                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-                document.getElementById("managerText").style.display = "none";
-                var s = document.getElementById("len").setAttribute("value", "user");
-                document.getElementById("len").style.display = "none";
-                document.getElementById("coupon").style.display = "none";
-              }
-            }
-            });
-          
-          } else {
-            
-            FlowRouter.go("/");
-            document.getElementsByClassName("identitySectionman")[0].style.display = "none";
-          }
+    var username=localStorage.getItem("username");
+    if(localStorage.getItem("hasIdentity")){
+      scatter = ScatterJS.scatter;
+      const requiredFields = { accounts: [network] };
+      const eos = scatter.eos(network, Eos, eosOptions);
+      await eos.getTableRows({
+        code: "utpmanager11",
+        scope: "utpmanager11",
+        table: "manager111",
+        limit: 50,
+        json: true
+      }).then((resp)=>{
+         manager=resp.rows;
+         
+      })
+      await eos.getTableRows({
+        code: "identityreg1",
+        scope: "identityreg1",
+        table: "identity3",
+        limit: 50,
+        json: true
+      }).then((resp) => {
+        userdetail = resp;
+        
+        var countman=0;
+      for(var i=0;i<manager.length;i++){
+        if(manager[i].user==username){
+          countman++;
+        }
       }
-    } else {
-      console.log("scatter not installed");
+      if(countman == 1){
+        document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+        document.getElementById("managerText").style.display = "block";
+        document.getElementById("len").style.display = "block";
+        document.getElementById("coupon").style.display = "block";
+        var s = document.getElementById("len").setAttribute("value", "manager");
+      }else{
+        var countuserid=0;
+        for(var i=0;i<userdetail.rows.length;i++){
+          if(userdetail.rows[i].username==username){
+            countuserid++;
+          }
+        }
+        if(countuserid == 1){
+          
+          document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+          document.getElementById("managerText").style.display = "none";
+          document.getElementById("len").style.display = "block";
+          document.getElementById("coupon").style.display = "block";
+          var s = document.getElementById("len").setAttribute("value", "userid");
+        }else{
+        
+          document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+          document.getElementById("managerText").style.display = "none";
+          var s = document.getElementById("len").setAttribute("value", "user");
+          document.getElementById("len").style.display = "none";
+          document.getElementById("coupon").style.display = "none";
+        }
+      }
+      });
+    
+    }else {
+            
+      FlowRouter.go("/");
+      document.getElementsByClassName("identitySectionman")[0].style.display = "none";
     }
-  });
+  
 });
 
+Template.header.onRendered(function(){
+  
+})
 
 Template.header.events({
     "click .proposal": function(){
@@ -141,8 +134,6 @@ Template.header.events({
         }else if(val =="manager"){
           console.log("enter man");
           FlowRouter.go("/createbond");
-        }      
-
-
-    },
+        }            
+  },
 });

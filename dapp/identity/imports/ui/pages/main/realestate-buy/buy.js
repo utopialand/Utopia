@@ -71,8 +71,8 @@ Template.App_real_estate_buy.events({
         console.log("utpvalue", utpvalue);
         var to = "rsdeposite11";
         var count = utpvalue1.split(".").length - 1;
-        if (!utpvalue) {
-            alert("Enter UTP in format 0.0000 UTP");
+        if (!utpvalue1) {
+            alert("Please enter UTP");
         } 
         else if((count>1) || (utpvalue1.length==count)){
             alert("please fill correct amount !!");

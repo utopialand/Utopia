@@ -115,7 +115,6 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
           document.getElementsByClassName("identitySectionman")[0].style.display = "none";
           document.getElementById("loginButton").innerHTML = "login";
           document.getElementsByClassName("optionFlex")[0].style.display = "none";
-          document.getElementById("scatter-not-installed").style.display = "block";
 
         }
       }
@@ -136,7 +135,7 @@ Template.welcomePage.onRendered(async function () {
     limit: 50,
     json: true
   });
-
+  userdetail = identityTb;
   var username = localStorage.getItem("username");
   localStorage.setItem("hasIdentity", false);
   for (var i = 0; i < identityTb.rows.length; i++) {
@@ -145,6 +144,16 @@ Template.welcomePage.onRendered(async function () {
       break;
     }
   }
+
+  var managerTb = await eos.getTableRows({
+    code: "utpmanager11",
+    scope: "utpmanager11",
+    table: "manager111",
+    limit: 50,
+    json: true
+  });
+
+  manager = managerTb.rows;
 });
 
 Template.welcomePage.events({
@@ -152,52 +161,39 @@ Template.welcomePage.events({
     FlowRouter.go("/identity-reg");
   },
   "click .scatterloginlogout": async function (event, instance) {
-
     if (!JSON.parse(localStorage.getItem("loginstatus"))) {
-
-      var connected = await ScatterJS.scatter.connect("utopia");
-
+      var connected = await ScatterJS.scatter.connect("utopia")
       if (!connected) return false;
       scatter = ScatterJS.scatter;
       const requiredFields = { accounts: [network] };
       const eos = scatter.eos(network, Eos, eosOptions);
+      var iden = await scatter.getIdentity(requiredFields);
 
-      var account = await scatter.getIdentity(requiredFields);
-
-      const acc = account.accounts.find(
+      console.log("userdetail", userdetail.rows);
+      console.log("hasIdentity", localStorage.getItem("hasIdentity"));
+      const acc = iden.accounts.find(
         x => x.blockchain === "eos"
       );
-
-      localStorage.setItem("username", acc.name);
-      localStorage.setItem("loginstatus", JSON.stringify(true));
-
-      var identityTb = await eos.getTableRows({
-        code: "identityreg1",
-        scope: "identityreg1",
-        table: "identity3",
-        limit: 50,
-        json: true
-      });
-    
+      const account = acc.name;
+      localStorage.setItem("username", account);
       var username = localStorage.getItem("username");
       localStorage.setItem("hasIdentity", false);
-      for (var i = 0; i < identityTb.rows.length; i++) {
-        if (username == identityTb.rows[i].username) {
+      var isCitizen = 0;
+      for (var i = 0; i < userdetail.rows.length; i++) {
+        if (username == userdetail.rows[i].username) {
           localStorage.setItem("hasIdentity", true);
           break;
         }
       }
-
-      console.log("hasIdentity", localStorage.getItem("hasIdentity"));
-
+      localStorage.setItem("loginstatus", JSON.stringify(true));
       document.getElementById("loginButton").innerHTML = "logout";
       var countman = 0;
       for (var i = 0; i < manager.length; i++) {
+        console.log("man-is--", manager[i].user);
         if (manager[i].user == account) {
           countman++;
         }
       }
-
       if (countman == 1) {
         document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
         document.getElementById("managerText").style.display = "block";
@@ -215,19 +211,23 @@ Template.welcomePage.events({
           }
         }
         if (countuserid == 1) {
+          console.log("count1");
           document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
           document.getElementById("managerText").style.display = "none";
           document.getElementById("len").style.display = "block";
           document.getElementById("coupon").style.display = "block";
           var s = document.getElementById("len").setAttribute("value", "userid");
           if (show == 1) {
+            console.log("count1");
             document.getElementsByClassName("optionFlex")[0].style.display = "none";
           } else {
+            console.log("count11");
             document.getElementsByClassName("optionFlex")[0].style.display = "flex";
             document.getElementsByClassName("optionBox1")[0].style.display = "none";
             document.getElementsByClassName("optionBox2")[0].style.display = "flex";
           }
         } else {
+          console.log("count2");
           document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
           document.getElementById("managerText").style.display = "none";
           var s = document.getElementById("len").setAttribute("value", "user");
@@ -239,12 +239,11 @@ Template.welcomePage.events({
         }
       }
 
-
-    }
-    else {
+    } else {
+      console.log("2-----------------");
       ScatterJS.scatter.forgetIdentity().then(() => {
         localStorage.setItem("loginstatus", JSON.stringify(false));
-        
+
         document.getElementById("loginButton").innerHTML = "login";
         localStorage.setItem("username", "");
         localStorage.setItem("hasIdentity", false);
@@ -252,10 +251,7 @@ Template.welcomePage.events({
         document.getElementsByClassName("identitySectionman")[0].style.display = "none";
       });
     }
-  }
-});
-
-Template.welcomePage.events({
+  },
   "click .optionBox2": async function () {
     var username = localStorage.getItem("username");
     try {
@@ -276,3 +272,4 @@ Template.welcomePage.events({
     }
   }
 });
+

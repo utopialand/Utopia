@@ -129,3 +129,21 @@
     width: 100px;
     height: 100px;
 }
+
+.manageproperty:hover{
+    background: white;
+    color: black;
+    transition: 0.5s;
+}
+
+.buypropertypagebtn:hover{
+    background: white;
+    color: black;
+    transition: 0.5s;
+}
+
+.bidpropertypagebtn:hover{
+    background: white;
+    color: black;
+    transition: 0.5s;
+}

@@ -13,11 +13,11 @@
         <div class = "buyselltoken">
             <h3>buy or sell {{this}}</h3>
             <div class="buyothertoken">
-                <input type="text" placeholder="format(0.0000 UTP)" id="buytokenfield-{{this}}" />
+                <input type="text" placeholder="Enter UTP" id="buytokenfield-{{this}}"  oninput="this.value = this.value.replace(/[^0-9.]/g, '');"/>
                 <button id="buttokenbtn-{{this}}" class = "buytokenbtn">buy {{this}} token</button>
             </div>
             <div class="buyutptoken">
-                <input type="text" placeholder="format(0.0000 {{this}})" id="selltokenfield-{{this}}" />
+                <input type="text" placeholder="Enter {{this}}" id="selltokenfield-{{this}}" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"/>
                 <button id="selltokenbtn-{{this}}" class = "selltokenbtn">sell {{this}} token</button>
             </div>
         </div>

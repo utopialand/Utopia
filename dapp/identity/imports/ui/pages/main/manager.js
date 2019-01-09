@@ -28,6 +28,7 @@ let resultdata;
 let resfeature;
 let winnerresults;
 let govdebtdata;
+let govdebtdataarr = [];
 let govbalance;
 let flag = 0;
 let couponid;
@@ -178,8 +179,22 @@ Template.App_manager.onCreated(function() {
             });
             if(govdebtdata)
             {
-              Session.set("allgovdeblist", govdebtdata.rows);
+              for(var i=0;i<govdebtdata.rows.length;i++)
+              {
+                govdebtdata.rows[i].eqUSD = parseFloat(govdebtdata.rows[i].eqUSD).toFixed(2)
+              }
             }
+            for(var i=0;i<govdebtdata.rows.length;i++)
+            {
+              console.log("----",govdebtdata.rows[i].status);
+              if(!govdebtdata.rows[i].status)
+              {
+                govdebtdataarr.push(govdebtdata.rows[i]);
+              }
+            }
+            console.log("govdebtdata------------------>",govdebtdata);
+            console.log("govdebtdataarr>>><<",govdebtdataarr);
+            Session.set("allgovdeblist", govdebtdataarr);
 
             govbalance = await eos.getCurrencyBalance({
               code: "eosio.token",
@@ -194,6 +209,7 @@ Template.App_manager.onCreated(function() {
             //`${parseFloat($("#facevalue").val()).toFixed(4)} ${sym}`
             total = amount.toFixed(4) + " EOS";
             console.log("govbalance===<><",total);
+            console.log("govbalance===<><",govbalance);
           }
         } else {
           FlowRouter.go("/");
@@ -206,7 +222,7 @@ Template.App_manager.onCreated(function() {
 });
 Template.App_manager.helpers({
   allgovdebtuserlist(){
-  console.log("allgovdeblist======>",Session.get("allgovdeblist"));
+  console.log("allgovdeblist========<>=====>",Session.get("allgovdeblist"));
   return Session.get("allgovdeblist");
   }
 });
