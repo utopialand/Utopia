@@ -58,7 +58,11 @@ Template.viewdetail.onCreated( function (){
 Template.viewdetail.onRendered( function (){
 document.getElementById("data").style.display="none"  ;
 document.getElementById("list").style.display="none"  ;
-document.getElementById("create-section").style.display="none";
+document.getElementById("create-section").style.display="block";
+document.getElementById("manager").style.background="gray";
+document.getElementById("managerview").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
+document.getElementById("acceptpay").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
+document.getElementById("application").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
 document.getElementById("accept-section").style.display="none";
 })
 //approved113
@@ -68,12 +72,20 @@ Template.viewdetail.events({
         document.getElementById("data").style.display="none"  ;
         document.getElementById("list").style.display="none"  ;
         document.getElementById("create-section").style.display="block";
+        document.getElementById("manager").style.background="gray";
+        document.getElementById("managerview").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
+        document.getElementById("acceptpay").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
+        document.getElementById("application").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
         document.getElementById("accept-section").style.display="none";
         document.getElementById("listofuser").style.display="none"  ;
         document.getElementById("listofstatus").style.display="none"  ;
     }, 
     'click #managerview':function(){
         console.log("manager view");
+        document.getElementById("managerview").style.background="gray";
+        document.getElementById("manager").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
+        document.getElementById("acceptpay").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
+        document.getElementById("application").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
         document.getElementById("create-section").style.display="none";
         document.getElementById("accept-section").style.display="none";
         document.getElementById("data").style.display="none"  ;
@@ -111,6 +123,10 @@ Template.viewdetail.events({
         }
      },
     'click #acceptpay':function(){
+        document.getElementById("acceptpay").style.background="gray";
+        document.getElementById("managerview").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
+        document.getElementById("manager").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
+        document.getElementById("application").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
         document.getElementById("create-section").style.display="none";
         document.getElementById("accept-section").style.display="block";
         document.getElementById("data").style.display="none"  ;
@@ -119,6 +135,10 @@ Template.viewdetail.events({
         document.getElementById("listofstatus").style.display="none"  ;
     },
      'click #application':function(){
+        document.getElementById("application").style.background="gray";
+        document.getElementById("acceptpay").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
+        document.getElementById("managerview").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
+        document.getElementById("manager").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
         document.getElementById("create-section").style.display="none";
         document.getElementById("accept-section").style.display="none";
         document.getElementById("listofstatus").innerHTML=""  ;

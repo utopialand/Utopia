@@ -13,7 +13,7 @@
     width: 200px;
     height: 50px;
     border: 0;
-    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
+    
     color: white;
     text-transform: uppercase;
     font-weight: bold;
@@ -103,10 +103,10 @@
 }
 .buttonpropt{
     margin-right: 20px;
+    margin-top: 3%;
     height: 60px;
     width: 250px;
     color: white; font-family: Colfax Medium;
-    color: white;
     font-size: 18px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
