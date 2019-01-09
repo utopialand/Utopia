@@ -24,6 +24,54 @@ ACTION business::delcompany(uint64_t company_id)
     itr = bt.erase(itr);
 }
 
+void business::addofficer(uint64_t company_id, name person, string position)
+{
+    //searching for officer in utopia
+    identity_table idtb("identityreg1"_n, "identityreg1"_n.value);
+    businesstb bt(_self, _self.value);
+    auto eitr = idtb.find(person.value);
+    eosio_assert(eitr != idtb.end(), "Not a member of Utopia community");
+
+    //searching for company
+    auto citr = bt.find(company_id);
+    eosio_assert(citr != bt.end(), "Company does not exist");
+    require_auth(citr->owner);
+
+    auto aditr = find_if(citr->officers.begin(), citr->officers.end(), [person](const officer &d) {
+        return d.person == person;
+    });
+
+    eosio_assert(aditr == citr->officers.end(), "Officer already exists");
+
+    bt.modify(citr, _self, [&](auto &c) {
+        c.officers.push_back({person, position});
+    });
+}
+
+void business::rmofficer(uint64_t company_id, name person)
+{
+    identity_table idtb("identityreg1"_n, "identityreg1"_n.value);
+    businesstb bt(_self, _self.value);
+    auto eitr = idtb.find(person.value);
+    eosio_assert(eitr != idtb.end(), "Not a member of Utopia community");
+
+    //searching for company
+    auto citr = bt.find(company_id);
+    eosio_assert(citr != bt.end(), "Company does not exist");
+    require_auth(citr->owner);
+    //searching for employee in your company
+
+    auto rmeitr = find_if(citr->officers.begin(), citr->officers.end(), [person](const officer &d) {
+        return d.person == person;
+    });
+
+    eosio_assert(rmeitr != citr->officers.end(), "No such officer exists in your company");
+
+    bt.modify(citr, _self, [&](auto &c) {
+        c.officers.erase(rmeitr);
+    });
+}
+
 ACTION business::addemployee(uint64_t company_id, name employee)
 {
     //searching for employee in utopia
@@ -101,16 +149,17 @@ ACTION business::createtandb(asset maximum_supply, name owner, string businessna
     });
 
     businesstb bt(_self, _self.value);
-    
-    bt.emplace(_self,[&](auto &c){
-        c.token_maximum_supply = maximum_supply;      
+
+    bt.emplace(_self, [&](auto &c) {
+        c.token_maximum_supply = maximum_supply;
         c.company_id = bt.available_primary_key();
         c.owner = owner;
         c.businessname = businessname;
     });
 }
 
-ACTION business::create(asset maximum_supply, name issuer){
+ACTION business::create(asset maximum_supply, name issuer)
+{
     require_auth(issuer);
 
     auto sym = maximum_supply.symbol;
@@ -190,7 +239,8 @@ ACTION business::retire(asset quantity, string memo)
     sub_balance(st.issuer, quantity);
 }
 
-ACTION business::dilute(asset quantity, string memo){
+ACTION business::dilute(asset quantity, string memo)
+{
     auto sym = quantity.symbol;
     eosio_assert(sym.is_valid(), "invalid symbol name");
     eosio_assert(memo.size() <= 256, "memo has more than 256 bytes");
@@ -211,7 +261,8 @@ ACTION business::dilute(asset quantity, string memo){
     });
 }
 
-ACTION business::concentrate(asset quantity, string memo){
+ACTION business::concentrate(asset quantity, string memo)
+{
     auto sym = quantity.symbol;
     eosio_assert(sym.is_valid(), "invalid symbol name");
     eosio_assert(memo.size() <= 256, "memo has more than 256 bytes");
@@ -236,7 +287,7 @@ ACTION business::concentrate(asset quantity, string memo){
 ACTION business::transfer(name from, name to, asset quantity, string memo)
 {
 
-  /*   identity_table idtb("identityreg1"_n, "identityreg1"_n.value);
+    /*   identity_table idtb("identityreg1"_n, "identityreg1"_n.value);
     auto fromitr = idtb.find(from.value);
     auto toitr = idtb.find(to.value);
     eosio_assert(fromitr != idtb.end(), "Not a member of Utopia community");
@@ -247,7 +298,7 @@ ACTION business::transfer(name from, name to, asset quantity, string memo)
     eosio_assert(is_account(to), "to account does not exist");
     auto sym = quantity.symbol.code().raw();
     stats statstable(_self, sym);
-    const auto& st = statstable.get(sym);
+    const auto &st = statstable.get(sym);
 
     require_recipient(from);
     require_recipient(to);
@@ -324,21 +375,48 @@ ACTION business::close(name owner, symbol_code symbol)
     acnts.erase(it);
 }
 
-void business::listtoken(asset currency){
+void business::listtoken(asset currency)
+{
     stats statstable("utopbusiness"_n, currency.symbol.code().raw());
     auto itr = statstable.find(currency.symbol.code().raw());
     eosio_assert(itr != statstable.end(), "token doesnt exist");
     require_auth(itr->issuer);
     exchanges et(_self, _self.value);
     auto itr2 = et.find(currency.symbol.code().raw());
-    eosio_assert(itr2 == et.end(),"token already listed");
-    et.emplace(_self, [&](auto &s){
+    eosio_assert(itr2 == et.end(), "token already listed");
+    et.emplace(_self, [&](auto &s) {
         s.currency = currency;
     });
 }
 
-EOSIO_DISPATCH(business,(deleteall)(delcompany)(addemployee)
-(rmemployee)(printnames)(createtandb)(create)(issue)(transfer)(open)
-(close)(retire)(dilute)(concentrate)(listtoken))
+void business::adddetail(
+    uint64_t id,
+    uint64_t open,
+    uint64_t close,
+    uint64_t range,
+    uint64_t week52_range,
+    uint64_t market_cap,
+    uint64_t share_out,
+    uint64_t pub_fl,
+    uint64_t revperemp)
+{
+    businesstb bt(_self, _self.value);
 
+    //searching for company
+    auto citr = bt.find(id);
+    eosio_assert(citr != bt.end(), "Company does not exist");
+    require_auth(citr->owner);
 
+    bt.modify(citr, _self, [&](auto &s){
+        s.open = open;
+        s.close = close;
+        s.range = range;
+        s.week52_range = week52_range;
+        s.market_cap = market_cap;
+        s.share_out = share_out;
+        s.pub_fl = pub_fl;
+        s.revperemp = revperemp;
+    });
+}
+
+EOSIO_DISPATCH(business, (deleteall)(delcompany)(addemployee)(rmemployee)(printnames)(createtandb)(create)(issue)(transfer)(open)(close)(retire)(dilute)(concentrate)(listtoken)(addofficer)(rmofficer)(adddetail))

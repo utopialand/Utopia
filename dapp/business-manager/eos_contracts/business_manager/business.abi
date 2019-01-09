@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Thu Jan  3 15:59:31 2019",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Jan  9 17:12:48 2019",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -9,6 +9,48 @@
                 {
                     "name": "balance",
                     "type": "asset"
+                }
+            ]
+        },
+        {
+            "name": "adddetail",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "open",
+                    "type": "uint64"
+                },
+                {
+                    "name": "close",
+                    "type": "uint64"
+                },
+                {
+                    "name": "range",
+                    "type": "uint64"
+                },
+                {
+                    "name": "week52_range",
+                    "type": "uint64"
+                },
+                {
+                    "name": "market_cap",
+                    "type": "uint64"
+                },
+                {
+                    "name": "share_out",
+                    "type": "uint64"
+                },
+                {
+                    "name": "pub_fl",
+                    "type": "uint64"
+                },
+                {
+                    "name": "revperemp",
+                    "type": "uint64"
                 }
             ]
         },
@@ -23,6 +65,24 @@
                 {
                     "name": "employee",
                     "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "addofficer",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "person",
+                    "type": "name"
+                },
+                {
+                    "name": "position",
+                    "type": "string"
                 }
             ]
         },
@@ -57,6 +117,42 @@
                 {
                     "name": "employees",
                     "type": "name[]"
+                },
+                {
+                    "name": "officers",
+                    "type": "officer[]"
+                },
+                {
+                    "name": "open",
+                    "type": "uint64"
+                },
+                {
+                    "name": "close",
+                    "type": "uint64"
+                },
+                {
+                    "name": "range",
+                    "type": "uint64"
+                },
+                {
+                    "name": "week52_range",
+                    "type": "uint64"
+                },
+                {
+                    "name": "market_cap",
+                    "type": "uint64"
+                },
+                {
+                    "name": "share_out",
+                    "type": "uint64"
+                },
+                {
+                    "name": "pub_fl",
+                    "type": "uint64"
+                },
+                {
+                    "name": "revperemp",
+                    "type": "uint64"
                 }
             ]
         },
@@ -240,6 +336,20 @@
             ]
         },
         {
+            "name": "officer",
+            "base": "",
+            "fields": [
+                {
+                    "name": "person",
+                    "type": "name"
+                },
+                {
+                    "name": "position",
+                    "type": "string"
+                }
+            ]
+        },
+        {
             "name": "open",
             "base": "",
             "fields": [
@@ -291,6 +401,20 @@
             ]
         },
         {
+            "name": "rmofficer",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "person",
+                    "type": "name"
+                }
+            ]
+        },
+        {
             "name": "transfer",
             "base": "",
             "fields": [
@@ -316,8 +440,18 @@
     "types": [],
     "actions": [
         {
+            "name": "adddetail",
+            "type": "adddetail",
+            "ricardian_contract": ""
+        },
+        {
             "name": "addemployee",
             "type": "addemployee",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "addofficer",
+            "type": "addofficer",
             "ricardian_contract": ""
         },
         {
@@ -386,6 +520,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "rmofficer",
+            "type": "rmofficer",
+            "ricardian_contract": ""
+        },
+        {
             "name": "transfer",
             "type": "transfer",
             "ricardian_contract": ""
@@ -400,7 +539,7 @@
             "key_types": []
         },
         {
-            "name": "businesstb",
+            "name": "businesstab",
             "type": "businessst",
             "index_type": "i64",
             "key_names": [],
