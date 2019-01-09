@@ -119,7 +119,6 @@ body
  #menuToggle
  {
    display: block;
-   position: absolute;
    margin-top: 5px;
    margin-right: 5%;
    z-index: 1;
