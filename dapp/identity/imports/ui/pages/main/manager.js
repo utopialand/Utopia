@@ -175,22 +175,24 @@ Template.App_manager.onCreated(function() {
               limit: "50",
               json: true
             });
-
-            for(var i=0;i<govdebtdata.rows.length;i++)
-            {
-              govdebtdata.rows[i].eqUSD = parseFloat(govdebtdata.rows[i].eqUSD).toFixed(2)
-            }
             if(govdebtdata)
             {
-              for(var i=0;govdebtdata.rows.length;i++)
+              for(var i=0;i<govdebtdata.rows.length;i++)
               {
-                if(govdebtdata.rows[i].status==false)
-                {
-                  govdebtdataarr.push(govdebtdata.rows[i]);
-                }
+                govdebtdata.rows[i].eqUSD = parseFloat(govdebtdata.rows[i].eqUSD).toFixed(2)
               }
-              Session.set("allgovdeblist", govdebtdataarr);
             }
+            for(var i=0;i<govdebtdata.rows.length;i++)
+            {
+              console.log("----",govdebtdata.rows[i].status);
+              if(!govdebtdata.rows[i].status)
+              {
+                govdebtdataarr.push(govdebtdata.rows[i]);
+              }
+            }
+            console.log("govdebtdata------------------>",govdebtdata);
+            console.log("govdebtdataarr>>><<",govdebtdataarr);
+            Session.set("allgovdeblist", govdebtdataarr);
 
             govbalance = await eos.getCurrencyBalance({
               code: "eosio.token",
@@ -213,7 +215,7 @@ Template.App_manager.onCreated(function() {
 });
 Template.App_manager.helpers({
   allgovdebtuserlist(){
-  console.log("allgovdeblist======>",Session.get("allgovdeblist"));
+  console.log("allgovdeblist========<>=====>",Session.get("allgovdeblist"));
   return Session.get("allgovdeblist");
   }
 });
@@ -228,7 +230,7 @@ Template.App_manager.events({
     
   },
   "click #govdebt":function(){
-    console.log("govdebt");
+    console.log("govdebtdataarr",govdebtdataarr);
     /* console.log("govbalance=====><><>",govbalance[0]);
     document.getElementById("govamountdist").innerHTML = "<div><h1>"+"Current EOS Balance - "+govbalance[0]+"</h1></div>" */
     document.getElementById("proposalList").style.display = "none"; 
