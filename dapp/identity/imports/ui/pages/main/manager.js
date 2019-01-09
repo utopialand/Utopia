@@ -28,10 +28,13 @@ let resultdata;
 let resfeature;
 let winnerresults;
 let govdebtdata;
+let govbalance;
 let flag = 0;
 let couponid;
 var bondid;
 var count=0;
+let amount = 0;
+let total = 0;
 Template.App_manager.onCreated(function() {
   ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
@@ -177,6 +180,21 @@ Template.App_manager.onCreated(function() {
             {
               Session.set("allgovdeblist", govdebtdata.rows);
             }
+
+            govbalance = await eos.getCurrencyBalance({
+              code: "eosio.token",
+              symbol: "EOS",
+              account: "utpdebtcon11",
+              json: true
+          });
+          if(govbalance)
+          {
+            amount = parseFloat(govbalance[0].split(' ')[0]);
+            amount = (amount*30)/100;
+            //`${parseFloat($("#facevalue").val()).toFixed(4)} ${sym}`
+            total = amount.toFixed(4) + " EOS";
+            console.log("govbalance===<><",total);
+          }
         } else {
           FlowRouter.go("/");
         }
@@ -204,6 +222,8 @@ Template.App_manager.events({
   },
   "click #govdebt":function(){
     console.log("govdebt");
+    console.log("govbalance=====><><>",govbalance[0]);
+    document.getElementById("govteosbal").innerHTML = "<div>"+"Total EOS : "+govbalance[0]+","+"<br>Distributable EOS Balance : "+total+"</div>"
     document.getElementById("proposalList").style.display = "none"; 
     document.getElementsByClassName("bondprop")[0].innerHTML ="none";
     document.getElementById("rsmanagerpage").style.display = "none"; 
