@@ -97,6 +97,9 @@ Template.header.onCreated(function() {
   });
 });
 
+Template.header.onRendered(function(){
+  console.log("on rendered header");
+})
 
 Template.header.events({
     "click .proposal": function(){

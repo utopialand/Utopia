@@ -181,6 +181,7 @@ Template.welcomePage.events({
     
       var username = localStorage.getItem("username");
       localStorage.setItem("hasIdentity", false);
+      var isCitizen = 0;
       for (var i = 0; i < identityTb.rows.length; i++) {
         if (username == identityTb.rows[i].username) {
           localStorage.setItem("hasIdentity", true);
@@ -188,6 +189,7 @@ Template.welcomePage.events({
         }
       }
 
+      console.log("identityTb", identityTb.rows);
       console.log("hasIdentity", localStorage.getItem("hasIdentity"));
 
       document.getElementById("loginButton").innerHTML = "logout";

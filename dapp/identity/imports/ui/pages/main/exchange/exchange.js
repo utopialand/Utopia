@@ -7,7 +7,6 @@ import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
 import { Session } from "meteor/session";
 
-
 ScatterJS.plugins(new ScatterEOS());
 
 const network = {
@@ -72,9 +71,9 @@ Template.App_exchange.events({
     "click .selltokenbtn": async function (e) {
         var id = e.target.id;
         var symbol = id.split("-")[1];
-        var selltokenfield = "selltokenfield-" + symbol;
-        var token = $("#" + selltokenfield).val();
-        console.log("token ", token);
+        var selltokenfield = "#selltokenfield-" + symbol;
+        var token = `${parseFloat($(selltokenfield).val()).toFixed(4)} ${symbol}`;
+        var token1 = $(selltokenfield).val();
         var username = localStorage.getItem("username");
         var version = 1;
         var contractname = symbol.toLowerCase() + "2utprelay";
@@ -83,9 +82,13 @@ Template.App_exchange.events({
         var networkContract = "utopbnetwork";
         var memo = version + "," + contractname + " " + utp + "," + fee + "," + username;
         console.log("memo ", memo);
-        if (!token) {
-            alert("Please enter token value in the given format");
+        var count = token1.split(".").length - 1;
+        if (!token1) {
+            alert("Please enter "+symbol+" token value");
         }
+        else if((count>1) || (token1.length==count)){
+            alert("please fill correct amount !!");
+        } 
         else {
             try {
                 var utopbusiness = await eosinstance.contract("utopbusiness");
@@ -112,9 +115,10 @@ Template.App_exchange.events({
 
         var id = e.target.id;
         var symbol = id.split("-")[1];
-        var buytokenfield = "buytokenfield-" + symbol;
-        var utpvalue = $("#" + buytokenfield).val();
-        console.log("utpvalue", utpvalue);
+        var buytokenfield = "#buytokenfield-" + symbol;
+        var utpSymbol = "UTP";
+        var utpvalue = `${parseFloat($(buytokenfield).val()).toFixed(4)} ${utpSymbol}`;
+        var utpvalue1 = $(buytokenfield).val()
         var username = localStorage.getItem("username");
         var version = 1;
         var contractname = symbol.toLowerCase() + "2utprelay";
@@ -122,10 +126,14 @@ Template.App_exchange.events({
         var networkContract = "utopbnetwork";
         var memo = version + "," + contractname + " " + symbol + "," + fee + "," + username;
         console.log("memo ", memo);
-
-        if (!utpvalue) {
+        var count = utpvalue1.split(".").length - 1;
+        if (!utpvalue1) {
             alert("Please enter UTP token value");
-        } else {
+        }
+        else if((count>1) || (utpvalue1.length==count)){
+            alert("please fill correct amount !!");
+        } 
+        else {
             try {
                 var utopbusiness = await eosinstance.contract("utopbusiness");
 
