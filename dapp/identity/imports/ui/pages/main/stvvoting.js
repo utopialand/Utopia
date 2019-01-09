@@ -55,6 +55,7 @@ Template.App_stvvote.onCreated(async function() {
           });
 
         arr = propentry.rows[0].proposal_options;
+        var lnePropOpt = arr.length;
         var k=0;
         for (var i = 0; i < arr.length; i++) {
           for (var j = 0; j < budgetprop.rows.length; j++) {
@@ -70,7 +71,7 @@ Template.App_stvvote.onCreated(async function() {
               "<div class = 'redostvvote hover'>"+
               "<div class= 'candidatestvvote'>"+desc+"</div>"+
               "<div class='rank'>"+
-              "<input class='input' type='text' id='rankdata"+k+"'/>"+
+              "<input class='input' type='number' id='rankdata"+k+"' min='1' max='"+lnePropOpt+"'/>"+
               "</div></div>";
               console.log(i);
               console.log(j);
@@ -120,15 +121,25 @@ Template.App_stvvote.events({
           var username=localStorage.getItem("username");
           console.log("username", username);
   
-          eosinstance.contract("propbudget11").then(stvvoting => {
-              stvvoting.voteprop(id ,data,username, { authorization: username }).then(
-                  (res) => {
-                        console.log("response--",res);
-                        FlowRouter.go("/stvstatus");
-                      
-                  }
-              )
-          })
+          try {
+            let propbudget11 = await eosinstance.contract("propbudget11");
+            if(propbudget11)
+            {
+              let result = await propbudget11.voteprop(id ,data,username, { authorization: username });
+              if(result)
+              {
+                console.log("response--",res);
+                FlowRouter.go("/stvstatus");
+              }
+              else{
+                alert("Something went wrong !!!!");
+              }
+            }
+          } catch (err) {
+              var parseResponse = await JSON.parse(err);
+              var msg = await parseResponse.error.details[0].message.split(":")[1];
+              alert(msg);
+          }
         }
       }
        
