@@ -2,6 +2,7 @@ import "./manager.html";
 import "../../pages/main/footer.js";
 import "../../stylesheets/manager.css";
 import ScatterJS from "scatterjs-core";
+import { Session } from "meteor/session";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";
 const network = {
@@ -26,6 +27,8 @@ let buyerdata;
 let resultdata;
 let resfeature;
 let winnerresults;
+let govdebtdata;
+let govbalance;
 let flag = 0;
 let couponid;
 var bondid;
@@ -53,6 +56,9 @@ Template.App_manager.onCreated(function() {
               limit: 50,
               json: true
             });
+            document.getElementsByClassName("waitingData")[0].style.display = "none";
+            document.getElementById("govdebtdatalist").style.display = "none";
+
             if(tabledata){
               document.getElementById("result-container").style.display ="none";
               console.log("tabledata--", tabledata);
@@ -112,13 +118,13 @@ Template.App_manager.onCreated(function() {
                   document.getElementById("manager-user-group").innerHTML +=
                     "<div class = 'manager-user-redo' id = '" +
                     users +
-                    "'><p>" +
+                    "'><p>"+
                     users +
                     "</p><button class = 'approved-button' id = '" +
                     ids +
-                    "'>approved</button><button class = 'disapproved-button'id = '" +
+                    "'>approve</button><button class = 'disapproved-button'id = '" +
                     ids +
-                    "'>disapproved</button>" +
+                    "'>disapprove</button>" +
                     "</div>";
                 }
               }
@@ -161,6 +167,28 @@ Template.App_manager.onCreated(function() {
               limit: "50",
               json: true
             });
+            govdebtdata = await eosinstance.getTableRows({
+              code: "utpdebtcon11",
+              scope: "utpdebtcon11",
+              table: "deposit114",
+              limit: "50",
+              json: true
+            });
+            if(govdebtdata)
+            {
+              Session.set("allgovdeblist", govdebtdata.rows);
+            }
+
+            govbalance = await eos.getCurrencyBalance({
+              code: "eosio.token",
+              symbol: "EOS",
+              account: "utpdebtcon11",
+              json: true
+          });
+          if(govbalance)
+          {
+            console.log("govbalance===<><",govbalance);
+          }
         } else {
           FlowRouter.go("/");
         }
@@ -170,15 +198,31 @@ Template.App_manager.onCreated(function() {
     }
   });
 });
-
+Template.App_manager.helpers({
+  allgovdebtuserlist(){
+  console.log("allgovdeblist======>",Session.get("allgovdeblist"));
+  return Session.get("allgovdeblist");
+  }
+});
 Template.App_manager.events({
   "click #userDetails": function() {
     document.getElementById("userList").style.display = "block";
     document.getElementById("proposalList").style.display = "none";
     document.getElementById("result-container").style.display = "none";
     document.getElementById("rsmanagerpage").style.display = "none";  
+    document.getElementById("govdebtdatalist").style.display = "none";
     document.getElementsByClassName("bondprop")[0].innerHTML ="";
     
+  },
+  "click #govdebt":function(){
+    console.log("govdebt");
+    console.log("govbalance=====><><>",govbalance[0]);
+    document.getElementById("govamountdist").innerHTML = "<div><h1>"+"Current EOS Balance - "+govbalance[0]+"</h1></div>"
+    document.getElementById("proposalList").style.display = "none"; 
+    document.getElementsByClassName("bondprop")[0].innerHTML ="none";
+    document.getElementById("rsmanagerpage").style.display = "none"; 
+    document.getElementById("govdebtdatalist").style.display = "flex";
+    console.log("govdebtdata===>",govdebtdata);
   },
   
   "click #proposalDetails": function() {
@@ -187,6 +231,7 @@ Template.App_manager.events({
     document.getElementById("proposalList").style.display = "block";
     document.getElementsByClassName("budgetProposalsList")[0].style.display ="none"; 
     document.getElementById("rsmanagerpage").style.display = "none"; 
+    document.getElementById("govdebtdatalist").style.display = "none";
     document.getElementsByClassName("manager-below-section")[0].style.display ="block";
     document.getElementsByClassName("bondprop")[0].innerHTML ="";
   },
@@ -217,6 +262,28 @@ Template.App_manager.events({
     console.log("helllllllloManager - disapproved");
     console.log("id----", event.target.id);
     console.log("username------", event.target.parentElement.id);
+    var requestername = event.target.parentElement.id;
+    var id =event.target.id;
+    try {
+      let identityreg1 = await eosinstance.contract("identityreg1");
+      if(identityreg1)
+      {
+        let result = await identityreg1.remcitreq(requestername ,"identityreg1",{authorization: "identityreg1" });
+        if(result)
+        {
+          alert("disapproved successfuffly");
+        }
+        else{
+          alert("not disapproved");
+        }
+      }
+    }
+    catch(err)
+    {
+      var parseResponse = await JSON.parse(err);
+      var msg = await parseResponse.error.details[0].message.split(":")[1];
+      alert(msg);
+    }
   },
   "click .delete-button": async function() {
     console.log("deleteButtonClick");
@@ -418,6 +485,7 @@ Template.App_manager.events({
     console.log("candidateList");
     document.getElementsByClassName("manager-below-section")[0].style.display = "flex";
     document.getElementById("result-container").style.display = "none";
+    document.getElementById("govdebtdatalist").style.display = "none";
     document.getElementById("budgetProposalsList").style.display = "none";
   },
 
@@ -629,6 +697,7 @@ Template.App_manager.events({
     document.getElementById("userList").style.display = "none";
     document.getElementById("proposalList").style.display = "none";
     document.getElementById("rsmanagerpage").style.display = "none";
+    document.getElementById("govdebtdatalist").style.display = "none";
     document.getElementsByClassName("bondprop")[0].innerHTML ="";
     document.getElementsByClassName("bondprop")[0].innerHTML +=
     "<div class='bond-form'><label>bond id</label><input type='text' id='bondid'/>"
@@ -649,25 +718,22 @@ Template.App_manager.events({
                     for(var j=0; j<bonddata.rows[iip].bondholders.length; j++){
                       var bondholder = bonddata.rows[iip].bondholders[j]; 
                       var username = localStorage.getItem("username");
-                      await eosinstance.getTableRows({
+
+                     buyerdata =  await eosinstance.getTableRows({
                             code: "bondborrower",
                             scope: bondholder,
                             table: "buyerdata33",
                             limit: 50,
                             json: true
-                          })
-                    .then(resp => {
-                      buyerdata = resp;
-                      console.log(i,"bondbuyer--",resp);
+                          });
+                    if(buyerdata){
                       for(var k=0;k<buyerdata.rows.length;k++){
                         if(buyerdata.rows[k].id==couponid){
                           var datearr = buyerdata.rows[k].returningdate.length-1;
                           document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+buyerdata.rows[k].bondbuyer+"</div><div class='holders'>status -> "+datearr+" coupon are submitted</div></div>";   
                         }
-                      }
-                      
-                          
-                    });
+                      }    
+                    };
                     }
                     document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='coupondiv'><button class='couponbond' id='getcoupon'>coupondistirbution</button></div>";
                   }      
@@ -732,6 +798,7 @@ Template.App_manager.events({
       }
     catch(err)
     {
+      console.log("err---=>  ",err);
       var parseResponse = await JSON.parse(err);
       console.log("parseResponse => ",parseResponse);
       var msg = await parseResponse.error.details[0].message.split(":")[1];
@@ -743,6 +810,7 @@ Template.App_manager.events({
     console.log("realestate");
     
     document.getElementById("proposalList").style.display = "none"; 
+    document.getElementById("govdebtdatalist").style.display = "none";
     document.getElementsByClassName("bondprop")[0].innerHTML ="none";
     document.getElementById("rsmanagerpage").style.display = "block"; 
   },
@@ -831,7 +899,6 @@ Template.App_manager.events({
     alert("please fill correct amount !!");
    }
    else{
-    alert("success !!");
       try{
           let realstateutp = await eosinstance.contract('realstateutp');
           if(realstateutp)

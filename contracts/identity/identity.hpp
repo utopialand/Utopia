@@ -34,7 +34,7 @@ CONTRACT identity : public contract
     ACTION remcitizen(name identity, name manager);
     ACTION remmanager(name user);
     ACTION addmanager(name user);
-    ACTION remcitreq(uint64_t id, name manager);
+    ACTION remcitreq(name user, name manager);
     // ACTION delall();
 
     TABLE identityt

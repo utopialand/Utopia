@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Jan  4 17:47:03 2019",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Mon Jan  7 17:43:30 2019",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -33,8 +33,16 @@
                     "type": "asset"
                 },
                 {
+                    "name": "eqUSD",
+                    "type": "float32"
+                },
+                {
                     "name": "status",
                     "type": "bool"
+                },
+                {
+                    "name": "retamt",
+                    "type": "asset"
                 }
             ]
         },
@@ -49,6 +57,16 @@
                 {
                     "name": "act",
                     "type": "name"
+                }
+            ]
+        },
+        {
+            "name": "delreqloan",
+            "base": "",
+            "fields": [
+                {
+                    "name": "id",
+                    "type": "uint64"
                 }
             ]
         },
@@ -103,6 +121,38 @@
                     "type": "string"
                 }
             ]
+        },
+        {
+            "name": "updateusdeos",
+            "base": "",
+            "fields": [
+                {
+                    "name": "identity",
+                    "type": "name"
+                },
+                {
+                    "name": "eosvalue",
+                    "type": "asset"
+                },
+                {
+                    "name": "usdval",
+                    "type": "float32"
+                }
+            ]
+        },
+        {
+            "name": "usdtoeos",
+            "base": "",
+            "fields": [
+                {
+                    "name": "eosvalue",
+                    "type": "asset"
+                },
+                {
+                    "name": "usdvalue",
+                    "type": "float32"
+                }
+            ]
         }
     ],
     "types": [],
@@ -110,6 +160,11 @@
         {
             "name": "apply",
             "type": "apply",
+            "ricardian_contract": ""
+        },
+        {
+            "name": "delreqloan",
+            "type": "delreqloan",
             "ricardian_contract": ""
         },
         {
@@ -126,6 +181,11 @@
             "name": "transfer",
             "type": "transfer",
             "ricardian_contract": ""
+        },
+        {
+            "name": "updateusdeos",
+            "type": "updateusdeos",
+            "ricardian_contract": ""
         }
     ],
     "tables": [
@@ -137,7 +197,7 @@
             "key_types": []
         },
         {
-            "name": "deposit112",
+            "name": "deposit114",
             "type": "amtdeposit",
             "index_type": "i64",
             "key_names": [],
@@ -146,6 +206,13 @@
         {
             "name": "manager111",
             "type": "managertab",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "usdeos113",
+            "type": "usdtoeos",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

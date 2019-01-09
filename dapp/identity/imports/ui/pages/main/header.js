@@ -144,8 +144,6 @@ Template.header.events({
         }else if(val =="manager"){
           console.log("enter man");
           FlowRouter.go("/createbond");
-        }      
-
-
-    },
+        }            
+  },
 });
