@@ -48,10 +48,11 @@ Template.Vote.onCreated(async function () {
                 console.log(Id,"---",row);
                 for(var i = 0; i< row.proposal_options.length;i++){
                     var can=row.proposal_options[i];
+                    var len = row.proposal_options.length;
                     titledata=row.proposal_description;
                     propid=row.id;
                     document.getElementById("proposal-group").innerHTML += 
-                    "<div class = 'redovote hover'><div class= 'candidatevote'>"+can+"</div><div class='rank'><input class='input' type='text' id='rankdata"+i+"'/></div></div>";
+                    "<div class = 'redovote hover'><div class= 'candidatevote'>"+can+"</div><div class='rank'><input class='input' type='number' id='rankdata"+i+"' min='1' max='"+len+"'/></div></div>";
                 }
                 document.getElementById("proposal-group").innerHTML += 
                 "<button class='submit hover'>"+"submit"+"</button>"
@@ -66,21 +67,42 @@ Template.Vote.onCreated(async function () {
     }
 });
 Template.Vote.events({
-    'click .submit':function(e){
+    'click .submit':async function(e){
         var data=[];
         for(var i=0;i<row.proposal_options.length;i++){
         var item=$("#rankdata"+i).val();
         data.push(parseInt(item));
         }
         var username=localStorage.getItem("username")
-        eosinstance.contract("voteproposal").then(voting => {
+
+        try {
+            let voteproposal = await eosinstance.contract("voteproposal");
+            if(voteproposal)
+            {
+              let result = await voteproposal.voteprop(propid ,data,username, { authorization: username });
+              if(result)
+              {
+                alert("Successfully Voted !!!!");
+              }
+              else{
+                alert("Something went wrong !!!!");
+              }
+            }
+          } catch (err) {
+              var parseResponse = await JSON.parse(err);
+              var msg = await parseResponse.error.details[0].message.split(":")[1];
+              alert(msg);
+          }
+
+     /*    eosinstance.contract("voteproposal").then(voting => {
             voting.voteprop(propid ,data,username, { authorization: username }).then(
                 (res) => {
                       console.log("response--",res);
+                      alert("Successfully Voted!!")
                       
                 }
             )
-        })
+        }) */
     }
 })
 });

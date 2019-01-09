@@ -81,6 +81,7 @@ Template.header.onCreated(function() {
                 var s = document.getElementById("len").setAttribute("value", "user");
                 document.getElementById("len").style.display = "none";
                 document.getElementById("coupon").style.display = "none";
+                document.getElementById("proposal").style.display = "none";
               }
             }
             });
