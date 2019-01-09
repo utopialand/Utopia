@@ -21,36 +21,36 @@
 }
 .list{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: gray;
     margin-top: 5%;
-    color: #04030F;
-    height: 50px; 
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    background: white;
+    text-transform: uppercase;
+    background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
     border-radius: 2px;
-    font-family: Colfax Medium;
     
 }
 .data{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: gray;
     margin-top: 5%;
-    color: #04030F;
-    height: 50px; 
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    background: white;
+    text-transform: uppercase;
+    background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
     border-radius: 2px;
-    font-family: Colfax Medium;
 }
 .datalist{
     flex: 1;
     display: flex;
-    justify-content: center;
+    height: 50px;
+    margin-top: 1%;
+    width: 100%;
     align-items: center;
-    text-align: center;
-    font-family: Colfax Medium;
+    justify-content: center;
+    background: white;
 }
 .listofuser{
     display: flex;
@@ -63,25 +63,29 @@
 .datalist2{
     flex:1;
     display: flex;
-    justify-content: center;
+    height: 50px;
+    margin-top: 1%;
+    width: 100%;
     align-items: center;
-    text-align: center;
-    font-family: Colfax Medium;
+    justify-content: center;
+    background: white;
 }
 .headloan{
     flex: 1;
-    margin-top: 5%;
-    font-size: 18px;
-    line-height: 14px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+  font-family: Colfax Regular;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: black;
 }
 .mainhead{
     flex: 1;
+    font-family: Colfax Medium;
     font-size: 18px;
-    line-height: 14px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: 1px;
+    color: black;
 }
 
 /* lender */
@@ -98,7 +102,6 @@
     flex-direction: column;   
 }
 .buttonpropt{
-    margin-top:40px;
     margin-right: 20px;
     height: 60px;
     width: 250px;
