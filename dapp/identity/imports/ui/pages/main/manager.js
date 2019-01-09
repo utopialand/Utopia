@@ -28,6 +28,7 @@ let resultdata;
 let resfeature;
 let winnerresults;
 let govdebtdata;
+let govdebtdataarr = [];
 let govbalance;
 let flag = 0;
 let couponid;
@@ -174,9 +175,21 @@ Template.App_manager.onCreated(function() {
               limit: "50",
               json: true
             });
+
+            for(var i=0;i<govdebtdata.rows.length;i++)
+            {
+              govdebtdata.rows[i].eqUSD = parseFloat(govdebtdata.rows[i].eqUSD).toFixed(2)
+            }
             if(govdebtdata)
             {
-              Session.set("allgovdeblist", govdebtdata.rows);
+              for(var i=0;govdebtdata.rows.length;i++)
+              {
+                if(govdebtdata.rows[i].status==false)
+                {
+                  govdebtdataarr.push(govdebtdata.rows[i]);
+                }
+              }
+              Session.set("allgovdeblist", govdebtdataarr);
             }
 
             govbalance = await eos.getCurrencyBalance({
@@ -216,8 +229,8 @@ Template.App_manager.events({
   },
   "click #govdebt":function(){
     console.log("govdebt");
-    console.log("govbalance=====><><>",govbalance[0]);
-    document.getElementById("govamountdist").innerHTML = "<div><h1>"+"Current EOS Balance - "+govbalance[0]+"</h1></div>"
+    /* console.log("govbalance=====><><>",govbalance[0]);
+    document.getElementById("govamountdist").innerHTML = "<div><h1>"+"Current EOS Balance - "+govbalance[0]+"</h1></div>" */
     document.getElementById("proposalList").style.display = "none"; 
     document.getElementsByClassName("bondprop")[0].innerHTML ="none";
     document.getElementById("rsmanagerpage").style.display = "none"; 
