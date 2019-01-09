@@ -191,6 +191,7 @@ Template.welcomePage.events({
 
       console.log("identityTb", identityTb.rows);
       console.log("hasIdentity", localStorage.getItem("hasIdentity"));
+      console.log("manager ",manager);
 
       document.getElementById("loginButton").innerHTML = "logout";
       var countman = 0;
