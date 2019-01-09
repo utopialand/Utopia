@@ -65,6 +65,7 @@ public:
     return itr->balance;
   }
 
+
 private:
   typedef multi_index<"deposit114"_n, amtdeposit> amtdepo_tab;
   typedef multi_index<"manager111"_n, managertab> manager_table;

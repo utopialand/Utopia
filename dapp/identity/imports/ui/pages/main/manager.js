@@ -34,6 +34,8 @@ let flag = 0;
 let couponid;
 var bondid;
 var count=0;
+let amount = 0;
+let total = 0;
 Template.App_manager.onCreated(function() {
   ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
@@ -175,22 +177,24 @@ Template.App_manager.onCreated(function() {
               limit: "50",
               json: true
             });
-
-            for(var i=0;i<govdebtdata.rows.length;i++)
-            {
-              govdebtdata.rows[i].eqUSD = parseFloat(govdebtdata.rows[i].eqUSD).toFixed(2)
-            }
             if(govdebtdata)
             {
-              for(var i=0;govdebtdata.rows.length;i++)
+              for(var i=0;i<govdebtdata.rows.length;i++)
               {
-                if(govdebtdata.rows[i].status==false)
-                {
-                  govdebtdataarr.push(govdebtdata.rows[i]);
-                }
+                govdebtdata.rows[i].eqUSD = parseFloat(govdebtdata.rows[i].eqUSD).toFixed(2)
               }
-              Session.set("allgovdeblist", govdebtdataarr);
             }
+            for(var i=0;i<govdebtdata.rows.length;i++)
+            {
+              console.log("----",govdebtdata.rows[i].status);
+              if(!govdebtdata.rows[i].status)
+              {
+                govdebtdataarr.push(govdebtdata.rows[i]);
+              }
+            }
+            console.log("govdebtdata------------------>",govdebtdata);
+            console.log("govdebtdataarr>>><<",govdebtdataarr);
+            Session.set("allgovdeblist", govdebtdataarr);
 
             govbalance = await eos.getCurrencyBalance({
               code: "eosio.token",
@@ -200,6 +204,11 @@ Template.App_manager.onCreated(function() {
           });
           if(govbalance)
           {
+            amount = parseFloat(govbalance[0].split(' ')[0]);
+            amount = (amount*30)/100;
+            //`${parseFloat($("#facevalue").val()).toFixed(4)} ${sym}`
+            total = amount.toFixed(4) + " EOS";
+            console.log("govbalance===<><",total);
             console.log("govbalance===<><",govbalance);
           }
         } else {
@@ -213,7 +222,7 @@ Template.App_manager.onCreated(function() {
 });
 Template.App_manager.helpers({
   allgovdebtuserlist(){
-  console.log("allgovdeblist======>",Session.get("allgovdeblist"));
+  console.log("allgovdeblist========<>=====>",Session.get("allgovdeblist"));
   return Session.get("allgovdeblist");
   }
 });
@@ -229,8 +238,8 @@ Template.App_manager.events({
   },
   "click #govdebt":function(){
     console.log("govdebt");
-    /* console.log("govbalance=====><><>",govbalance[0]);
-    document.getElementById("govamountdist").innerHTML = "<div><h1>"+"Current EOS Balance - "+govbalance[0]+"</h1></div>" */
+    console.log("govbalance=====><><>",govbalance[0]);
+    document.getElementById("govteosbal").innerHTML = "<div>"+"Total EOS : "+govbalance[0]+","+"<br>Distributable EOS Balance : "+total+"</div>"
     document.getElementById("proposalList").style.display = "none"; 
     document.getElementsByClassName("bondprop")[0].innerHTML ="none";
     document.getElementById("rsmanagerpage").style.display = "none"; 

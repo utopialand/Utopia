@@ -39,6 +39,8 @@ ACTION debt::distamt(name identity)
     asset value = asset(0, symbol(symbol_code("EOS"), 4));
     asset a = get_balance(_self, value);
     asset distamt;
+    asset amt;
+    name lender;
     distamt.amount = (a.amount * 30) / 100;
     distamt.symbol = a.symbol;
     print("dist amt--", distamt);
@@ -48,31 +50,32 @@ ACTION debt::distamt(name identity)
     eosio_assert(usditr != usdeos.end(), "value not found!!");
     auto usdval = usditr->usdvalue;
     ////////////////////////////////////////////
-
+ string memo = "test";
     amtdepo_tab deposit(_self, _self.value);
     auto itr = deposit.begin();
     int flag = 0;
     while (itr != deposit.end())
     {
-        auto amt = itr->amount;
-        auto lender = itr->username;
+        amt = itr->amount;
+        lender = itr->username;
         auto equsd = itr->eqUSD;
-        auto curreosval = equsd/usdval;
-        print("current eos value--",curreosval);
-        amt = asset(curreosval*10000, symbol(symbol_code("EOS"), 4));
+        auto curreosval = equsd / usdval;
+        print("current eos value--", curreosval);
+        amt = asset(curreosval * 10000, symbol(symbol_code("EOS"), 4));
         if (distamt.amount > amt.amount)
         {
             print("transferring amt --", amt);
             print(" to -", lender);
-            /*   action(
-            permission_level{_self, "active"_n},
-            "eosio.token"_n, "transfer"_n,
-            std::make_tuple(_self, lender, amt, "test"))
-            .send();
+            action(
+                permission_level{_self, "active"_n},
+                "eosio.token"_n, "transfer"_n,
+                std::make_tuple(_self, lender, amt, memo))
+                .send();
             distamt -= amt;
             deposit.modify(itr, _self, [&](auto &a) {
                 a.status = true;
-            }); */
+                a.retamt = amt;
+            });
         }
         else
         {
@@ -81,10 +84,16 @@ ACTION debt::distamt(name identity)
         }
         itr++;
     }
-    if (flag == 1)
-    {
-        print("no dist amt left");
-    }
+   /*  asset temp =asset(10000, symbol(symbol_code("EOS"), 4));
+   
+    action(
+        permission_level{_self, "active"_n},
+        "eosio.token"_n, "transfer"_n,
+        std::make_tuple(_self, lender, temp, memo ))
+        .send(); */
+    // sub_balance(_self,value);
+
+    eosio_assert(flag != 1, "No distributable amount left!!Wait for next turn!!");
 }
 
 ACTION debt::init(name owner)
