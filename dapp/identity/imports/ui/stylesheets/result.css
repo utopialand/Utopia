@@ -75,7 +75,7 @@
     border: 1px solid white;
 }
 
-.result-container .resultbox{
+.resulting-container .resultbox{
     width: 60%;
     margin: 4% auto 0 auto;
     color: white;
@@ -86,7 +86,7 @@
     display: none;
 }
 
-.result-container .resultbox:hover{
+.resulting-container .resultbox:hover{
     border: 2px solid #C86DD7;
     transition: 0.5s;
 }

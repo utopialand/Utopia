@@ -1,6 +1,9 @@
 <template name = "App_result">
     <div class="resulting-container">
         <h1>Results</h1>
+        <div class="waitingData">
+            {{> spinner}}
+       </div>
         <div class="winner"><div class="winnername" id="winnername"></div></div>
         <div class="results" id = "proposal-result">
             <div id="proposal-result-name"></div>
