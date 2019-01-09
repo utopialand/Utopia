@@ -81,7 +81,10 @@
   height: 70px;
   display: flex;
   align-items: center;
-  color: white;
+  font-family: Colfax Medium;
+  font-size: 18px;
+  text-transform: uppercase;
+  color:white;
 }
 
 .budgetpropbutton {
