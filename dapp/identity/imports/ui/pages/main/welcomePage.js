@@ -254,10 +254,7 @@ Template.welcomePage.events({
         document.getElementsByClassName("identitySectionman")[0].style.display = "none";
       });
     }
-  }
-});
-
-Template.welcomePage.events({
+  },
   "click .optionBox2": async function () {
     var username = localStorage.getItem("username");
     try {
@@ -278,3 +275,4 @@ Template.welcomePage.events({
     }
   }
 });
+
