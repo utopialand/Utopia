@@ -38,7 +38,7 @@ async function getAllBusinessList() {
         var businessList = await eos.getTableRows({
             code: "utopbusiness",
             scope: "utopbusiness",
-            table: "businesstb",
+            table: "businesstab",
             limit: "50",
             json: true,
         });
@@ -50,27 +50,19 @@ async function getAllBusinessList() {
 
         Session.set("allBusinessList", businessList.rows);
         Session.set("isLoadingBusinessList", false);
-
-        var users = await eos.getTableRows({
-            code: "identityreg1",
-            scope: "identityreg1",
-            table: "identity3",
-            limit: 50,
-            json: true,
-        });
-
-        var username = localStorage.getItem("username");
-        for (var i = 0; i < users.rows.length; i++) {
-            if (users.rows[i].username == username) {
-                document.getElementsByClassName("exchange")[0].style.display = "flex";
-                break;
-            }
-        }
     }
     else {
         console.log("scatter not installed");
     }
 }
+
+Template.App_business_manager_home.onRendered(function(){
+    if(localStorage.getItem("hasIdentity") == "true"){
+        document.getElementsByClassName("exchange")[0].style.display = "flex";
+        document.getElementById("mybusinessbtn").style.display = "block";
+        document.getElementsByClassName("new-business")[0].style.display = "flex";
+    }
+});
 
 Template.App_business_manager_home.helpers({
     businessList() {
@@ -106,7 +98,7 @@ Template.App_business_manager_home.events({
         var businessTable = await eosinstance.getTableRows({
             code: "utopbusiness",
             scope: "utopbusiness",
-            table: "businesstb",
+            table: "businesstab",
             limit: "50",
             json: true
         });

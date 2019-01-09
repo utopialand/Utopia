@@ -35,16 +35,17 @@ h1{
     color: white;
 }
 .tabhead{
-    margin-top: 80px;
     display: flex;
-    justify-content: center;
-    align-items: center;
     height: 50px; 
     border-radius: 2px;
     font-family: Colfax Medium;
-    text-transform: uppercase;
-    background-color: gray;
+    text-transform: uppercase;    
     color: black;
+    margin-top: 5%;    
+    width: 100%;
+    align-items: center;
+    background: white;
+    background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
 }
 .bondoption{
     flex: 1;
@@ -53,20 +54,23 @@ h1{
     }
 
 .redobond{
-    margin-top: 50px;
+    justify-content: center;   
     display: flex;
+    margin-top: 2%;
+    height: 50px;
+    width: 100%;
     align-items: center;
-    justify-content: center;
-    color: white;
-    height: 70px;
+    background: white;
 }
 
 .redobond div{
     flex: 1;
-    text-align: center;
-    font-family: Colfax Medium;
-    text-transform: uppercase;
+    font-family: Colfax Regular;
     font-size: 18px;
+    text-align: center;
+    letter-spacing: 1px;
+    font-weight: bold;
+    color: black;
 }
 
 

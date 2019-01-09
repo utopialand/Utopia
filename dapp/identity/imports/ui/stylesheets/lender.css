@@ -88,9 +88,7 @@ input[type=checkbox] {
     display: flex;
 }
 
-.buttonpropt{
-    margin-top:40px;
-    margin-right: 20px;
+.buttonproptlen{    
     height: 60px;
     width: 250px;
     color: white; font-family: Colfax Medium;
@@ -102,7 +100,7 @@ input[type=checkbox] {
     background:#04030F;
     border-radius: 2px;
 }
-.buttonpropt:hover{
+.buttonproptlen:hover{
     background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
 }
 .createpropt{
@@ -112,13 +110,14 @@ input[type=checkbox] {
     flex-direction: row;
 }
 /* view detail */
-.datalist{
+.datalistlen{
     flex: 1;
     display: flex;
-    justify-content: center;
+    margin-top: 1%;
+    width: 100%;
     align-items: center;
-    text-align: center;
-    font-family: Colfax Medium;
+    justify-content: center;
+    background: white;
 }
 .listofuser{
     display: flex;
@@ -128,65 +127,66 @@ input[type=checkbox] {
     display: flex;
     flex-direction: column;
 }
-.datalist2{
+.datalist2len{
     flex:1;
     display: flex;
-    justify-content: center;
+    margin-top: 1%;
+    width: 100%;
     align-items: center;
-    text-align: center;
-    font-family: Colfax Medium;
+    justify-content: center;
+    background: white;
 }
 .nonkey{
     text-align: center;
 }
-.headloan{
+.headloanlen{
     flex: 1;
-    margin-top: 5%;
-    font-size: 18px;
-    line-height: 14px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+  font-family: Colfax Regular;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+  font-weight: bold;
+  color: black;
 }
-.list{
+.listlen{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: gray;
     margin-top: 5%;
-    color: #04030F;
-    height: 50px; 
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    background: white;
+    text-transform: uppercase;
+    background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
     border-radius: 2px;
     
 }
-.data{
+.datalen{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: gray;
     margin-top: 5%;
-    color: #04030F;
-    height: 50px; 
-    border-radius: 2px;
-    font-family: Colfax Medium;
-}
-.data2{
-    display: flex;
-    justify-content: center;
+    height: 50px;
+    width: 100%;
     align-items: center;
-    text-align: center;
-    background-color: gray;
-    margin-top: 5%;
-    color: #04030F;
-    height: 50px; 
-    border-radius: 2px;
-    font-family: Colfax Medium;
-}
-.mainhead{
-    flex: 1;
-    font-size: 18px;
-    line-height: 14px;
-    letter-spacing: 1.5px;
+    background: white;
     text-transform: uppercase;
+    background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+    border-radius: 2px;
+}
+.data2len{
+    display: flex;
+    margin-top: 5%;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    background: white;
+    text-transform: uppercase;
+    background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+    border-radius: 2px;
+}
+.mainheadlen{
+    flex: 1;
+    font-family: Colfax Medium;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 1px;
+    color: black;
 }

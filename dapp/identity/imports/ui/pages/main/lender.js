@@ -164,7 +164,7 @@ Template.lender.events({
                         document.getElementById("data").style.display="none"  ;
                         document.getElementById("data2").style.display="none"  ;
                         document.getElementById("list").style.display="flex"  ;
-                        document.getElementById("listofuser").innerHTML += "<div class='datalist'>"+
+                        document.getElementById("listofuser").innerHTML += "<div class='datalistlen'>"+
                         "<div class='headloan'>"+borr+"</div>"+
                         "<div class='headloan'>"+purpose+"</div>"+
                         "<div class='headloan'>"+income+"</div>"+
@@ -192,12 +192,12 @@ Template.lender.events({
                             document.getElementById("list").style.display="none"  ;
                             document.getElementById("data2").style.display="none"  ;
                             document.getElementById("data").style.display="flex"  ;
-                            document.getElementById("listofstatus").innerHTML += "<div class='datalist2'>"+
+                            document.getElementById("listofstatus").innerHTML += "<div class='datalist2len'>"+
                             "<div class='headloan'>"+name+"</div>"+
                             "<div class='headloan'>"+amnt+"</div>"+
                             "<div class='headloan'>"+totaldue+"</div>"+
                             "<div class='headloan'>"+finaldate+"</div>"+
-                            "<button class='headloan buttonpropt' id='pay' value='"+id+"'>make payement</button>"+
+                            "<button class='headloan buttonproptlen' id='pay' value='"+id+"'>make payement</button>"+
                             "</div>"
                         }else{
                             console.log("enter user");
@@ -217,14 +217,14 @@ Template.lender.events({
                             document.getElementById("list").style.display="none"  ;
                             document.getElementById("data2").style.display="flex"  ;
                             document.getElementById("data").style.display="none"  ;
-                            document.getElementById("listofstatus").innerHTML += "<div class='datalist2'>"+
+                            document.getElementById("listofstatus").innerHTML += "<div class='datalist2len'>"+
                             "<div class='headloan'>"+name+"</div>"+
                             "<div class='headloan'>"+amnt+"</div>"+
                             "<div class='headloan'>"+mnthdue+"</div>"+
                             "<div class='headloan'>"+mnthlyduedt+"</div>"+
                             "<div class='headloan'>"+totaldue+"</div>"+
                             "<div class='headloan'>"+finaldate+"</div>"+
-                            "<button class='headloan buttonpropt' id='pay' value='"+id+"'>make payement</button>"+
+                            "<button class='headloan buttonproptlen' id='pay' value='"+id+"'>make payement</button>"+
                             "</div>"
                         }
                         

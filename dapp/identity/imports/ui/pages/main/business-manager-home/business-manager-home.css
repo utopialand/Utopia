@@ -37,6 +37,7 @@
 
 
 #mybusinessbtn{
+    display: none;
     width: 250px;
     height: 51px;
     border: 0px;
@@ -169,7 +170,7 @@
 
 .new-business{
     margin-top: 5%;
-    display: flex;
+    display: none;
     justify-content: center;
 }
 .new-businessbtn{

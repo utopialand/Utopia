@@ -34,7 +34,7 @@ async function getMyBusinessList() {
         var businessTb = await eos.getTableRows({
             code: "utopbusiness",
             scope: "utopbusiness",
-            table: "businesstb",
+            table: "businesstab",
             limit: "50",
             json: true,
         });

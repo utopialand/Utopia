@@ -42,6 +42,20 @@ CONTRACT business : public contract
 
     ACTION listtoken(asset currency);
 
+    ACTION addofficer(uint64_t company_id, name person, string position);
+
+    ACTION rmofficer(uint64_t company_id, name person);
+
+    ACTION adddetail(uint64_t id,
+    uint64_t open,
+    uint64_t close,
+    uint64_t range,
+    uint64_t week52_range,
+    uint64_t market_cap,
+    uint64_t share_out,
+    uint64_t pub_fl,
+    uint64_t revperemp);
+
     static asset get_supply(name token_contract_account, symbol_code sym)
     {
         stats statstable(token_contract_account, sym.raw());
@@ -56,6 +70,12 @@ CONTRACT business : public contract
         return ac.balance;
     }
 
+    struct officer
+    {
+        name person;
+        string position;
+    };
+
     TABLE businessst
     {
         uint64_t company_id;
@@ -65,7 +85,15 @@ CONTRACT business : public contract
         asset token_maximum_supply;
         vector<name> shareholders;
         vector<name> employees;
-
+        vector<officer> officers;
+        uint64_t open;
+        uint64_t close;
+        uint64_t range;
+        uint64_t week52_range;
+        uint64_t market_cap;
+        uint64_t share_out;
+        uint64_t pub_fl;
+        uint64_t revperemp;
         uint64_t primary_key() const { return company_id; }
     };
 
@@ -86,7 +114,7 @@ CONTRACT business : public contract
         asset currency;
         uint64_t primary_key() const { return currency.symbol.code().raw(); }
     };
-    typedef multi_index<"businesstb"_n, businessst> businesstb;
+    typedef multi_index<"businesstab"_n, businessst> businesstb;
     typedef multi_index<"identity3"_n, identityt> identity_table;
     typedef eosio::multi_index<"exchange"_n, exchange_t> exchanges;
 

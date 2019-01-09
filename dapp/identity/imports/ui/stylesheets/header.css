@@ -25,6 +25,13 @@ body
   cursor: pointer;
 }
 
+ 
+.identitySectionman {
+  flex: 4;
+  display: none;
+  justify-content: flex-end; 
+  
+}
  .identityText {
   font-family: Colfax Black;
   line-height: 19px;
@@ -114,9 +121,8 @@ body
   opacity: 0.25;
 } 
 
-/* strt */
-
- #menuToggle
+/* hamburger menu start */
+#menuToggle
  {
    display: block;
    margin-top: 5px;
@@ -138,9 +144,6 @@ body
    -webkit-touch-callout: none;
  }
  
- /*
-  * Just a quick hamburger
-  */
  #menuToggle span
  {
    display: block;
@@ -168,10 +171,6 @@ body
    transform-origin: 0% 100%;
  }
  
- /* 
-  * Transform all the slices of hamburger
-  * into a crossmark.
-  */
  #menuToggle input:checked ~ span
  {
    opacity: 1;
@@ -179,28 +178,18 @@ body
    background: #232323;
  }
  
- /*
-  * But let's hide the middle one.
-  */
  #menuToggle input:checked ~ span:nth-last-child(3)
  {
    opacity: 0;
    transform: rotate(0deg) scale(0.2, 0.2);
  }
  
- /*
-  * Ohyeah and the last one should go the other direction
-  */
  #menuToggle input:checked ~ span:nth-last-child(2)
  {
   opacity: 1;
    transform: rotate(-45deg) translate(0, -1px);
  }
  
- /*
-  * Make this absolute positioned
-  * at the top left of the screen
-  */
  #menu
  {
    
@@ -222,10 +211,6 @@ body
    font-size: 22px;
    color: white;
  }
- 
- /*
-  * And let's slide it in from the left
-  */
  #menuToggle input:checked ~ ul
  {
   transform: scale(1.0, 1.0);
@@ -233,12 +218,6 @@ body
   
    
  }
-/* end */
-.identitySectionman {
-  flex: 4;
-  display: none;
-  justify-content: flex-end;
-  
-  
-}
+/* hamburger menu end */
+
 
