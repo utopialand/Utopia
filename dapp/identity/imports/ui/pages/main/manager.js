@@ -342,7 +342,6 @@ Template.App_manager.events({
     console.log("declareButtonClick");
     console.log("id----", event.target.id);
     var proposalId = event.target.id;
-    console.log("===", contract);
     try {
       let voteproposal = await eosinstance.contract("voteproposal");
       if(voteproposal)
