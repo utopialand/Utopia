@@ -41,6 +41,8 @@
 .profileDetails{
     width:50%;
     margin-left: 5%;
+    display: flex;
+    flex-direction: column;
 }
 .profileName {
   font-family: Colfax Medium;
@@ -113,6 +115,15 @@
 }
 
 .view-real-estate-btn{
+  margin-top: 5%;
+  background: black;
+  color: white;
+  border: 2px solid white;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+
+.view-your-business-btn{
   margin-top: 5%;
   background: black;
   color: white;
