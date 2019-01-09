@@ -124,28 +124,6 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
   });
 });
 
-Template.welcomePage.onRendered(async function () {
-
-  var scatter = ScatterJS.scatter;
-  const requiredFields = { accounts: [network] };
-  var eos = scatter.eos(network, Eos, eosOptions);
-  var identityTb = await eos.getTableRows({
-    code: "identityreg1",
-    scope: "identityreg1",
-    table: "identity3",
-    limit: 50,
-    json: true
-  });
-
-  var username = localStorage.getItem("username");
-  localStorage.setItem("hasIdentity", false);
-  for (var i = 0; i < identityTb.rows.length; i++) {
-    if (username == identityTb.rows[i].username) {
-      localStorage.setItem("hasIdentity", true);
-      break;
-    }
-  }
-});
 
 Template.welcomePage.events({
   "click .optionBox1": function () {
