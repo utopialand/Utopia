@@ -39,9 +39,8 @@ Template.App_result.onCreated(function () {
                         table: "votes13",
                         limit: "50",
                         json: true,
-                        /* key_type: "i64",
-                        index_position: 2 */
                     });
+                    document.getElementsByClassName("waitingData")[0].style.display = "none";
                     if(resultdata){
                         console.log("resultdata===>><<=",resultdata);
                         //getting the length of list of all choices for a  particular proposal
