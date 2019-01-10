@@ -9,7 +9,7 @@
 
 body
 {    
-  overflow-x: hidden; /* needed because hiding the menu on the right side is not perfect,  */
+  overflow-x: hidden;
 }
 .header {
   display: flex;
@@ -191,9 +191,9 @@ body
  }
  
  #menu
- {
-   
+ {   
    position: absolute;
+   display: block;
    margin: 50px 0 0 -184px;  
    background: black;
    width: 300px;
@@ -214,9 +214,13 @@ body
  #menuToggle input:checked ~ ul
  {
   transform: scale(1.0, 1.0);
-  opacity: 1;
-  
-   
+  opacity: 1;     
+ }
+ #menuToggle input:checked #menu
+ {
+  transform: scale(1.0, 1.0);
+  opacity: 1;     
+  display: block;
  }
 /* hamburger menu end */
 

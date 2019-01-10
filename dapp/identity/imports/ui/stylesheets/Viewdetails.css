@@ -133,28 +133,26 @@
   background: linear-gradient(169.59deg, #3023ae -36.97%, #c86dd7 148.62%);
 }
 
-.buttonaction {
-  margin-top: 40px;
-  margin-right: 20px;
-  height: 50px;
-  width: 200px;
-  color: white;
-  font-family: Colfax Medium;
-  text-align: center;
-  font-size: 18px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  line-height: 14px;
-  background: #04030f;
+.buttonaction{
+    height: 50px;
+    width: 200px;
+    color: white;
+    font-family: Colfax Medium;
+    text-align: center;
+    font-size: 18px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    line-height: 14px;
+    background:#04030F;
 }
-.buttonaction:hover {
-  background: linear-gradient(169.59deg, #3023ae -36.97%, #c86dd7 148.62%);
+.buttonaction:hover{
+    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
 }
-.createpropt {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
+.createpropt{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
 }
 
 .detail-container input {

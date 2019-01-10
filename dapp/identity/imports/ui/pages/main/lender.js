@@ -13,106 +13,112 @@ const network = {
 const eosOptions = {
   chainId: "e70aaab8997e1dfce58fbfac80cbbb8fecec7b99cf982a9444273cbc64c41473"
 };
-let loandata ;
-let colatdata ;
-let viewdata;
-let propdata;
+var loandata ;
+var colatdata ;
+var viewdata;
+var propdata;
 var propid=[];
-let appdata;
+var propcom=[];
+var appdata;
 var dataid;
 var amount;
 var eosinstance;
-Template.lender.onCreated( function (){
-    ScatterJS.scatter.connect('utopia').then(async(connected) => {
-        if (connected) {
-            if (ScatterJS.scatter.connect('utopia')) {
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                if (scatter.identity) {
-                    eosinstance = eos;                  
-                    await eosinstance.getTableRows({
+Template.lender.onCreated(async function (){
+   var connected=await ScatterJS.scatter.connect("utopia")
+        if (!connected) {
+          document.getElementById("scatter-not-installed").style.display = "block";
+          return false;
+        } else {
+          if (ScatterJS.scatter.connect("utopia")) {
+            scatter = ScatterJS.scatter;
+            const requiredFields = { accounts: [network] };
+            eos = scatter.eos(network, Eos, eosOptions);
+            if (scatter.identity) {
+                
+                eosinstance=eos;          
+                loandata=  await eos.getTableRows({
                       code: "utplendercon",
                       scope: "utplendercon",
                       table: 'loancatg113',
                       limit: 50,
                       json: true,
-                  }).then((resp)=>{
-                      loandata=resp;
-                      console.log("loandata====>",loandata);  
-                  });   
-                  await eosinstance.getTableRows({
+                  }) 
+                viewdata= await eos.getTableRows({
                     code: "utplendercon",
                     scope: "utplendercon",
                     table: 'reqloan113',
                     limit: 50,
                     json: true,
-                }).then((resp)=>{
-                    viewdata=resp;
-                    console.log("details====>",viewdata);  
-                });     
-                  await eosinstance.getTableRows({
+                }) 
+                colatdata=  await eos.getTableRows({
                     code: "utplendercon",
                     scope: "utplendercon",
                     table: 'collat111',
                     limit: 50,
                     json: true,
-                }).then((resp)=>{
-                    colatdata=resp;
-                    console.log("loandata====>",colatdata);  
-                });   
-                 await eosinstance.getTableRows({
+                })
+                propdata= await eos.getTableRows({
                     code: "realstateutp",
                     scope: "realstateutp",
                     table: 'properties1',
                     limit: 50,
                     json: true,
-                }).then((resp)=>{
-                    propdata=resp;
-                    console.log("realstate====>",propdata);  
-                }); 
-                await eosinstance.getTableRows({
+                })
+                appdata= await eos.getTableRows({
                     code: "utplendercon",
                     scope: "utplendercon",
                     table: 'approved114',
                     limit: 50,
                     json: true,
-                }).then((resp)=>{
-                    appdata=resp;
-                    console.log("details====>",appdata);  
-                });   
-                } else {
-                    FlowRouter.go("/");
-                }
-            }
-        } else {
-            console.log("scatter not installed")
-        }
-    });
-})
-Template.lender.onRendered( function (){
-    document.getElementById("apply-section").style.display="none";
-    document.getElementById("list").style.display="none";
-    document.getElementById("data").style.display="none";
-    document.getElementById("data2").style.display="none";
-})
-Template.lender.events({
-    'click #user':function(){
-        console.log("user");
-        document.getElementById("apply-section").style.display="block";
+                })  
+                console.log("app--",appdata)
+                document. getElementsByClassName("waitingData")[0].style.display="none";
+                document. getElementById("apply-section").style.display="block";
+        document.getElementById("user").style.background= "gray";
+        document.getElementById("detail").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
         document.getElementById("list").style.display="none";
         document.getElementById("data").style.display="none";
         document.getElementById("data2").style.display="none";
+        document.getElementById("listofuser").style.display="none";
+        document.getElementById("listofstatus").style.display="none";
         document.getElementById("catgid").innerHTML ="";
         document.getElementById("colatoptn").innerHTML ="";
         document.getElementById("colat").style.display="none";
         for(var i=0;i<loandata.rows.length;i++){
+            console.log("loandata.rows[i].desc",loandata.rows[i].desc)
             var desc=loandata.rows[i].desc;
             var catid=loandata.rows[i].category_id;
             document.getElementById("catgid").innerHTML += "<div class='inputcatg'><label>"+desc+"</label>"+
             "<input type='radio' class ='catgidoptn' name='radio' value='"+catid+"'></div>"
         }
-       
+                
+            }
+        }
+    }
+
+})
+
+Template.lender.events({
+    'click #user':function(){
+        document.getElementsByClassName("waitingData")[0].style.display="none";
+        document.getElementById("apply-section").style.display="block";
+        document.getElementById("user").style.background= "gray";
+        document.getElementById("detail").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
+        document.getElementById("list").style.display="none";
+        document.getElementById("data").style.display="none";
+        document.getElementById("data2").style.display="none";
+        document.getElementById("listofuser").style.display="none";
+        document.getElementById("listofstatus").style.display="none";
+        document.getElementById("catgid").innerHTML ="";
+        document.getElementById("colatoptn").innerHTML ="";
+        document.getElementById("colat").style.display="none";
+        for(var i=0;i<loandata.rows.length;i++){
+            console.log("loandata.rows[i].desc",loandata.rows[i].desc)
+            var desc=loandata.rows[i].desc;
+            var catid=loandata.rows[i].category_id;
+            document.getElementById("catgid").innerHTML += "<div class='inputcatg'><label>"+desc+"</label>"+
+            "<input type='radio' class ='catgidoptn' name='radio' value='"+catid+"'></div>"
+        }
     },
     'click #col':function(){
         document.getElementById("colat").style.display="flex";
@@ -140,6 +146,8 @@ Template.lender.events({
     'click #detail':function(){
         var count=0;
         document.getElementById("apply-section").style.display="none";
+        document.getElementById("detail").style.background= "gray";
+        document.getElementById("user").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
         var username = localStorage.getItem("username");
         console.log("username = =>",username);
         console.log(viewdata,"enter user",appdata,"---");
@@ -165,6 +173,7 @@ Template.lender.events({
                         document.getElementById("data").style.display="none"  ;
                         document.getElementById("data2").style.display="none"  ;
                         document.getElementById("list").style.display="flex"  ;
+                        document.getElementById("listofuser").style.display="flex"  ;
                         document.getElementById("listofuser").innerHTML += "<div class='datalistlen'>"+
                         "<div class='headloan'>"+borr+"</div>"+
                         "<div class='headloan'>"+purpose+"</div>"+
@@ -193,6 +202,7 @@ Template.lender.events({
                             document.getElementById("list").style.display="none"  ;
                             document.getElementById("data2").style.display="none"  ;
                             document.getElementById("data").style.display="flex"  ;
+                            document.getElementById("listofstatus").style.display="flex"  ;
                             document.getElementById("listofstatus").innerHTML += "<div class='datalist2len'>"+
                             "<div class='headloan'>"+name+"</div>"+
                             "<div class='headloan'>"+amnt+"</div>"+
@@ -218,6 +228,7 @@ Template.lender.events({
                             document.getElementById("list").style.display="none"  ;
                             document.getElementById("data2").style.display="flex"  ;
                             document.getElementById("data").style.display="none"  ;
+                            document.getElementById("listofstatus").style.display="flex"  ;
                             document.getElementById("listofstatus").innerHTML += "<div class='datalist2len'>"+
                             "<div class='headloan'>"+name+"</div>"+
                             "<div class='headloan'>"+amnt+"</div>"+
@@ -231,7 +242,8 @@ Template.lender.events({
                         
                     }
                 }  
-            }             
+            }
+                      
     },
     'click #apply':async function(event){
         var sym="UTP";
@@ -239,24 +251,22 @@ Template.lender.events({
         var colopn = $( ".coloptn:checked" ).val();
         var typepay = $( ".paytype:checked" ).val();
         var id = parseInt($( ".catgidoptn:checked" ).val());
-        var id1 = $(".catgidoptn:checked").val();
+        var idd=$( ".catgidoptn:checked" ).val();
         var amt =`${parseFloat($("#amt").val()).toFixed(4)} ${sym}`;
-        var amt1 = $( "#amt" ).val();
         var purpose = $("#purpose").val();       
         var income = `${parseFloat($("#income").val()).toFixed(4)} ${sym}`;
-        var income1 = $( "#income" ).val();
-
-        if((!colopn)||(!typepay)||(!id1)||(!amt1)||(!purpose)||(!income1))
+        if((!colopn)||(!typepay)||(!idd)||(!purpose))
         {
-          alert("please fill all the fields");
+          alert("please fill all the fields enter inside");
         }
         else{
           try{
             if(colopn == "col"){
                 propid.push(parseInt($(".propidoptn:checked").val()));
+                propcom.push($(".propidoptn:checked").val());
                 var colatoptn = parseInt($(".colatidoptn:checked").val());
-                var colatoptn1 = $( ".colatidoptn:checked" ).val();
-                if((!colatoptn1)||(!propid)){
+                var colcom=$(".colatidoptn:checked").val();
+                if((!colcom)||(!propcom)){
                     alert("please check property or colateral fields");
                 }else{
                     let utplendercon = await eosinstance.contract('utplendercon');
@@ -284,9 +294,10 @@ Template.lender.events({
             }           
           }
           catch(err){
-            var parseResponse = await JSON.parse(err);
+              console.log(err)
+            /* var parseResponse = await JSON.parse(err);
             var msg = await parseResponse.error.details[0].message.split(":")[1]
-            alert(msg);
+            alert(msg); */
           }
         }   
     },
