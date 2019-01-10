@@ -24,7 +24,6 @@ var eosinstance = {};
 
 Template.App_business.onRendered(function () {
     Session.set("isLoadingACompany", true);
-    console.log("isLoadingACompany ", Session.get("isLoadingACompany"));
 });
 
 async function getCompany() {
@@ -53,12 +52,11 @@ async function getCompany() {
             json: true,
         });
 
-        console.log("company ", aCompany);
-        Session.set("aCompany", aCompany);
-        console.log("mybalance ", myBalance);
-        Session.set("myBalance", myBalance);
+        /* var symbol = aCompany.rows[0].token_maximum_supply.split(" ")[1]; */
+        /* console.log("symbol ", symbol); */
+        console.log("company ", aCompany.rows);
+        Session.set("aCompany", aCompany.rows);
         Session.set("isLoadingACompany", false);
-        console.log("isloadingACompany ", Session.get("isLoadingACompany"));
     }
     else {
         console.log("cant cannot to scatter");

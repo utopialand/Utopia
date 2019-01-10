@@ -1,8 +1,3 @@
-h1{
-    color: black;
-    text-transform: capitalize;
-}
-
 .business-wrapper{
     width: 90%;
     max-width: 1140px;
@@ -42,6 +37,7 @@ h1{
 .stat .company-name{
     font-size: 32px;
     text-transform: uppercase;
+    color: white;
 }
 
 .stock-change{
@@ -238,10 +234,15 @@ h1{
 .officers .officer-content{
     display: flex;
     margin-top: 24px;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 .officers .officer-content .officer{
-    flex: 1;
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .officers .officer-content .officer .picture{
@@ -249,8 +250,6 @@ h1{
     height: 64px;
     background: #ccc;
     border-radius: 50%;
-    margin-left: auto;
-    margin-right: auto;
     background-image: url("img/employeepic.png");
     background-size: 100% 100%;
 }
@@ -273,8 +272,11 @@ h1{
 }
 
 .officer .designation{
-    color: #aaa;
+    color: white;
     font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
 }
 
 .employees{
@@ -283,66 +285,35 @@ h1{
     padding-top: 2%;
     padding-bottom: 2%;
     box-sizing: border-box;
+}
+
+.employee-content{
+    margin-top: 24px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.employee{
+    width: 15%;
     display: flex;
     flex-direction: column;
-}
-
-.top-section-employees{
-    flex: 1;
-    display: flex;
-    margin-top: 24px;
-}
-
-.top-section-employees .employee{
-    flex: 1;
-}
-
-.bottom-section-employees{
-    flex: 1;
-    display: flex;
-}
-
-.bottom-section-employees .employee{
-    flex: 1;
-    margin-top: 24px;
+    align-items: center;
 }
 
 .employees .picture{
     width: 64px;
     height: 64px;
     background: #aaa;
-    margin-left: auto;
-    margin-right: auto;
     border-radius: 50%;
     background-image: url("img/employeepic.png");
     background-size: 100% 100%;
 }
 
-.employees .more-employee{
-    display: flex;
-    justify-content: center;
-}
-
-.more-employee button{
-    width: 64px;
-    height: 64px;
-    background-color:lightpink;
-    border: 0;
-    margin-left: auto;
-    margin-right: auto;
-    border-radius: 50%;
-    font-size: 18px;
-    color: #FB6946;
-    font-weight: bolder;
-}
-
-.employee p{
-    text-align: center;
-    font-weight: bold;
-    font-size: 10px;
+.name{
     text-transform: uppercase;
-    letter-spacing: 1px;
-    line-height: 16px;
+    text-align: center;
+    margin-top: 5%;
 }
 
 .employees .title{
@@ -351,11 +322,6 @@ h1{
     font-size: 14px;
     font-weight: bolder;
     text-transform: uppercase;
-}
-
-.picture{
-    background-image: url("img/employeepic.png");
-    background-size: 100% 100%;
 }
 
 .financials{
