@@ -24,7 +24,7 @@ var eosinstance = {};
 
 Template.App_business.onRendered(function () {
     Session.set("isLoadingACompany", true);
-    console.log("isLoadingACompany ", Session.get("isLoadingACompany"));
+    Session.set("myBalance","");
 });
 
 async function getCompany() {
@@ -45,20 +45,32 @@ async function getCompany() {
             limit: "1",
             json: true,
         });
-        var account = localStorage.getItem("username");
 
-        var myBalance = await eos.getCurrencyBalance({
-            code: "utopbusiness",
-            account: account,
-            json: true,
-        });
-
-        console.log("company ", aCompany);
-        Session.set("aCompany", aCompany);
-        console.log("mybalance ", myBalance);
-        Session.set("myBalance", myBalance);
-        Session.set("isLoadingACompany", false);
-        console.log("isloadingACompany ", Session.get("isLoadingACompany"));
+        if(aCompany.rows.length != 0){
+            var account = localStorage.getItem("username");
+            var symbol = aCompany.rows[0].token_maximum_supply.split(" ")[1];
+            var myBalance = await eos.getCurrencyBalance({
+                code: "utopbusiness",
+                account: account,
+                symbol: symbol,
+                json: true,
+            });
+            var balance = "0.0000";
+    
+            if(myBalance.length == 0){
+                balance = "0.0000 "+symbol;
+            }
+            else{
+                balance = myBalance[0];
+            }
+            
+            Session.set("aCompany", aCompany.rows);
+            Session.set("myBalance", balance);
+            Session.set("isLoadingACompany", false);
+        }
+        else{
+            Session.set("isLoadingACompany", false);
+        }        
     }
     else {
         console.log("cant cannot to scatter");
@@ -73,4 +85,7 @@ Template.App_business.helpers({
     isLoadingACompany: function () {
         return Session.get("isLoadingACompany");
     },
+    getMyBalance: function(){
+        return Session.get("myBalance");
+    }
 });

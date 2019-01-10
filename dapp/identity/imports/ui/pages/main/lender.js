@@ -18,15 +18,23 @@ var colatdata ;
 var viewdata;
 var propdata;
 var propid=[];
+var propcom=[];
 var appdata;
 var dataid;
 var amount;
 var eosinstance;
 Template.lender.onCreated(async function (){
-    if(localStorage.getItem("hasIdentity")){
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
+   var connected=await ScatterJS.scatter.connect("utopia")
+        if (!connected) {
+          document.getElementById("scatter-not-installed").style.display = "block";
+          return false;
+        } else {
+          if (ScatterJS.scatter.connect("utopia")) {
+            scatter = ScatterJS.scatter;
+            const requiredFields = { accounts: [network] };
+            eos = scatter.eos(network, Eos, eosOptions);
+            if (scatter.identity) {
+                
                 eosinstance=eos;          
                 loandata=  await eos.getTableRows({
                       code: "utplendercon",
@@ -62,10 +70,10 @@ Template.lender.onCreated(async function (){
                     table: 'approved114',
                     limit: 50,
                     json: true,
-                }) 
+                })  
                 console.log("app--",appdata)
-                document.getElementsByClassName("waitingData")[0].style.display="none";
-                document.getElementById("apply-section").style.display="block";
+                document. getElementsByClassName("waitingData")[0].style.display="none";
+                document. getElementById("apply-section").style.display="block";
         document.getElementById("user").style.background= "gray";
         document.getElementById("detail").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
         document.getElementById("list").style.display="none";
@@ -85,12 +93,33 @@ Template.lender.onCreated(async function (){
         }
                 
             }
-     
+        }
+    }
+
 })
-Template.lender.onRendered( function (){
-   
-})
+
 Template.lender.events({
+    'click #user':function(){
+        document.getElementsByClassName("waitingData")[0].style.display="none";
+        document.getElementById("apply-section").style.display="block";
+        document.getElementById("user").style.background= "gray";
+        document.getElementById("detail").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
+        document.getElementById("list").style.display="none";
+        document.getElementById("data").style.display="none";
+        document.getElementById("data2").style.display="none";
+        document.getElementById("listofuser").style.display="none";
+        document.getElementById("listofstatus").style.display="none";
+        document.getElementById("catgid").innerHTML ="";
+        document.getElementById("colatoptn").innerHTML ="";
+        document.getElementById("colat").style.display="none";
+        for(var i=0;i<loandata.rows.length;i++){
+            console.log("loandata.rows[i].desc",loandata.rows[i].desc)
+            var desc=loandata.rows[i].desc;
+            var catid=loandata.rows[i].category_id;
+            document.getElementById("catgid").innerHTML += "<div class='inputcatg'><label>"+desc+"</label>"+
+            "<input type='radio' class ='catgidoptn' name='radio' value='"+catid+"'></div>"
+        }
+    },
     'click #col':function(){
         document.getElementById("colat").style.display="flex";
         document.getElementById("colatoptn").innerHTML = "";
@@ -223,11 +252,9 @@ Template.lender.events({
         var id = parseInt($( ".catgidoptn:checked" ).val());
         var idd=$( ".catgidoptn:checked" ).val();
         var amt =`${parseFloat($("#amt").val()).toFixed(4)} ${sym}`;
-        var amtt=$("#amt").val();
         var purpose = $("#purpose").val();       
         var income = `${parseFloat($("#income").val()).toFixed(4)} ${sym}`;
-        console.log("---",typepay,"----",id,"----",amt,"----",purpose,"---",income)
-        if((!colopn)||(!typepay)||(!idd)||(!purpose)||(!amtt))
+        if((!colopn)||(!typepay)||(!idd)||(!purpose))
         {
           alert("please fill all the fields enter inside");
         }
@@ -235,10 +262,10 @@ Template.lender.events({
           try{
             if(colopn == "col"){
                 propid.push(parseInt($(".propidoptn:checked").val()));
+                propcom.push($(".propidoptn:checked").val());
                 var colatoptn = parseInt($(".colatidoptn:checked").val());
-                var coloptnn=$(".colatidoptn:checked").val();
-                console.log("---",colatoptn,"---",propid)
-                if((!coloptnn)||(!propid)){
+                var colcom=$(".colatidoptn:checked").val();
+                if((!colcom)||(!propcom)){
                     alert("please check property or colateral fields");
                 }else{
                     let utplendercon = await eosinstance.contract('utplendercon');
@@ -256,7 +283,6 @@ Template.lender.events({
                 let utplendercon = await eosinstance.contract('utplendercon');
                 if(utplendercon)
                 {
-                    
                   let result = await  utplendercon.reqloanincm(username,id,amt,purpose,income,typepay, { authorization: username });
                      if(result){
                         alert("loan request sent successfully !!");
@@ -267,9 +293,10 @@ Template.lender.events({
             }           
           }
           catch(err){
-            var parseResponse = await JSON.parse(err);
+              console.log(err)
+            /* var parseResponse = await JSON.parse(err);
             var msg = await parseResponse.error.details[0].message.split(":")[1]
-            alert(msg);
+            alert(msg); */
           }
         }   
     },

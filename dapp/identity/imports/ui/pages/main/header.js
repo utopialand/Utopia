@@ -54,6 +54,7 @@ Template.header.onCreated(async function() {
         document.getElementById("len").style.display = "block";
         document.getElementById("coupon").style.display = "block";
         var s = document.getElementById("len").setAttribute("value", "manager");
+        document.getElementById("proposal").style.display = "block";
       }else{
         var countuserid=0;
         for(var i=0;i<userdetail.rows.length;i++){
@@ -68,6 +69,7 @@ Template.header.onCreated(async function() {
           document.getElementById("len").style.display = "block";
           document.getElementById("coupon").style.display = "block";
           var s = document.getElementById("len").setAttribute("value", "userid");
+          document.getElementById("proposal").style.display = "block";
         }else{
         
           document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
@@ -137,14 +139,16 @@ Template.header.events({
   "click":function (e) {
     if (!$menu.is(e.target) && $menu.has(e.target).length === 0) // ... nor a descendant of the container
     {
-      if(e.target.nodeName == "DIV"){
+      if(e.target.nodeName == "INPUT"){
+        if(e.target.id="toggleinput"){
+            document.getElementById("menu").style.display = "block";
+          }else{
+            document.getElementById("menu").style.display = "none";
+          }
+      }else{
         document.getElementById("menu").style.display = "none";
-      }else if(e.target.nodeName == "INPUT"){
-        console.log("event---",e.target.nodeName);
-        document.getElementById("menu").style.display = "block";
-      }
-      
-      
+        document.getElementById("toggleinput").checked=false;
+      }        
    }
   }
 });

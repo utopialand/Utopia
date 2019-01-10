@@ -17,7 +17,7 @@ var loandata ;
 var appdata;
 var eosinstance;
 Template.viewdetail.onCreated( function (){
-    ScatterJS.scatter.connect('utopia').then((connected) => {
+    ScatterJS.scatter.connect('utopia').then(async connected => {
         if (connected) {
             if (ScatterJS.scatter.connect('utopia')) {
                 scatter = ScatterJS.scatter;
@@ -25,25 +25,19 @@ Template.viewdetail.onCreated( function (){
                 const eos = scatter.eos(network, Eos, eosOptions);
                 if (scatter.identity) {
                     eosinstance = eos;                  
-                     eosinstance.getTableRows({
+                    loandata = await eosinstance.getTableRows({
                       code: "utplendercon",
                       scope: "utplendercon",
                       table: 'reqloan113',
                       limit: 50,
                       json: true,
-                  }).then((resp)=>{
-                      loandata=resp;
-                      console.log("details====>",loandata);  
                   });     
-                  eosinstance.getTableRows({
+                  appdata = await eosinstance.getTableRows({
                     code: "utplendercon",
                     scope: "utplendercon",
                     table: 'approved114',
                     limit: 50,
                     json: true,
-                }).then((resp)=>{
-                    appdata=resp;
-                    console.log("details====>",appdata);  
                 });  
                 } else {
                     FlowRouter.go("/");
@@ -142,24 +136,60 @@ Template.viewdetail.events({
         document.getElementById("create-section").style.display="none";
         document.getElementById("accept-section").style.display="none";
         document.getElementById("listofstatus").innerHTML=""  ;
-        for(var i=0;i<appdata.rows.length;i++){                           
-                    var amnt=appdata.rows[i].amtapproved;
-                    console.log("enter user",appdata);     
-                    var finaldue=appdata.rows[i].finalduedt*1000;
-                    var date = new Date(parseInt(finaldue));
-                    var finaldate = date.toUTCString('MM/dd/yy  HH:mm:ss');
-                    var totaldue=appdata.rows[i].totaldue;
-                    var name=appdata.rows[i].borrower;
-                    document.getElementById("list").style.display="none"  ;
-                    document.getElementById("data").style.display="flex"  ;
-                    document.getElementById("listofstatus").style.display="flex"  ;
-                    document.getElementById("listofuser").style.display="none"  ;
-                    document.getElementById("listofstatus").innerHTML += 
-                    "<div class='datalist2'>"+
-                    "<div class='headloan'>"+name+"</div>"+
-                    "<div class='headloan'>"+amnt+"</div>"+
-                    "<div class='headloan'>"+totaldue+"</div>"+
-                    "<div class='headloan'>"+finaldate+"</div></div>";
+        for(var i=0;i<appdata.rows.length;i++){ 
+            if(appdata.rows[i].totaldue !="0.0000 UTP") 
+            {
+                var flag=0;
+                var index = 0;
+                var amnt=appdata.rows[i].amtapproved;
+                console.log("enter user",appdata);     
+                var finaldue=appdata.rows[i].finalduedt*1000;
+                var date = new Date(parseInt(finaldue));
+                var finaldate = date.toUTCString('MM/dd/yy  HH:mm:ss');
+                var totaldue=appdata.rows[i].totaldue;
+                var name=appdata.rows[i].borrower;
+                document.getElementById("list").style.display="none"  ;
+                document.getElementById("data").style.display="flex"  ;
+                document.getElementById("listofstatus").style.display="flex"  ;
+                document.getElementById("listofuser").style.display="none";
+                for(var j=0;j<loandata.rows.length;j++)
+                {
+                    if(appdata.rows[i].reqloanid == loandata.rows[i].reqloanid )
+                    {
+                        flag = 1;
+                        index = j;
+                        break;
+                    }
+
+                }
+                if(flag==1)
+                {
+                    if(appdata.rows[i].status !="defaulter")
+                    {
+                        document.getElementById("listofstatus").innerHTML += 
+                        "<div class='datalist2'>"+
+                        "<div class='headloan'>"+name+"</div>"+
+                        "<div class='headloan'>"+amnt+"</div>"+
+                        "<div class='headloan'>"+totaldue+"</div>"+
+                        "<div class='headloan'>"+finaldate+"</div>"+
+                        "<button class='check-loan-status-button' id = 'check-buttons'>check for defaulter</button>"
+                        "</div>";
+                    } 
+                    else if((appdata.rows[i].status =="defaulter")&&(loandata.rows[index].type==true))
+                    {
+                        document.getElementById("listofstatus").innerHTML += 
+                        "<div class='datalist2'>"+
+                        "<div class='headloan'>"+name+"</div>"+
+                        "<div class='headloan'>"+amnt+"</div>"+
+                        "<div class='headloan'>"+totaldue+"</div>"+
+                        "<div class='headloan'>"+finaldate+"</div>"+
+                        "<button class='check-loan-status-button' id = 'check-buttons'>check for auction</button>"
+                        "</div>";
+                    }
+                }
+              
+                
+            }
         }
      },
      'click #create':async function(event){

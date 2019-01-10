@@ -119,6 +119,8 @@
     border: 1px solid white;
     border-radius: 6px;
     margin-top: 5%;
+    cursor: pointer;
+    padding: 2% 0;
 }
 
 .company .company-name{
@@ -128,6 +130,16 @@
     font-weight: bold;
     letter-spacing: 0.6px;
     
+}
+
+.cmp-details{
+    background: teal;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 50%;
+    border-radius: 6px;
+    margin-left: 25%;
 }
 
 .stockdetails{

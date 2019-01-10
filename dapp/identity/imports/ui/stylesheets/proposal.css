@@ -97,6 +97,9 @@
     height: 50%;
     width: 100px;
 }
+.result-button:hover{
+    background: green;
+}
 
 .redo p{
     margin-left: 3%;
