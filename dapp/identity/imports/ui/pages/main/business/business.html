@@ -1,10 +1,17 @@
 <template name="App_business">
     <div class="business-wrapper">
-        <h1>tesla inc.</h1>
+        {{#if isLoadingACompany}}
+        <div class="spinner">
+                {{>spinner}}
+        </div>
+        {{getACompany}}
+        {{else}}
+        {{#if getACompany.length}}
+        {{#each getACompany}}
         <div class="business-stat-section">
             <div class="stat">
                 <div class="company-detail">
-                    <p class="company-name"> tsla <span>329.50</span></p>
+                    <p class="company-name"> {{businessname}} <span>329.50</span></p>
                     <p class="stock-change"> -5.35 <span>1.61%</span></p>
                 </div>
                 <div class="company-stat">
@@ -73,124 +80,50 @@
         <div class="officers">
             <p class="title">officers</p>
             <div class="officer-content">
+                {{#if officers.length}}
+                {{#each officers}}
                 <div class="officer">
                     <div class="picture"></div>
-                    <p>elon <br>musk</p>
-                    <p class="designation">ceo</p>
+                    <div class = "name">{{person}}</div>
+                    <div class = "designation">{{position}}</div>
                 </div>
-                <div class="officer">
-                    <div class="picture"></div>
-                    <p>angela <br> longoria</p>
-                    <p class="designation">ceo</p>
-                </div>
-                <div class="officer">
-                    <div class="picture"></div>
-                    <p>artem <br>sazonov</p>
-                    <p class="designation">ceo</p>
-                </div>
-                <div class="officer">
-                    <div class="picture"></div>
-                    <p>bansilal <br>brata</p>
-                    <p class="designation">ceo</p>
-                </div>
-                <div class="officer">
-                    <div class="picture"></div>
-                    <p>farid <br>amini</p>
-                    <p class="designation">ceo</p>
-                </div>
-                <div class="officer">
-                    <div class="picture"></div>
-                    <p>gauthier <br> drewitt</p>
-                    <p class="designation">ceo</p>
-                </div>
-                <div class="officer">
-                    <div class="picture"></div>
-                    <p>klavdia <br> dedoya</p>
-                    <p class="designation">ceo</p>
-                </div>
-                <div class="officer">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                    <p class="designation">ceo</p>
-                </div>
+                {{/each}}
+                {{else}}
+                <div class="no-business">
+                    <p>No officer in this company</p>
+                </div>        
+                {{/if}}
             </div>
         </div>
         <div class="employees">
             <p class="title">employees</p>
-            <div class="top-section-employees">
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
+            <div class = "employee-content">
+                {{#if employees.length}}
+                {{#each employees}}
+                <div class = "employee">
+                    <div class = "picture"></div>
+                    <div class = "name">{{this}}</div>
                 </div>
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
+                {{/each}}
+                {{else}}
+                <div class="no-business">
+                    <p>No employee in this company</p>
                 </div>
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                </div>
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                </div>
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                </div>
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                </div>
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                </div>
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                </div>
-            </div>
-            <div class="bottom-section-employees">
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                </div>
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                </div>
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                </div>
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                </div>
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                </div>
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                </div>
-                <div class="employee">
-                    <div class="picture"></div>
-                    <p>sadou<br>mokate</p>
-                </div>
-                <div class="employee more-employee">
-                    <button>+72</button>
-                </div>
+                {{/if}}
             </div>
         </div>
         <div class="financials">
             <p class="financial-title">financials</p>
             <p class="financial-desc">balance sheet <br> profit and loss statement</p>
         </div>
+        {{/each}}
+        {{else}}
+        <div class="no-business">
+                <p>No such company</p>
+        </div>
+        {{/if}}
+        {{/if}}
+        
     </div>
-    {{getACompany}}
-    {{myShareHolding}}
     {{> App_footer}}
 </template>
