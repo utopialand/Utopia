@@ -19,74 +19,84 @@ let manager;
 Template.header.onCreated(async function() {
       
     var username=localStorage.getItem("username");
-    if(localStorage.getItem("hasIdentity")){
-      scatter = ScatterJS.scatter;
-      const requiredFields = { accounts: [network] };
-      const eos = scatter.eos(network, Eos, eosOptions);
-      await eos.getTableRows({
-        code: "utpmanager11",
-        scope: "utpmanager11",
-        table: "manager111",
-        limit: 50,
-        json: true
-      }).then((resp)=>{
-         manager=resp.rows;
-         
-      })
-      await eos.getTableRows({
-        code: "identityreg1",
-        scope: "identityreg1",
-        table: "identity3",
-        limit: 50,
-        json: true
-      }).then((resp) => {
-        userdetail = resp;
-        
-        var countman=0;
-      for(var i=0;i<manager.length;i++){
-        if(manager[i].user==username){
-          countman++;
-        }
-      }
-      if(countman == 1){
-        document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-        document.getElementById("managerText").style.display = "block";
-        document.getElementById("len").style.display = "block";
-        document.getElementById("coupon").style.display = "block";
-        var s = document.getElementById("len").setAttribute("value", "manager");
-        document.getElementById("proposal").style.display = "block";
-      }else{
-        var countuserid=0;
-        for(var i=0;i<userdetail.rows.length;i++){
-          if(userdetail.rows[i].username==username){
-            countuserid++;
+    var connected=await ScatterJS.scatter.connect("utopia")
+        if (!connected) {
+          document.getElementById("scatter-not-installed").style.display = "block";
+          return false;
+        } else {
+          if (ScatterJS.scatter.connect("utopia")) {
+            scatter = ScatterJS.scatter;
+            const requiredFields = { accounts: [network] };
+            eos = scatter.eos(network, Eos, eosOptions);
+            if (scatter.identity) {
+              await eos.getTableRows({
+                code: "utpmanager11",
+                scope: "utpmanager11",
+                table: "manager111",
+                limit: 50,
+                json: true
+              }).then((resp)=>{
+                 manager=resp.rows;
+                 
+              })
+              await eos.getTableRows({
+                code: "identityreg1",
+                scope: "identityreg1",
+                table: "identity3",
+                limit: 50,
+                json: true
+              }).then((resp) => {
+                userdetail = resp;
+                
+                var countman=0;
+              for(var i=0;i<manager.length;i++){
+                if(manager[i].user==username){
+                  countman++;
+                }
+              }
+              if(countman == 1){
+                document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+                document.getElementById("managerText").style.display = "block";
+                document.getElementById("len").style.display = "block";
+                document.getElementById("coupon").style.display = "block";
+                var s = document.getElementById("len").setAttribute("value", "manager");
+                document.getElementById("proposal").style.display = "block";
+              }else{
+                var countuserid=0;
+                for(var i=0;i<userdetail.rows.length;i++){
+                  if(userdetail.rows[i].username==username){
+                    countuserid++;
+                  }
+                }
+                if(countuserid == 1){
+                  
+                  document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+                  document.getElementById("managerText").style.display = "none";
+                  document.getElementById("len").style.display = "block";
+                  document.getElementById("coupon").style.display = "block";
+                  var s = document.getElementById("len").setAttribute("value", "userid");
+                  document.getElementById("proposal").style.display = "block";
+                }else{
+                
+                  document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
+                  document.getElementById("managerText").style.display = "none";
+                  var s = document.getElementById("len").setAttribute("value", "user");
+                  document.getElementById("len").style.display = "none";
+                  document.getElementById("coupon").style.display = "none";
+                  document.getElementById("proposal").style.display = "none";
+                }
+              }
+              });
+            
+            }
+            else {
+            
+              FlowRouter.go("/");
+              document.getElementsByClassName("identitySectionman")[0].style.display = "none";
+            }
           }
         }
-        if(countuserid == 1){
-          
-          document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-          document.getElementById("managerText").style.display = "none";
-          document.getElementById("len").style.display = "block";
-          document.getElementById("coupon").style.display = "block";
-          var s = document.getElementById("len").setAttribute("value", "userid");
-          document.getElementById("proposal").style.display = "block";
-        }else{
-        
-          document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
-          document.getElementById("managerText").style.display = "none";
-          var s = document.getElementById("len").setAttribute("value", "user");
-          document.getElementById("len").style.display = "none";
-          document.getElementById("coupon").style.display = "none";
-          document.getElementById("proposal").style.display = "none";
-        }
-      }
-      });
     
-    }else {
-            
-      FlowRouter.go("/");
-      document.getElementsByClassName("identitySectionman")[0].style.display = "none";
-    }
   
 });
 
