@@ -23,7 +23,11 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
-Session.set("isLoadingBusinessList", true);
+
+Template.App_business_manager_home.onCreated(function(){
+    Session.set("isLoadingBusinessList", true);
+});
+
 
 async function getAllBusinessList() {
 
@@ -121,6 +125,9 @@ Template.App_business_manager_home.events({
         else {
             alert("No such business");
         }
+    },
+    "click .cmp-details": function(e){
+        FlowRouter.go("/business/allbusiness/"+e.target.id);
     }
 
 });
