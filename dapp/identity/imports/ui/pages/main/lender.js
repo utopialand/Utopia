@@ -238,10 +238,14 @@ Template.lender.events({
         var colopn = $( ".coloptn:checked" ).val();
         var typepay = $( ".paytype:checked" ).val();
         var id = parseInt($( ".catgidoptn:checked" ).val());
+        var id1 = $(".catgidoptn:checked").val();
         var amt =`${parseFloat($("#amt").val()).toFixed(4)} ${sym}`;
+        var amt1 = $( "#amt" ).val();
         var purpose = $("#purpose").val();       
         var income = `${parseFloat($("#income").val()).toFixed(4)} ${sym}`;
-        if((!colopn)||(!typepay)||(!id)||(!amt)||(!purpose)||(!income))
+        var income1 = $( "#income" ).val();
+
+        if((!colopn)||(!typepay)||(!id1)||(!amt1)||(!purpose)||(!income1))
         {
           alert("please fill all the fields");
         }
@@ -250,7 +254,8 @@ Template.lender.events({
             if(colopn == "col"){
                 propid.push(parseInt($(".propidoptn:checked").val()));
                 var colatoptn = parseInt($(".colatidoptn:checked").val());
-                if((!colatoptn)||(!propid)){
+                var colatoptn1 = $( ".colatidoptn:checked" ).val();
+                if((!colatoptn1)||(!propid)){
                     alert("please check property or colateral fields");
                 }else{
                     let utplendercon = await eosinstance.contract('utplendercon');
