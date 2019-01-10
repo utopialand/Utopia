@@ -118,8 +118,6 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
           document.getElementsByClassName("identitySectionman")[0].style.display = "none";
           document.getElementById("loginButton").innerHTML = "login";
           document.getElementsByClassName("optionFlex")[0].style.display = "none";
-          
-
         }
       }
 
