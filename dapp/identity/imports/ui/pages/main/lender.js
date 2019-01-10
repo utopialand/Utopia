@@ -149,6 +149,7 @@ Template.lender.events({
         document.getElementById("detail").style.background= "gray";
         document.getElementById("user").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
         var username = localStorage.getItem("username");
+        console.log("username = =>",username);
         console.log(viewdata,"enter user",appdata,"---");
         for(var i=0;i<viewdata.rows.length;i++){
             console.log("user");
