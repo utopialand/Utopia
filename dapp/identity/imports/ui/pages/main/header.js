@@ -150,7 +150,7 @@ Template.header.events({
     if (!$menu.is(e.target) && $menu.has(e.target).length === 0) // ... nor a descendant of the container
     {
       if(e.target.nodeName == "INPUT"){
-        if(e.target.id="toggleinput"){
+        if(e.target.id == "toggleinput"){
             document.getElementById("menu").style.display = "block";
           }else{
             document.getElementById("menu").style.display = "none";
