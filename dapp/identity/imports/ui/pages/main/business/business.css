@@ -128,10 +128,9 @@
 
 .trade-section .my-shareholdings{
     flex: 3;
-    background-image: url("img/shareholding.png");
-    background-size: 100% 100%;
+    background-image: linear-gradient(to right, #F09819,#FF5858 );
     color: white;
-    border-radius: 4px;
+    border-radius: 6px;
 }
 
 .my-shareholdings .title{
@@ -253,7 +252,7 @@
     height: 64px;
     background: #ccc;
     border-radius: 50%;
-    background-image: url("img/employeepic.png");
+    background-image: url("img/employeepic.png?v=0");
     background-size: 100% 100%;
 }
 
@@ -311,7 +310,7 @@
     height: 64px;
     background: #aaa;
     border-radius: 50%;
-    background-image: url("img/employeepic.png");
+    background-image: url("img/employeepic.png?v=0");
     background-size: 100% 100%;
 }
 
