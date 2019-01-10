@@ -54,6 +54,7 @@ Template.header.onCreated(async function() {
         document.getElementById("len").style.display = "block";
         document.getElementById("coupon").style.display = "block";
         var s = document.getElementById("len").setAttribute("value", "manager");
+        document.getElementById("proposal").style.display = "block";
       }else{
         var countuserid=0;
         for(var i=0;i<userdetail.rows.length;i++){
@@ -68,6 +69,7 @@ Template.header.onCreated(async function() {
           document.getElementById("len").style.display = "block";
           document.getElementById("coupon").style.display = "block";
           var s = document.getElementById("len").setAttribute("value", "userid");
+          document.getElementById("proposal").style.display = "block";
         }else{
         
           document.getElementsByClassName("identitySectionman")[0].style.display = "flex";
@@ -75,6 +77,7 @@ Template.header.onCreated(async function() {
           var s = document.getElementById("len").setAttribute("value", "user");
           document.getElementById("len").style.display = "none";
           document.getElementById("coupon").style.display = "none";
+          document.getElementById("proposal").style.display = "none";
         }
       }
       });

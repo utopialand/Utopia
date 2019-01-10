@@ -72,6 +72,7 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
               document.getElementById("coupon").style.display = "block";
               var s = document.getElementById("len").setAttribute("value", "manager");
               document.getElementsByClassName("optionFlex")[0].style.display = "none";
+              document.getElementById("proposal").style.display = "block";
             } else {
               var countuserid = 0;
               for (var i = 0; i < userdetail.rows.length; i++) {
@@ -86,6 +87,7 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
                 document.getElementById("len").style.display = "block";
                 document.getElementById("coupon").style.display = "block";
                 var s = document.getElementById("len").setAttribute("value", "userid");
+                document.getElementById("proposal").style.display = "block";
                 if (show == 1) {
 
                   document.getElementsByClassName("optionFlex")[0].style.display = "none";
@@ -106,6 +108,7 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
                 document.getElementsByClassName("optionBox1")[0].style.display = "flex";
                 document.getElementsByClassName("optionBox2")[0].style.display = "none";
                 document.getElementById("coupon").style.display = "none";
+                document.getElementById("proposal").style.display = "none";
               }
             }
           });
@@ -115,6 +118,7 @@ Template.welcomePage.onCreated(function bodyOnCreated() {
           document.getElementsByClassName("identitySectionman")[0].style.display = "none";
           document.getElementById("loginButton").innerHTML = "login";
           document.getElementsByClassName("optionFlex")[0].style.display = "none";
+          
 
         }
       }
@@ -202,6 +206,7 @@ Template.welcomePage.events({
         document.getElementsByClassName("optionFlex")[0].style.display =
           "none";
         var s = document.getElementById("len").setAttribute("value", "manager");
+        document.getElementById("proposal").style.display = "block";
       } else {
         var countuserid = 0;
         for (var i = 0; i < userdetail.rows.length; i++) {
@@ -217,6 +222,7 @@ Template.welcomePage.events({
           document.getElementById("len").style.display = "block";
           document.getElementById("coupon").style.display = "block";
           var s = document.getElementById("len").setAttribute("value", "userid");
+          document.getElementById("proposal").style.display = "block";
           if (show == 1) {
             console.log("count1");
             document.getElementsByClassName("optionFlex")[0].style.display = "none";
@@ -236,6 +242,7 @@ Template.welcomePage.events({
           document.getElementsByClassName("optionBox1")[0].style.display = "flex";
           document.getElementsByClassName("optionBox2")[0].style.display = "none";
           document.getElementById("coupon").style.display = "none";
+          document.getElementById("proposal").style.display = "none";
         }
       }
 
