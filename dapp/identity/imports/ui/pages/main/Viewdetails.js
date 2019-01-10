@@ -31,7 +31,8 @@ Template.viewdetail.onCreated( function (){
                       table: 'reqloan113',
                       limit: 50,
                       json: true,
-                  });     
+                  });  
+                  console.log("loandata",loandata);   
                   appdata = await eosinstance.getTableRows({
                     code: "utplendercon",
                     scope: "utplendercon",
@@ -166,13 +167,14 @@ Template.viewdetail.events({
                 {
                     if(appdata.rows[i].status !="defaulter")
                     {
+                        id = appdata.rows[i].reqloanid;
                         document.getElementById("listofstatus").innerHTML += 
                         "<div class='datalist2'>"+
                         "<div class='headloan'>"+name+"</div>"+
                         "<div class='headloan'>"+amnt+"</div>"+
                         "<div class='headloan'>"+totaldue+"</div>"+
                         "<div class='headloan'>"+finaldate+"</div>"+
-                        "<button class='check-loan-status-button' id = 'check-buttons'>check for defaulter</button>"
+                        "<button class='check-loan-status-button' id ="+id+">check for defaulter</button>"
                         "</div>";
                     } 
                     else if((appdata.rows[i].status =="defaulter")&&(loandata.rows[index].type==true))
@@ -183,7 +185,7 @@ Template.viewdetail.events({
                         "<div class='headloan'>"+amnt+"</div>"+
                         "<div class='headloan'>"+totaldue+"</div>"+
                         "<div class='headloan'>"+finaldate+"</div>"+
-                        "<button class='check-loan-status-button' id = 'check-buttons'>check for auction</button>"
+                        "<button class='check-loan-status-button' id = 'check-buttons-auction'>check for auction</button>"
                         "</div>";
                     }
                 }
@@ -254,14 +256,11 @@ Template.viewdetail.events({
           }
         }  
     },
-    'click #default':async function(){
+    'click .check-loan-status-button':async function(){
         var username = localStorage.getItem("username");
-        var id = $("#acceptid").val();
-        if((!id))
-        {
-          alert("please fill loanid");
-        }
-        else{
+        var id = event.target.id;
+        console.log("username=",username);
+        console.log("id->",id);
           try{
                     let utplendercon = await eosinstance.contract('utplendercon');
                     if(utplendercon)
@@ -271,7 +270,7 @@ Template.viewdetail.events({
                         let tabrow = await eosinstance.getTableRows({
                                 code: "utplendercon",
                                 scope: "utplendercon",
-                                table: 'approved112',
+                                table: 'approved114',
                                 limit: 50,
                                 json: true,
                             })
@@ -298,11 +297,11 @@ Template.viewdetail.events({
                     }                
           }
           catch(err){
+              console.log("err",err);
             var parseResponse = await JSON.parse(err);
             var msg = await parseResponse.error.details[0].message.split(":")[1]
             alert(msg);
           }
-        }
     },
     'click #auction':async function(){
         var username = localStorage.getItem("username");

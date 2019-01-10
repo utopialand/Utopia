@@ -141,6 +141,7 @@ Template.lender.events({
         var count=0;
         document.getElementById("apply-section").style.display="none";
         var username = localStorage.getItem("username");
+        console.log("username = =>",username);
         console.log(viewdata,"enter user",appdata,"---");
         for(var i=0;i<viewdata.rows.length;i++){
             console.log("user");

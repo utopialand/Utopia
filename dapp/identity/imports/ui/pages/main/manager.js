@@ -269,6 +269,19 @@ Template.App_manager.events({
         if(result)
         {
           alert("citizenship approved !!!!");
+          let utpcreditsc1 = await eosinstance.contract("utpcreditsc1");
+          if(utpcreditsc1)
+          {
+            let creditscore = await utpcreditsc1.addcredscore("identityreg1",userName ,7.5000,{authorization: "identityreg1" });
+            if(creditscore)
+            {
+              alert("credit score is successfully added");
+            }
+            else{
+              alert("credit score is not added");
+            }
+          }
+    
         }
         else{
           alert("citizenship not approved !!!!");
