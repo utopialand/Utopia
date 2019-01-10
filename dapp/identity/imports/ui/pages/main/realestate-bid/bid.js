@@ -56,11 +56,10 @@ async function getAllPropertyForAuction() {
 
 Template.App_real_estate_bid.helpers({
     allPropertyForAuction() {
-        getAllPropertyForAuction();
         return Session.get("allPropertyForAuction");
     },
     isLoadingPropertyForAuction() {
-        console.log("isLoadingPropertyForAuction", Session.get("isLoadingPropertyForAuction"));
+        getAllPropertyForAuction();
         return Session.get("isLoadingPropertyForAuction");
     }
 });

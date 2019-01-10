@@ -79,10 +79,10 @@ async function getCompany() {
 
 Template.App_business.helpers({
     getACompany: function () {
-        getCompany();
         return Session.get("aCompany");
     },
     isLoadingACompany: function () {
+        getCompany();
         return Session.get("isLoadingACompany");
     },
     getMyBalance: function(){

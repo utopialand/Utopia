@@ -59,10 +59,10 @@ async function getAllTokens() {
 
 Template.App_exchange.helpers({
     getTokenList: function () {
-        getAllTokens();
         return Session.get("tokenlist");
     },
     isLoadingExchange: function(){
+        getAllTokens();
         return Session.get("isLoadingExchange");
     }
 });

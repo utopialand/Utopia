@@ -29,7 +29,8 @@
     background: black;
     color: white;
     border: 0;
-    border-bottom: 1px solid white;;
+    border-bottom: 1px solid white;
+    text-align: center;
 }
 
 .new-business-form button{
@@ -40,3 +41,6 @@
     border: 1px solid white;
     border-radius: 6px;
 }
+ #token-symbol{
+    text-transform: uppercase;
+ }
