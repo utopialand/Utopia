@@ -32,13 +32,13 @@
         </div>
         <div class="settings-tab">
             <label>issue tokens to self</label>
-            <input type="text" id="issuetokensfield" placeholder="format(0.0000 SYMBOL)" />
+            <input type="text" id="issuetokensfield" placeholder="" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"/>
             <button id="issuetokenbtn">issue</button>
         </div>
         <div class="settings-tab">
             <label>transfer token from your account to anyone</label>
             <div class="multi-input">
-                <input type="text" placeholder="format(0.0000 SYMBOL)" id="transfer-token-value" />
+                <input type="text" placeholder="" id="transfer-token-value" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"/>
                 <input type="text" placeholder="12 characters long" id="transfer-token-to" />
             </div>
             <button id="transfertokenbtn">transfer</button>

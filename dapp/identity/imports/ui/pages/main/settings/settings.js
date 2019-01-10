@@ -56,6 +56,8 @@ async function getSymbol() {
                 Session.set("doesCompanyExist", true);
                 document.getElementById("issuetokenbtn").innerHTML += " "+symbol;
                 document.getElementById("transfertokenbtn").innerHTML += " "+symbol;
+                document.getElementById("transfer-token-value").placeholder = "Enter "+ symbol;
+                document.getElementById("issuetokensfield").placeholder = "Enter "+ symbol;
             }
             else {
                 Session.set("isLoadingSettings", false);
@@ -141,14 +143,19 @@ Template.App_business_settings.events({
     },
     "click #issuetokenbtn": async function () {
         var username = localStorage.getItem("username");
-        var quantity = $("#issuetokensfield").val();
+        var quantity1 = $("#issuetokensfield").val();
+        var count = quantity1.split(".").length-1;
+        var quantity = `${parseFloat($("#issuetokensfield").val()).toFixed(4)} ${symbol}`;
         var memo = "issue tokens";
-        if (!quantity) {
-            alert("Enter quantity");
+        if (!quantity1) {
+            alert("Enter "+symbol);
+        }
+        else if(count>1){
+            alert("please enter in correct format");
         }
         else {
+            console.log("quantity ", quantity);
             try {
-
                 var utopbusiness = await eosinstance.contract("utopbusiness");
                 if (utopbusiness) {
                     var issue_result = await utopbusiness.issue(username, quantity, memo, { authorization: username });
@@ -169,16 +176,21 @@ Template.App_business_settings.events({
     },
     "click #transfertokenbtn": async function () {
         var to = $("#transfer-token-to").val();
-        var value = $("#transfer-token-value").val();
+        var value1 = $("#transfer-token-value").val();
+        var count = value1.split(".").length-1;
+        var value = `${parseFloat($("#transfer-token-value").val()).toFixed(4)} ${symbol}`;
 
         if (!to || to.length != 12) {
-
             alert("Enter 12 characters long account name");
         }
-        else if (!value) {
+        else if (!value1) {
             alert("Enter token value");
         }
+        else if(count > 1){
+            alert("please enter "+symbol+" in correct format");
+        }
         else {
+            console.log("value ", value);
             try {
                 var username = localStorage.getItem("username");
                 var memo = "transferring token";
