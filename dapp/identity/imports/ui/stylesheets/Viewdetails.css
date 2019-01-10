@@ -87,6 +87,14 @@
     letter-spacing: 1px;
     color: black;
 }
+.check-loan-status-button{
+    flex: 1;
+    height: 80%;
+    width: 100px;
+    text-transform: uppercase;
+    margin-left:5%;
+    background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+}
 
 /* lender */
 .userdata{

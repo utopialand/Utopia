@@ -230,8 +230,7 @@ Template.lender.events({
                         
                     }
                 }  
-            }
-                      
+            }             
     },
     'click #apply':async function(event){
         var sym="UTP";
