@@ -155,7 +155,7 @@ Template.viewdetail.events({
                 document.getElementById("listofuser").style.display="none";
                 for(var j=0;j<loandata.rows.length;j++)
                 {
-                    if(appdata.rows[i].reqloanid == loandata.rows[i].reqloanid )
+                    if(appdata.rows[i].reqloanid == loandata.rows[j].reqloanid )
                     {
                         flag = 1;
                         index = j;
@@ -174,18 +174,19 @@ Template.viewdetail.events({
                         "<div class='headloan'>"+amnt+"</div>"+
                         "<div class='headloan'>"+totaldue+"</div>"+
                         "<div class='headloan'>"+finaldate+"</div>"+
-                        "<button class='check-loan-status-button' id ="+id+">check for defaulter</button>"
+                        "<button class='check-loan-status-button-defaulter' id ="+id+">check for defaulter</button>"
                         "</div>";
                     } 
                     else if((appdata.rows[i].status =="defaulter")&&(loandata.rows[index].type==true))
                     {
+                        id = appdata.rows[i].reqloanid;
                         document.getElementById("listofstatus").innerHTML += 
                         "<div class='datalist2'>"+
                         "<div class='headloan'>"+name+"</div>"+
                         "<div class='headloan'>"+amnt+"</div>"+
                         "<div class='headloan'>"+totaldue+"</div>"+
                         "<div class='headloan'>"+finaldate+"</div>"+
-                        "<button class='check-loan-status-button' id = 'check-buttons-auction'>check for auction</button>"
+                        "<button class='check-loan-status-button-auction' id = "+id+">check for auction</button>"
                         "</div>";
                     }
                 }
@@ -256,7 +257,7 @@ Template.viewdetail.events({
           }
         }  
     },
-    'click .check-loan-status-button':async function(){
+    'click .check-loan-status-button-defaulter':async function(){
         var username = localStorage.getItem("username");
         var id = event.target.id;
         console.log("username=",username);
@@ -303,49 +304,45 @@ Template.viewdetail.events({
             alert(msg);
           }
     },
-    'click #auction':async function(){
+    'click .check-loan-status-button-auction':async function(){
         var username = localStorage.getItem("username");
-        var id = $("#acceptid").val();
-        if((!id))
-        {
-          alert("please fill loanid");
-        }
-        else{
-          try{
-                    let utplendercon = await eosinstance.contract('utplendercon');
-                    if(utplendercon)
-                    {
-                      let result = await  utplendercon.checkauction(username,id, { authorization: username });
-                         if(result){
-                        let tabrow = await eosinstance.getTableRows({
-                                code: "utplendercon",
-                                scope: "utplendercon",
-                                table: 'approved112',
-                                limit: 50,
-                                json: true,
-                            })
-                        if(tabrow){
-                            for(var i=0;i<tabrow.rows.length;i++){
-                                if(tabrow.rows[i].reqloanid == id){
-                                    if(tabrow.rows[i].status == "auction called"){
-                                        alert("your property is handover to manager for bidding");
-                                    }else{
-                                        alert("time remain in auction action");
-                                    }
-                                }
-                            }                   
+        var id = event.target.id;
+        console.log("username=",username);
+        console.log("id->",id);
+        try{
+            let utplendercon = await eosinstance.contract('utplendercon');
+            if(utplendercon)
+            {
+              let result = await  utplendercon.checkauction(username,id, { authorization: username });
+                 if(result){
+                let tabrow = await eosinstance.getTableRows({
+                        code: "utplendercon",
+                        scope: "utplendercon",
+                        table: 'approved114',
+                        limit: 50,
+                        json: true,
+                    })
+                if(tabrow){
+                    for(var i=0;i<tabrow.rows.length;i++){
+                        if(tabrow.rows[i].reqloanid == id){
+                            if(tabrow.rows[i].status == "auction called"){
+                                alert("your property is handover to manager for bidding");
+                            }else{
+                                alert("time remain in auction action");
+                            }
                         }
-                        }else{
-                          alert("Something went wrong");
-                       }
-                    }                
-          }
-          catch(err){
-            var parseResponse = await JSON.parse(err);
-            var msg = await parseResponse.error.details[0].message.split(":")[1]
-            alert(msg);
-          }
-        }
+                    }                   
+                }
+                }else{
+                  alert("Something went wrong");
+               }
+            }                
+  }
+  catch(err){
+    var parseResponse = await JSON.parse(err);
+    var msg = await parseResponse.error.details[0].message.split(":")[1]
+    alert(msg);
+  }
        
     } 
 })

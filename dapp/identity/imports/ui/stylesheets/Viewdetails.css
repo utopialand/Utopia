@@ -1,77 +1,76 @@
 .detail-container {
-    max-width: 1140px;
-    width: 90%;
-    margin: 5% auto 0 auto;
-    color: white;
-  }
-.viewtask{
-    display: flex;
-    justify-content: space-around;
+  max-width: 1140px;
+  width: 90%;
+  margin: 5% auto 0 auto;
+  color: white;
+}
+.viewtask {
+  display: flex;
+  justify-content: space-around;
 }
 
-.detail-button{
-    width: 200px;
-    height: 50px;
-    border: 0;
-    
-    color: white;
-    text-transform: uppercase;
-    font-weight: bold;
-    margin-top: 50px;
+.detail-button {
+  width: 200px;
+  height: 50px;
+  border: 0;
+
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin-top: 50px;
 }
-.list{
-    display: flex;
-    margin-top: 5%;
-    height: 50px;
-    width: 100%;
-    align-items: center;
-    background: white;
-    text-transform: uppercase;
-    background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
-    border-radius: 2px;
-    
+.list {
+  display: flex;
+  margin-top: 5%;
+  height: 50px;
+  width: 100%;
+  align-items: center;
+  background: white;
+  text-transform: uppercase;
+  background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+  border-radius: 2px;
 }
-.data{
-    display: flex;
-    margin-top: 5%;
-    height: 50px;
-    width: 100%;
-    align-items: center;
-    background: white;
-    text-transform: uppercase;
-    background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
-    border-radius: 2px;
+.data {
+  display: flex;
+  margin-top: 5%;
+  height: 50px;
+  width: 100%;
+  align-items: center;
+  background: white;
+  text-transform: uppercase;
+  background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+  border-radius: 2px;
 }
-.datalist{
-    flex: 1;
-    display: flex;
-    height: 50px;
-    margin-top: 1%;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    background: white;
+.datalist {
+  flex: 1;
+  display: flex;
+  height: 50px;
+  margin-top: 1%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background: white;
 }
-.listofuser{
-    display: flex;
-    flex-direction: column;
+.listofuser {
+  display: flex;
+  flex-direction: column;
 }
-.listofstatus{
-    display: flex;
-    flex-direction: column;
+.listofstatus {
+  display: flex;
+  flex-direction: column;
 }
-.datalist2{
-    flex:1;
-    display: flex;
-    height: 50px;
-    margin-top: 1%;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
-    background: white;
+.datalist2 {
+  flex: 1;
+  display: flex;
+  height: 50px;
+  margin-top: 1%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  background: white;
 }
-.headloan{
-    flex: 1;
+.headloan {
+  flex: 1;
   font-family: Colfax Regular;
   font-size: 18px;
   text-align: center;
@@ -79,94 +78,103 @@
   font-weight: bold;
   color: black;
 }
-.mainhead{
-    flex: 1;
-    font-family: Colfax Medium;
-    font-size: 18px;
-    text-align: center;
-    letter-spacing: 1px;
-    color: black;
+.mainhead {
+  flex: 1;
+  font-family: Colfax Medium;
+  font-size: 18px;
+  text-align: center;
+  letter-spacing: 1px;
+  color: black;
 }
-.check-loan-status-button{
-    flex: 1;
-    height: 80%;
-    width: 100px;
-    text-transform: uppercase;
-    margin-left:5%;
-    background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+.check-loan-status-button-defaulter {
+  flex: 1;
+  height: 80%;
+  width: 100px;
+  text-transform: uppercase;
+  margin-left: 5%;
+  background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+}
+.check-loan-status-button-auction {
+  flex: 1;
+  height: 80%;
+  width: 100px;
+  text-transform: uppercase;
+  margin-left: 5%;
+  background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
 }
 
 /* lender */
-.userdata{
-    display: flex;
-    flex-direction: column;    
+.userdata {
+  display: flex;
+  flex-direction: column;
 }
-.acceptdata{
-    display: flex;
-    flex-direction: column;    
+.acceptdata {
+  display: flex;
+  flex-direction: column;
 }
-.task{
-    display: flex;
-    flex-direction: column;   
+.task {
+  display: flex;
+  flex-direction: column;
 }
-.buttonpropt{
-    margin-right: 20px;
-    margin-top: 3%;
-    height: 60px;
-    width: 250px;
-    color: white; font-family: Colfax Medium;
-    font-size: 18px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    line-height: 14px;
-    background:#04030F;
+.buttonpropt {
+  margin-right: 20px;
+  margin-top: 3%;
+  height: 60px;
+  width: 250px;
+  color: white;
+  font-family: Colfax Medium;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  line-height: 14px;
+  background: #04030f;
 }
-.buttonpropt:hover{
-    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
-}
-
-.buttonaction{
-    margin-top:40px;
-    margin-right: 20px;
-    height: 50px;
-    width: 200px;
-    color: white;
-    font-family: Colfax Medium;
-    text-align: center;
-    font-size: 18px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    line-height: 14px;
-    background:#04030F;
-}
-.buttonaction:hover{
-    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
-}
-.createpropt{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
+.buttonpropt:hover {
+  background: linear-gradient(169.59deg, #3023ae -36.97%, #c86dd7 148.62%);
 }
 
-.detail-container input{
-    margin-top: 5%;
-    background: transparent;
-    width: 100%;
-    border: 0;
-    border-bottom: 2px solid gray;
-    font-family: Colfax Medium;
-    color: white;
-    font-size: 18px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    line-height: 14px;
+.buttonaction {
+  margin-top: 40px;
+  margin-right: 20px;
+  height: 50px;
+  width: 200px;
+  color: white;
+  font-family: Colfax Medium;
+  text-align: center;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  line-height: 14px;
+  background: #04030f;
 }
-.detail-container label{
-    margin-top: 5%;
-    color: gray;
-    font-size: 18px;
-    line-height: 14px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+.buttonaction:hover {
+  background: linear-gradient(169.59deg, #3023ae -36.97%, #c86dd7 148.62%);
+}
+.createpropt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.detail-container input {
+  margin-top: 5%;
+  background: transparent;
+  width: 100%;
+  border: 0;
+  border-bottom: 2px solid gray;
+  font-family: Colfax Medium;
+  color: white;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  line-height: 14px;
+}
+.detail-container label {
+  margin-top: 5%;
+  color: gray;
+  font-size: 18px;
+  line-height: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
 }
