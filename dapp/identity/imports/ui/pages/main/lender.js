@@ -147,6 +147,7 @@ Template.lender.events({
         var count=0;
         document.getElementById("apply-section").style.display="none";
         document.getElementById("detail").style.background= "gray";
+        document.getElementById("listofuser").innerHTML = "";
         document.getElementById("user").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";
         var username = localStorage.getItem("username");
         console.log("username = =>",username);
