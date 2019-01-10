@@ -13,7 +13,6 @@
     width: 255px;
     height: 50px;
     border: 0;
-    background-image: linear-gradient(to bottom, #3023AE, #C86DD7);
     color: white;
     text-transform: uppercase;
     font-weight: bold;
@@ -91,13 +90,13 @@ input[type=checkbox] {
 .buttonproptlen{    
     height: 60px;
     width: 250px;
-    color: white; font-family: Colfax Medium;
-    color: white;
+    color: white; 
+    font-family: Colfax Medium;
     font-size: 18px;
     letter-spacing: 1.5px;
     text-transform: uppercase;
     line-height: 14px;
-    background:#04030F;
+    background:gray;
     border-radius: 2px;
 }
 .buttonproptlen:hover{
