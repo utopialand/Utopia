@@ -58,10 +58,10 @@ async function getMyBusinessList() {
 
 Template.App_my_business.helpers({
     myBusinessList() {
-        getMyBusinessList();
         return Session.get("myBusinessList");
     },
     isLoadingMyBusinessList() {
+        getMyBusinessList();
         return Session.get("isLoadingMyBusinessList");
     }
 });

@@ -70,10 +70,10 @@ Template.App_business_manager_home.onRendered(function(){
 
 Template.App_business_manager_home.helpers({
     businessList() {
-        getAllBusinessList();
         return Session.get("allBusinessList");
     },
     isLoadingBusinessList() {
+        getAllBusinessList();
         return Session.get("isLoadingBusinessList");
     }
 });

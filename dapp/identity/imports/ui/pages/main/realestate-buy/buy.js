@@ -51,11 +51,10 @@ async function getAllPropertyToBuy() {
 
 Template.App_real_estate_buy.helpers({
     allPropertyToBuy() {
-        getAllPropertyToBuy();
         return Session.get("allPropertyToBuy");
     },
     isLoadingAllPropertyToBuy() {
-        console.log("isLoadingAllPropertyToBuy", Session.get("isLoadingAllPropertyToBuy"));
+        getAllPropertyToBuy();
         return Session.get("isLoadingAllPropertyToBuy");
     }
 });

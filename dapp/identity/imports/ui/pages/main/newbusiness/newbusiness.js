@@ -45,21 +45,29 @@ Template.App_new_business.events({
     "click .createBusiness": async function () {
         var username = localStorage.getItem("username");
         var companyName = $("#businessname").val();
-        var maxSupply = $("#tokenname").val();
-
+        var tokenSupply = $("#tokenname").val();
+        var tokenSymbol = $("#token-symbol").val().toUpperCase();
+        var token = `${parseFloat(tokenSupply).toFixed(4)} ${tokenSymbol}`;
+        var count = tokenSupply.split(".").length-1;
         if (!companyName) {
             alert("Please Enter company name");
         }
-        else if (!maxSupply) {
-            alert("Please Enter maximum supply of token")
+        else if (!tokenSupply) {
+            alert("Please Enter maximum supply of token");
+        }
+        else if(count> 1){
+            alert("Please enter maximum supply in correct format");
+        }
+        else if (!tokenSymbol) {
+            alert("Please enter symbol");
         }
         else {
-
+            console.log("token", token);
             try {
                 var utopbusiness = await eosinstance.contract("utopbusiness");
 
                 if (utopbusiness) {
-                    var new_business = await utopbusiness.createtandb(maxSupply, username, companyName, { authorization: username });
+                    var new_business = await utopbusiness.createtandb(token, username, companyName, { authorization: username });
                     if (new_business) {
                         alert("Business and token created ");
                     }

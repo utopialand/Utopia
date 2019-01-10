@@ -79,10 +79,10 @@ Template.App_real_estate.onRendered(function(){
 
 Template.App_real_estate.helpers({
     getAllProperties: function () {
-        allProperties();
         return Session.get("allPropertyList");
     },
     isLoadingRealEstate: function(){
+        allProperties();
         console.log(Session.get("isLoadingRealEstate"));
         return Session.get("isLoadingRealEstate");
     }

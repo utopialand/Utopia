@@ -55,10 +55,10 @@ async function getAllBusinessListAgain() {
 
 Template.App_all_business.helpers({
     allBusinessList() {
-        getAllBusinessListAgain();
         return Session.get("allBusinessListAgain");
     },
     isLoadingAllBusinessList() {
+        getAllBusinessListAgain();
         return Session.get("isLoadingAllBusinessList");
     }
 });
