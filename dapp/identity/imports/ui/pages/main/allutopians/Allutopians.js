@@ -1,5 +1,5 @@
 import "./Allutopians.html";
-import "../../stylesheets/Allutopians.css";
+import "./Allutopians.css";
 import ScatterJS from "scatterjs-core";
 import Eos from "eosjs";
 const network = {

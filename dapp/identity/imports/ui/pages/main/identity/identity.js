@@ -1,5 +1,5 @@
 import "./identity.html";
-import "../../stylesheets/identity.css";
+import "./identity.css";
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";

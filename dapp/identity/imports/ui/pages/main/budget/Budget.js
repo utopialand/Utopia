@@ -1,5 +1,5 @@
 import "./Budget.html";
-import "../../stylesheets/Budget.css";
+import "./Budget.css";
 import Eos from "eosjs";
 import ScatterJS from "scatterjs-core";
 
