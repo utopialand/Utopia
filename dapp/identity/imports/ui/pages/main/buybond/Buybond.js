@@ -1,5 +1,5 @@
 import "./Buybond.html"
-import "../../stylesheets/Buybond.css";
+import "./Buybond.css";
 import { Template } from 'meteor/templating';
 import ScatterJS from "scatterjs-core";
 import Eos from "eosjs";

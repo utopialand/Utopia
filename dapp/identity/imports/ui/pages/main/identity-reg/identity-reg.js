@@ -1,11 +1,9 @@
 'use strict'
 import "./identity-reg.html";
-import "../../stylesheets/identity-reg.css";
-import "../../pages/main/footer.js"
-import "../main/header.js"
+import "./identity-reg.css";
+import "../../main/header.js";
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
-import '../../../api/identity/methods';
 import ScatterJS from "scatterjs-core";
 import Eos from "eosjs";
 const axios = require('axios');

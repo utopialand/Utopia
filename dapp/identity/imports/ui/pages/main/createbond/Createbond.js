@@ -1,6 +1,5 @@
 import "./Createbond.html";
-import "../../stylesheets/Createbond.css";
-import "./footer";
+import "./Createbond.css";
 import { Template } from "meteor/templating";
 import ScatterJS from "scatterjs-core";
 import Eos from "eosjs";
