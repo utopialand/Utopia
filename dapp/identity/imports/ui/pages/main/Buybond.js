@@ -37,7 +37,7 @@ Template.buybond.onCreated(function () {
             document.getElementById("bond-group").innerHTML = "";                     
             for (var i = 0; i < tabledata.rows.length; i++) {
                 var bond = tabledata.rows[i].bond;
-                var maturity = tabledata.rows[i].maturitycount;
+                var maturity = tabledata.rows[i].maturity;
                 var couponrate = tabledata.rows[i].couponrate;
                 var couponintervel = tabledata.rows[i].couponintervel;
                 var facevalue = tabledata.rows[i].facevalue;
