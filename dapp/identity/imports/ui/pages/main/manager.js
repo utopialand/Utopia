@@ -113,22 +113,29 @@ Template.App_manager.onCreated(function() {
             if(userdata){
               console.log("users==><",userdata);
               if (document.getElementById("userList")) {
-                for (var i = 0; i < userdata.rows.length; i++) {
-                  var users = userdata.rows[i].identity;
-                  var ids = i;
-                  console.log("users==><",users);
-                  console.log("users==><",ids);
-                  document.getElementById("manager-user-group").innerHTML +=
-                    "<div class = 'manager-user-redo' id = '" +
-                    users +
-                    "'><p>"+
-                    users +
-                    "</p><button class = 'approved-button' id = '" +
-                    ids +
-                    "'>approve</button><button class = 'disapproved-button'id = '" +
-                    ids +
-                    "'>disapprove</button>" +
-                    "</div>";
+                if(userdata.rows.length==0)
+                {
+                  document.getElementById("manager-user-group").innerHTML="";
+                  document.getElementById("manager-user-group").innerHTML="<h1>No Citizenship Request Found</h1>";
+                }
+                else{
+                  for (var i = 0; i < userdata.rows.length; i++) {
+                    var users = userdata.rows[i].identity;
+                    var ids = i;
+                    console.log("users==><",users);
+                    console.log("users==><",ids);
+                    document.getElementById("manager-user-group").innerHTML +=
+                      "<div class = 'manager-user-redo' id = '" +
+                      users +
+                      "'><p>"+
+                      users +
+                      "</p><button class = 'approved-button' id = '" +
+                      ids +
+                      "'>approve</button><button class = 'disapproved-button'id = '" +
+                      ids +
+                      "'>disapprove</button>" +
+                      "</div>";
+                  }
                 }
               }
               document.getElementById("userList").style.display = "none";

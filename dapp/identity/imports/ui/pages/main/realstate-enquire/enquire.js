@@ -41,7 +41,6 @@ async function aProperty() {
 
         Session.set("aProperty", details.rows);
         Session.set("isLoadingDetails", false);
-        document.getElementsByClassName("real-estate-enquire")[0].style.color = "white";
     }
     else {
         console.log("scatter not installed");
@@ -54,11 +53,10 @@ Template.App_realestate_enquire.onCreated(function(){
 
 Template.App_realestate_enquire.helpers({
     getAProperty: function () {
-        aProperty();
         return Session.get("aProperty");
     },
     isLoadingDetails: function () {
-        console.log("isLoadingDetails", Session.get("isLoadingDetails"));
+        aProperty();
         return Session.get("isLoadingDetails");
     }
 });

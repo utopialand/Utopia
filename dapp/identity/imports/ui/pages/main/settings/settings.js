@@ -5,6 +5,7 @@ import "../../../../templates/header/header.js";
 import Eos from "eosjs";
 import ScatterJS from 'scatterjs-core';
 import ScatterEOS from 'scatterjs-plugin-eosjs';
+import { Session } from "meteor/session";
 
 ScatterJS.plugins(new ScatterEOS());
 
@@ -21,24 +22,65 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
+var symbol;
 
-Template.App_business_settings.onRendered(function () {
-    ScatterJS.scatter.connect('utopia').then((connected) => {
-        if (connected) {
-            if (ScatterJS.scatter.connect('utopia')) {
-                scatter = ScatterJS.scatter;
-                const requiredFields = { accounts: [network] };
-                const eos = scatter.eos(network, Eos, eosOptions);
-                if (scatter.identity) {
-                    eosinstance = eos;
-                } else {
-                    FlowRouter.go("/");
-                }
+Template.App_business_settings.onCreated(function () {
+    Session.set("isLoadingSettings", true);
+    Session.set("doesCompanyExist", false);
+});
+
+async function getSymbol() {
+
+    var connected = await ScatterJS.scatter.connect("utopia");
+
+    if(connected){
+        scatter = ScatterJS.scatter;
+        const requiredFields = { accounts: [network] };
+        const eos = scatter.eos(network, Eos, eosOptions);
+        if (scatter.identity) {
+            eosinstance = eos;
+            var id = FlowRouter.current().params.id;
+
+            var aCompany = await eosinstance.getTableRows({
+                code: "utopbusiness",
+                scope: "utopbusiness",
+                table: "businesstab",
+                lower_bound: id,
+                limit: "1",
+                json: true,
+            });
+            if (aCompany.rows.length != 0) {
+                symbol = aCompany.rows[0].token_maximum_supply.split(" ")[1];
+                console.log("symbol", symbol);
+                Session.set("isLoadingSettings", false);
+                Session.set("doesCompanyExist", true);
+                document.getElementById("issuetokenbtn").innerHTML += " "+symbol;
+                document.getElementById("transfertokenbtn").innerHTML += " "+symbol;
+                document.getElementById("transfer-token-value").placeholder = "Enter "+ symbol;
+                document.getElementById("issuetokensfield").placeholder = "Enter "+ symbol;
             }
-        } else {
-            console.log("scatter not installed")
+            else {
+                Session.set("isLoadingSettings", false);
+            }
+        } 
+        else {
+            FlowRouter.go("/");
         }
-    });
+    }
+    else{
+        console.log("scatter not installed");
+    }
+
+}
+
+Template.App_business_settings.helpers({
+    isLoadingSettings: function () {
+        getSymbol();
+        return Session.get("isLoadingSettings");
+    },
+    doesCompanyExist: function () {
+        return Session.get("doesCompanyExist");
+    },
 });
 
 Template.App_business_settings.events({
@@ -75,10 +117,10 @@ Template.App_business_settings.events({
         var username = localStorage.getItem("username");
         var rmemp = $("#rmemployeefield").val();
 
-        if(!rmemp || rmemp.length !=12){
+        if (!rmemp || rmemp.length != 12) {
             alert("Enter 12 characters long account name");
         }
-        else{
+        else {
             try {
 
                 var utopbusiness = await eosinstance.contract("utopbusiness");
@@ -101,17 +143,22 @@ Template.App_business_settings.events({
     },
     "click #issuetokenbtn": async function () {
         var username = localStorage.getItem("username");
-        var quantity = $("#issuetokensfield").val();
+        var quantity1 = $("#issuetokensfield").val();
+        var count = quantity1.split(".").length-1;
+        var quantity = `${parseFloat($("#issuetokensfield").val()).toFixed(4)} ${symbol}`;
         var memo = "issue tokens";
-        if(!quantity){
-            alert("Enter quantity");
+        if (!quantity1) {
+            alert("Enter "+symbol);
         }
-        else{
+        else if(count>1){
+            alert("please enter in correct format");
+        }
+        else {
+            console.log("quantity ", quantity);
             try {
-
                 var utopbusiness = await eosinstance.contract("utopbusiness");
                 if (utopbusiness) {
-                    var issue_result = await utopbusiness.issue(username, quantity, memo,{ authorization: username });
+                    var issue_result = await utopbusiness.issue(username, quantity, memo, { authorization: username });
                     if (issue_result) {
                         alert("Token issued successfully ");
                     }
@@ -129,16 +176,21 @@ Template.App_business_settings.events({
     },
     "click #transfertokenbtn": async function () {
         var to = $("#transfer-token-to").val();
-        var value = $("#transfer-token-value").val();
+        var value1 = $("#transfer-token-value").val();
+        var count = value1.split(".").length-1;
+        var value = `${parseFloat($("#transfer-token-value").val()).toFixed(4)} ${symbol}`;
 
         if (!to || to.length != 12) {
-            
             alert("Enter 12 characters long account name");
         }
-        else if (!value) {
+        else if (!value1) {
             alert("Enter token value");
         }
+        else if(count > 1){
+            alert("please enter "+symbol+" in correct format");
+        }
         else {
+            console.log("value ", value);
             try {
                 var username = localStorage.getItem("username");
                 var memo = "transferring token";
@@ -149,6 +201,70 @@ Template.App_business_settings.events({
 
                     if (transfer_result) {
                         alert("transfer successful");
+                    }
+                    else {
+                        alert("something went wrong");
+                    }
+                }
+            }
+            catch (err) {
+                var parseResponse = JSON.parse(err);
+                var msg = parseResponse.error.details[0].message.split(":")[1]
+                alert(msg);
+            }
+        }
+    },
+    "click #addofcbtn": async function(){
+        var officer = $("#addofcfield").val();
+        var designation = $("#off-designation").val();
+
+        if(!officer || officer.length != 12){
+            alert("please enter 12 characters long name");
+        }
+        else if(!designation){
+            alert("please enter designation");
+        }
+        else{
+            try {
+                var username = localStorage.getItem("username");
+
+                var utopbusiness = await eosinstance.contract("utopbusiness");
+                if (utopbusiness) {
+                    var id = FlowRouter.current().params.id;
+                    var add_result = await utopbusiness.addofficer(id, officer, designation, { authorization: username });
+
+                    if (add_result) {
+                        alert("officer added");
+                    }
+                    else {
+                        alert("something went wrong");
+                    }
+                }
+            }
+            catch (err) {
+                var parseResponse = JSON.parse(err);
+                var msg = parseResponse.error.details[0].message.split(":")[1]
+                alert(msg);
+            }
+        }
+    },
+    "click #rmofcbtn": async function(){
+        var officer = $("#rmofffield").val();
+
+        if(!officer || officer.length != 12){
+            alert("please enter 12 characters long name");
+        }
+        else{
+            try {
+                var username = localStorage.getItem("username");
+
+                var utopbusiness = await eosinstance.contract("utopbusiness");
+                if (utopbusiness) {
+                    var id = FlowRouter.current().params.id;
+                    var add_result = await utopbusiness.rmofficer(id, officer, { authorization: username });
+
+                    if (add_result) {
+                        alert("officer removed");
                     }
                     else {
                         alert("something went wrong");

@@ -1,5 +1,11 @@
 <template name="App_business_settings">
     <div class="settings-container">
+        {{#if isLoadingSettings}}
+        <div class="spinner">
+            {{>spinner}}
+        </div>
+        {{else}}
+        {{#if doesCompanyExist}}
         <h1>My business settings</h1>
         <div class="settings-tab">
             <label>Add employee</label>
@@ -12,19 +18,37 @@
             <button id="rmempbtn">remove</button>
         </div>
         <div class="settings-tab">
+            <label>add officer</label>
+            <div class="multi-input">
+                <input type="text" placeholder="12 characters long" id="addofcfield" />
+                <input type="text" placeholder="designation" id="off-designation" />
+            </div>
+            <button id="addofcbtn">add</button>
+        </div>
+        <div class="settings-tab">
+            <label>remove officer</label>
+            <input type="text" id="rmofffield" placeholder="12 characters long" />
+            <button id="rmofcbtn">remove</button>
+        </div>
+        <div class="settings-tab">
             <label>issue tokens to self</label>
-            <input type="text" id="issuetokensfield" placeholder="format(0.0000 SYMBOL)" />
+            <input type="text" id="issuetokensfield" placeholder="" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"/>
             <button id="issuetokenbtn">issue</button>
         </div>
         <div class="settings-tab">
             <label>transfer token from your account to anyone</label>
             <div class="multi-input">
-                <input type="text" placeholder="format(0.0000 SYMBOL)" id = "transfer-token-value" />
-                <input type="text" placeholder="12 characters long" id = "transfer-token-to" />
+                <input type="text" placeholder="" id="transfer-token-value" oninput="this.value = this.value.replace(/[^0-9.]/g, '');"/>
+                <input type="text" placeholder="12 characters long" id="transfer-token-to" />
             </div>
-
             <button id="transfertokenbtn">transfer</button>
         </div>
+        {{else}}
+        <div class="no-business">
+            <p>No such company</p>
+        </div>
+        {{/if}}
+        {{/if}}
     </div>
     {{>App_footer}}
 </template>

@@ -75,3 +75,19 @@
     justify-content: space-around;
 }
 
+#rmofcbtn{
+    width: 150px;
+    height: 51px;
+    border: 0px;
+    font-size: 14px;
+    line-height: 15px;
+    font-weight: bold;
+    letter-spacing: 0.6px;
+    background: transparent;
+    color: white;
+    background: red;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 6px;
+}
+

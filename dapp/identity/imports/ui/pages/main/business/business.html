@@ -2,9 +2,8 @@
     <div class="business-wrapper">
         {{#if isLoadingACompany}}
         <div class="spinner">
-                {{>spinner}}
+            {{>spinner}}
         </div>
-        {{getACompany}}
         {{else}}
         {{#if getACompany.length}}
         {{#each getACompany}}

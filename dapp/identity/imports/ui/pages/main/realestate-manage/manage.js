@@ -88,22 +88,20 @@ async function getMyPropertyList() {
 
 Template.App_real_estate_manager.helpers({
     propertyRequestToYou() {
-        getBuyPropertyRequest();
         return Session.get("requestsToMe");
     },
     myPropertyList() {
-        getMyPropertyList();
         return Session.get("myPropertyList");
     },
     propertyRequestByMe() {
         return Session.get("requestsByMe");
     },
     isLoadingMyProperty(){
-        console.log("isLoadingMyProperty",Session.get("isLoadingMyProperty"));
+        getMyPropertyList();
         return Session.get("isLoadingMyProperty");
     },
     isLoadingRequests(){
-        console.log("isLoadingRequests",Session.get("isLoadingRequests"));
+        getBuyPropertyRequest();
         return Session.get("isLoadingRequests");
     }
 });
