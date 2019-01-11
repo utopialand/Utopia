@@ -1,7 +1,6 @@
 import "./stvstatus.html";
-import "../../stylesheets/stvstatus.css";
-import "./App-manager/manager.css";
-import "../main/footer.js";
+import "./stvstatus.css";
+import "../App-manager/manager.css";
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";

@@ -1,5 +1,5 @@
 import "./stvresult.html";
-import "../../stylesheets/stvresult.css";
+import "./stvresult.css";
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";

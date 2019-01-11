@@ -17,9 +17,9 @@ import "../../ui/pages/main/Budget.js";
 import "../../ui/pages/main/Createbudget.js";
 import "../../ui/pages/main/Createbond.js";
 import "../../ui/pages/main/Buybond.js";
-import "../../ui/pages/main/stvvoting.js"
-import "../../ui/pages/main/stvresult.js"
-import "../../ui/pages/main/stvstatus.js"
+import "../../ui/pages/main/stvvoting/stvvoting.js"
+import "../../ui/pages/main/stvresult/stvresult.js"
+import "../../ui/pages/main/stvstatus/stvstatus.js";
 import "../../ui/pages/main/business-manager-home/business-manager-home.js";
 import "../../ui/pages/main/allbusiness/allbusiness.js";
 import "../../ui/pages/main/business/business.js";
@@ -31,7 +31,7 @@ import "../../ui/pages/main/realestate/realestate.js";
 import "../../ui/pages/main/realstate-enquire/enquire.js";
 import "../../ui/pages/main/realestate-manage/manage.js";
 import "../../ui/pages/main/realestate-bid/bid.js";
-import "../../ui/pages/main/Allutopians.js";;
+import "../../ui/pages/main/Allutopians.js";
 import "../../ui/pages/main/lender.js";
 import "../../ui/pages/main/realestate-buy/buy.js";
 import "../../ui/pages/main/Viewdetails.js";
