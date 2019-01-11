@@ -792,7 +792,7 @@ Template.App_manager.events({
       let bondborrower = await eosinstance.contract("bondborrower");
       if(bondborrower)
       {
-        let result = await bondborrow.getcoupon(couponid,{authorization: username});
+        let result = await bondborrower.getcoupon(couponid,{authorization: username});
         if(result)
         {
             for (var i = 0; i < bonddata.rows.length; i++) {
