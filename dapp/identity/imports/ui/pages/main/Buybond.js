@@ -36,10 +36,15 @@ Template.buybond.onCreated(function () {
                     tabledata=resp;
             document.getElementById("bond-group").innerHTML = "";                     
             for (var i = 0; i < tabledata.rows.length; i++) {
+                var maturity;
                 var bond = tabledata.rows[i].bond;
-                var maturity = tabledata.rows[i].maturitycount/2;
                 var couponrate = tabledata.rows[i].couponrate;
                 var couponintervel = tabledata.rows[i].couponintervel;
+                if(couponintervel == 6){
+                     maturity = tabledata.rows[i].maturitycount/2;
+                }else{
+                    maturity = tabledata.rows[i].maturitycount;
+                }
                 var facevalue = tabledata.rows[i].facevalue;
                 var bondbutton = "bondbutton";
                 bondbutton = bondbutton + tabledata.rows[i].id;
