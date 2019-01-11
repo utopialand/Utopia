@@ -1,5 +1,5 @@
 import "./Registered.html"
-import "../../stylesheets/Registered.css";
+import "./Registered.css";
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";

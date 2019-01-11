@@ -5,14 +5,14 @@ import "../../ui/pages/main/welcomePage.js";
 import "../../ui/pages/main/identity-reg/identity-reg.js";
 import "../../ui/layouts/body/body.js"
 import "../../ui/pages/main/proposal/proposal.js";
-import "../../ui/pages/main/Registered.js";
+import "../../ui/pages/main/registered/Registered.js";
 import "../../ui/pages/main/voting/Voting.js";
 import "../../ui/pages/main/citizenship/citizenship.js"
 import "../../ui/pages/main/newproposal/newproposal.js";
 import "../../ui/pages/main/App-manager/manager.js";
 import "../../ui/pages/main/result/result.js";
 import "../../ui/pages/main/budget-result/budgetResult.js";
-import "../../ui/pages/main/selected-bgt-prop.js";
+import "../../ui/pages/main/selected-bgt-prop/selected-bgt-prop.js";
 import "../../ui/pages/main/budget/Budget.js";
 import "../../ui/pages/main/createbudget/Createbudget.js";
 import "../../ui/pages/main/createbond/Createbond.js";
@@ -34,7 +34,7 @@ import "../../ui/pages/main/realestate-bid/bid.js";
 import "../../ui/pages/main/allutopians/Allutopians.js";
 import "../../ui/pages/main/lender/lender.js";
 import "../../ui/pages/main/realestate-buy/buy.js";
-import "../../ui/pages/main/Viewdetails.js";
+import "../../ui/pages/main/viewdetails/Viewdetails.js";
 import "../../ui/pages/main/test/test.js";
 import "../../ui/pages/main/identity/identity.js"
 
