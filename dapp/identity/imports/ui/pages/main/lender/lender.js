@@ -1,5 +1,5 @@
 import './lender.html'
-import '../../stylesheets/lender.css'
+import './lender.css'
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";
