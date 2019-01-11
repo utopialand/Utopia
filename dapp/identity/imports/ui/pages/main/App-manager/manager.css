@@ -227,8 +227,8 @@
   flex-direction: column;
   align-items: center;
 }
-.manager-user-group h1{
-  color:white;
+.manager-user-group h1 {
+  color: white;
 }
 .approved-button {
   height: 50%;
