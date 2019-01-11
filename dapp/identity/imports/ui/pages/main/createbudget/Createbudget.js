@@ -1,10 +1,9 @@
 import "./Createbudget.html";
-import "../../stylesheets/Createbudget.css";
-import "./footer.js";
+import "./Createbudget.css";
 import { Template } from "meteor/templating";
 import ScatterJS from "scatterjs-core";
 import Eos from "eosjs";
-import "../../pages/main/Budget.js"
+import "../budget/Budget.js"
 
 const network = {
     protocol: "https", // Defaults to https

@@ -1,6 +1,5 @@
 import "./budgetResult.html";
-import "../../stylesheets/budgetResult.css";
-import "./footer.js";
+import "./budgetResult.css";
 import Eos from "eosjs";
 
 eosConfig = {

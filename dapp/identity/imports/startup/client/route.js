@@ -6,15 +6,15 @@ import "../../ui/pages/main/identity-reg.js";
 import "../../ui/layouts/body/body.js"
 import "../../ui/pages/main/proposal.js";
 import "../../ui/pages/main/Registered.js";
-import "../../ui/pages/main/Voting.js";
+import "../../ui/pages/main/voting/Voting.js";
 import "../../ui/pages/main/citizenship.js"
 import "../../ui/pages/main/newproposal.js";
 import "../../ui/pages/main/App-manager/manager.js";
 import "../../ui/pages/main/result/result.js";
-import "../../ui/pages/main/budgetResult.js";
+import "../../ui/pages/main/budget-result/budgetResult.js";
 import "../../ui/pages/main/selected-bgt-prop.js";
-import "../../ui/pages/main/Budget.js";
-import "../../ui/pages/main/Createbudget.js";
+import "../../ui/pages/main/budget/Budget.js";
+import "../../ui/pages/main/createbudget/Createbudget.js";
 import "../../ui/pages/main/Createbond.js";
 import "../../ui/pages/main/Buybond.js";
 import "../../ui/pages/main/stvvoting/stvvoting.js"
@@ -31,11 +31,12 @@ import "../../ui/pages/main/realestate/realestate.js";
 import "../../ui/pages/main/realstate-enquire/enquire.js";
 import "../../ui/pages/main/realestate-manage/manage.js";
 import "../../ui/pages/main/realestate-bid/bid.js";
-import "../../ui/pages/main/Allutopians.js";
+import "../../ui/pages/main/allutopians/Allutopians.js";
 import "../../ui/pages/main/lender.js";
 import "../../ui/pages/main/realestate-buy/buy.js";
 import "../../ui/pages/main/Viewdetails.js";
 import "../../ui/pages/main/test/test.js";
+import "../../ui/pages/main/identity/identity.js"
 
 
 FlowRouter.route('/', {

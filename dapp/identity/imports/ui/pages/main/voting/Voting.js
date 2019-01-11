@@ -1,9 +1,9 @@
 import "./Voting.html"
-import "../../stylesheets/Voting.css";
+import "./Voting.css";
 import { Template } from 'meteor/templating';
 import ScatterJS from "scatterjs-core";
 import Eos from "eosjs";
-import "../main/stvstatus/stvstatus.js"
+import "../stvstatus/stvstatus.js"
 
 const network = {
     protocol: "https", // Defaults to https
@@ -45,7 +45,7 @@ Template.Vote.onCreated(async function () {
                         row =rowdata[j];
                     }
                 }
-                console.log(Id,"---",row);
+                console.log(Id,"-----",row);
                 for(var i = 0; i< row.proposal_options.length;i++){
                     var can=row.proposal_options[i];
                     var len = row.proposal_options.length;
