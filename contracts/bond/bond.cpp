@@ -107,4 +107,5 @@ ACTION bond::getcoupon(uint64_t id){
   }
   
 }
+
 EOSIO_DISPATCH(bond,(addbond)(buybond)(getcoupon)) 

@@ -19,7 +19,7 @@ let manager;
 Template.header.onCreated(async function() {
       
     var username=localStorage.getItem("username");
-    var connected=await ScatterJS.scatter.connect("utopia")
+    var connected= await ScatterJS.scatter.connect("utopia")
         if (!connected) {
           document.getElementById("scatter-not-installed").style.display = "block";
           return false;
@@ -29,15 +29,12 @@ Template.header.onCreated(async function() {
             const requiredFields = { accounts: [network] };
             eos = scatter.eos(network, Eos, eosOptions);
             if (scatter.identity) {
-              await eos.getTableRows({
+            manager= await eos.getTableRows({
                 code: "utpmanager11",
                 scope: "utpmanager11",
                 table: "manager111",
                 limit: 50,
                 json: true
-              }).then((resp)=>{
-                 manager=resp.rows;
-                 
               })
               await eos.getTableRows({
                 code: "identityreg1",

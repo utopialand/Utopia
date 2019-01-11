@@ -34,7 +34,7 @@ Template.App_proposal.onCreated(async function () {
                         limit: 50,
                         json: true,
                     });
-                    document.getElementsByClassName("waitingData")[0].style.display="none";
+                    document.getElementsByClassName("waitingprop")[0].style.display="none";
                     if(tabledata){
                         console.log("tabdata--",tabledata)
                         var winnerresult=await eos.getTableRows({

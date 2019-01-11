@@ -36,6 +36,7 @@ var bondid;
 var count=0;
 let amount = 0;
 let total = 0;
+var trnsfrres=0;
 Template.App_manager.onCreated(function() {
   ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
@@ -166,7 +167,7 @@ Template.App_manager.onCreated(function() {
             bonddata = await eosinstance.getTableRows({
               code: "bondborrower",
               scope: "bondborrower",
-              table: 'bonddetail33',
+              table: 'bonddetail44',
               limit: 50,
               json: true,
           });
@@ -739,18 +740,18 @@ Template.App_manager.events({
     document.getElementById("proposalList").style.display = "none";
     document.getElementById("rsmanagerpage").style.display = "none";
     document.getElementById("govdebtdatalist").style.display = "none";
+    document.getElementsByClassName("bondprop")[0].style.display = "block";
     document.getElementsByClassName("bondprop")[0].innerHTML ="";
-    document.getElementsByClassName("bondprop")[0].innerHTML +=
-    "<div class='bond-form'><label>bond id</label><input type='text' id='bondid'/>"
-    + "</div>"+" <div class='createbutton'><button class='buttonbond' id ='submitid'>Submission</button></div>";
+    document.getElementsByClassName("bondprop")[0].innerHTML += "<div class='debthead'><div class='govheadusername'>bondname</div><div class='govheadusername'>status</div><div class='govheadusername'>action</div></div>";   
+    for (var i = 0; i < bonddata.rows.length; i++) {
+      document.getElementsByClassName("bondprop")[0].innerHTML += "<div class='debt'><div class='govusername'>"+bonddata.rows[i].bond+"</div><div class='govusername'><button class='couponbondid submitid' id='"+bonddata.rows[i].id+"'>"+bonddata.rows[i].bond+" status</button></div><div class='govusername'><button class='couponbond' id='"+bonddata.rows[i].id+"'>coupondistirbution</button></div></div>";   
+    }
   },
-  "click #submitid":async function() {    
+  "click .couponbondid":async function(e) {    
               document.getElementById("userList").style.display = "none";
               document.getElementById("proposalList").style.display = "none";
-              bondid=$("#bondid").val();
-              if((!bondid)){
-                alert("please enter bondid");
-              }else{
+              document.getElementsByClassName("bondprop")[0].style.display = "none";
+              bondid=e.target.id;
                 document.getElementsByClassName("bondprop")[0].innerHTML = "";
                 for (var i = 0; i < bonddata.rows.length; i++) {
                   if(bonddata.rows[i].id == bondid){
@@ -763,7 +764,7 @@ Template.App_manager.events({
                      buyerdata =  await eosinstance.getTableRows({
                             code: "bondborrower",
                             scope: bondholder,
-                            table: "buyerdata33",
+                            table: "buyerdata44",
                             limit: 50,
                             json: true
                           });
@@ -780,38 +781,50 @@ Template.App_manager.events({
                   }      
               }
       
-              }
+              
              
    
   },
-  "click #getcoupon": async function() {
+  "click .couponbond": async function(e) {
     var num;
+    var idcoupon=e.target.id;
+    console.log("id===",idcoupon);
     var username = localStorage.getItem("username");
     try
     {
       let bondborrower = await eosinstance.contract("bondborrower");
       if(bondborrower)
       {
-        let result = await bondborrower.getcoupon(couponid,{authorization: username});
+        let result = await bondborrower.getcoupon(idcoupon,{authorization: username});
         if(result)
         {
             for (var i = 0; i < bonddata.rows.length; i++) {
               if(bonddata.rows[i].id == bondid){
-                couponid=bonddata.rows[i].id;
+                idcoupon=bonddata.rows[i].id;
                 num=i;
                 for(var j=0; j<bonddata.rows[i].bondholders.length; j++){
                   var bondholder = bonddata.rows[i].bondholders[j]; 
                   buyerdata = await eosinstance.getTableRows({
                         code: "bondborrower",
                         scope: bondholder,
-                        table: "buyerdata33",
+                        table: "buyerdata44",
                         limit: 50,
                         json: true
                       });
                 if(buyerdata) {
                   for(var k=0;k<buyerdata.rows.length;k++){
-                    if(buyerdata.rows[k].id==couponid){
-                      var datearr = buyerdata.rows[k].returningdate[buyerdata.rows[k].returningdate.length-1];
+                    if(buyerdata.rows[k].id==idcoupon){
+                      console.log(buyerdata.rows[k].returningdate.length,"dataarr--",trnsfrres)
+                      if(buyerdata.rows[k].returningdate.length>trnsfrres){
+                        trnsfrres++;
+                        alert("-payement----successfull---");    
+                      }else if(buyerdata.rows[k].returningdate.length < trnsfrres){
+                        alert("-whole--payement----successfull---");  
+                      }
+                      else{
+                        alert("--time remain--");  
+                      }
+                      /* var datearr = buyerdata.rows[k].returningdate[buyerdata.rows[k].returningdate.length-1];
                       console.log(buyerdata.rows[k].returningdate.length,"dataarr--",k)
                       if (buyerdata.rows[k].returningdate.length-1 == bonddata.rows[k].maturitycount){
                       
@@ -822,7 +835,7 @@ Template.App_manager.events({
                       }else if (buyerdata.rows[k].returningdate.length-1 < bonddata.rows[k].maturitycount){
                       
                           alert("--time remain--");                    
-                      }  
+                      }   */
                     }
                   }                                    
                 };

@@ -72,7 +72,7 @@ Template.lender.onCreated(async function (){
                     json: true,
                 })  
                 console.log("app--",appdata)
-                document. getElementsByClassName("waitingData")[0].style.display="none";
+                document. getElementsByClassName("waitinglen")[0].style.display="none";
                 document. getElementById("apply-section").style.display="block";
         document.getElementById("user").style.background= "gray";
         document.getElementById("detail").style.backgroundImage= "linear-gradient(to bottom, #3023AE, #C86DD7)";

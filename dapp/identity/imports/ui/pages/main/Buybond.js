@@ -16,9 +16,8 @@ const eosOptions = {
 let tabledata ;
 var scatter={};
 var eosinstance = {};
-Template.buybond.onCreated(function () {
-  Meteor.subscribe('identity');
-  ScatterJS.scatter.connect('utopia').then(async(connected) => {
+Template.buybond.onCreated(async function () {
+var connected=await ScatterJS.scatter.connect('utopia')
       if (connected) {
           if (ScatterJS.scatter.connect('utopia')) {
               scatter = ScatterJS.scatter;
@@ -26,34 +25,33 @@ Template.buybond.onCreated(function () {
               const eos = scatter.eos(network, Eos, eosOptions);
               if (scatter.identity) {
                   eosinstance = eos;                  
-                   await eosinstance.getTableRows({
+                tabledata=  await eosinstance.getTableRows({
                     code: "bondborrower",
                     scope: "bondborrower",
-                    table: 'bonddetail33',
+                    table: 'bonddetail44',
                     limit: 50,
                     json: true,
-                }).then((resp)=>{
-                    tabledata=resp;
-            document.getElementById("bond-group").innerHTML = "";                     
-            for (var i = 0; i < tabledata.rows.length; i++) {
-                var maturity;
-                var bond = tabledata.rows[i].bond;
-                var couponrate = tabledata.rows[i].couponrate;
-                var couponintervel = tabledata.rows[i].couponintervel;
-                if(couponintervel == 6){
-                     maturity = tabledata.rows[i].maturitycount/2;
-                }else{
-                    maturity = tabledata.rows[i].maturitycount;
-                }
-                var facevalue = tabledata.rows[i].facevalue;
-                var bondbutton = "bondbutton";
-                bondbutton = bondbutton + tabledata.rows[i].id;
-                document.getElementById("bond-group").innerHTML +=
-                    "<div class = 'redobond'><div>" + bond + "</div><div>"+maturity+"</div><div>"+couponrate+"</div><div>"+couponintervel+"</div><div>"+facevalue+"</div><button class = 'buybond-button' id = '" + bondbutton + "' value='"+facevalue+"'>Buy</button>"
-                     + "</div>";
-        
-            }
-                });               
+                })
+                document.getElementsByClassName("waitingbond")[0].style.display = "none";
+                document.getElementById("bond-group").innerHTML = "";                     
+                for (var i = 0; i < tabledata.rows.length; i++) {
+                    var maturity;
+                    var bond = tabledata.rows[i].bond;
+                    var couponrate = tabledata.rows[i].couponrate;
+                    var couponintervel = tabledata.rows[i].couponintervel;
+                    if(couponintervel == 6){
+                         maturity = tabledata.rows[i].maturitycount/2;
+                    }else{
+                        maturity = tabledata.rows[i].maturitycount;
+                    }
+                    var facevalue = tabledata.rows[i].facevalue;
+                    var bondbutton = "bondbutton";
+                    bondbutton = bondbutton + tabledata.rows[i].id;
+                    document.getElementById("bond-group").innerHTML +=
+                        "<div class = 'redobond'><div>" + bond + "</div><div>"+maturity+"</div><div>"+couponrate+"</div><div>"+couponintervel+"</div><div>"+facevalue+"</div><button class = 'buybond-button' id = '" + bondbutton + "' value='"+facevalue+"'>Buy</button>"
+                         + "</div>";
+            
+                }               
               } else {
                   FlowRouter.go("/");
               }
@@ -62,9 +60,6 @@ Template.buybond.onCreated(function () {
           console.log("scatter not installed")
       }
   });
-});
-
-
 
 Template.buybond.events({
 
