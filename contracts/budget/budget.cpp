@@ -302,12 +302,18 @@ ACTION budget::modprop(uint64_t id)
 ACTION budget::delall(uint64_t id)
 {
     print("test------");
-    proposal_table pt(_self, _self.value);
-    result_table rt(_self, _self.value);
+  //  proposal_table pt(_self, _self.value);
+  //  result_table rt(_self, _self.value);
     feature_table ft(_self, _self.value);
-    result_table vt(_self, _self.value);
-    auto vtr = vt.begin();
-    print("---", vtr->feature_id);
+//   result_table vt(_self, _self.value);
+  /*   auto vtr = vt.begin();
+    print("---", vtr->feature_id); */
+    auto fit = ft.find(id);
+    ft.erase(fit);
+    /*  while (fit != ft.end())
+    {
+        fit = ft.erase(fit);
+    } */
     /* while (vtr != vt.end())
     {
         if (vtr->feature_id == id)
@@ -334,10 +340,7 @@ ACTION budget::delall(uint64_t id)
     }); */
     /*  auto fit = ft.begin();
 
-    while (fit != ft.end())
-    {
-        fit = ft.erase(fit);
-    } */
+    */
 }
 
 ACTION budget::addmanager(name user)
@@ -746,11 +749,7 @@ int budget::repeatcheck(vector<int> repeatidx, vector<vector<uint8_t>> votes, ve
         pref++;
     }
 
-<<<<<<< HEAD
     eosio_assert(flag!=1, "Tie while resolving equality in number of votes among candidates till last preference!!!");
-=======
-    eosio_assert(flag != 1, "Tie while resolving equality in number of votes among candidates till last preference!!!");
->>>>>>> 9a61a8663bca40cb006b3554877f53fef4585f79
     
     return idx;
 }
