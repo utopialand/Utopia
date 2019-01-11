@@ -1,5 +1,5 @@
 import "./selected-bgt-prop.html";
-import "../../stylesheets/selected-bdg-prop.css";
+import "./selected-bdg-prop.css";
 import ScatterJS from "scatterjs-core";
 import Eos from "eosjs";
 

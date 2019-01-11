@@ -1,5 +1,5 @@
 import './Viewdetails.html'
-import '../../stylesheets/Viewdetails.css'
+import './Viewdetails.css'
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";
