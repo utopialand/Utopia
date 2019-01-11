@@ -3,7 +3,7 @@ import "../../stylesheets/Voting.css";
 import { Template } from 'meteor/templating';
 import ScatterJS from "scatterjs-core";
 import Eos from "eosjs";
-import "../../pages/main/stvstatus.js"
+import "../main/stvstatus/stvstatus.js"
 
 const network = {
     protocol: "https", // Defaults to https
