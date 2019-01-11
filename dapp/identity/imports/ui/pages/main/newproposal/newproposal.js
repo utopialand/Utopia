@@ -1,6 +1,5 @@
 import "./newproposal.html";
-import "../../stylesheets/newproposal.css";
-import "./footer.js";
+import "./newproposal.css";
 import { Template } from "meteor/templating";
 import ScatterJS from "scatterjs-core";
 import Eos from "eosjs";

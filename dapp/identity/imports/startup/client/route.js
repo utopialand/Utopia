@@ -4,11 +4,11 @@ import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 import "../../ui/pages/main/welcomePage.js";
 import "../../ui/pages/main/identity-reg/identity-reg.js";
 import "../../ui/layouts/body/body.js"
-import "../../ui/pages/main/proposal.js";
+import "../../ui/pages/main/proposal/proposal.js";
 import "../../ui/pages/main/Registered.js";
 import "../../ui/pages/main/voting/Voting.js";
 import "../../ui/pages/main/citizenship/citizenship.js"
-import "../../ui/pages/main/newproposal.js";
+import "../../ui/pages/main/newproposal/newproposal.js";
 import "../../ui/pages/main/App-manager/manager.js";
 import "../../ui/pages/main/result/result.js";
 import "../../ui/pages/main/budget-result/budgetResult.js";
@@ -32,7 +32,7 @@ import "../../ui/pages/main/realstate-enquire/enquire.js";
 import "../../ui/pages/main/realestate-manage/manage.js";
 import "../../ui/pages/main/realestate-bid/bid.js";
 import "../../ui/pages/main/allutopians/Allutopians.js";
-import "../../ui/pages/main/lender.js";
+import "../../ui/pages/main/lender/lender.js";
 import "../../ui/pages/main/realestate-buy/buy.js";
 import "../../ui/pages/main/Viewdetails.js";
 import "../../ui/pages/main/test/test.js";
