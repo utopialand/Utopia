@@ -89,3 +89,9 @@ Template.App_business.helpers({
         return Session.get("myBalance");
     }
 });
+
+Template.App_business.events({
+    "click .trade-token-btn": function(){
+        alert("relay not created");
+    }
+});
