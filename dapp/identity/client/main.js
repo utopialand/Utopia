@@ -6,6 +6,5 @@ import "../imports/ui/layouts/body/body.js"
 import "../imports/startup/client/route.js";
 import "../imports/ui/pages/main/footer.js";
 import "../imports/ui/pages/main/citizenship.js";
-import "../imports/ui/pages/main/manager.js";
 import "../imports/ui/pages/main/identity.js";
 import "../imports/ui/pages/main/Viewdetails.js";

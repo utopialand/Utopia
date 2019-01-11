@@ -1,6 +1,6 @@
 import "./manager.html";
-import "../../pages/main/footer.js";
-import "../../stylesheets/manager.css";
+import "../../main/footer.js";
+import "./manager.css";
 import ScatterJS from "scatterjs-core";
 import { Session } from "meteor/session";
 import ScatterEOS from "scatterjs-plugin-eosjs";
