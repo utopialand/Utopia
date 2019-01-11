@@ -22,7 +22,11 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
-Session.set("isLoadingExchange", true);
+
+Template.App_exchange.onCreated(function(){
+    Session.set("isLoadingExchange", true);
+});
+
 
 async function getAllTokens() {
     var connected = await ScatterJS.scatter.connect('utopia');

@@ -56,6 +56,8 @@ CONTRACT business : public contract
     uint64_t pub_fl,
     uint64_t revperemp);
 
+    ACTION addprice(uint64_t company_id, uint32_t price);
+
     static asset get_supply(name token_contract_account, symbol_code sym)
     {
         stats statstable(token_contract_account, sym.raw());
@@ -97,6 +99,13 @@ CONTRACT business : public contract
         uint64_t primary_key() const { return company_id; }
     };
 
+    TABLE graphst{
+        uint64_t company_id;
+        vector<uint32_t> price;
+
+        uint64_t primary_key() const { return company_id; }
+    };
+
     TABLE identityt
     {
         name username;
@@ -114,9 +123,11 @@ CONTRACT business : public contract
         asset currency;
         uint64_t primary_key() const { return currency.symbol.code().raw(); }
     };
+    
     typedef multi_index<"businesstab"_n, businessst> businesstb;
     typedef multi_index<"identity3"_n, identityt> identity_table;
     typedef eosio::multi_index<"exchange"_n, exchange_t> exchanges;
+    typedef eosio::multi_index<"graphtb"_n, graphst> graphtb;
 
     struct transfer_args
     {

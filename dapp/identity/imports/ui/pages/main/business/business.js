@@ -22,7 +22,7 @@ const eosOptions = {
 var scatter = {};
 var eosinstance = {};
 
-Template.App_business.onRendered(function () {
+Template.App_business.onCreated(function () {
     Session.set("isLoadingACompany", true);
     Session.set("myBalance","");
 });

@@ -419,4 +419,29 @@ void business::adddetail(
     });
 }
 
-EOSIO_DISPATCH(business, (deleteall)(delcompany)(addemployee)(rmemployee)(printnames)(createtandb)(create)(issue)(transfer)(open)(close)(retire)(dilute)(concentrate)(listtoken)(addofficer)(rmofficer)(adddetail))
+void business::addprice(uint64_t company_id, uint32_t price){
+    businesstb bt(_self, _self.value);
+
+    //searching for company
+    auto citr = bt.find(company_id);
+    eosio_assert(citr != bt.end(), "Company does not exist");
+    require_auth(citr->owner);
+
+    graphtb gt(_self, _self.value);
+
+    auto itr = gt.find(company_id);
+
+    if(itr == gt.end()){
+        gt.emplace(_self, [&](auto &c){
+            c.company_id = citr->company_id;
+            c.price.push_back(price);
+        });
+    }
+    else{
+        gt.modify(itr, _self, [&](auto &c){
+            c.price.push_back(price);
+        });
+    }
+}
+
+EOSIO_DISPATCH(business, (deleteall)(delcompany)(addemployee)(rmemployee)(printnames)(createtandb)(create)(issue)(transfer)(open)(close)(retire)(dilute)(concentrate)(listtoken)(addofficer)(rmofficer)(adddetail)(addprice))

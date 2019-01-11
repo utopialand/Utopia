@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Jan  9 17:12:48 2019",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Jan 11 14:13:37 2019",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -83,6 +83,20 @@
                 {
                     "name": "position",
                     "type": "string"
+                }
+            ]
+        },
+        {
+            "name": "addprice",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "price",
+                    "type": "uint32"
                 }
             ]
         },
@@ -274,6 +288,20 @@
             ]
         },
         {
+            "name": "graphst",
+            "base": "",
+            "fields": [
+                {
+                    "name": "company_id",
+                    "type": "uint64"
+                },
+                {
+                    "name": "price",
+                    "type": "uint32[]"
+                }
+            ]
+        },
+        {
             "name": "identityt",
             "base": "",
             "fields": [
@@ -455,6 +483,11 @@
             "ricardian_contract": ""
         },
         {
+            "name": "addprice",
+            "type": "addprice",
+            "ricardian_contract": ""
+        },
+        {
             "name": "close",
             "type": "close",
             "ricardian_contract": ""
@@ -548,6 +581,13 @@
         {
             "name": "exchange",
             "type": "exchange_t",
+            "index_type": "i64",
+            "key_names": [],
+            "key_types": []
+        },
+        {
+            "name": "graphtb",
+            "type": "graphst",
             "index_type": "i64",
             "key_names": [],
             "key_types": []

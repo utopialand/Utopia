@@ -21,7 +21,11 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
-Session.set("isLoadingAllBusinessList", true);
+
+Template.App_all_business.onCreated(function(){
+    Session.set("isLoadingAllBusinessList", true);
+});
+
 
 async function getAllBusinessListAgain() {
 
