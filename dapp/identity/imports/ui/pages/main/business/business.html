@@ -35,19 +35,9 @@
                 </div>
             </div>
             <div class="stock-graph">
-                <div class="graph-heading"></div>
-                <div class="graph">
-                    <div></div>
-                </div>
-                <div class="timeline">
-                    <span>10 am</span>
-                    <span>12 am</span>
-                    <span>2 pm</span>
-                    <span>4 pm</span>
-                    <span>6 pm</span>
-                    <span>8 pm</span>
-                    <span>10 pm</span>
-                </div>
+                <canvas id = "mychart" class = "custom-chart">
+                    {{getData}}
+                </canvas>
             </div>
         </div>
 
@@ -72,7 +62,7 @@
                     <div class="dropdownto"></div>
                     <p>upta</p>
                     <input type="text" placeholder="enter amount"/>
-                    <button>trade</button>
+                    <button class = "trade-token-btn">trade</button>
                 </div>
             </div>
         </div>

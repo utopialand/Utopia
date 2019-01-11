@@ -22,10 +22,17 @@ const eosOptions = {
 var scatter = {};
 var eosinstance = {};
 
-Template.App_business.onRendered(function () {
+Template.App_business.onCreated(function () {
     Session.set("isLoadingACompany", true);
     Session.set("myBalance","");
+    console.log("created")
 });
+
+Template.App_business.onRendered(function(){
+    console.log("rendred")
+})
+
+Template.App_business.on
 
 async function getCompany() {
     var connected = await ScatterJS.scatter.connect("utopia")
@@ -64,6 +71,16 @@ async function getCompany() {
                 balance = myBalance[0];
             }
             
+            var graphtb = await eos.getTableRows({
+                code: "utopbusiness",
+                scope: "utopbusiness",
+                table: "graphtb",
+                lower_bound: id,
+                limit: "1",
+                json: true,
+            });
+
+            Session.set("graphData",graphtb.rows[0].price);
             Session.set("aCompany", aCompany.rows);
             Session.set("myBalance", balance);
             Session.set("isLoadingACompany", false);
@@ -87,5 +104,12 @@ Template.App_business.helpers({
     },
     getMyBalance: function(){
         return Session.get("myBalance");
+    },
+});
+
+Template.App_business.events({
+    "click .trade-token-btn": function(){
+        alert("relay not created");
     }
 });
+
