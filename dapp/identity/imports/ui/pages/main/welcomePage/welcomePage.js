@@ -1,7 +1,5 @@
 import "./welcomePage.html";
-import "../../stylesheets/utopiaIdentity.css";
-import "./header";
-import "./footer";
+import "./welcomePage.css";
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";

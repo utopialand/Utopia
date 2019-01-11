@@ -1,5 +1,5 @@
 import "./header.html";
-import "../../stylesheets/header.css";
+import "./header.css";
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";

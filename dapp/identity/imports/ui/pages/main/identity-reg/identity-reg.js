@@ -1,7 +1,6 @@
 'use strict'
 import "./identity-reg.html";
 import "./identity-reg.css";
-import "../../main/header.js";
 import { Meteor } from 'meteor/meteor';
 import { Template } from 'meteor/templating';
 import ScatterJS from "scatterjs-core";
