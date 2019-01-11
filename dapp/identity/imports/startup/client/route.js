@@ -2,12 +2,12 @@ import { FlowRouter } from 'meteor/kadira:flow-router';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
 import "../../ui/pages/main/welcomePage.js";
-import "../../ui/pages/main/identity-reg.js";
+import "../../ui/pages/main/identity-reg/identity-reg.js";
 import "../../ui/layouts/body/body.js"
 import "../../ui/pages/main/proposal.js";
 import "../../ui/pages/main/Registered.js";
 import "../../ui/pages/main/voting/Voting.js";
-import "../../ui/pages/main/citizenship.js"
+import "../../ui/pages/main/citizenship/citizenship.js"
 import "../../ui/pages/main/newproposal.js";
 import "../../ui/pages/main/App-manager/manager.js";
 import "../../ui/pages/main/result/result.js";
@@ -15,8 +15,8 @@ import "../../ui/pages/main/budget-result/budgetResult.js";
 import "../../ui/pages/main/selected-bgt-prop.js";
 import "../../ui/pages/main/budget/Budget.js";
 import "../../ui/pages/main/createbudget/Createbudget.js";
-import "../../ui/pages/main/Createbond.js";
-import "../../ui/pages/main/Buybond.js";
+import "../../ui/pages/main/createbond/Createbond.js";
+import "../../ui/pages/main/buybond/Buybond.js";
 import "../../ui/pages/main/stvvoting/stvvoting.js"
 import "../../ui/pages/main/stvresult/stvresult.js"
 import "../../ui/pages/main/stvstatus/stvstatus.js";
