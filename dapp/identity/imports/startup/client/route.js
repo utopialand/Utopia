@@ -36,9 +36,8 @@ import "../../ui/pages/main/lender/lender.js";
 import "../../ui/pages/main/realestate-buy/buy.js";
 import "../../ui/pages/main/viewdetails/Viewdetails.js";
 import "../../ui/pages/main/test/test.js";
-import "../../ui/pages/main/identity/identity.js"
-
-
+import "../../ui/pages/main/identity/identity.js";
+import "../../ui/pages/main/couponusers/Couponuser.js";
 FlowRouter.route('/', {
   name: 'welcomePage',
   action() {
@@ -281,5 +280,12 @@ FlowRouter.route('/test', {
   name: 'App_test',
   action() {
     BlazeLayout.render('App_body', { main: 'App_test' });
+  }
+});
+FlowRouter.route('/couponusers/:id', {
+  name: 'couponlist',
+  action(params) {
+      var id = params.id;
+      BlazeLayout.render('App_body', { main: 'couponlist', id: id });
   }
 });
