@@ -1,95 +1,94 @@
-.proposal-container{
-    width: 90%;
-    max-width: 1140px;
-    margin: 0 auto;
+.proposal-container {
+  width: 90%;
+  max-width: 1140px;
+  margin: 0 auto;
 }
 
-h1{
-    color: white;
-    text-align: center;
+h1 {
+  color: white;
+  text-align: center;
 }
-.tabhead{
-    margin-top: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;   
+.tabhead {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.candidatevote{
-flex: 1;
-color: white;
-display: flex;
-align-items: center;
-text-align: center;
-font-size: 20px;
+.candidatevote {
+  flex: 1;
+  color: white;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  font-size: 20px;
+  padding-left: 10%;
 }
-.rank{
-flex: 1;
-color: white;
-text-align: center;
-display: flex;
-justify-content: center;
+.rank {
+  flex: 1;
+  color: white;
+  text-align: center;
+  display: flex;
+  justify-content: center;
 }
-.submit{
-    flex: 1;
-    margin-top: 80px;
-    height: 51px;
-    width: 255px; 
-    background: white;
-    box-shadow: 5px 2px 40px rgba(0, 0, 0, 0.2);
-    border-radius: 6px;
-    border: 0px;
-   font-family: Colfax Medium;
-   line-height: 12px;
-   font-size: 14px;
-   letter-spacing: 0.6px;
-   text-transform: uppercase;
-   color: #04030F;
-   cursor: pointer;
-
+.submit {
+  flex: 1;
+  margin-top: 80px;
+  height: 51px;
+  width: 255px;
+  background: white;
+  box-shadow: 5px 2px 40px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  border: 0px;
+  font-family: Colfax Medium;
+  line-height: 12px;
+  font-size: 14px;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #04030f;
+  cursor: pointer;
 }
-.submit:hover{
-    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
-}
-
-.redovote:hover{
-    background: linear-gradient(169.59deg, #3023AE -36.97%, #C86DD7 148.62%);
+.submit:hover {
+  background: linear-gradient(169.59deg, #3023ae -36.97%, #c86dd7 148.62%);
 }
 
+.redovote:hover {
+  background: linear-gradient(169.59deg, #3023ae -36.97%, #c86dd7 148.62%);
+}
 
-.input{
-    text-align: left;
-    font-size: 20px;
-    border: 0px;
-    background: #04030F;
-    border-bottom: 2px solid white;
-    color: white;
+.proposalvote-group .input {
+  text-align: left;
+  font-size: 20px;
+  border: 0px;
+  background: #04030f;
+  border-bottom: 2px solid white;
+  color: white;
 }
-.belowvote-section{
-    width: 100%;
-    margin-top: 5%;
+.belowvote-section {
+  width: 100%;
+  margin-top: 5%;
 }
-.allvote-proposals{
+.allvote-proposals {
   /*   display: none; */
   display: block;
-    width: 100%;
+  width: 100%;
 }
 
-.proposalvote-group{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+.proposalvote-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
-.redovote{
-    margin-top: 10px;
-    height: 70px;
-    width: 100%;
-    background: #04030F;
-    display: flex;
+.redovote {
+  margin-top: 10px;
+  height: 70px;
+  width: 100%;
+  background: #04030f;
+  display: flex;
 }
 
-.vote-button{
-    height: 50%;
-    width: 100px;
-    margin-right: 3%;
+.vote-button {
+  height: 50%;
+  width: 100px;
+  margin-right: 3%;
 }
