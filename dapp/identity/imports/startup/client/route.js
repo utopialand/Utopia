@@ -10,7 +10,7 @@ import "../../ui/pages/main/Voting.js";
 import "../../ui/pages/main/citizenship.js"
 import "../../ui/pages/main/newproposal.js";
 import "../../ui/pages/main/manager.js";
-import "../../ui/pages/main/result.js";
+import "../../ui/pages/main/result/result.js";
 import "../../ui/pages/main/budgetResult.js";
 import "../../ui/pages/main/selected-bgt-prop.js";
 import "../../ui/pages/main/Budget.js";
