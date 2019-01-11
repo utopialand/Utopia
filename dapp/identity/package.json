@@ -10,6 +10,7 @@
   "dependencies": {
     "@babel/runtime": "^7.2.0",
     "axios": "^0.18.0",
+    "chart.js": "^2.7.3",
     "cors": "^2.8.5",
     "eosjs": "^16.0.9",
     "ipfs-http-client": "^27.0.0",
