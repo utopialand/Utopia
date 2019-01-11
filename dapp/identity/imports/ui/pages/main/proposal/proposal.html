@@ -1,0 +1,21 @@
+<template name="App_proposal">
+    <div class="proposal-container">
+        <div id="listhead"></div>
+        <div class="button-group">
+            <button class="new-proposal-button" id="0">create new User proposal</button>
+            <button class="new-proposal-button" id="1">budget proposal</button>
+        </div>
+        <div class="waitingprop">
+                {{> spinner}}
+           </div>
+        <div class="below-section">
+            <div class="all-proposals" id="all-proposals">
+                    <h1>Here is the list of proposals</h1>
+                <div class="proposal-group" id="proposal-group">
+                </div>
+            </div>
+        </div>
+
+    </div>
+    {{> footer}}
+</template>

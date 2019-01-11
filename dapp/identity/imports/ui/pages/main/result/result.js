@@ -1,6 +1,5 @@
 import "./result.html";
 import "./result.css";
-import "../../main/footer.js";
 import ScatterJS from "scatterjs-core";
 import ScatterEOS from "scatterjs-plugin-eosjs";
 import Eos from "eosjs";

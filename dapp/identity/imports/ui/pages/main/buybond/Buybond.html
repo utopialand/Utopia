@@ -1,0 +1,32 @@
+<template name="buybond">
+        <div class="proposal-container">
+            <h1 id="head">list of bond</h1>
+            <div class="tabhead" id="tabhead">
+                    <div class="bondoption">
+                            Bondname
+                    </div>
+                    <div class="bondoption">
+                               Maturity
+                    </div>
+                    <div class="bondoption">
+                            Coupon Rate
+                 </div>
+                 <div class="bondoption">
+                        Coupon intervel
+             </div>
+             <div class="bondoption">
+                    Facevalue
+         </div>
+         <div class="bondoption">
+              action  
+     </div>
+            </div>
+            <div class="waitingbond">
+                {{> spinner}}
+           </div>
+                    <div class="bond-group" id="bond-group">
+                </div>
+    
+        </div>
+    
+    </template>
