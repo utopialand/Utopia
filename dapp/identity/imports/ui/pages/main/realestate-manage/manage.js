@@ -19,8 +19,12 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
-Session.set("isLoadingMyProperty", true);
-Session.set("isLoadingRequests", true);
+
+Template.App_real_estate_manager.onCreated(function () {
+    Session.set("isLoadingMyProperty", true);
+    Session.set("isLoadingRequests", true);
+});
+
 
 async function getBuyPropertyRequest() {
 
@@ -42,7 +46,7 @@ async function getBuyPropertyRequest() {
 
         var requestsToMe = [];
         var requestsByMe = [];
-        
+
         for (var i = 0; i < requestTb.rows.length; i++) {
             if (username == requestTb.rows[i].buyername) {
                 requestsByMe.push(requestTb.rows[i]);
@@ -58,7 +62,7 @@ async function getBuyPropertyRequest() {
     }
     else {
         console.log("scatter not installed");
-    }                    
+    }
 }
 
 async function getMyPropertyList() {
@@ -96,11 +100,11 @@ Template.App_real_estate_manager.helpers({
     propertyRequestByMe() {
         return Session.get("requestsByMe");
     },
-    isLoadingMyProperty(){
+    isLoadingMyProperty() {
         getMyPropertyList();
         return Session.get("isLoadingMyProperty");
     },
-    isLoadingRequests(){
+    isLoadingRequests() {
         getBuyPropertyRequest();
         return Session.get("isLoadingRequests");
     }
@@ -110,12 +114,30 @@ Template.App_real_estate_manager.events({
     "click .accept-btn": async function (e) {
         var id = e.target.id.split("-")[1];
         var username = localStorage.getItem("username");
+
         try {
             let realstateutp = await eosinstance.contract('realstateutp');
             if (realstateutp) {
                 let accept_req = await realstateutp.accbuyerreq(id, username, { authorization: username });
                 if (accept_req) {
                     alert("You accepted the request");
+                    var myPropertyList = Session.get("myPropertyList");
+                    var requestsToMe = Session.get("requestsToMe");
+
+                    var newMyPropertyList = myPropertyList.filter((property) => {
+                        if (property.propt_id != id) {
+                            return property;
+                        }
+                    });
+
+                    var newRequestList = requestsToMe.filter((property) => {
+                        if (property.id != id) {
+                            return property;
+                        }
+                    });
+
+                    Session.set("myPropertyList", newMyPropertyList);
+                    Session.set("requestsToMe", newRequestList);
                 }
             }
         } catch (err) {
@@ -135,6 +157,15 @@ Template.App_real_estate_manager.events({
                 let reject_req = await realstateutp.rejbuyerreq(id, { authorization: username });
                 if (reject_req) {
                     alert("request rejected");
+                    var requestsToMe = Session.get("requestsToMe");
+
+                    var arr = requestsToMe.filter((property) => {
+                        if (property.id != id) {
+                            return property;
+                        }
+                    });
+
+                    Session.set("requestsToMe", arr);
                 }
             }
         } catch (err) {
@@ -150,10 +181,11 @@ Template.App_real_estate_manager.events({
         var utpvalue = `${parseFloat($(fieldid).val()).toFixed(4)} ${sym}`;
         var utpvalue1 = $(fieldid).val();
         var count = utpvalue1.split(".").length - 1;
+
         if (!utpvalue1) {
             alert("Enter UTP");
-        } 
-        else if((count>1) || (utpvalue1.length==count)){
+        }
+        else if ((count > 1) || (utpvalue1.length == count)) {
             alert("please fill correct amount !!");
         }
         else {
@@ -165,6 +197,19 @@ Template.App_real_estate_manager.events({
                 if (realstateutp) {
                     let modify_price = await realstateutp.modifyprice(id, utpvalue, { authorization: username });
                     if (modify_price) {
+                        var myPropertyList = Session.get("myPropertyList");
+
+                        var arr = myPropertyList.map((property) => {
+                            if (property.propt_id == id) {
+                                property.price = utpvalue;
+                                return property;
+                            }
+                            else {
+                                return property;
+                            }
+                        });
+
+                        Session.set("myPropertyList", arr);
                         alert("price modified");
                     }
                 }
@@ -191,6 +236,14 @@ Template.App_real_estate_manager.events({
 
                 if (cancel_req) {
                     alert("You cancelled the request");
+                    var requestsByMe = Session.get("requestsByMe");
+                    var arr = requestsByMe.filter((property) => {
+                        if (property.id != id) {
+                            return property;
+                        }
+                    });
+
+                    Session.set("requestsByMe", arr);
                 }
             }
         } catch (err) {

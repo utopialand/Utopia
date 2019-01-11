@@ -21,7 +21,11 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
-Session.set("isLoadingPropertyForAuction", true);
+
+Template.App_real_estate_bid.onCreated(function () {
+    Session.set("isLoadingPropertyForAuction", true);;
+});
+
 
 async function getAllPropertyForAuction() {
 
@@ -71,16 +75,14 @@ Template.App_real_estate_bid.events({
         var fieldid = "#bidpropertyfield-" + e.target.id.split("-")[1];
         var utpvalue = `${parseFloat($(fieldid).val()).toFixed(4)} ${sym}`;
         var utpvalue1 = $(fieldid).val();
-        var count =utpvalue1.split(".").length - 1;
-        console.log("amount == ",utpvalue1);
-        console.log("value ", utpvalue);
+        var count = utpvalue1.split(".").length - 1;
         var username = localStorage.getItem("username");
         var to = "rsdeposite11";
-        console.log("utpvalue",utpvalue);
+
         if (!utpvalue1) {
             alert("Please Enter UTP Value");
         }
-        else if((count>1) || (utpvalue1.length==count)){
+        else if ((count > 1) || (utpvalue1.length == count)) {
             alert("please fill correct amount !!");
         }
         else {
@@ -94,9 +96,26 @@ Template.App_real_estate_bid.events({
                         let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "bidding on this", { authorization: username });
                         if (transfer_result) {
                             alert("Successful Bid");
+                            var allPropertyForAuction = Session.get("allPropertyForAuction");
+
+                            var arr = allPropertyForAuction.map((property) => {
+                                if (property.id == proptid) {
+                                    property.currentOwner = username;
+                                    property.currentprice = utpvalue;
+                                    return property;
+                                }
+                                else {
+                                    return property;
+                                }
+                            });
+
+                            Session.set("allPropertyForAuction", arr);
                         } else {
                             alert("transfer failed");
                         }
+                    }
+                    else{
+                        alert("Something went wrong");
                     }
                 }
             } catch (err) {

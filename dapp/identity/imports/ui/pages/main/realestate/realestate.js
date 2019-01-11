@@ -40,7 +40,11 @@ const eosOptions = {
 var scatter = {};
 var eosinstance = {};
 let userinfo;
-Session.set("isLoadingRealEstate", true);
+
+Template.App_real_estate.onCreated(function(){
+    Session.set("isLoadingRealEstate", true);
+});
+
 
 async function allProperties() {
 

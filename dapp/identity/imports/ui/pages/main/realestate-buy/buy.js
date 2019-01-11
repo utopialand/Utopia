@@ -21,7 +21,11 @@ const eosOptions = {
 
 var scatter = {};
 var eosinstance = {};
-Session.set("isLoadingAllPropertyToBuy", true);
+
+Template.App_real_estate_buy.onCreated(function(){
+    Session.set("isLoadingAllPropertyToBuy", true);
+});
+
 
 async function getAllPropertyToBuy() {
 
