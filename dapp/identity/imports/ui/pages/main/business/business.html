@@ -35,9 +35,10 @@
                 </div>
             </div>
             <div class="stock-graph">
-                <canvas id = "mychart" class = "custom-chart">
-                    {{getData}}
+                
+                <canvas id = "mychart">
                 </canvas>
+                {{getData}}
             </div>
         </div>
 
@@ -106,6 +107,7 @@
             <p class="financial-desc">balance sheet <br> profit and loss statement</p>
         </div>
         {{/each}}
+        
         {{else}}
         <div class="no-business">
                 <p>No such company</p>
