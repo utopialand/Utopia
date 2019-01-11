@@ -56,11 +56,9 @@ Template.Vote.onCreated(async function () {
                 }
                 document.getElementById("proposal-group").innerHTML += 
                 "<button class='submit hover'>"+"submit"+"</button>"
-
                 document.getElementById("upper").innerHTML += 
                 "<h1>"+titledata+"</h1>"
             }));
-          
         }
     } else {
         console.log("scatter not installed");

@@ -749,7 +749,9 @@ Template.App_manager.events({
               bondid=$("#bondid").val();
               if((!bondid)){
                 alert("please enter bondid");
-              }else{
+              }
+              else
+              {
                 document.getElementsByClassName("bondprop")[0].innerHTML = "";
                 for (var i = 0; i < bonddata.rows.length; i++) {
                   if(bonddata.rows[i].id == bondid){
