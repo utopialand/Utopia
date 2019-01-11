@@ -1,7 +1,7 @@
 import { FlowRouter } from 'meteor/kadira:flow-router';
 import { BlazeLayout } from 'meteor/kadira:blaze-layout';
 
-import "../../ui/pages/main/welcomePage.js";
+import "../../ui/pages/main/welcomePage/welcomePage.js";
 import "../../ui/pages/main/identity-reg/identity-reg.js";
 import "../../ui/layouts/body/body.js"
 import "../../ui/pages/main/proposal/proposal.js";

@@ -1,5 +1,4 @@
 import "./manager.html";
-import "../../main/footer.js";
 import "./manager.css";
 import ScatterJS from "scatterjs-core";
 import { Session } from "meteor/session";
@@ -166,7 +165,7 @@ Template.App_manager.onCreated(function() {
             bonddata = await eosinstance.getTableRows({
               code: "bondborrower",
               scope: "bondborrower",
-              table: 'bonddetail33',
+              table: 'bonddetail44',
               limit: 50,
               json: true,
           });
@@ -763,7 +762,7 @@ Template.App_manager.events({
                      buyerdata =  await eosinstance.getTableRows({
                             code: "bondborrower",
                             scope: bondholder,
-                            table: "buyerdata33",
+                            table: "buyerdata44",
                             limit: 50,
                             json: true
                           });
@@ -781,8 +780,6 @@ Template.App_manager.events({
               }
       
               }
-             
-   
   },
   "click #getcoupon": async function() {
     var num;
