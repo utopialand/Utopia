@@ -4,7 +4,7 @@ Template.App_body.events({
         if (!$menu.is(e.target) && $menu.has(e.target).length === 0) // ... nor a descendant of the container
         {
             if(e.target.nodeName == "INPUT"){
-                if(e.target.id="toggleinput"){
+                if(e.target.id == "toggleinput"){
                     console.log("event---",e.target.id);
                     document.getElementById("menu").style.display = "block";
                   }else{
