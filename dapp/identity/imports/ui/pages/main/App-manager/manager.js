@@ -517,9 +517,7 @@ Template.App_manager.events({
           document.getElementsByClassName("budgetProposalsList")[0].innerHTML +=
             "<div class  = 'start-stop' id = 'stopon'><button>STOP</button></div>";
         }
-      }
-     
-    
+      } 
   },
   "click #condidateButton": async function() {
     console.log("candidateList");
