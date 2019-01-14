@@ -86,6 +86,7 @@ Template.App_real_estate_bid.events({
             alert("please fill correct amount !!");
         }
         else {
+            alert("scatter will pop up twice , please wait and do not go back");
             try {
                 let realstateutp = await eosinstance.contract('realstateutp');
                 let utopbusiness = await eosinstance.contract("utopbusiness");
