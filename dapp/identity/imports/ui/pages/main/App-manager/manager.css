@@ -108,9 +108,16 @@
   flex: 1;
   margin-top: 40px;
   text-align: center;
-  color: white;
+  font-family: Colfax Regular;
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  background: white;
+  height: 60px;
+  text-transform: uppercase;
 }
 .status {
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -471,24 +478,31 @@
   border: 0px;
 }
 .couponbond {
-  margin-top: 40px;
-  height: 60px;
-  width: 250px;
+  height: 40px;
   color: white;
   font-family: Colfax Medium;
-  color: white;
   font-size: 18px;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   line-height: 14px;
-  background: #04030f;
-}
-.couponbond:hover {
+  border-radius: 3px;
   background: linear-gradient(169.59deg, #3023ae -36.97%, #c86dd7 148.62%);
 }
+.couponbondid {
+  height: 40px;
+  color: white;
+  border-radius: 3px;
+  font-family: Colfax Medium;
+  font-size: 18px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  line-height: 14px;
+  background: linear-gradient(169.59deg, #3023ae -36.97%, #c86dd7 148.62%);
+}
+
 .coupondiv {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
   align-items: center;
 }
 

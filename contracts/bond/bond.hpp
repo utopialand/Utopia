@@ -38,6 +38,6 @@ CONTRACT bond : public contract
         vector <uint64_t> returningdate;
         uint64_t primary_key() const {return id;}
     };
-    typedef multi_index<"bonddetail33"_n,bondinfo> bond_entry;
-    typedef multi_index<"buyerdata33"_n,bondbuyerdetails> bondbuyer_entry;
+    typedef multi_index<"bonddetail44"_n,bondinfo> bond_entry;
+    typedef multi_index<"buyerdata44"_n,bondbuyerdetails> bondbuyer_entry;
 };

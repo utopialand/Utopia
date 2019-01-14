@@ -74,7 +74,8 @@ ACTION bond::getcoupon(uint64_t id){
     ////loop continue to equal to maturity
     }
     print("amount--",payamount);
-    if(now()>itr->issueddate && now()>=itr2->returningdate.back() && now()<itr->maturity){
+     eosio_assert(now()>itr->issueddate && now()>=itr2->returningdate.back() && now()<itr->maturity,"time is left");
+      eosio_assert(itr2->returningdate.size()<itr->maturitycount||itr2->returningdate.size()==itr->maturitycount,"payment submission is successfull");
     if(itr2->returningdate.size()<itr->maturitycount){
            asset amount = asset(payamount, symbol(symbol_code("UTP"),4));    
             action(
@@ -97,14 +98,10 @@ ACTION bond::getcoupon(uint64_t id){
             bbe.modify(itr2,_self,[&] (auto &e){
             e.returningdate.push_back(404);
           });   
-         }else{
-            print("payment submission is successfull");
-         }  
+         }
          
-  }else{
-    print("--",now(),",time is left,",itr2->returningdate.back());
   }
   }
   
-}
+
 EOSIO_DISPATCH(bond,(addbond)(buybond)(getcoupon)) 

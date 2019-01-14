@@ -1,82 +1,83 @@
 <template name="lender">
-<div class="lender-container">
-        <div class="group">
-                <button class="lenders-button" id="user">apply for loan </button>
-                <!-- <button class="lenders-button" id="paying">loan payment</button> -->
-                <button class="lenders-button" id="detail">loan payment</button>
-        </div>
-        <div class="waitingData">
-                {{> spinner}}
-           </div>
-                <div id="apply-section">
-                    <div class="userdata">
-                            <label>amount</label>
-                            <input type="text" id="amt" maxlength="50" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
-                            <label>purpose</label>
-                            <input type="text" id="purpose" maxlength="250"/>
-                            <label>income</label>
-                            <input type="text" id="income" maxlength="50" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
-                            <label>category id</label>
-                            <div class="catgid" id="catgid">
-                            </div>
-                            <div class='inputcatg'>
-                                <label>collateral</label>
-                                <input type='radio' class ='coloptn' name='radion' value="col" id="col">
-                                <label>non-collateral</label>
-                                <input type='radio' class ='coloptn' name='radion' value="noncol" id="noncol">
-                            </div>
-                            <div id="colat" class="colat">
-                                    <label>collateral option</label><br>
-                                    <div class="colatoptn" id="colatoptn">
+        <div class="lender-container">
+                <div class="group">
+                        <button class="lenders-button" id="user">apply for loan </button>
+                        <!-- <button class="lenders-button" id="paying">loan payment</button> -->
+                        <button class="lenders-button" id="detail">loan payment</button>
+                </div>
+                <div class="waitinglen">
+                        {{> spinner}}
+                   </div>
+                        <div id="apply-section">
+                            <div class="userdata">
+                                    <label>amount</label>
+                                    <input type="text" id="amt" maxlength="50" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
+                                    <label>purpose</label>
+                                    <input type="text" id="purpose" maxlength="250"/>
+                                    <label>income</label>
+                                    <input type="text" id="income" maxlength="50" oninput="this.value = this.value.replace(/[^0-9]/g, '');"/>
+                                    <label>category id</label>
+                                    <div class="catgid" id="catgid">
                                     </div>
-                                    <label>property option</label><br>
-                                    <div class="propid" id="propid">
+                                    <div class='inputcatg'>
+                                        <label>collateral</label>
+                                        <input type='radio' class ='coloptn' name='radion' value="col" id="col">
+                                        <label>non-collateral</label>
+                                        <input type='radio' class ='coloptn' name='radion' value="noncol" id="noncol">
                                     </div>
+                                    <div id="colat" class="colat">
+                                            <label>collateral option</label><br>
+                                            <div class="colatoptn" id="colatoptn">
+                                            </div>
+                                            <label>property option</label><br>
+                                            <div class="propid" id="propid">
+                                            </div>
+                                    </div>
+                                    <div class='paymenttype'>
+                                        <label>installment</label>
+                                        <input type='radio' class ='paytype' name='radioinst' value="instalment" id="instalment">
+                                        <label>lump-sum</label>
+                                        <input type='radio' class ='paytype' name='radioinst' value="lumpsum" id="lumpsum">
+                                    </div>
+                                    <div class="createpropt">
+                                            <button class="buttonpropt" id="apply">Apply loan</button>
+                                    </div>
+                                    
                             </div>
-                            <div class='paymenttype'>
-                                <label>installment</label>
-                                <input type='radio' class ='paytype' name='radioinst' value="instalment" id="instalment">
-                                <label>lump-sum</label>
-                                <input type='radio' class ='paytype' name='radioinst' value="lumpsum" id="lumpsum">
-                            </div>
-                            <div class="createpropt">
-                                    <button class="buttonpropt" id="apply">Apply loan</button>
-                            </div>
-                            
+                                        
+                          </div>
+                        
+                          <div class="listlen" id="list">
+                            <div class="mainheadlen">borrower name</div>
+                            <div class="mainheadlen">loan purpose</div>
+                            <div class="mainheadlen">income per month</div>
+                            <div class="mainheadlen">loan amount</div>
+                            <div class="mainheadlen">status</div>
                     </div>
-                                
-                  </div>
-                
-                  <div class="listlen" id="list">
-                    <div class="mainheadlen">borrower name</div>
-                    <div class="mainheadlen">loan purpose</div>
-                    <div class="mainheadlen">income per month</div>
-                    <div class="mainheadlen">loan amount</div>
-                    <div class="mainheadlen">status</div>
-            </div>
-                <div class="listofuser" id="listofuser">
-
-                </div>
-                <div class="datalen" id="data">
-                    <div class="mainheadlen">borrower name</div>
-                    <div class="mainheadlen">approved amount</div>
-                    <div class="mainheadlen">due amount</div>
-                    <div class="mainheadlen">final due date</div>
-                    <div class="mainheadlen">action</div>
-            </div>
-            <div class="data2len" id="data2">
-                        <div class="mainheadlen">borrower name</div>
-                        <div class="mainheadlen">approved amount</div>
-                        <div class="mainheadlen">monthly due</div>
-                        <div class="mainheadlen">monthly due date</div>
-                        <div class="mainheadlen">due amount</div>
-                        <div class="mainheadlen">final due date</div>
-                        <div class="mainheadlen">action</div>
-                </div>
-                <div class="listofstatus" id="listofstatus">
-                    
-                </div>
-                 
-               
-</div>
-</template>
+                        <div class="listofuser" id="listofuser">
+        
+                        </div>
+                        <div class="datalen" id="data">
+                            <div class="mainheadlen">borrower name</div>
+                            <div class="mainheadlen">approved amount</div>
+                            <div class="mainheadlen">due amount</div>
+                            <div class="mainheadlen">final due date</div>
+                            <div class="mainheadlen">action</div>
+                    </div>
+                    <div class="data2len" id="data2">
+                                <div class="mainheadlen">borrower name</div>
+                                <div class="mainheadlen">approved amount</div>
+                                <div class="mainheadlen">monthly due</div>
+                                <div class="mainheadlen">monthly due date</div>
+                                <div class="mainheadlen">due amount</div>
+                                <div class="mainheadlen">final due date</div>
+                                <div class="mainheadlen">action</div>
+                        </div>
+                        <div class="listofstatus" id="listofstatus">
+                            
+                        </div>
+                         
+                       
+        </div>
+        </template>
+        

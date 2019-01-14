@@ -1,0 +1,36 @@
+.couponlist-container {
+    max-width: 1140px;
+    width: 90%;
+    margin: 5% auto 0 auto;
+    color: white;
+  }
+.listofcoupon{
+    display: flex;
+    margin-top: 5%;
+    height: 50px;
+    width: 100%;
+    align-items: center;
+    background: white;
+    text-transform: uppercase;
+    background-image: linear-gradient(to bottom, #3023ae, #c86dd7);
+    border-radius: 2px;
+    
+}
+.coupondata{
+    flex: 1;
+    display: flex;
+    margin-top: 1%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    background: white;
+}
+
+.mainheadcoup{
+    flex: 1;
+    font-family: Colfax Medium;
+    font-size: 18px;
+    text-align: center;
+    letter-spacing: 1px;
+    color: black;
+}

@@ -1,5 +1,5 @@
 {
-    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Wed Dec 19 12:33:50 2018",
+    "____comment": "This file was generated with eosio-abigen. DO NOT EDIT Fri Jan 11 17:00:51 2019",
     "version": "eosio::abi/1.0",
     "structs": [
         {
@@ -165,14 +165,14 @@
     ],
     "tables": [
         {
-            "name": "bonddetail33",
+            "name": "bonddetail44",
             "type": "bondinfo",
             "index_type": "i64",
             "key_names": [],
             "key_types": []
         },
         {
-            "name": "buyerdata33",
+            "name": "buyerdata44",
             "type": "bondbuyerdetails",
             "index_type": "i64",
             "key_names": [],

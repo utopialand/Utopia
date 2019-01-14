@@ -35,6 +35,7 @@ var bondid;
 var count=0;
 let amount = 0;
 let total = 0;
+var trnsfrres=0;
 Template.App_manager.onCreated(function() {
   ScatterJS.scatter.connect("utopia").then(async connected => {
     if (connected) {
@@ -736,104 +737,32 @@ Template.App_manager.events({
     document.getElementById("proposalList").style.display = "none";
     document.getElementById("rsmanagerpage").style.display = "none";
     document.getElementById("govdebtdatalist").style.display = "none";
+    document.getElementsByClassName("bondprop")[0].style.display = "block";
     document.getElementsByClassName("bondprop")[0].innerHTML ="";
-    document.getElementsByClassName("bondprop")[0].innerHTML +=
-    "<div class='bond-form'><label>bond id</label><input type='text' id='bondid'/>"
-    + "</div>"+" <div class='createbutton'><button class='buttonbond' id ='submitid'>Submission</button></div>";
+    document.getElementsByClassName("bondprop")[0].innerHTML += "<div class='debthead'><div class='govheadusername'>bondname</div><div class='govheadusername'>status</div><div class='govheadusername'>action</div></div>";   
+    for (var i = 0; i < bonddata.rows.length; i++) {
+      document.getElementsByClassName("bondprop")[0].innerHTML += "<div class='debt'><div class='govusername'>"+bonddata.rows[i].bond+"</div><div class='govusername'><button class='couponbondid submitid' id='"+bonddata.rows[i].id+"'>"+bonddata.rows[i].bond+" status</button></div><div class='govusername'><button class='couponbond' id='"+bonddata.rows[i].id+"'>coupondistirbution</button></div></div>";   
+    }
   },
-  "click #submitid":async function() {    
-              document.getElementById("userList").style.display = "none";
-              document.getElementById("proposalList").style.display = "none";
-              bondid=$("#bondid").val();
-              if((!bondid)){
-                alert("please enter bondid");
-              }
-              else
-              {
-                document.getElementsByClassName("bondprop")[0].innerHTML = "";
-                for (var i = 0; i < bonddata.rows.length; i++) {
-                  if(bonddata.rows[i].id == bondid){
-                    couponid=bondid;
-                    var iip=i;
-                    for(var j=0; j<bonddata.rows[iip].bondholders.length; j++){
-                      var bondholder = bonddata.rows[iip].bondholders[j]; 
-                      var username = localStorage.getItem("username");
-
-                     buyerdata =  await eosinstance.getTableRows({
-                            code: "bondborrower",
-                            scope: bondholder,
-                            table: "buyerdata44",
-                            limit: 50,
-                            json: true
-                          });
-                    if(buyerdata){
-                      for(var k=0;k<buyerdata.rows.length;k++){
-                        if(buyerdata.rows[k].id==couponid){
-                          var datearr = buyerdata.rows[k].returningdate.length-1;
-                          document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='status'><div class='holders'>"+buyerdata.rows[k].bondbuyer+"</div><div class='holders'>status -> "+datearr+" coupon are submitted</div></div>";   
-                        }
-                      }    
-                    };
-                    }
-                    document.getElementsByClassName("bondprop")[0].innerHTML +="<div class='coupondiv'><button class='couponbond' id='getcoupon'>coupondistirbution</button></div>";
-                  }      
-              }
-      
-              }
+  "click .couponbondid":async function(e) {    
+              bondid=e.target.id;
+              FlowRouter.go("/couponusers/"+bondid);
   },
-  "click #getcoupon": async function() {
-    var num;
+  "click .couponbond": async function(e) {
+    var idcoupon=e.target.id;
     var username = localStorage.getItem("username");
     try
     {
       let bondborrower = await eosinstance.contract("bondborrower");
       if(bondborrower)
       {
-        let result = await bondborrower.getcoupon(couponid,{authorization: username});
+        let result = await bondborrower.getcoupon(idcoupon,{authorization: username});
         if(result)
         {
-            for (var i = 0; i < bonddata.rows.length; i++) {
-              if(bonddata.rows[i].id == bondid){
-                couponid=bonddata.rows[i].id;
-                num=i;
-                for(var j=0; j<bonddata.rows[i].bondholders.length; j++){
-                  var bondholder = bonddata.rows[i].bondholders[j]; 
-                  buyerdata = await eosinstance.getTableRows({
-                        code: "bondborrower",
-                        scope: bondholder,
-                        table: "buyerdata33",
-                        limit: 50,
-                        json: true
-                      });
-                if(buyerdata) {
-                  for(var k=0;k<buyerdata.rows.length;k++){
-                    if(buyerdata.rows[k].id==couponid){
-                      var datearr = buyerdata.rows[k].returningdate[buyerdata.rows[k].returningdate.length-1];
-                      console.log(buyerdata.rows[k].returningdate.length,"dataarr--",k)
-                      if (buyerdata.rows[k].returningdate.length-1 == bonddata.rows[k].maturitycount){
-                      
-                       count++;
-                       if(count==bonddata.rows[k].bondholders.length){
-                         alert("-payement----successfull---");       
-                       }              
-                      }else if (buyerdata.rows[k].returningdate.length-1 < bonddata.rows[k].maturitycount){
-                      
-                          alert("--time remain--");                    
-                      }  
-                    }
-                  }                                    
-                };
-                }
-              }      
+          alert("coupon payment successfully");
           } 
-          } else {
-            alert("some problems!!!!");
-          }
-        }
-        else{
-          alert("getting coupon process is not completed");
-        }
       }
+    }
     catch(err)
     {
       console.log("err---=>  ",err);
