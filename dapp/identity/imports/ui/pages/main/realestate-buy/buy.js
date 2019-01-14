@@ -81,15 +81,17 @@ Template.App_real_estate_buy.events({
             alert("please fill correct amount !!");
         }
         else {
+            alert("scatter will pop up twice , please wait and do not go back");
             try {
                 let realstateutp = await eosinstance.contract('realstateutp');
                 let utopbusiness = await eosinstance.contract("utopbusiness");
 
                 if (realstateutp) {
-                    let result = await realstateutp.reqbuypropt(id, username, utpvalue, { authorization: username });
-                    if (result) {
-                        let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "i want to buy this", { authorization: username });
-                        if (transfer_result) {
+                    let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "i want to buy this", { authorization: username });
+                    
+                    if (transfer_result) {
+                        let result = await realstateutp.reqbuypropt(id, username, utpvalue, { authorization: username });    
+                        if (result) {
                             alert("buy request sent to owner");
                         } else {
                             alert("Something went wrong");

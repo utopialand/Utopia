@@ -86,15 +86,17 @@ Template.App_real_estate_bid.events({
             alert("please fill correct amount !!");
         }
         else {
+            alert("scatter will pop up twice , please wait and do not go back");
             try {
                 let realstateutp = await eosinstance.contract('realstateutp');
                 let utopbusiness = await eosinstance.contract("utopbusiness");
 
                 if (realstateutp) {
-                    let bid_request = await realstateutp.bid(proptid, username, utpvalue, { authorization: username });
-                    if (bid_request) {
-                        let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "bidding on this", { authorization: username });
-                        if (transfer_result) {
+                    let transfer_result = await utopbusiness.transfer(username, to, utpvalue, "bidding on this", { authorization: username });
+                    if (transfer_result) {
+                        let bid_request = await realstateutp.bid(proptid, username, utpvalue, { authorization: username });
+                        
+                        if (bid_request) {
                             alert("Successful Bid");
                             var allPropertyForAuction = Session.get("allPropertyForAuction");
 
